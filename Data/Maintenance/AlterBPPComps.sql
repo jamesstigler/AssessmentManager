@@ -1,0 +1,39 @@
+alter TABLE AssessmentManagerData..bppcomps add 
+Details varchar(5000) not null,
+AuctionDate datetime not null,
+LotNumber varchar(255) not null
+
+CREATE NONCLUSTERED INDEX [IX_BPPComps_Details] ON [dbo].[BPPComps]
+([Details] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, 
+DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+ON [PRIMARY]
+
+CREATE NONCLUSTERED INDEX [IX_BPPComps_AuctionDate] ON [dbo].[BPPComps]
+([AuctionDate] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, 
+DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+ON [PRIMARY]
+
+CREATE NONCLUSTERED INDEX [IX_BPPComps_LotNumber] ON [dbo].[BPPComps]
+([LotNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, 
+DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+ON [PRIMARY]
+
+ALTER TABLE [dbo].[BPPComps] 
+ADD  CONSTRAINT [DF_BPPComps_Details]  
+DEFAULT ('') FOR [Details]
+
+ALTER TABLE [dbo].[BPPComps] 
+ADD  CONSTRAINT [DF_BPPComps_AuctionDate]  
+DEFAULT (getdate()) FOR [AuctionDate]
+
+ALTER TABLE [dbo].[BPPComps] 
+ADD  CONSTRAINT [DF_BPPComps_LotNumber]  
+DEFAULT ('') FOR [LotNumber]
+
+
+
+
+

@@ -1,0 +1,5 @@
+Data is in 
+C:\MyFiles\Databases\MSSQL12.MSSQLSERVER\MSSQL\DATA
+
+
+Local data is in data folder named LocalDB.sdf (sql compact)  Used for BPPComps

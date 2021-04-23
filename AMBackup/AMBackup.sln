@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1267
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AMBackup", "AMBackup.vbproj", "{8C30EAA8-ACE8-4F76-893F-C856836F9B4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C30EAA8-ACE8-4F76-893F-C856836F9B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C30EAA8-ACE8-4F76-893F-C856836F9B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C30EAA8-ACE8-4F76-893F-C856836F9B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C30EAA8-ACE8-4F76-893F-C856836F9B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20E20C79-79ED-40F2-A82D-7CBDA60798C2}
+	EndGlobalSection
+EndGlobal
