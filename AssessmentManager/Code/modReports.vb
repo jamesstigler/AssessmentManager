@@ -2199,7 +2199,7 @@
 
         sReportPath = AppData.AppPath & "\"
         If Not IO.File.Exists(sReportPath & sReportFile) Then
-            sReportPath = "C:\Users\ux016445\OneDrive - Thomson Reuters Incorporated\MyFiles\VantageOne\Assessment Manager\Assessment Manager\Reports\"
+            sReportPath = "C:\OurFolders\VantageOne\AssessmentManager\AssessmentManager\Reports\"
             If Not IO.File.Exists(sReportPath & sReportFile) Then
                 sReportPath = "C:\OurFolders\VantageOne\Assessment Manager\Assessment Manager\Reports\"
                 If Not IO.File.Exists(sReportPath & sReportFile) Then

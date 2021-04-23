@@ -49,8 +49,8 @@ Partial Class frmQueryProperties
         Me.cmdOK = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.chkCurrentConsultantFl = New System.Windows.Forms.CheckBox()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.TabControl1.SuspendLayout()
         Me.tabpageFields.SuspendLayout()
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -355,6 +355,18 @@ Partial Class frmQueryProperties
         Me.SplitContainer1.SplitterDistance = 65
         Me.SplitContainer1.TabIndex = 126
         '
+        'chkCurrentConsultantFl
+        '
+        Me.chkCurrentConsultantFl.AutoSize = True
+        Me.chkCurrentConsultantFl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkCurrentConsultantFl.Location = New System.Drawing.Point(792, 8)
+        Me.chkCurrentConsultantFl.Name = "chkCurrentConsultantFl"
+        Me.chkCurrentConsultantFl.Size = New System.Drawing.Size(215, 17)
+        Me.chkCurrentConsultantFl.TabIndex = 124
+        Me.chkCurrentConsultantFl.Tag = "@DB=UserQuery.CurrentConsultantFl"
+        Me.chkCurrentConsultantFl.Text = "Limit results to current consultant"
+        Me.chkCurrentConsultantFl.UseVisualStyleBackColor = True
+        '
         'SplitContainer2
         '
         Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -373,18 +385,6 @@ Partial Class frmQueryProperties
         Me.SplitContainer2.Size = New System.Drawing.Size(1028, 710)
         Me.SplitContainer2.SplitterDistance = 659
         Me.SplitContainer2.TabIndex = 0
-        '
-        'chkCurrentConsultantFl
-        '
-        Me.chkCurrentConsultantFl.AutoSize = True
-        Me.chkCurrentConsultantFl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkCurrentConsultantFl.Location = New System.Drawing.Point(792, 8)
-        Me.chkCurrentConsultantFl.Name = "chkCurrentConsultantFl"
-        Me.chkCurrentConsultantFl.Size = New System.Drawing.Size(215, 17)
-        Me.chkCurrentConsultantFl.TabIndex = 124
-        Me.chkCurrentConsultantFl.Tag = "@DB=UserQuery.CurrentConsultantFl"
-        Me.chkCurrentConsultantFl.Text = "Limit results to current consultant"
-        Me.chkCurrentConsultantFl.UseVisualStyleBackColor = True
         '
         'frmQueryProperties
         '

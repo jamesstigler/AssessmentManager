@@ -1,7 +1,7 @@
 ﻿Public Class clsReportDataSet
     Private m_SQL As String
     Private m_ReportDataTable As DataTable
-    Private ReportSchema As New ReportsDataSet
+    ''Private ReportSchema As New ReportsDataSet
 
     Public Property SQL() As String
         Get

@@ -1,0 +1,832 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{711EC0E4-EA52-44A6-BD9F-7A00C133CD6C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>AssessmentManager.My.MyApplication</StartupObject>
+    <RootNamespace>AssessmentManager</RootNamespace>
+    <AssemblyName>AssessmentManager</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>AssessmentManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>AssessmentManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\AppIcon.ICO</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Viewing.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="itextsharp, Version=4.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>iTextSharp\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OnBarcode.Barcode.WinForms, Version=6.0.0.41022, Culture=neutral, PublicKeyToken=4da8d7f865f70e30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>OnBarcode\OnBarcode.Barcode.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Text" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Classes\clsAssessmentBPP.vb" />
+    <Compile Include="Classes\clsAssessmentRE.vb" />
+    <Compile Include="Classes\clsAssessor.vb" />
+    <Compile Include="Classes\clsClient.vb" />
+    <Compile Include="Classes\clsData.vb" />
+    <Compile Include="Classes\clsLocationBPP.vb" />
+    <Compile Include="Classes\clsLocationRE.vb" />
+    <Compile Include="Classes\clsQuery.vb" />
+    <Compile Include="Classes\clsQuerySelect.vb" />
+    <Compile Include="Classes\clsReportData.vb" />
+    <Compile Include="Classes\clsReportDataSet.vb" />
+    <Compile Include="Classes\clsUserQuery.vb" />
+    <Compile Include="Code\modAssessments.vb" />
+    <Compile Include="Code\modData.vb" />
+    <Compile Include="Code\modForms.vb" />
+    <Compile Include="Code\modMain.vb" />
+    <Compile Include="Code\modQueries.vb" />
+    <Compile Include="Code\modRendition.vb" />
+    <Compile Include="Code\modReports.vb" />
+    <Compile Include="Code\modTableUpdate.vb" />
+    <Compile Include="Code\modTasks.vb" />
+    <Compile Include="Forms\frmAddBPPComp.Designer.vb">
+      <DependentUpon>frmAddBPPComp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddBPPComp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddJurisdictions.Designer.vb">
+      <DependentUpon>frmAddJurisdictions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddJurisdictions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAssessor.Designer.vb">
+      <DependentUpon>frmAssessor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAssessor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAsset.Designer.vb">
+      <DependentUpon>frmAsset.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAsset.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBatchImportAssets.Designer.vb">
+      <DependentUpon>frmBatchImportAssets.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBatchImportAssets.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBPPAssessment.Designer.vb">
+      <DependentUpon>frmBPPAssessment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBPPAssessment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBPPComps.Designer.vb">
+      <DependentUpon>frmBPPComps.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBPPComps.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBPPTaxList.Designer.vb">
+      <DependentUpon>frmBPPTaxList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBPPTaxList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBusinessUnits.Designer.vb">
+      <DependentUpon>frmBusinessUnits.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBusinessUnits.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClient.Designer.vb">
+      <DependentUpon>frmClient.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClient.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCollector.Designer.vb">
+      <DependentUpon>frmCollector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCollector.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmExclusionDialog.Designer.vb">
+      <DependentUpon>frmExclusionDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmExclusionDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmFactorCodes.Designer.vb">
+      <DependentUpon>frmFactorCodes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmFactorCodes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmFactorXRef.Designer.vb">
+      <DependentUpon>frmFactorXRef.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmFactorXRef.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmFirmInfo.Designer.vb">
+      <DependentUpon>frmFirmInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmFirmInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmGLCodeXRef.Designer.vb">
+      <DependentUpon>frmGLCodeXRef.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmGLCodeXRef.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportAssessments.Designer.vb">
+      <DependentUpon>frmImportAssessments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportAssessments.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportAssets.Designer.vb">
+      <DependentUpon>frmImportAssets.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportAssets.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportBPPComps.designer.vb">
+      <DependentUpon>frmImportBPPComps.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportBPPComps.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportClients.Designer.vb">
+      <DependentUpon>frmImportClients.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportClients.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportFactorCodes.Designer.vb">
+      <DependentUpon>frmImportFactorCodes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportFactorCodes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportFactoringEntities.Designer.vb">
+      <DependentUpon>frmImportFactoringEntities.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportFactoringEntities.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportLocations.Designer.vb">
+      <DependentUpon>frmImportLocations.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportLocations.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportProspects.Designer.vb">
+      <DependentUpon>frmImportProspects.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportProspects.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportREComps.Designer.vb">
+      <DependentUpon>frmImportREComps.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportREComps.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportRECompsCounty.Designer.vb">
+      <DependentUpon>frmImportRECompsCounty.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportRECompsCounty.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImportStateFactorCodes.Designer.vb">
+      <DependentUpon>frmImportStateFactorCodes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImportStateFactorCodes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmInstallments.Designer.vb">
+      <DependentUpon>frmInstallments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmInstallments.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmJurisdiction.Designer.vb">
+      <DependentUpon>frmJurisdiction.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmJurisdiction.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmList.Designer.vb">
+      <DependentUpon>frmList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLocationBPP.Designer.vb">
+      <DependentUpon>frmLocationBPP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLocationBPP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLocationRE.Designer.vb">
+      <DependentUpon>frmLocationRE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLocationRE.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPDF.Designer.vb">
+      <DependentUpon>frmPDF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPDF.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmProspectLocation.Designer.vb">
+      <DependentUpon>frmProspectLocation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmProspectLocation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmQueryProperties.Designer.vb">
+      <DependentUpon>frmQueryProperties.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmQueryProperties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmREAssessment.Designer.vb">
+      <DependentUpon>frmREAssessment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmREAssessment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmREComps.Designer.vb">
+      <DependentUpon>frmREComps.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmREComps.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmReport.Designer.vb">
+      <DependentUpon>frmReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmReportSelection.Designer.vb">
+      <DependentUpon>frmReportSelection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmReportSelection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSelect.Designer.vb">
+      <DependentUpon>frmSelect.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSelect.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStateFactorCodes.Designer.vb">
+      <DependentUpon>frmStateFactorCodes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStateFactorCodes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTask.Designer.vb">
+      <DependentUpon>frmTask.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmTask.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTaskAssignment.Designer.vb">
+      <DependentUpon>frmTaskAssignment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmTaskAssignment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmUsers.Designer.vb">
+      <DependentUpon>frmUsers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmUsers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MDIParent1.Designer.vb">
+      <DependentUpon>MDIParent1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MDIParent1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SplashScreen1.Designer.vb">
+      <DependentUpon>SplashScreen1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SplashScreen1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reports\rptAofADetail.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAofADetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptAssessorEnvelope.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAssessorEnvelope.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptAssetDetail.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAssetDetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptAssetDetailCost.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAssetDetailCost.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptAssetImportSummary.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAssetImportSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptAssetLeases.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAssetLeases.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptAssetSummary.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAssetSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptBarCode.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptBarCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptClientEnvelope.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptClientEnvelope.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptClientLocationListing.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptClientLocationListing.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptCompletedRenditionDueDate.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptCompletedRenditionDueDate.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptEnvelope.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptEnvelope.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptFixedAssetRecon.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptFixedAssetRecon.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptMissingNotice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptMissingNotice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptMissingTaxBills.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptMissingTaxBills.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptREComps.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptREComps.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptRenditionDueDate.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptRenditionDueDate.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptRenditionValueComparison.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptRenditionValueComparison.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptTaxAccrual.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTaxAccrual.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptTaxAccrualSummary.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTaxAccrualSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptTaxBill.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTaxBill.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptTaxBillCheckOff.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTaxBillCheckOff.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptTaxSavings.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTaxSavings.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\frmAddBPPComp.resx">
+      <DependentUpon>frmAddBPPComp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddJurisdictions.resx">
+      <DependentUpon>frmAddJurisdictions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAssessor.resx">
+      <DependentUpon>frmAssessor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAsset.resx">
+      <DependentUpon>frmAsset.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBatchImportAssets.resx">
+      <DependentUpon>frmBatchImportAssets.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBPPAssessment.resx">
+      <DependentUpon>frmBPPAssessment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBPPComps.resx">
+      <DependentUpon>frmBPPComps.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBPPTaxList.resx">
+      <DependentUpon>frmBPPTaxList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBusinessUnits.resx">
+      <DependentUpon>frmBusinessUnits.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClient.resx">
+      <DependentUpon>frmClient.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCollector.resx">
+      <DependentUpon>frmCollector.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmExclusionDialog.resx">
+      <DependentUpon>frmExclusionDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmFactorCodes.resx">
+      <DependentUpon>frmFactorCodes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmFactorXRef.resx">
+      <DependentUpon>frmFactorXRef.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmFirmInfo.resx">
+      <DependentUpon>frmFirmInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmGLCodeXRef.resx">
+      <DependentUpon>frmGLCodeXRef.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportAssessments.resx">
+      <DependentUpon>frmImportAssessments.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportAssets.resx">
+      <DependentUpon>frmImportAssets.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportBPPComps.resx">
+      <DependentUpon>frmImportBPPComps.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportClients.resx">
+      <DependentUpon>frmImportClients.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportFactorCodes.resx">
+      <DependentUpon>frmImportFactorCodes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportFactoringEntities.resx">
+      <DependentUpon>frmImportFactoringEntities.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportLocations.resx">
+      <DependentUpon>frmImportLocations.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportProspects.resx">
+      <DependentUpon>frmImportProspects.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportREComps.resx">
+      <DependentUpon>frmImportREComps.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportRECompsCounty.resx">
+      <DependentUpon>frmImportRECompsCounty.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImportStateFactorCodes.resx">
+      <DependentUpon>frmImportStateFactorCodes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmInstallments.resx">
+      <DependentUpon>frmInstallments.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmJurisdiction.resx">
+      <DependentUpon>frmJurisdiction.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmList.resx">
+      <DependentUpon>frmList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLocationBPP.resx">
+      <DependentUpon>frmLocationBPP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLocationRE.resx">
+      <DependentUpon>frmLocationRE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPDF.resx">
+      <DependentUpon>frmPDF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmProspectLocation.resx">
+      <DependentUpon>frmProspectLocation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmQueryProperties.resx">
+      <DependentUpon>frmQueryProperties.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmREAssessment.resx">
+      <DependentUpon>frmREAssessment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmREComps.resx">
+      <DependentUpon>frmREComps.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmReport.resx">
+      <DependentUpon>frmReport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmReportSelection.resx">
+      <DependentUpon>frmReportSelection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSelect.resx">
+      <DependentUpon>frmSelect.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStateFactorCodes.resx">
+      <DependentUpon>frmStateFactorCodes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTask.resx">
+      <DependentUpon>frmTask.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTaskAssignment.resx">
+      <DependentUpon>frmTaskAssignment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmUsers.resx">
+      <DependentUpon>frmUsers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MDIParent1.resx">
+      <DependentUpon>MDIParent1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SplashScreen1.resx">
+      <DependentUpon>SplashScreen1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAofADetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAofADetail.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAssessorEnvelope.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAssessorEnvelope.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAssetDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAssetDetail.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAssetDetailCost.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAssetDetailCost.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAssetImportSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAssetImportSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAssetLeases.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAssetLeases.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAssetSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAssetSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptBarCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptBarCode.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptClientEnvelope.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptClientEnvelope.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptClientLocationListing.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptClientLocationListing.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptCompletedRenditionDueDate.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptCompletedRenditionDueDate.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptEnvelope.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptEnvelope.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptFixedAssetRecon.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptFixedAssetRecon.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptMissingNotice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptMissingNotice.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptMissingTaxBills.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptMissingTaxBills.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptREComps.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptREComps.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptRenditionDueDate.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptRenditionDueDate.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptRenditionValueComparison.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptRenditionValueComparison.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptTaxAccrual.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTaxAccrual.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptTaxAccrualSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTaxAccrualSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptTaxBill.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTaxBill.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptTaxBillCheckOff.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTaxBillCheckOff.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptTaxSavings.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTaxSavings.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Fonts\fre3of9x.ttf" />
+    <None Include="Fonts\free3of9.ttf" />
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="iTextSharp\itextsharp.dll" />
+    <Content Include="OnBarcode\OnBarcode.Barcode.WinForms.dll" />
+    <Content Include="Resources\AppIcon.ICO" />
+    <Content Include="Resources\ARW08DN.ICO" />
+    <Content Include="Resources\Filter.bmp" />
+    <Content Include="Resources\Filter.ico" />
+    <Content Include="Resources\Icon1.ico" />
+    <Content Include="Resources\Location.ICO" />
+    <Content Include="StoredProcedures\DCAD_spUpdateREComps.sql" />
+    <Content Include="StoredProcedures\NewGetAssetListStoredProc.sql" />
+    <Content Include="StoredProcedures\spCleanFileName.sql" />
+    <Content Include="StoredProcedures\spGetAssetList.sql" />
+    <Content Include="StoredProcedures\spGetAssetList_NEW.sql" />
+    <Content Include="StoredProcedures\spGetDocumentInfo.sql" />
+    <Content Include="StoredProcedures\spUpdateRECompCodes.sql" />
+    <Content Include="StoredProcedures\UpdateDataDefinition.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
