@@ -131,7 +131,8 @@
                 " a.RenditionExtCMRRR, a.RenditionExtMailedDate,a.ClientRenditionValue,ISNULL(a.ParentAssessmentId,0) AS ParentAssessmentId," &
                 " (select (rtrim(Name) + ', ' + StateCd) from Assessors where AssessorId = a.AssessorId and TaxYear = " & m_TaxYear & ") as AssessorName," &
                 " ISNULL(l.ConsultantName,ISNULL(c.BPPConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus," &
-                " ISNULL(a.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)) AS InterstateAllocationFl"
+                " ISNULL(a.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)) AS InterstateAllocationFl," &
+                " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode"
             For i = 1 To 5
                 sSQL = sSQL & ", a.FactorEntityId" & i &
                 ",isnull ((select Name from FactorEntities where FactorEntityId = a.FactorEntityId" & i &
@@ -147,6 +148,7 @@
             sStateCd = UnNullToString(dr("StateCd"))
             txtAcctNum.Text = UnNullToString(dr("AcctNum"))
             txtConsultantName.Text = dr("ConsultantName").ToString.Trim
+            txtSICCode.Text = dr("SICCode").ToString.Trim
             If dr("InterstateAllocationFl").ToString = "True" Then chkInterstateAllocationFl.Checked = True
             m_AssessorId = dr("AssessorId")
             lParentAssessmentId = dr("ParentAssessmentId")

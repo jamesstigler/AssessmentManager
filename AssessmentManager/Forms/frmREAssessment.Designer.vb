@@ -69,6 +69,10 @@ Partial Class frmREAssessment
         Me.fraHistory = New System.Windows.Forms.GroupBox()
         Me.dgHistory = New System.Windows.Forms.DataGridView()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.txtSICCode = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.txtConsultantName = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmdECU = New System.Windows.Forms.Button()
@@ -76,8 +80,6 @@ Partial Class frmREAssessment
         Me.dgECU = New System.Windows.Forms.DataGridView()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboOccupiedStatus = New System.Windows.Forms.ComboBox()
-        Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -356,12 +358,12 @@ Partial Class frmREAssessment
         '
         Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextImportTaxBill})
         Me.ContextMenuStrip2.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(151, 26)
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(150, 26)
         '
         'mnuContextImportTaxBill
         '
         Me.mnuContextImportTaxBill.Name = "mnuContextImportTaxBill"
-        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(150, 22)
+        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(149, 22)
         Me.mnuContextImportTaxBill.Text = "Import Tax Bill"
         '
         'cmdRefresh
@@ -529,6 +531,8 @@ Partial Class frmREAssessment
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboAccountInvoicedStatus)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label10)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtConsultantName)
@@ -562,6 +566,46 @@ Partial Class frmREAssessment
         Me.SplitContainer1.SplitterDistance = 271
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 250
+        '
+        'txtSICCode
+        '
+        Me.txtSICCode.AllowDrop = True
+        Me.txtSICCode.Enabled = False
+        Me.txtSICCode.Location = New System.Drawing.Point(356, 216)
+        Me.txtSICCode.Name = "txtSICCode"
+        Me.txtSICCode.Size = New System.Drawing.Size(160, 20)
+        Me.txtSICCode.TabIndex = 265
+        Me.txtSICCode.Tag = ""
+        '
+        'Label12
+        '
+        Me.Label12.Location = New System.Drawing.Point(300, 216)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(54, 20)
+        Me.Label12.TabIndex = 266
+        Me.Label12.Text = "SIC Code"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cboAccountInvoicedStatus
+        '
+        Me.cboAccountInvoicedStatus.AllowDrop = True
+        Me.cboAccountInvoicedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboAccountInvoicedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboAccountInvoicedStatus.FormattingEnabled = True
+        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(120, 96)
+        Me.cboAccountInvoicedStatus.Name = "cboAccountInvoicedStatus"
+        Me.cboAccountInvoicedStatus.Size = New System.Drawing.Size(108, 21)
+        Me.cboAccountInvoicedStatus.TabIndex = 4
+        Me.cboAccountInvoicedStatus.Tag = "@DB=AssessmentsRE.AccountInvoicedStatus"
+        '
+        'Label10
+        '
+        Me.Label10.Location = New System.Drawing.Point(8, 96)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(104, 20)
+        Me.Label10.TabIndex = 264
+        Me.Label10.Text = "Account Invoiced"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtConsultantName
         '
@@ -659,27 +703,6 @@ Partial Class frmREAssessment
         Me.cboOccupiedStatus.TabIndex = 3
         Me.cboOccupiedStatus.Tag = "@DB=AssessmentsRE.OccupiedStatus"
         '
-        'cboAccountInvoicedStatus
-        '
-        Me.cboAccountInvoicedStatus.AllowDrop = True
-        Me.cboAccountInvoicedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboAccountInvoicedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAccountInvoicedStatus.FormattingEnabled = True
-        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(120, 96)
-        Me.cboAccountInvoicedStatus.Name = "cboAccountInvoicedStatus"
-        Me.cboAccountInvoicedStatus.Size = New System.Drawing.Size(108, 21)
-        Me.cboAccountInvoicedStatus.TabIndex = 4
-        Me.cboAccountInvoicedStatus.Tag = "@DB=AssessmentsRE.AccountInvoicedStatus"
-        '
-        'Label10
-        '
-        Me.Label10.Location = New System.Drawing.Point(8, 96)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(104, 20)
-        Me.Label10.TabIndex = 264
-        Me.Label10.Text = "Account Invoiced"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'frmREAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -757,4 +780,6 @@ Partial Class frmREAssessment
     Friend WithEvents Label9 As Label
     Friend WithEvents cboAccountInvoicedStatus As ComboBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents txtSICCode As TextBox
+    Friend WithEvents Label12 As Label
 End Class

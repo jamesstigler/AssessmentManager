@@ -125,6 +125,7 @@
                 " a.RenditionExtDeadlineDate, a.RenditionCMRRR, a.RenditionMailedDate, ISNULL(l.ClientLocationId, '') AS ClientLocationId," &
                 " a.RenditionExtCMRRR, a.RenditionExtMailedDate, assrs.Name AS AssessorName, assrs.RenditionDueDate," &
                 " assrs.BPPProtestDeadlineDate," &
+                " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode," &
                 " ISNULL(l.ConsultantName,ISNULL(c.BPPConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus" &
                 " FROM Clients AS c INNER JOIN" &
                 " AssessmentsBPP AS a ON c.ClientId = a.ClientId INNER JOIN" &
@@ -138,6 +139,7 @@
             sStateCd = UnNullToString(dr("StateCd"))
             txtAcctNum.Text = UnNullToString(dr("AcctNum"))
             txtConsultantName.Text = dr("ConsultantName").ToString.Trim
+            txtSICCode.Text = dr("SICCode").ToString.Trim
             m_AssessorId = dr("AssessorId")
             Me.Text = "BPP Assessment:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " & _
                 Trim(dr("City")) & " " & Trim(dr("StateCd")) & "   " & Trim(dr("AcctNum"))

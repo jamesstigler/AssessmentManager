@@ -22,6 +22,7 @@
     Private dtFieldDataDefinition As New DataTable
     Public colStateCodes As Collection
     Public colStateNames As Collection
+    Public colSICCodes As Collection
     Public dicColumnWidths As Dictionary(Of String, Long)
 
     'Private colValueProtestStatus As Collection
@@ -136,9 +137,9 @@
         'MsgBox(sSQL)
 
         Try
-            If UCase(AppData.UserId) = "UX016445" Or UCase(AppData.UserId) = "STIGLERFAMILY" Then
-                If IO.Directory.Exists("c:\myfiles\vantageone") = False Then IO.Directory.CreateDirectory("c:\myfiles\vantageone")
-                My.Computer.FileSystem.WriteAllText("c:\myfiles\vantageone\assmansql.txt", Now & ":  " & sSQL & vbCrLf & vbCrLf, True)
+            If UCase(AppData.UserId) = "UX016445" Or UCase(AppData.UserId).Contains("STIGLER") Then
+                If IO.Directory.Exists("c:\mytempfolder\vantageone") = False Then IO.Directory.CreateDirectory("c:\mytempfolder\vantageone")
+                My.Computer.FileSystem.WriteAllText("c:\mytempfolder\vantageone\assmansql.txt", Now & ":  " & sSQL & vbCrLf & vbCrLf, True)
             End If
 
         Catch ex As Exception
@@ -725,19 +726,17 @@
                                 For Each sTemp As String In colStateCodes
                                     ctl.Items.Add(sTemp)
                                 Next
-                                'ElseIf (sTable = "AssessmentsBPP" Or sTable = "AssessmentsRE") And _
-                                '        (sField = "ValueProtestStatus" Or sField = "FreeportProtestStatus" Or sField = "OtherProtest1Status") Then
-                                '    ctl.items.add("")
-                                '    For Each sTemp As String In colValueProtestStatus
-                                '        ctl.Items.Add(sTemp)
-                                '    Next
                             ElseIf (sTable = "Clients" Or sTable = "LocationsBPP" Or sTable = "LocationsRE") And (sField = "ClientCoordinatorName" Or sField = "AccountRep" Or sField = "BPPConsultantName" Or sField = "REConsultantName" Or sField = "ConsultantName") Then
                                 ctl.items.add("")
                                 For Each sTemp As String In colConsultants
                                     ctl.Items.Add(sTemp)
                                 Next
                             ElseIf sTable = "Clients" And (sField = "LeadStatus" Or sField = "SolicitType") Then
-
+                            ElseIf sField = "SICCode" Then
+                                ctl.items.add("")
+                                For Each stemp As String In colSICCodes
+                                    ctl.items.add(stemp)
+                                Next
                             Else
                                 Dim drFiltered() As DataRow, row As DataRow
                                 drFiltered = dtFieldDataDefinition.Select("TableName = " & QuoStr(sTable) & " AND FieldName = " & QuoStr(sField))
@@ -749,42 +748,6 @@
                                 End If
                             End If
                         End If
-                        'If lTranslateCode > 0 Then
-                        '    Select Case iCtlType
-                        '        Case ComboBox
-                        '            ' This function now assumes that there will
-                        '            ' be exactly 2 columns in the dropdown.
-                        '            ctl.
-                        '            GetTranslateValues(lTranslateCode, True, vTranslateList)
-                        '            For lTransCounter = 0 To UBound(vTranslateList)
-                        '                If sTable = "LocationByYear" And Right(sField, 5) = "_Copy" Then
-                        '                    If Trim(vTranslateList(lTransCounter)) = "" Then
-                        '                        sAddStr = "0" & vbTab & " "
-                        '                    ElseIf Trim(vTranslateList(lTransCounter)) = "HC" Then
-                        '                        sAddStr = "1" & vbTab & "HC"
-                        '                    Else
-                        '                        sAddStr = "2" & vbTab & "SC"
-                        '                    End If
-                        '                    .AddItem(sAddStr)
-                        '                ElseIf sTable = "LocationByYear" And sField = "SalesByState_Opt" Then
-                        '                    If Trim(vTranslateList(lTransCounter)) = "" Then
-                        '                        sAddStr = "0" & vbTab & " "
-                        '                    ElseIf Trim(vTranslateList(lTransCounter)) = "Ship to report" Then
-                        '                        sAddStr = "1" & vbTab & "Ship to report"
-                        '                    ElseIf Trim(vTranslateList(lTransCounter)) = "Sold to report" Then
-                        '                        sAddStr = "2" & vbTab & "Sold to report"
-                        '                    ElseIf Trim(vTranslateList(lTransCounter)) = "TX sales tax report" Then
-                        '                        sAddStr = "3" & vbTab & "TX sales tax report"
-                        '                    End If
-                        '                    .AddItem(sAddStr)
-
-                        '                Else
-                        '                    sAddStr = UnNullToString(vTranslateList(lTransCounter))
-                        '                    .AddItem(sAddStr & vbTab & sAddStr)
-                        '                End If
-                        '            Next
-                        '    End Select
-                        'End If
                         ReDim Preserve DBInfo(UBound(DBInfo) + 1)
                         With DBInfo(UBound(DBInfo))
                             .sTable = sTable
@@ -976,17 +939,6 @@
                         ctlControl.text = fld.ToString
                     End If
                 End If
-
-                '    ctlControl.Text = ""
-                '    If lRows > 0 Then
-                '        For i = 0 To ctlControl.Rows - 1
-                '            ctlControl.Bookmark = ctlControl.AddItemBookmark(i)
-                '            If Trim(UnNullToString(ctlControl.Columns(0).Value)) = Trim(UnNullToString(fld)) Then
-                '                ctlControl.Text = "" & Trim(ctlControl.Columns(1).Value)
-                '                Exit For
-                '            End If
-                '        Next
-                '    End If
             Case DateTimePicker
                 ctlControl.value = ""
                 If lRows > 0 Then
@@ -1024,17 +976,6 @@
                 Else
                     ctlControl.text = ""
                 End If
-
-                'Case OptionButton
-                '    If lRows = 0 Then
-                '        ctlControl.Value = False
-                '    Else
-                '        If UnNullToDouble(fld) = ctlControl.Index Then
-                '            ctlControl.Value = True
-                '        Else
-                '            ctlControl.Value = False
-                '        End If
-                '    End If
         End Select
     End Sub
     Public Function LoadFirmInfo()
@@ -1081,21 +1022,18 @@
         End Try
     End Function
     Public Function LoadDropDowns() As Boolean
-
-        'colValueProtestStatus = New Collection
-        'colValueProtestStatus.Add("Approved", "Approved")
-        'colValueProtestStatus.Add("ARB", "ARB")
-        'colValueProtestStatus.Add("Lawsuit", "Lawsuit")
-        'colValueProtestStatus.Add("Pending", "Pending")
-        'colValueProtestStatus.Add("Settled", "Settled")
-        'colValueProtestStatus.Add("Withdrawn", "Withdrawn")
-
         Dim dt As New DataTable, row As DataRow, sSQL As String = "", lRows As Long = 0
         Try
             colConsultants = New Collection
             GetData("SELECT ConsultantName FROM Consultants ORDER BY ConsultantName", dt)
             For Each row In dt.Rows
                 colConsultants.Add(row("ConsultantName").ToString, row("ConsultantName"))
+            Next
+
+            colSICCodes = New Collection
+            GetData("SELECT SICCode, SICCodeDescription FROM SICCodes ORDER BY SICCode", dt)
+            For Each row In dt.Rows
+                colSICCodes.Add(row("SICCode").ToString & "-" & row("SICCodeDescription").ToString, row("SICCode").ToString)
             Next
 
             dtFieldDataDefinition = New DataTable
@@ -1132,12 +1070,12 @@
 
         Try
 
-            sSQL = "SELECT t.name AS TableName, c.name AS FieldName, c.isnullable AS AllowNull," & _
-                " c.type AS FieldType, c.Length as FieldLength, fd.QueryVisibleFl, fd.QueryType, fd.Description AS FieldDescription" & _
-                " FROM sysobjects t, syscolumns c, FieldDefinition fd" & _
-                " WHERE t.id = c.id" & _
-                " AND fd.TableName = t.name AND fd.FieldName = c.name" & _
-                " AND t.type = 'U' AND t.name <> 'dtproperties'" & _
+            sSQL = "SELECT t.name AS TableName, c.name AS FieldName, c.isnullable AS AllowNull," &
+                " c.type AS FieldType, c.Length as FieldLength, fd.QueryVisibleFl, fd.QueryType, fd.Description AS FieldDescription" &
+                " FROM sysobjects t, syscolumns c, FieldDefinition fd" &
+                " WHERE t.id = c.id" &
+                " AND fd.TableName = t.name AND fd.FieldName = c.name" &
+                " AND t.type = 'U' AND t.name <> 'dtproperties'" &
                 " ORDER BY t.name, c.name"
             lRows = GetData(sSQL, dtDataDefinitions)
             ReDim udtFieldInfo(lRows - 1)
@@ -1157,38 +1095,7 @@
                 End With
                 lRows = lRows + 1
             Next
-
-            'sSQL = "SELECT i.name AS index_name, ic.index_column_id, ic.key_ordinal, c.name AS FieldName," & _
-            '    " TYPE_NAME(c.user_type_id) AS column_type, c.is_identity," & _
-            '    " t.name AS TableName" & _
-            '    " FROM sys.indexes AS i INNER JOIN" & _
-            '    " sys.index_columns AS ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id INNER JOIN" & _
-            '    " sys.columns AS c ON ic.object_id = c.object_id AND c.column_id = ic.column_id INNER JOIN" & _
-            '    " sys.objects AS t ON i.object_id = t.object_id" & _
-            '    " WHERE i.is_primary_key = 1 AND t.type = 'U'"
-            'lRows = GetData(sSQL, dt)
-            'For Each row In dt.Rows
-            '    For lRows = 0 To UBound(udtFieldInfo)
-            '        With udtFieldInfo(lRows)
-            '            If .sField = row("FieldName") And .sTable = row("TableName") Then
-            '                .bIsAPrimaryKey = True
-            '                Exit For
-            '            End If
-            '        End With
-            '    Next
-            'Next
-
-
-
-
-
-
-
             Return True
-            'exec sp_pkeys @table_name =  'Assessor'      to get list of primary keys for a specific table
-
-
-
         Catch ex As Exception
             MsgBox("Error in LoadDataDefintions:  " & ex.Message)
             Return False
@@ -1220,18 +1127,7 @@
                 Case 50
                     eDataType = enumDataTypes.eDataBit
                 Case 61, 111
-                    'If sTable = "AssessmentByYear" And _
-                    '        (sField = "FormalHearingDate" Or _
-                    '        sField = "InformalHearingDate" Or _
-                    '        sField = "ProtestHearingDate" Or _
-                    '        sField = "FreeportHearingDate") Then
-                    '    eDataType = enumDataTypes.eDataDateTime
-                    'ElseIf (sTable = "TaskMasterList" Or sTable = "TaskEventsBPP" Or sTable = "TaskEventsRE" Or sTable = "TaskEvents") And _
-                    '        (sField = "TaskDate" Or sField = "ReminderDate") Then
-                    '    eDataType = enumDataTypes.eDataDateTime
-                    'Else
                     eDataType = enumDataTypes.eDataDate
-                    'End If
             End Select
             If row("AllowNull") = 1 Then bAllowNull = True
             lLength = row("FieldLength")

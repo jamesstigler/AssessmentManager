@@ -126,7 +126,8 @@
                 " ISNULL(a.ValueProtestDeadlineDate,assrs.REProtestDeadlineDate) AS ValueProtestDeadlineDate," &
                 " a.ValueProtestCMRRR," &
                 " assrs.REProtestDeadlineDate, ISNULL(assrs.Name,'') AS AssessorName,a.OccupiedStatus, ISNULL(a.ParentAssessmentId,0) AS ParentAssessmentId," &
-                " ISNULL(l.ConsultantName,ISNULL(c.REConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus"
+                " ISNULL(l.ConsultantName,ISNULL(c.REConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus," &
+                " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode"
             sSQL = sSQL &
                 " FROM Clients AS c INNER JOIN" &
                 " AssessmentsRE AS a ON c.ClientId = a.ClientId INNER JOIN" &
@@ -139,6 +140,7 @@
             sStateCd = UnNullToString(dr("StateCd"))
             txtAcctNum.Text = UnNullToString(dr("AcctNum"))
             txtConsultantName.Text = dr("ConsultantName").ToString.Trim
+            txtSICCode.Text = dr("SICCode").ToString.Trim
             txtClientLocationId.Text = dr("ClientLocationId").ToString
             m_AssessorId = dr("AssessorId")
             lParentAssessmentId = dr("ParentAssessmentId")

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmLocationRE
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmLocationRE
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -41,6 +41,8 @@ Partial Class frmLocationRE
         Me.chkInactiveFl = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cboConsultant = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cboSICCode = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'txtName
@@ -215,11 +217,33 @@ Partial Class frmLocationRE
         Me.cboConsultant.TabIndex = 9
         Me.cboConsultant.Tag = "@DB=LocationsRE.ConsultantName"
         '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(244, 276)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(52, 13)
+        Me.Label9.TabIndex = 212
+        Me.Label9.Text = "SIC Code"
+        '
+        'cboSICCode
+        '
+        Me.cboSICCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboSICCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSICCode.FormattingEnabled = True
+        Me.cboSICCode.Location = New System.Drawing.Point(300, 272)
+        Me.cboSICCode.Name = "cboSICCode"
+        Me.cboSICCode.Size = New System.Drawing.Size(224, 21)
+        Me.cboSICCode.TabIndex = 211
+        Me.cboSICCode.Tag = "@DB=LocationsRE.SICCode"
+        '
         'frmLocationRE
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(546, 347)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.cboSICCode)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.cboConsultant)
         Me.Controls.Add(Me.chkInactiveFl)
@@ -269,4 +293,6 @@ Partial Class frmLocationRE
     Friend WithEvents chkInactiveFl As System.Windows.Forms.CheckBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents cboConsultant As System.Windows.Forms.ComboBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents cboSICCode As ComboBox
 End Class

@@ -26,8 +26,6 @@
     Private Sub frmQueryProperties_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         If bActivated Then Exit Sub
 
-
-
         InitInfo()
         RefreshData()
 
@@ -114,7 +112,6 @@
         colValueType.Resizable = DataGridViewTriState.True
         colValueType.Width = 100
 
-
         dgFilter.Columns.AddRange(New DataGridViewColumn() {colCondition, colOpenParen, colField, colOperator, colValue, colClosedParen, colValueType})
 
         dgSort.Columns.Clear()
@@ -136,6 +133,10 @@
 
         dgSort.Columns.AddRange(New DataGridViewColumn() {colSortField, colSortDirection})
 
+        If m_QueryType = UserQueryType.Client Or m_QueryType = UserQueryType.ProspectLocations Or m_QueryType = UserQueryType.Prospects Or m_QueryType = UserQueryType.ProspectValues Then
+            chkAllYears.Visible = False
+        End If
+
 
     End Sub
     Private Function RefreshData() As Boolean
@@ -144,7 +145,8 @@
 
         Try
             txtQueryName.Text = "" : txtDescription.Text = "" : dgFields.Rows.Clear() : dgFilter.Rows.Clear() : dgSort.Rows.Clear()
-            sSQL = "SELECT QueryType, QueryName, Description, ISNULL(OrderBy,'') AS OrderBy, QuerySQL, ISNULL(CurrentConsultantFl,0) AS CurrentConsultantFl FROM UserQuery WHERE QueryId = " & m_QueryId
+            sSQL = "SELECT QueryType, QueryName, Description, ISNULL(OrderBy,'') AS OrderBy, QuerySQL, ISNULL(CurrentConsultantFl,0) AS CurrentConsultantFl," &
+                " ISNULL(AllTaxYearsFl,0) AS AllTaxYearsFl FROM UserQuery WHERE QueryId = " & m_QueryId
             GetData(sSQL, dt)
             dr = dt.Rows(0)
             Me.Text = "UserQuery:  " & Trim(dr("QueryName"))
@@ -201,7 +203,7 @@
     End Sub
 
     Private Sub txtDescription_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtDescription.LostFocus,
-            txtQueryName.LostFocus, chkCurrentConsultantFl.LostFocus
+            txtQueryName.LostFocus, chkCurrentConsultantFl.LostFocus, chkAllYears.LostFocus
         If bChanged Then
             If TypeOf sender Is ComboBox Then
                 If sender.SelectedIndex >= 0 Then
@@ -219,7 +221,7 @@
     End Sub
 
     Private Sub txtDescription_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles _
-            txtDescription.TextChanged, txtQueryName.TextChanged, chkCurrentConsultantFl.CheckedChanged
+            txtDescription.TextChanged, txtQueryName.TextChanged, chkCurrentConsultantFl.CheckedChanged, chkAllYears.CheckedChanged
         If bActivated Then bChanged = True
     End Sub
 
@@ -322,10 +324,6 @@
         Catch ex As Exception
             MsgBox("Error saving changes:  " & ex.Message)
         End Try
-    End Sub
-
-    Private Sub dgFilter_DataError(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles dgFilter.DataError
-
     End Sub
 
     Private Sub dgFields_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgFields.CellValueChanged, dgFilter.CellValueChanged, dgSort.CellValueChanged

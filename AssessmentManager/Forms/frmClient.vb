@@ -155,14 +155,14 @@
             txtContractFee.LostFocus, txtContractLocationFee.LostFocus, txtContractTermYears1.LostFocus,
             txtDBA.LostFocus, txtFollowUpDate.LostFocus, txtLeadCompetitorName.LostFocus, txtMailDate.LostFocus,
             txtWebSite.LostFocus, chkProspectFl.LostFocus, txtSolicitSentDate.LostFocus, cboSolicitType.LostFocus,
-            txtContractStartDate.LostFocus, txtContractEndDate.LostFocus, txtSICCode.LostFocus, txtContractTermYears2.LostFocus,
+            txtContractStartDate.LostFocus, txtContractEndDate.LostFocus, txtContractTermYears2.LostFocus,
             txtContractFeeFlatAmt.LostFocus, txtContractFeeFlatPerLocAmt.LostFocus, txtContractFeeContingencyPct.LostFocus,
             txtContractFeeContingencyCapPct.LostFocus, txtContractFeeContingencyCapAmt.LostFocus, txtContractFeeOther.LostFocus,
             chkContractRenewalFl.LostFocus, chkContractFeeFlatFl.LostFocus, chkContractFeeFlatPerLocFl.LostFocus, chkContractFeeContingencyFl.LostFocus,
             chkContractFeeContingencyCapFl.LostFocus, chkContractFeeOtherFl.LostFocus,
             txtAofAEffectiveDate.LostFocus, txtAofAExpireDate.LostFocus, cboAccountRep.LostFocus,
             chkBxExcludeAbatements.LostFocus, chkBxExcludeFreeport.LostFocus, txtRecordRetentionYears.LostFocus,
-            cboBPPConsultant.LostFocus, cboREConsultant.LostFocus, chkInterstateAllocationFl.LostFocus
+            cboBPPConsultant.LostFocus, cboREConsultant.LostFocus, chkInterstateAllocationFl.LostFocus, cboSICCode.LostFocus
 
         If bChanged Then
 
@@ -198,11 +198,11 @@
             txtContractFee.GotFocus, txtContractLocationFee.GotFocus, txtContractTermYears1.GotFocus,
             txtDBA.GotFocus, txtFollowUpDate.GotFocus, txtLeadCompetitorName.GotFocus, txtMailDate.GotFocus,
             txtWebSite.GotFocus, txtSolicitSentDate.GotFocus, cboSolicitType.GotFocus,
-            txtContractStartDate.GotFocus, txtContractEndDate.GotFocus, txtSICCode.GotFocus, txtContractTermYears2.GotFocus,
+            txtContractStartDate.GotFocus, txtContractEndDate.GotFocus, txtContractTermYears2.GotFocus,
             txtContractFeeFlatAmt.GotFocus, txtContractFeeFlatPerLocAmt.GotFocus, txtContractFeeContingencyPct.GotFocus,
             txtContractFeeContingencyCapPct.GotFocus, txtContractFeeContingencyCapAmt.GotFocus, txtContractFeeOther.GotFocus,
             txtAofAEffectiveDate.GotFocus, txtAofAExpireDate.GotFocus, txtRecordRetentionYears.GotFocus,
-            cboBPPConsultant.GotFocus, cboREConsultant.GotFocus, cboClientCoordinatorName.GotFocus
+            cboBPPConsultant.GotFocus, cboREConsultant.GotFocus, cboClientCoordinatorName.GotFocus, cboSICCode.GotFocus
         sender.selectall()
     End Sub
 
@@ -222,14 +222,14 @@
             txtDBA.TextChanged, txtFollowUpDate.TextChanged, txtLeadCompetitorName.TextChanged, txtMailDate.TextChanged,
             txtWebSite.TextChanged, cboLeadStatus.TextChanged, chkLeadInfoSentFl.CheckedChanged, chkProspectFl.CheckedChanged,
             txtSolicitSentDate.TextChanged, cboSolicitType.TextChanged,
-            txtContractStartDate.TextChanged, txtContractEndDate.TextChanged, txtSICCode.TextChanged, txtContractTermYears2.TextChanged,
+            txtContractStartDate.TextChanged, txtContractEndDate.TextChanged, txtContractTermYears2.TextChanged,
             txtContractFeeFlatAmt.TextChanged, txtContractFeeFlatPerLocAmt.TextChanged, txtContractFeeContingencyPct.TextChanged,
             txtContractFeeContingencyCapPct.TextChanged, txtContractFeeContingencyCapAmt.TextChanged, txtContractFeeOther.TextChanged,
             chkContractRenewalFl.CheckedChanged, chkContractFeeFlatFl.CheckedChanged, chkContractFeeFlatPerLocFl.CheckedChanged, chkContractFeeContingencyFl.CheckedChanged,
             chkContractFeeContingencyCapFl.CheckedChanged, chkContractFeeOtherFl.CheckedChanged,
             txtAofAEffectiveDate.TextChanged, txtAofAExpireDate.TextChanged, cboAccountRep.TextChanged,
             chkBxExcludeAbatements.CheckedChanged, chkBxExcludeFreeport.CheckedChanged, txtRecordRetentionYears.TextChanged,
-            cboBPPConsultant.TextChanged, cboREConsultant.TextChanged, chkInterstateAllocationFl.CheckedChanged
+            cboBPPConsultant.TextChanged, cboREConsultant.TextChanged, chkInterstateAllocationFl.CheckedChanged, cboSICCode.TextChanged
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
                 If sender.checkstate = CheckState.Checked Then

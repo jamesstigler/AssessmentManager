@@ -88,9 +88,9 @@
     End Function
 
     Private Sub txtName_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
-            Handles txtName.LostFocus, txtAddress.LostFocus, txtCity.LostFocus, txtZip.LostFocus, _
-            txtComment.LostFocus, cboStateCd.LostFocus, TextBox1.LostFocus, TextBox2.LostFocus, TextBox3.LostFocus, chkInactiveFl.LostFocus, _
-            cboConsultant.LostFocus
+            Handles txtName.LostFocus, txtAddress.LostFocus, txtCity.LostFocus, txtZip.LostFocus,
+            txtComment.LostFocus, cboStateCd.LostFocus, TextBox1.LostFocus, TextBox2.LostFocus, TextBox3.LostFocus, chkInactiveFl.LostFocus,
+            cboConsultant.LostFocus, cboSICCode.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -112,9 +112,9 @@
     End Sub
 
     Private Sub txtName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-            Handles txtName.TextChanged, txtAddress.TextChanged, txtCity.TextChanged, txtComment.TextChanged, _
-            txtZip.TextChanged, cboStateCd.TextChanged, TextBox1.TextChanged, TextBox2.TextChanged, TextBox3.TextChanged, chkInactiveFl.CheckedChanged, _
-            cboConsultant.TextChanged
+            Handles txtName.TextChanged, txtAddress.TextChanged, txtCity.TextChanged, txtComment.TextChanged,
+            txtZip.TextChanged, cboStateCd.TextChanged, TextBox1.TextChanged, TextBox2.TextChanged, TextBox3.TextChanged, chkInactiveFl.CheckedChanged,
+            cboConsultant.TextChanged, cboSICCode.TextChanged
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
                 If sender.checkstate = CheckState.Checked Then

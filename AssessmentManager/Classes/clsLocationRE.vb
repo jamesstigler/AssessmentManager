@@ -13,6 +13,7 @@
     Private m_LegalOwner As String
     Private m_ClientLocationId As String
     Private m_Comment As String
+    Private m_SICCode As String
 
     Private m_ResultSet As DataTable
 
@@ -128,6 +129,16 @@
         End Set
     End Property
 
+    Public Property SICCode() As String
+        Get
+            Return m_SICCode
+        End Get
+        Set(ByVal value As String)
+            m_SICCode = value
+        End Set
+    End Property
+
+
     Public Property Assessments() As Collection
         Get
             Return m_Assessments
@@ -154,12 +165,13 @@
             m_Client.ClientId = m_ClientId
             If Not m_Client.OpenClient(sError) Then Return False
 
-            m_Address = "" : m_City = "" : m_StateCd = "" : m_Zip = ""
+            m_Address = "" : m_City = "" : m_StateCd = "" : m_Zip = "" : m_SICCode = ""
             sError = ""
             sSQL.Length = 0
             sSQL.Append("SELECT ClientId,LocationId,TaxYear,Address,Name,City,StateCd,Zip,LegalDescription,LegalOwner,ClientLocationId,Comment,AddDate,AddUser,ChangeDate,ChangeUser,")
             sSQL.Append(" ChangeType,InactiveFl,")
-            sSQL.Append(" ISNULL(ConsultantName,(SELECT REConsultantName FROM Clients WHERE ClientId = ").Append(m_ClientId).Append(")) AS ConsultantName")
+            sSQL.Append(" ISNULL(ConsultantName,(SELECT REConsultantName FROM Clients WHERE ClientId = ").Append(m_ClientId).Append(")) AS ConsultantName,")
+            sSQL.Append(" ISNULL(SICCode,(SELECT SICCode FROM Clients WHERE ClientId = ").Append(m_ClientId).Append(")) AS SICCode")
             sSQL.Append(" FROM LocationsRE WHERE ClientId = ").Append(m_ClientId).Append(" AND LocationId = ").Append(m_LocationId)
             sSQL.Append(" AND TaxYear = ").Append(m_TaxYear)
             If GetData(sSQL.ToString, m_ResultSet) > 0 Then
@@ -168,6 +180,7 @@
                 m_City = UnNullToString(dr("City"))
                 m_StateCd = UnNullToString(dr("StateCd"))
                 m_Zip = UnNullToString(dr("Zip"))
+                m_SICCode = UnNullToString(dr("SICCode"))
 
                 Return True
             Else

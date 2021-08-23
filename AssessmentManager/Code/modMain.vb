@@ -427,8 +427,14 @@ Module modMain
         frmc.Show()
     End Function
 
-    Public Function OpenBPPLocation(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal iTaxYear As Integer) As Boolean
+    Public Function OpenBPPLocation(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal iTaxYear As Integer, ByRef sMsg As String) As Boolean
         If lClientId = 0 Or lLocationId = 0 Or iTaxYear = 0 Then Return False
+
+        If iTaxYear <> AppData.TaxYear Then
+            sMsg = "Must change the tax year to " & iTaxYear & " to open location"
+            Return False
+        End If
+
         Dim frm As Form, frml As frmLocationBPP
 
         For Each frm In MDIParent1.MdiChildren
@@ -475,8 +481,14 @@ Module modMain
         Return True
     End Function
 
-    Public Function OpenRELocation(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal iTaxYear As Integer) As Boolean
+    Public Function OpenRELocation(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal iTaxYear As Integer, ByRef sMsg As String) As Boolean
         If lClientId = 0 Or lLocationId = 0 Or iTaxYear = 0 Then Return False
+
+        If iTaxYear <> AppData.TaxYear Then
+            sMsg = "Must change the tax year to " & iTaxYear & " to open location"
+            Return False
+        End If
+
         Dim frm As Form, frml As frmLocationRE
 
         For Each frm In MDIParent1.MdiChildren
@@ -1710,9 +1722,11 @@ Module modMain
     Public Function OpenBPPTaxList(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal lAssessmentId As Long, _
             ByVal lAssessorId As Long, ByVal iTaxYear As Integer, ByRef sMsg As String) As Boolean
         Try
-            If lClientId = 0 Or lLocationId = 0 Or lAssessmentId = 0 Or iTaxYear = 0 Then
+            If lClientId = 0 Or lLocationId = 0 Or lAssessmentId = 0 Or iTaxYear = 0 Or iTaxYear <> AppData.TaxYear Then
                 If lAssessmentId = 0 Then
                     sMsg = "Assessment does not exist"
+                ElseIf iTaxYear <> AppData.TaxYear Then
+                    sMsg = "Must change the tax year to " & iTaxYear & " to open account"
                 Else
                     sMsg = "Missing information"
                 End If
@@ -1745,9 +1759,11 @@ Module modMain
     End Function
 
     Public Function OpenREAssessment(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal lAssessmentId As Long, ByVal iTaxYear As Integer, ByRef sMsg As String) As Boolean
-        If lClientId = 0 Or lLocationId = 0 Or lAssessmentId = 0 Or iTaxYear = 0 Then
+        If lClientId = 0 Or lLocationId = 0 Or lAssessmentId = 0 Or iTaxYear = 0 Or iTaxYear <> AppData.TaxYear Then
             If lAssessmentId = 0 Then
                 sMsg = "Assessment does not exist"
+            ElseIf iTaxYear <> AppData.TaxYear Then
+                sMsg = "Must change the tax year to " & iTaxYear & " to open account"
             Else
                 sMsg = "Missing information"
             End If

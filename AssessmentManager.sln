@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1267
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AssessmentManager", "AssessmentManager\AssessmentManager.vbproj", "{711EC0E4-EA52-44A6-BD9F-7A00C133CD6C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AssessmentManagerSetup", "AssessmentManagerSetup\AssessmentManagerSetup.vdproj", "{847BA45C-6BD5-4E6B-97EA-0100BB992757}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AssessmentManagerSetup", "AssessmentManagerSetup\AssessmentManagerSetup.vdproj", "{1E4316E1-43F2-4137-B0A8-E78B77170CCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,10 @@ Global
 		{711EC0E4-EA52-44A6-BD9F-7A00C133CD6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{711EC0E4-EA52-44A6-BD9F-7A00C133CD6C}.Release|x64.ActiveCfg = Release|x64
 		{711EC0E4-EA52-44A6-BD9F-7A00C133CD6C}.Release|x64.Build.0 = Release|x64
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Debug|Any CPU.ActiveCfg = Debug
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Debug|Any CPU.Build.0 = Debug
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Debug|x64.ActiveCfg = Debug
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Debug|x64.Build.0 = Debug
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Release|Any CPU.ActiveCfg = Release
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Release|Any CPU.Build.0 = Release
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Release|x64.ActiveCfg = Release
-		{847BA45C-6BD5-4E6B-97EA-0100BB992757}.Release|x64.Build.0 = Release
+		{1E4316E1-43F2-4137-B0A8-E78B77170CCF}.Debug|Any CPU.ActiveCfg = Debug
+		{1E4316E1-43F2-4137-B0A8-E78B77170CCF}.Debug|x64.ActiveCfg = Debug
+		{1E4316E1-43F2-4137-B0A8-E78B77170CCF}.Release|Any CPU.ActiveCfg = Release
+		{1E4316E1-43F2-4137-B0A8-E78B77170CCF}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

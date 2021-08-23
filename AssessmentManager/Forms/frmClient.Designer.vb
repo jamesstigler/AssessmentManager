@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmClient
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmClient
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -148,6 +148,7 @@ Partial Class frmClient
         Me.cmdImportProposal = New System.Windows.Forms.Button()
         Me.cmdViewProposal = New System.Windows.Forms.Button()
         Me.grpContractInfo = New System.Windows.Forms.GroupBox()
+        Me.cboSICCode = New System.Windows.Forms.ComboBox()
         Me.Label53 = New System.Windows.Forms.Label()
         Me.txtRecordRetentionYears = New System.Windows.Forms.TextBox()
         Me.Label52 = New System.Windows.Forms.Label()
@@ -173,7 +174,6 @@ Partial Class frmClient
         Me.chkContractFeeFlatPerLocFl = New System.Windows.Forms.CheckBox()
         Me.cboAccountRep = New System.Windows.Forms.ComboBox()
         Me.Label58 = New System.Windows.Forms.Label()
-        Me.txtSICCode = New System.Windows.Forms.TextBox()
         Me.Label51 = New System.Windows.Forms.Label()
         Me.txtContractTermYears2 = New System.Windows.Forms.TextBox()
         Me.chkContractRenewalFl = New System.Windows.Forms.CheckBox()
@@ -1397,6 +1397,7 @@ Partial Class frmClient
         '
         'grpContractInfo
         '
+        Me.grpContractInfo.Controls.Add(Me.cboSICCode)
         Me.grpContractInfo.Controls.Add(Me.Label53)
         Me.grpContractInfo.Controls.Add(Me.txtRecordRetentionYears)
         Me.grpContractInfo.Controls.Add(Me.Label52)
@@ -1406,7 +1407,6 @@ Partial Class frmClient
         Me.grpContractInfo.Controls.Add(Me.grpFeeType)
         Me.grpContractInfo.Controls.Add(Me.cboAccountRep)
         Me.grpContractInfo.Controls.Add(Me.Label58)
-        Me.grpContractInfo.Controls.Add(Me.txtSICCode)
         Me.grpContractInfo.Controls.Add(Me.Label51)
         Me.grpContractInfo.Controls.Add(Me.txtContractTermYears2)
         Me.grpContractInfo.Controls.Add(Me.chkContractRenewalFl)
@@ -1420,6 +1420,17 @@ Partial Class frmClient
         Me.grpContractInfo.Size = New System.Drawing.Size(444, 254)
         Me.grpContractInfo.TabIndex = 236
         Me.grpContractInfo.TabStop = False
+        '
+        'cboSICCode
+        '
+        Me.cboSICCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboSICCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSICCode.FormattingEnabled = True
+        Me.cboSICCode.Location = New System.Drawing.Point(220, 12)
+        Me.cboSICCode.Name = "cboSICCode"
+        Me.cboSICCode.Size = New System.Drawing.Size(208, 21)
+        Me.cboSICCode.TabIndex = 292
+        Me.cboSICCode.Tag = "@DB=Clients.SICCode"
         '
         'Label53
         '
@@ -1673,14 +1684,6 @@ Partial Class frmClient
         Me.Label58.TabIndex = 254
         Me.Label58.Text = "Account Rep"
         '
-        'txtSICCode
-        '
-        Me.txtSICCode.Location = New System.Drawing.Point(264, 12)
-        Me.txtSICCode.Name = "txtSICCode"
-        Me.txtSICCode.Size = New System.Drawing.Size(107, 20)
-        Me.txtSICCode.TabIndex = 10
-        Me.txtSICCode.Tag = "@DB=Clients.SICCode"
-        '
         'Label51
         '
         Me.Label51.Location = New System.Drawing.Point(120, 56)
@@ -1849,6 +1852,7 @@ Partial Class frmClient
         Me.lvSpecialExclusions.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.lvSpecialExclusions.FullRowSelect = True
         Me.lvSpecialExclusions.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
+        Me.lvSpecialExclusions.HideSelection = False
         Me.lvSpecialExclusions.Location = New System.Drawing.Point(18, 83)
         Me.lvSpecialExclusions.Name = "lvSpecialExclusions"
         Me.lvSpecialExclusions.Size = New System.Drawing.Size(386, 67)
@@ -2199,7 +2203,6 @@ Partial Class frmClient
     Friend WithEvents Label58 As System.Windows.Forms.Label
     Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents txtSICCode As System.Windows.Forms.TextBox
     Friend WithEvents Label51 As System.Windows.Forms.Label
     Friend WithEvents txtContractFeeContingencyPct As System.Windows.Forms.TextBox
     Friend WithEvents cboAccountRep As System.Windows.Forms.ComboBox
@@ -2234,4 +2237,5 @@ Partial Class frmClient
     Friend WithEvents Label55 As Label
     Friend WithEvents cboREConsultant As ComboBox
     Friend WithEvents chkInterstateAllocationFl As CheckBox
+    Friend WithEvents cboSICCode As ComboBox
 End Class

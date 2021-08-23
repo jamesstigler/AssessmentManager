@@ -49,6 +49,7 @@ Partial Class frmQueryProperties
         Me.cmdOK = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.chkAllYears = New System.Windows.Forms.CheckBox()
         Me.chkCurrentConsultantFl = New System.Windows.Forms.CheckBox()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.TabControl1.SuspendLayout()
@@ -342,6 +343,7 @@ Partial Class frmQueryProperties
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.chkAllYears)
         Me.SplitContainer1.Panel1.Controls.Add(Me.chkCurrentConsultantFl)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtDescription)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtQueryName)
@@ -354,6 +356,18 @@ Partial Class frmQueryProperties
         Me.SplitContainer1.Size = New System.Drawing.Size(1028, 779)
         Me.SplitContainer1.SplitterDistance = 65
         Me.SplitContainer1.TabIndex = 126
+        '
+        'chkAllYears
+        '
+        Me.chkAllYears.AutoSize = True
+        Me.chkAllYears.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkAllYears.Location = New System.Drawing.Point(792, 32)
+        Me.chkAllYears.Name = "chkAllYears"
+        Me.chkAllYears.Size = New System.Drawing.Size(140, 17)
+        Me.chkAllYears.TabIndex = 125
+        Me.chkAllYears.Tag = "@DB=UserQuery.AllTaxYearsFl"
+        Me.chkAllYears.Text = "Include all tax years"
+        Me.chkAllYears.UseVisualStyleBackColor = True
         '
         'chkCurrentConsultantFl
         '
@@ -453,4 +467,5 @@ Partial Class frmQueryProperties
     Friend WithEvents SplitContainer5 As SplitContainer
     Friend WithEvents Panel1 As Panel
     Friend WithEvents chkCurrentConsultantFl As CheckBox
+    Friend WithEvents chkAllYears As CheckBox
 End Class

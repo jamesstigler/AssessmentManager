@@ -197,10 +197,12 @@
         Dim eDataType As enumDataTypes, bAllowNull As Boolean, lLength As Long = 0, sDesc As String = ""
         Dim sQueryFieldValue As String = ""
         Dim bOnlyCurrentConsultant As Boolean = False
+        Dim bAllTaxYears As Boolean = False
 
         sIndexFields = New List(Of String) : sQueryName = "" : sQuerySQL = ""
 
-        sSQL = "SELECT QueryType, QueryName, ISNULL(OrderBy,'') AS OrderBy, ISNULL(CurrentConsultantFl,0) AS CurrentConsultantFl FROM UserQuery WHERE QueryId = " & lQueryId
+        sSQL = "SELECT QueryType, QueryName, ISNULL(OrderBy,'') AS OrderBy, ISNULL(CurrentConsultantFl,0) AS CurrentConsultantFl, ISNULL(AllTaxYearsFl,0) AS AllTaxYearsFl" &
+            " FROM UserQuery WHERE QueryId = " & lQueryId
         lRows = GetData(sSQL, dtUserQuery)
         If lRows = 0 Then Exit Sub
         dr = dtUserQuery.Rows(0)
@@ -209,26 +211,10 @@
         enumQueryType = dr("QueryType")
         sORDERBY = Trim(dr("OrderBy"))
         bOnlyCurrentConsultant = IIf(dr("CurrentConsultantFl") = 0, False, True)
+        bAllTaxYears = IIf(dr("AllTaxYearsFl") = 0, False, True)
 
         If sORDERBY <> "" Then
-            'If enumQueryType = UserQueryType.AllAssessment Or enumQueryType = UserQueryType.AllTaxes Then
-            '    sORDERBY = Replace(sORDERBY, "LocationsBPP", "Locations", 1, , CompareMethod.Binary)
-            '    sORDERBY = Replace(sORDERBY, "LocationsRE", "Locations", 1, , CompareMethod.Binary)
-            '    sORDERBY = Replace(sORDERBY, "AssessmentsBPP", "Assessments", 1, , CompareMethod.Binary)
-            '    sORDERBY = Replace(sORDERBY, "AssessmentsRE", "Assessments", 1, , CompareMethod.Binary)
-            '    sORDERBY = Replace(sORDERBY, "AssessmentDetailBPP", "AssessmentDetail", 1, , CompareMethod.Binary)
-            '    sORDERBY = Replace(sORDERBY, "AssessmentDetailRE", "AssessmentDetail", 1, , CompareMethod.Binary)
             sORDERBY = Replace(sORDERBY, ".", "_", 1, , CompareMethod.Binary)
-            '    arrayOrderBy = Split(sORDERBY, ",")
-            '    sORDERBY = ""
-            '    Dim i As Integer = 0
-            '    sORDERBY = arrayOrderBy(0)
-            '    For i = 0 To UBound(arrayOrderBy)
-            '        If InStr(sORDERBY, arrayOrderBy(i), CompareMethod.Binary) = 0 Then
-            '            sORDERBY = sORDERBY & "," & arrayOrderBy(i)
-            '        End If
-            '    Next
-            'End If
             sORDERBY = " ORDER BY " & sORDERBY
         End If
         sSQL = "SELECT QueryTable, QueryField FROM UserQuerySelect WHERE QueryId = " & lQueryId & " ORDER BY QuerySeqNo"
@@ -249,14 +235,6 @@
                     sPropType = "RE"
                 End If
             End If
-            'sPropType = ""
-            'For Each cSelect In cQuery.SelectList
-            '    If cSelect.QueryTable = "LocationsBPP" Then
-            '        sPropType = "BPP"
-            '    ElseIf cSelect.QueryTable = "LocationsRE" Then
-            '        sPropType = "RE"
-            '    End If
-            'Next
 
             sUserSELECT = ""
             For Each dr In dtUserQuerySelect.Rows
@@ -266,27 +244,12 @@
                         dr("QueryTable") = "AssessmentsRE" Or
                         dr("QueryTable") = "AssessmentDetailRE") Then
                     sUserSELECT = sUserSELECT & " NULL AS " & dr("QueryTable") & "_" & dr("QueryField")
-
                 ElseIf sPropType = "RE" And
                         (dr("QueryTable") = "LocationsBPP" Or
                         dr("QueryTable") = "AssessmentsBPP" Or
                         dr("QueryTable") = "AssessmentDetailBPP") Then
                     sUserSELECT = sUserSELECT & " NULL AS " & dr("QueryTable") & "_" & dr("QueryField")
-
                 Else
-
-                    'If enumQueryType = UserQueryType.AllAssessment Or enumQueryType = UserQueryType.AllTaxes Then
-                    '    If dr("QueryTable") = "LocationsBPP" Or dr("QueryTable") = "LocationsRE" Then
-                    '        sUserSELECT = sUserSELECT & dr("QueryTable") & "." & dr("QueryField") & " AS Locations_" & dr("QueryField")
-                    '    ElseIf dr("QueryTable") = "AssessmentsBPP" Or dr("QueryTable") = "AssessmentsRE" Then
-                    '        sUserSELECT = sUserSELECT & dr("QueryTable") & "." & dr("QueryField") & " AS Assessments_" & dr("QueryField")
-                    '    ElseIf dr("QueryTable") = "AssessmentDetailBPP" Or dr("QueryTable") = "AssessmentDetailRE" Then
-                    '        sUserSELECT = sUserSELECT & dr("QueryTable") & "." & dr("QueryField") & " AS AssessmentDetail_" & dr("QueryField")
-                    '    Else
-                    '        sUserSELECT = sUserSELECT & dr("QueryTable") & "." & dr("QueryField") & " AS " & dr("QueryTable") & "_" & dr("QueryField")
-                    '    End If
-                    'Else
-
                     sTable = dr("QueryTable")
                     sField = dr("QueryField")
                     GetDataDefinition(sTable, sField, eDataType, bAllowNull, lLength, sDesc)
@@ -294,7 +257,6 @@
                         sUserSELECT = sUserSELECT & "REPLACE(REPLACE(" & sTable & "." & sField & ",CHAR(9),' '),CHAR(13)+CHAR(10),' ')"
                         sUserSELECT = sUserSELECT & " AS " & sTable & "_" & sField
                     Else
-                        'sUserSELECT = sUserSELECT & dr("QueryTable") & "." & dr("QueryField") & " AS " & dr("QueryTable") & "_" & dr("QueryField")
                         sUserSELECT = sUserSELECT & sTable & "." & sField & " AS " & sTable & "_" & sField
                     End If
                 End If
@@ -417,29 +379,26 @@
                 End If
             Next
             sQuerySQL = sQuerySQL & " SELECT " & sSELECT & " " & cQuery.JoinStatement
-            'If enumQueryType = UserQueryType.AllAssessment Or enumQueryType = UserQueryType.AllTaxes Or enumQueryType = UserQueryType.BPPAssessment Or _
-            '        enumQueryType = UserQueryType.BPPLocation Or enumQueryType = UserQueryType.BPPTaxes Or enumQueryType = UserQueryType.REAssessment Or _
-            '        enumQueryType = UserQueryType.RELocation Or enumQueryType = UserQueryType.RETaxes Then
-            '    If sWHERE = "" Then
-            '        sWHERE = " WHERE "
-            '    Else
-            '        sWHERE = sWHERE & " AND "
-            '    End If
-            '    sWHERE = sWHERE & " Locations" & sPropType & ".TaxYear = " & AppData.TaxYear
-            'End If
 
             If bOnlyCurrentConsultant Then
                 If cQuery.JoinStatement.Contains("LocationsBPP.") And cQuery.JoinStatement.Contains("Clients.") Then
                     sWHERE = sWHERE & " AND ISNULL(LocationsBPP.ConsultantName,Clients.BPPConsultantName) = " & QuoStr(AppData.ConsultantName)
                 End If
+                If cQuery.JoinStatement.Contains("LocationsRE.") And cQuery.JoinStatement.Contains("Clients.") Then
+                    sWHERE = sWHERE & " AND ISNULL(LocationsRE.ConsultantName,Clients.REConsultantName) = " & QuoStr(AppData.ConsultantName)
+                End If
             End If
-
 
             If cQuery.WhereClause = "" Then
                 sWHERE = " WHERE " & sWHERE
             Else
-                sWHERE = cQuery.WhereClause & " AND " & sWHERE
+                If bAllTaxYears Then
+                    sWHERE = " WHERE " & sWHERE
+                Else
+                    sWHERE = cQuery.WhereClause & " AND " & sWHERE
+                End If
             End If
+
             sQuerySQL = sQuerySQL & sWHERE
         Next
         sQuerySQL = Replace(sQuerySQL, "[TaxYear]", AppData.TaxYear)

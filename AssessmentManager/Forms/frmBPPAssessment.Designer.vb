@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmBPPAssessment
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmBPPAssessment
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -73,6 +73,8 @@ Partial Class frmBPPAssessment
         Me.txtConsultantName = New System.Windows.Forms.TextBox()
         Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtSICCode = New System.Windows.Forms.TextBox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.SuspendLayout()
@@ -264,12 +266,12 @@ Partial Class frmBPPAssessment
         '
         Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextImportTaxBill})
         Me.ContextMenuStrip2.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(151, 26)
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(150, 26)
         '
         'mnuContextImportTaxBill
         '
         Me.mnuContextImportTaxBill.Name = "mnuContextImportTaxBill"
-        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(150, 22)
+        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(149, 22)
         Me.mnuContextImportTaxBill.Text = "Import Tax Bill"
         '
         'chkInactiveFl
@@ -517,7 +519,7 @@ Partial Class frmBPPAssessment
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(86, 345)
+        Me.Label3.Location = New System.Drawing.Point(464, 268)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(62, 20)
         Me.Label3.TabIndex = 241
@@ -528,9 +530,9 @@ Partial Class frmBPPAssessment
         '
         Me.txtConsultantName.AllowDrop = True
         Me.txtConsultantName.Enabled = False
-        Me.txtConsultantName.Location = New System.Drawing.Point(154, 345)
+        Me.txtConsultantName.Location = New System.Drawing.Point(532, 268)
         Me.txtConsultantName.Name = "txtConsultantName"
-        Me.txtConsultantName.Size = New System.Drawing.Size(154, 20)
+        Me.txtConsultantName.Size = New System.Drawing.Size(152, 20)
         Me.txtConsultantName.TabIndex = 28
         Me.txtConsultantName.Tag = ""
         '
@@ -555,11 +557,32 @@ Partial Class frmBPPAssessment
         Me.Label4.Text = "Account Invoiced"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'Label6
+        '
+        Me.Label6.Location = New System.Drawing.Point(464, 296)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(62, 20)
+        Me.Label6.TabIndex = 245
+        Me.Label6.Text = "SIC Code"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtSICCode
+        '
+        Me.txtSICCode.AllowDrop = True
+        Me.txtSICCode.Enabled = False
+        Me.txtSICCode.Location = New System.Drawing.Point(532, 296)
+        Me.txtSICCode.Name = "txtSICCode"
+        Me.txtSICCode.Size = New System.Drawing.Size(152, 20)
+        Me.txtSICCode.TabIndex = 244
+        Me.txtSICCode.Tag = ""
+        '
         'frmBPPAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(828, 389)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.txtSICCode)
         Me.Controls.Add(Me.cboAccountInvoicedStatus)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -664,4 +687,6 @@ Partial Class frmBPPAssessment
     Friend WithEvents txtConsultantName As TextBox
     Friend WithEvents cboAccountInvoicedStatus As ComboBox
     Friend WithEvents Label4 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents txtSICCode As TextBox
 End Class

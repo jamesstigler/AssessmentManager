@@ -1098,7 +1098,8 @@
             lLocationId = row.Cells(sField).Value
             If m_ListType = enumListType.enumLocationBPP Then sField = "TaxYear" Else sField = "LocationsBPP_TaxYear"
             iTaxYear = row.Cells(sField).Value
-            OpenBPPLocation(lClientId, lLocationId, iTaxYear)
+            Dim sMsg As String = ""
+            If Not OpenBPPLocation(lClientId, lLocationId, iTaxYear, sMsg) Then MsgBox(sMsg)
         ElseIf m_ListType = enumListType.enumLocationRE Or m_QueryType = UserQueryType.RELocation Then
             Dim sField As String = ""
             If m_ListType = enumListType.enumLocationRE Then sField = "ClientId" Else sField = "Clients_ClientId"
@@ -1107,7 +1108,8 @@
             lLocationId = row.Cells(sField).Value
             If m_ListType = enumListType.enumLocationRE Then sField = "TaxYear" Else sField = "LocationsRE_TaxYear"
             iTaxYear = row.Cells(sField).Value
-            OpenRELocation(lClientId, lLocationId, iTaxYear)
+            Dim sMsg As String = ""
+            If Not OpenRELocation(lClientId, lLocationId, iTaxYear, sMsg) Then MsgBox(sMsg)
         ElseIf m_QueryType = UserQueryType.BPPAssessment Or m_QueryType = UserQueryType.BPPTaxes Then
             lClientId = row.Cells("Clients_ClientId").Value
             lLocationId = row.Cells("LocationsBPP_LocationId").Value

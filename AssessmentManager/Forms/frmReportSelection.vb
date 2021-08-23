@@ -198,7 +198,14 @@
                         If dicFactorEntitiesName.Count > 0 And dicFactorEntitiesName.ContainsKey(cboFactoringEntity.Text) Then
                             lFactorEntityId = dicFactorEntitiesName(cboFactoringEntity.Text)
                         End If
-
+                        Dim proptype As enumTable
+                        If structAssess.PropType.StartsWith("R") Then
+                            proptype = enumTable.enumLocationRE
+                        ElseIf structAssess.PropType.StartsWith("B") Then
+                            proptype = enumTable.enumLocationBPP
+                        Else
+                            proptype = m_PropType
+                        End If
                         Dim sTempFolder = ""
                         Select Case m_ReportType
                             Case enumReport.enumBatchRendition
@@ -235,6 +242,7 @@
                                 sTempFolder = AppData.TempPath & "\batchprintvalueprotest_" & structAssess.AssessmentId & "_" & DateTime.Now.Ticks
                                 If IO.Directory.Exists(sTempFolder) Then IO.Directory.Delete(sTempFolder, True)
                                 IO.Directory.CreateDirectory(sTempFolder)
+
                                 If chkBatchValueProtestBarCode.Checked Then _
                                         PrintAccount(enumReport.enumBarCode, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
                                         iSuppress, sTempFolder, eContactType, enumBarCodeTypes.Protest, False, False, True, "1", False, False, identifyfields)
@@ -244,11 +252,11 @@
                                 If chkBatchValueProtestCert.Checked Then _
                                         OpenForm(enumReport.enumCertificateOfMailing, structAssess.ClientId, structAssess.LocationId,
                                             structAssess.AssessmentId, structAssess.TaxYear, structAssess.AssessorId, structAssess.StateCd, "", False,
-                                            enumTable.enumLocationBPP, sTempFolder, "3", True, identifyfields, "")
+                                            proptype, sTempFolder, "3", True, identifyfields, "")
                                 If chkBatchValueProtestProtest.Checked Then _
                                         OpenForm(enumReport.enumValueProtestForm, structAssess.ClientId, structAssess.LocationId,
                                             structAssess.AssessmentId, structAssess.TaxYear, structAssess.AssessorId, structAssess.StateCd, "", False,
-                                            enumTable.enumLocationBPP, sTempFolder, "4", True, identifyfields, "")
+                                            proptype, sTempFolder, "4", True, identifyfields, "")
                                 Dim sCombinedFile As String = sTempFolder & "\" & CleanFileName(structAssess.Description & "_ValueProtestBatch.pdf")
                                 Dim listFiles As List(Of String) = IO.Directory.GetFiles(sTempFolder, "*.pdf", IO.SearchOption.TopDirectoryOnly).ToList
                                 If ConcatPages(listFiles, sCombinedFile) Then

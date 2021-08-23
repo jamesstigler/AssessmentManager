@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmBPPTaxList
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,14 +20,14 @@ Partial Class frmBPPTaxList
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtAcctNum = New System.Windows.Forms.TextBox()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
@@ -74,6 +74,8 @@ Partial Class frmBPPTaxList
         Me.fraHistory = New System.Windows.Forms.GroupBox()
         Me.cmdViewAssessment = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.txtSICCode = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
         Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -252,8 +254,8 @@ Partial Class frmBPPTaxList
         'Total
         '
         Me.Total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Total.DefaultCellStyle = DataGridViewCellStyle6
         Me.Total.HeaderText = "Total"
         Me.Total.Name = "Total"
         Me.Total.ReadOnly = True
@@ -270,12 +272,12 @@ Partial Class frmBPPTaxList
         '
         Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextImportTaxBill})
         Me.ContextMenuStrip2.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(151, 26)
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(150, 26)
         '
         'mnuContextImportTaxBill
         '
         Me.mnuContextImportTaxBill.Name = "mnuContextImportTaxBill"
-        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(150, 22)
+        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(149, 22)
         Me.mnuContextImportTaxBill.Text = "Import Tax Bill"
         '
         'cmdRefresh
@@ -322,9 +324,9 @@ Partial Class frmBPPTaxList
         '
         'Label21
         '
-        Me.Label21.Location = New System.Drawing.Point(348, 16)
+        Me.Label21.Location = New System.Drawing.Point(328, 16)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(62, 20)
+        Me.Label21.Size = New System.Drawing.Size(50, 20)
         Me.Label21.TabIndex = 221
         Me.Label21.Text = "Client ID"
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -332,9 +334,9 @@ Partial Class frmBPPTaxList
         'txtClientLocationId
         '
         Me.txtClientLocationId.AllowDrop = True
-        Me.txtClientLocationId.Location = New System.Drawing.Point(412, 16)
+        Me.txtClientLocationId.Location = New System.Drawing.Point(380, 16)
         Me.txtClientLocationId.Name = "txtClientLocationId"
-        Me.txtClientLocationId.Size = New System.Drawing.Size(156, 20)
+        Me.txtClientLocationId.Size = New System.Drawing.Size(120, 20)
         Me.txtClientLocationId.TabIndex = 1
         Me.txtClientLocationId.Tag = "@DB=LocationsBPP.ClientLocationId"
         '
@@ -579,15 +581,15 @@ Partial Class frmBPPTaxList
         Me.dgHistory.AllowUserToDeleteRows = False
         Me.dgHistory.AllowUserToOrderColumns = True
         Me.dgHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.Format = "N0"
-        DataGridViewCellStyle2.NullValue = Nothing
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.Format = "N0"
+        DataGridViewCellStyle7.NullValue = Nothing
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgHistory.Location = New System.Drawing.Point(6, 17)
         Me.dgHistory.Name = "dgHistory"
@@ -632,6 +634,8 @@ Partial Class frmBPPTaxList
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label6)
         Me.SplitContainer1.Panel1.Controls.Add(Me.chkInterstateAllocationFl)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboAccountInvoicedStatus)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label4)
@@ -683,6 +687,25 @@ Partial Class frmBPPTaxList
         Me.SplitContainer1.SplitterDistance = 251
         Me.SplitContainer1.TabIndex = 250
         '
+        'txtSICCode
+        '
+        Me.txtSICCode.AllowDrop = True
+        Me.txtSICCode.Enabled = False
+        Me.txtSICCode.Location = New System.Drawing.Point(716, 16)
+        Me.txtSICCode.Name = "txtSICCode"
+        Me.txtSICCode.Size = New System.Drawing.Size(140, 20)
+        Me.txtSICCode.TabIndex = 264
+        Me.txtSICCode.Tag = ""
+        '
+        'Label6
+        '
+        Me.Label6.Location = New System.Drawing.Point(660, 16)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(57, 20)
+        Me.Label6.TabIndex = 265
+        Me.Label6.Text = "SIC Code"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'chkInterstateAllocationFl
         '
         Me.chkInterstateAllocationFl.AutoSize = True
@@ -720,15 +743,15 @@ Partial Class frmBPPTaxList
         '
         Me.txtConsultantName.AllowDrop = True
         Me.txtConsultantName.Enabled = False
-        Me.txtConsultantName.Location = New System.Drawing.Point(648, 16)
+        Me.txtConsultantName.Location = New System.Drawing.Point(564, 16)
         Me.txtConsultantName.Name = "txtConsultantName"
-        Me.txtConsultantName.Size = New System.Drawing.Size(154, 20)
+        Me.txtConsultantName.Size = New System.Drawing.Size(92, 20)
         Me.txtConsultantName.TabIndex = 259
         Me.txtConsultantName.Tag = ""
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(584, 16)
+        Me.Label3.Location = New System.Drawing.Point(500, 16)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(62, 20)
         Me.Label3.TabIndex = 260
@@ -794,14 +817,14 @@ Partial Class frmBPPTaxList
         Me.dgComments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgComments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgComments.ContextMenuStrip = Me.ContextMenuStrip3
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgComments.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgComments.Location = New System.Drawing.Point(0, 0)
         Me.dgComments.Margin = New System.Windows.Forms.Padding(0)
@@ -845,23 +868,23 @@ Partial Class frmBPPTaxList
         Me.dgECU.AllowUserToDeleteRows = False
         Me.dgECU.AllowUserToOrderColumns = True
         Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.Format = "N0"
-        DataGridViewCellStyle4.NullValue = Nothing
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.Format = "N0"
+        DataGridViewCellStyle3.NullValue = Nothing
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgECU.Location = New System.Drawing.Point(3, 16)
         Me.dgECU.Name = "dgECU"
         Me.dgECU.ReadOnly = True
         Me.dgECU.RowHeadersVisible = False
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle9
         Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgECU.ShowCellErrors = False
         Me.dgECU.ShowCellToolTips = False
@@ -1000,4 +1023,6 @@ Partial Class frmBPPTaxList
     Friend WithEvents cboAccountInvoicedStatus As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents chkInterstateAllocationFl As CheckBox
+    Friend WithEvents txtSICCode As TextBox
+    Friend WithEvents Label6 As Label
 End Class
