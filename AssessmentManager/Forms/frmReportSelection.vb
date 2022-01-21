@@ -199,6 +199,7 @@
                             lFactorEntityId = dicFactorEntitiesName(cboFactoringEntity.Text)
                         End If
                         Dim proptype As enumTable
+                        If structAssess.PropType Is Nothing Then structAssess.PropType = ""
                         If structAssess.PropType.StartsWith("R") Then
                             proptype = enumTable.enumLocationRE
                         ElseIf structAssess.PropType.StartsWith("B") Then

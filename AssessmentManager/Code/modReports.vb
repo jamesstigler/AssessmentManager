@@ -213,6 +213,7 @@
         Dim progresscounter As Long = 0, rowsinresults As Long = 0, resetcounter As Integer = 0
         Dim sql As New StringBuilder
         Dim bIncludeRow As Boolean = False, sDesc As String = ""
+        Dim sProperty As New StringBuilder
 
         Try
             'need to incorporate batch printing into the print server
@@ -987,7 +988,7 @@
                         eType = enumReport.enumBPPCompBarCode Or
                         eType = enumReport.enumTaxSavings Or
                         eType = enumReport.enumBarCode Or
-                        eType = enumReport.enumMissingTaxBills Or
+                        eType = enumReport.enumMissingTaxBills Or eType = enumReport.enumTaxBill Or
                         eType = enumReport.enumCompletedRenditions Or
                         eType = enumReport.enumValueComparison Or
                         eType = enumReport.enumREComp Or eType = enumReport.enumFixedAssetReconByDeprCode Or eType = enumReport.enumFixedAssetReconByGLCode Then
@@ -1007,46 +1008,125 @@
             End If
 
             If eType = enumReport.enumTaxBill Then
+                Dim dtinstallments As DataTable
+                dtinstallments = GetInstallments(lClientId, lLocationId, lAssessmentId, iTaxYear, ePropType)
+                clsReport = New clsReportData
                 For Each row In dt.Rows
-                    sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Title02,Date01," &
-                        " Text01,Text02,Text03," &
-                        " Date02," &
-                        " Text05," &
-                        " Text06," &
-                        " Text07," &
-                        " Text08,Text09," &
-                        " Text10,Text11," &
-                        " Text12,Text13," &
-                        " Number01,Number02,Number03," &
-                        "Text14, BarCode1, BarCode2) SELECT " &
-                        QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                        QuoStr(AppData.FirmName & vbCrLf & sTitle) & "," & QuoStr(sName) & "," & QuoStr(Format(Now, csDate)) & "," &
-                        QuoStr(IIf(row("LegalOwner").ToString.Trim.ToUpper = row("Clients_Name").ToString.Trim.ToUpper, "", row("LegalOwner").ToString.Trim)) & "," &
-                        QuoStr(row("Locations_StateCd")) & "," & QuoStr(UnNullToString(row("Collectors_Name"))) & "," &
-                        IIf(IsDBNull(row("Collectors_DueDate")), "NULL", QuoStr(UnNullToString(row("Collectors_DueDate")))) & "," &
-                        QuoStr(UnNullToString(row("LienDate"))) & "," &
-                        IIf(row("PropertyType") = "P", "'Personal Property'", "'Real Estate'") & "," &
-                        QuoStr(UnNullToString(row("Locations_Address")) & vbCrLf &
-                        UnNullToString(row("Locations_City")) & ", " & row("Locations_StateCd")) & "," &
-                        QuoStr(UnNullToString(row("Locations_Name"))) & "," & QuoStr(UnNullToString(row("ClientLocationId"))) & "," &
-                        QuoStr(UnNullToString(row("Jurisdictions_Name"))) & "," & QuoStr(UnNullToString(row("AcctNum"))) & "," &
-                        QuoStr(UnNullToString(row("Payee"))) & "," & QuoStr(UnNullToString(row("Collectors_Address1")) & vbCrLf &
-                        UnNullToString(row("Collectors_City")) & ", " & UnNullToString(row("Collectors_PayeeStateCd")) & "  " &
-                        UnNullToString(row("Collectors_Zip"))) & "," &
-                        iTaxYear & "," & UnNullToDouble(row("TaxDue")) & "," & UnNullToDouble(row("CollectorId")) & "," &
-                        QuoStr(row("Clients_Name")) & "," &
-                        QuoStr(BuildBarCode1(enumBarCodeTypes.TaxBill,
+                    clsReport.Title01 = AppData.FirmName & vbCrLf & sTitle
+                    clsReport.Title02 = sName
+                    clsReport.Date02 = IIf(IsDBNull(row("Collectors_DueDate")), "NULL", UnNullToString(row("Collectors_DueDate")))
+                    clsReport.Date03 = IIf(IsDBNull(row("Collectors_DueDate")), "NULL", UnNullToString(Convert.ToDateTime(row("Collectors_DueDate")).AddDays(1)))
+                    sProperty.Clear()
+                    sProperty.Append(IIf(row("LegalOwner").ToString.Trim.ToUpper = "", row("Clients_Name").ToString.Trim, row("LegalOwner").ToString.Trim)).Append(vbCrLf)
+                    sProperty.Append(UnNullToString(row("Locations_Address"))).Append(vbCrLf)
+                    sProperty.Append(UnNullToString(row("Locations_City"))).Append(", ").Append(row("Locations_StateCd").ToString).Append(vbCrLf)
+                    sProperty.Append(UnNullToString(row("Locations_Name"))).Append(IIf(row("Locations_Name").ToString().Trim() <> "", " ", ""))
+                    sProperty.Append(UnNullToString(row("ClientLocationId")))
+                    clsReport.Text01 = sProperty.ToString
+                    clsReport.Text02 = IIf(row("PropertyType") = "P", "BPP", "Real Estate")
+                    clsReport.Text03 = IIf(row("PropertyType") = "P", Format(row("BPPRatio"), csPctNoDec), Format(row("RERatio"), csPctNoDec))
+                    'installments
+                    clsReport.Text04 = ""
+                    clsReport.Text05 = ""
+                    clsReport.Text06 = ""
+                    clsReport.Text07 = ""
+                    Dim dv As New DataView(dtinstallments, "CollectorId=" & row("CollectorId"), "PayToDt", DataViewRowState.OriginalRows)
+                    If dv.Count > 0 Then
+                        Dim dtthisinstall = dv.ToTable()
+                        If dtthisinstall.Rows.Count > 0 Then
+                            clsReport.Text04 = ""
+                            clsReport.Text05 = ""
+                            clsReport.Text06 = ""
+                            clsReport.Text07 = "Installments"
+                            For Each dr As DataRow In dtthisinstall.Rows
+                                If clsReport.Text04 <> "" Then clsReport.Text04 = clsReport.Text04 & vbCrLf
+                                If clsReport.Text05 <> "" Then clsReport.Text05 = clsReport.Text05 & vbCrLf
+                                If clsReport.Text06 <> "" Then clsReport.Text06 = clsReport.Text06 & vbCrLf
+                                clsReport.Text04 = clsReport.Text04 & "Due"
+                                clsReport.Text05 = clsReport.Text05 & Format(dr("PayToDt"), csDate)
+                                clsReport.Text06 = clsReport.Text06 & Format(dr("PayAmt"), csDol)
+                            Next
+                        End If
+                    End If
+                    clsReport.Text09 = row("Assessors_Name").ToString
+                    clsReport.Text10 = row("Jurisdictions_Name").ToString
+                    clsReport.Text11 = row("TaxBillAcctNum").ToString()
+                    clsReport.Text12 = row("Payee").ToString() & vbCrLf &
+                        row("Collectors_Address1").ToString & vbCrLf &
+                        row("Collectors_City").ToString & ", " & row("Collectors_PayeeStateCd").ToString & "  " & row("Collectors_Zip")
+                    clsReport.Text14 = sName
+                    clsReport.Text15 = "Tax Consultant:" & vbCrLf &
+                        row("Consultants_FullName").ToString & vbCrLf &
+                        row("Consultants_EMail").ToString & vbCrLf &
+                        row("Consultants_Phone").ToString & vbCrLf
+                    If row("TaxBillNotes").ToString.Length > 0 Then
+                        clsReport.Text16 = "Important Tax Notes:" & vbCrLf & vbCrLf & row("TaxBillNotes").ToString
+                    Else
+                        clsReport.Text16 = ""
+                    End If
+                    clsReport.Number01 = iTaxYear
+                    clsReport.Number02 = UnNullToDouble(row("TaxDue"))
+                    clsReport.Number03 = UnNullToDouble(row("CollectorId"))
+                    clsReport.Number04 = UnNullToDouble(row("TaxRate"))
+                    clsReport.Number05 = UnNullToDouble(row("FinalValue"))
+                    clsReport.Number06 = UnNullToDouble(row("TaxableValue"))
+                    'clsReport.Number07 = UnNullToDouble(row("TaxBillAdjAmt1"))
+                    clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.TaxBill,
                         row("ClientId"), row("TaxYear"),
                         IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
                         row("LocationId"),
-                        row("AssessmentId"), 0, row("CollectorId"))) & "," &
-                        QuoStr(BuildBarCode2(enumBarCodeTypes.TaxBill,
+                        row("AssessmentId"), 0, row("CollectorId"))
+                    clsReport.BarCode2 = BuildBarCode2(enumBarCodeTypes.TaxBill,
                         row("ClientId"), row("TaxYear"),
                         IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
                         row("LocationId"),
-                        row("AssessmentId"), 0, row("CollectorId")))
-                    ExecuteSQL(sSQL)
+                        row("AssessmentId"), 0, row("CollectorId"))
+
+                    clsReport.WriteReportData()
                 Next
+
+
+
+                'For Each row In dt.Rows
+                '    sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Title02,Date01," &
+                '        " Text01,Text02,Text03," &
+                '        " Date02," &
+                '        " Text05," &
+                '        " Text06," &
+                '        " Text07," &
+                '        " Text08,Text09," &
+                '        " Text10,Text11," &
+                '        " Text12,Text13," &
+                '        " Number01,Number02,Number03," &
+                '        "Text14, BarCode1, BarCode2) SELECT " &
+                '        QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
+                '        QuoStr(AppData.FirmName & vbCrLf & sTitle) & "," & QuoStr(sName) & "," & QuoStr(Format(Now, csDate)) & "," &
+                '        QuoStr(IIf(row("LegalOwner").ToString.Trim.ToUpper = row("Clients_Name").ToString.Trim.ToUpper, "", row("LegalOwner").ToString.Trim)) & "," &
+                '        QuoStr(row("Locations_StateCd")) & "," & QuoStr(UnNullToString(row("Collectors_Name"))) & "," &
+                '        IIf(IsDBNull(row("Collectors_DueDate")), "NULL", QuoStr(UnNullToString(row("Collectors_DueDate")))) & "," &
+                '        QuoStr(UnNullToString(row("LienDate"))) & "," &
+                '        IIf(row("PropertyType") = "P", "'Personal Property'", "'Real Estate'") & "," &
+                '        QuoStr(UnNullToString(row("Locations_Address")) & vbCrLf &
+                '        UnNullToString(row("Locations_City")) & ", " & row("Locations_StateCd")) & "," &
+                '        QuoStr(UnNullToString(row("Locations_Name"))) & "," & QuoStr(UnNullToString(row("ClientLocationId"))) & "," &
+                '        QuoStr(UnNullToString(row("Jurisdictions_Name"))) & "," & QuoStr(UnNullToString(row("AcctNum"))) & "," &
+                '        QuoStr(UnNullToString(row("Payee"))) & "," & QuoStr(UnNullToString(row("Collectors_Address1")) & vbCrLf &
+                '        UnNullToString(row("Collectors_City")) & ", " & UnNullToString(row("Collectors_PayeeStateCd")) & "  " &
+                '        UnNullToString(row("Collectors_Zip"))) & "," &
+                '        iTaxYear & "," & UnNullToDouble(row("TaxDue")) & "," & UnNullToDouble(row("CollectorId")) & "," &
+                '        QuoStr(row("Clients_Name")) & "," &
+                '        QuoStr(BuildBarCode1(enumBarCodeTypes.TaxBill,
+                '        row("ClientId"), row("TaxYear"),
+                '        IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
+                '        row("LocationId"),
+                '        row("AssessmentId"), 0, row("CollectorId"))) & "," &
+                '        QuoStr(BuildBarCode2(enumBarCodeTypes.TaxBill,
+                '        row("ClientId"), row("TaxYear"),
+                '        IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
+                '        row("LocationId"),
+                '        row("AssessmentId"), 0, row("CollectorId")))
+                '    ExecuteSQL(sSQL)
+                'Next
             ElseIf eType = enumReport.enumBarCode Then
                 clsReport = New clsReportData
                 For Each row In dt.Rows
@@ -1984,7 +2064,7 @@
                     eType = enumReport.enumMissingTaxBills Or eType = enumReport.enumREComp Then
                 OpenReport(eType, sReportText, bSendToPrinter, sPDFFileName, sExportFolder, clsReport.ReportDataTable)
             ElseIf eType = enumReport.enumTaxBill Then
-                If OpenReport(eType, sReportText, bSendToPrinter, sPDFFileName, sExportFolder) Then
+                If OpenReport(eType, sReportText, bSendToPrinter, sPDFFileName, sExportFolder, clsReport.ReportDataTable) Then
                     SetTaxBillPrintedDate(lClientId, lLocationId, lAssessmentId, JurisdictionList, iTaxYear, ePropType)
                 End If
             ElseIf eType = enumReport.enumTaxBillCheckOff Then
@@ -2133,8 +2213,8 @@
                 sSQL = "SELECT * FROM ReportData" & sWHERE
                 sReportFile = "rptAssetDetailCost.rpt"
             Case enumReport.enumTaxBill
-                sSQL = "select * from ReportData" & sWHERE & " ORDER BY ID"
-                sReportFile = "rptTaxBill.rpt"
+                'sSQL = "select * from ReportData" & sWHERE & " ORDER BY ID"
+                sReportFile = "rptTaxBillTransmittal.rpt"
             Case enumReport.enumBarCode
                 sSQL = "select * from ReportData" & sWHERE & " ORDER BY ID"
                 sReportFile = "rptBarCode.rpt"
@@ -2188,7 +2268,7 @@
         If eType = enumReport.enumTaxAccrual Or eType = enumReport.enumBPPCompBarCode Or eType = enumReport.enumTaxSavings Or eType = enumReport.enumBarCode _
                 Or eType = enumReport.enumCompletedRenditions Or eType = enumReport.enumFixedAssetReconByGLCode Or eType = enumReport.enumFixedAssetReconByDeprCode _
                 Or eType = enumReport.enumValueComparison _
-                Or eType = enumReport.enumMissingTaxBills Or eType = enumReport.enumREComp Then
+                Or eType = enumReport.enumMissingTaxBills Or eType = enumReport.enumTaxBill Or eType = enumReport.enumREComp Then
             dtReportData = dt
         Else
             Dim clsReport As New clsReportDataSet
@@ -2361,6 +2441,20 @@
         Catch ex As Exception
             LogMsg("Error printing Tax Accrual Summary:  " & ex.Message)
             Return False
+        End Try
+    End Function
+    Private Function GetInstallments(clientid As Long, locationid As Long, assessmentid As Long, taxyear As Integer, proptype As enumTable) As DataTable
+        Dim dt As New DataTable
+        Try
+            Dim sql As New StringBuilder("SELECT CollectorId, PayFromDt, PayToDt, ISNULL(PayAmt,0) AS PayAmt FROM Installments")
+            sql.Append(IIf(proptype = enumTable.enumLocationBPP, "BPP", "RE"))
+            sql.Append(" WHERE ClientId=").Append(clientid).Append(" AND LocationId=").Append(locationid).Append(" AND AssessmentId=").Append(assessmentid)
+            sql.Append(" AND TaxYear=").Append(taxyear).Append(" ORDER BY CollectorId, PayToDt")
+            GetData(sql.ToString, dt)
+            Return dt
+        Catch ex As Exception
+            LogMsg("Error getting installments:  " & ex.Message)
+            Return dt
         End Try
     End Function
 End Module

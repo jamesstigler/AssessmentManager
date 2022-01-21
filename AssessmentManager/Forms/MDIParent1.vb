@@ -330,7 +330,8 @@ Public Class MDIParent1
 
     Private Sub MDIParent1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not StartApp() Then End
-        Me.Text = AppData.AppName & " version:  " & AppData.Version & IIf(AppData.PrintServer, " (Print Server)", "")
+        Me.Text = AppData.AppName & " version:  " & AppData.Version & IIf(AppData.PrintServer, " (Print Server)", "") & ", datebase:  " & AppData.Server
+
         mnuOptionsTaxYear2008.Checked = False
         mnuOptionsTaxYear2009.Checked = False
         mnuOptionsTaxYear2010.Checked = False
@@ -345,6 +346,8 @@ Public Class MDIParent1
         mnuOptionsTaxYear2019.Checked = False
         mnuOptionsTaxYear2020.Checked = False
         mnuOptionsTaxYear2021.Checked = False
+        mnuOptionsTaxYear2022.Checked = False
+
         If AppData.TaxYear = 2008 Then
             mnuOptionsTaxYear2008.Checked = True
         ElseIf AppData.TaxYear = 2009 Then
@@ -373,6 +376,8 @@ Public Class MDIParent1
             mnuOptionsTaxYear2020.Checked = True
         ElseIf AppData.TaxYear = 2021 Then
             mnuOptionsTaxYear2021.Checked = True
+        ElseIf AppData.TaxYear = 2022 Then
+            mnuOptionsTaxYear2022.Checked = True
         End If
         If AppData.IncludeInactive Then mnuOptionsIncludeInactive.Checked = True Else mnuOptionsIncludeInactive.Checked = False
         If AppData.PrintServer = True Then Timer1.Enabled = True
@@ -657,7 +662,7 @@ Public Class MDIParent1
             mnuOptionsTaxYear2009.Click, mnuOptionsTaxYear2010.Click, mnuOptionsTaxYear2011.Click, mnuOptionsTaxYear2012.Click,
             mnuOptionsTaxYear2013.Click, mnuOptionsTaxYear2014.Click, mnuOptionsTaxYear2015.Click, mnuOptionsTaxYear2016.Click,
             mnuOptionsTaxYear2017.Click, mnuOptionsTaxYear2018.Click, mnuOptionsTaxYear2019.Click, mnuOptionsTaxYear2020.Click,
-            mnuOptionsTaxYear2021.Click
+            mnuOptionsTaxYear2021.Click, mnuOptionsTaxYear2022.Click
 
         ''   *********     WHEN ADDING TAX YEAR, SEARCH FOR mnuOptionsTaxYear2016 AND ADD YEAR.  NO VALIDTAXYEARS ARRAY.     ************
 
@@ -677,6 +682,7 @@ Public Class MDIParent1
             mnuOptionsTaxYear2019.Checked = False
             mnuOptionsTaxYear2020.Checked = False
             mnuOptionsTaxYear2021.Checked = False
+            mnuOptionsTaxYear2022.Checked = False
 
             sender.checked = True
             AppData.TaxYear = Val(Microsoft.VisualBasic.Right(sender.name, 4))

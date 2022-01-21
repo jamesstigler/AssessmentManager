@@ -368,16 +368,19 @@ Public Class clsData
         Dim fs As New FileStream(sFile, FileMode.Open, FileAccess.Read)
         Dim bloblen As Integer = CInt(fs.Length)
         Dim BLOB(bloblen) As Byte
-        Dim sSQL As New StringBuilder
-
+        Dim sql As New StringBuilder
 
         fs.Read(BLOB, 0, bloblen)
         fs.Close()
-        sSQL.Length = 0
-        sSQL.Append("INSERT " & sTable)
-        sSQL.Append(" (ClientId,LocationId,AssessmentId,CollectorId,TaxYear,FormData,AddUser) VALUES ")
-        sSQL.Append(" (@ClientId,@LocationId,@AssessmentId,@CollectorId,@TaxYear,@FormData,@AddUser)")
-        Dim cmd As SqlCommand = New SqlCommand(sSQL.ToString, cn)
+        sql.Length = 0
+        sql.Append("UPDATE ").Append(sTable).Append(" SET FormData=@FormData,ChangeUser=@AddUser,ChangeDate=GETDATE(),ChangeType=2")
+        sql.Append(" WHERE ClientId=@ClientId AND LocationId=@LocationId AND AssessmentId=@AssessmentId AND CollectorId=@CollectorId AND TaxYear=@TaxYear")
+        sql.Append(" IF @@ROWCOUNT=0 BEGIN ")
+        sql.Append("INSERT " & sTable)
+        sql.Append(" (ClientId,LocationId,AssessmentId,CollectorId,TaxYear,FormData,AddUser) VALUES ")
+        sql.Append(" (@ClientId,@LocationId,@AssessmentId,@CollectorId,@TaxYear,@FormData,@AddUser)")
+        sql.Append(" END")
+        Dim cmd As SqlCommand = New SqlCommand(sql.ToString, cn)
         cmd.CommandType = CommandType.Text
         cmd.Parameters.Add("@ClientId", SqlDbType.BigInt)
         cmd.Parameters("@ClientId").Direction = ParameterDirection.Input
@@ -393,8 +396,6 @@ Public Class clsData
         cmd.Parameters("@AddUser").Direction = ParameterDirection.Input
         cmd.Parameters.Add("@FormData", SqlDbType.Image)
         cmd.Parameters("@FormData").Direction = ParameterDirection.Input
-
-
         cmd.Parameters("@ClientId").Value = lClientId
         cmd.Parameters("@LocationId").Value = lLocationId
         cmd.Parameters("@AssessmentId").Value = lAssessmentId
@@ -403,11 +404,11 @@ Public Class clsData
         cmd.Parameters("@AddUser").Value = sUserName
         ' Store the byte array in the image field
         cmd.Parameters("@FormData").Value = BLOB
+
+        Debug.Print(sql.ToString)
+
+
         cmd.ExecuteNonQuery()
-
-
-
-
 
         Return True
     End Function

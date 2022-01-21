@@ -1,8 +1,11 @@
 use AssessmentManagerData
 
 alter table UserQuery add AllTaxYearsFl bit null
-alter table LocationsBPP add SICCode varchar(255)
-alter table LocationsRE add SICCode varchar(255)
+alter table LocationsBPP add SICCode varchar(255) null
+alter table LocationsRE add SICCode varchar(255) null
+alter table Consultants add Phone varchar(50) null, EMail varchar(255) null
+alter table TaxBillsBPP add TaxBillNotes varchar(1000) null, TaxBillAcctNum varchar(50) null
+alter table TaxBillsRE add TaxBillNotes varchar(1000) null, TaxBillAcctNum varchar(50) null
 
 CREATE TABLE [dbo].[SICCodes](
 	[SICCode] [varchar](255) NOT NULL,

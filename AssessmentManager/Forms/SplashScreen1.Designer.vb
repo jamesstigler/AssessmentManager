@@ -28,11 +28,11 @@ Partial Class SplashScreen1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SplashScreen1))
-        Me.MainLayoutPanel = New System.Windows.Forms.TableLayoutPanel
-        Me.DetailsLayoutPanel = New System.Windows.Forms.TableLayoutPanel
-        Me.Version = New System.Windows.Forms.Label
-        Me.Copyright = New System.Windows.Forms.Label
-        Me.ApplicationTitle = New System.Windows.Forms.Label
+        Me.MainLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.DetailsLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.Version = New System.Windows.Forms.Label()
+        Me.Copyright = New System.Windows.Forms.Label()
+        Me.ApplicationTitle = New System.Windows.Forms.Label()
         Me.MainLayoutPanel.SuspendLayout()
         Me.DetailsLayoutPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -51,7 +51,7 @@ Partial Class SplashScreen1
         Me.MainLayoutPanel.Name = "MainLayoutPanel"
         Me.MainLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 218.0!))
         Me.MainLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38.0!))
-        Me.MainLayoutPanel.Size = New System.Drawing.Size(496, 303)
+        Me.MainLayoutPanel.Size = New System.Drawing.Size(494, 307)
         Me.MainLayoutPanel.TabIndex = 0
         Me.MainLayoutPanel.UseWaitCursor = True
         '
@@ -64,11 +64,11 @@ Partial Class SplashScreen1
         Me.DetailsLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142.0!))
         Me.DetailsLayoutPanel.Controls.Add(Me.Version, 0, 0)
         Me.DetailsLayoutPanel.Controls.Add(Me.Copyright, 0, 1)
-        Me.DetailsLayoutPanel.Location = New System.Drawing.Point(246, 221)
+        Me.DetailsLayoutPanel.Location = New System.Drawing.Point(246, 223)
         Me.DetailsLayoutPanel.Name = "DetailsLayoutPanel"
         Me.DetailsLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
         Me.DetailsLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
-        Me.DetailsLayoutPanel.Size = New System.Drawing.Size(247, 79)
+        Me.DetailsLayoutPanel.Size = New System.Drawing.Size(245, 79)
         Me.DetailsLayoutPanel.TabIndex = 1
         Me.DetailsLayoutPanel.UseWaitCursor = True
         '
@@ -105,7 +105,7 @@ Partial Class SplashScreen1
         Me.ApplicationTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ApplicationTitle.Location = New System.Drawing.Point(246, 3)
         Me.ApplicationTitle.Name = "ApplicationTitle"
-        Me.ApplicationTitle.Size = New System.Drawing.Size(247, 212)
+        Me.ApplicationTitle.Size = New System.Drawing.Size(245, 212)
         Me.ApplicationTitle.TabIndex = 0
         Me.ApplicationTitle.Text = "Application Title"
         Me.ApplicationTitle.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -115,7 +115,7 @@ Partial Class SplashScreen1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(496, 303)
+        Me.ClientSize = New System.Drawing.Size(494, 307)
         Me.ControlBox = False
         Me.Controls.Add(Me.MainLayoutPanel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle

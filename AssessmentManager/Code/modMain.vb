@@ -1323,10 +1323,10 @@ Module modMain
                 Dim sFile As String = openFileDialog1.FileName
 
                 ExecuteSQL("begin transaction")
-                sSQL = "DELETE TaxBills" & sPropType & " WHERE ClientId = " & lClientId & _
-                    " AND LocationId = " & lLocationId & " AND AssessmentId = " & lAssessmentId & _
-                    " AND CollectorId = " & lCollectorId & " AND TaxYear = " & iTaxYear
-                ExecuteSQL(sSQL)
+                'sSQL = "DELETE TaxBills" & sPropType & " WHERE ClientId = " & lClientId & _
+                '    " AND LocationId = " & lLocationId & " AND AssessmentId = " & lAssessmentId & _
+                '    " AND CollectorId = " & lCollectorId & " AND TaxYear = " & iTaxYear
+                'ExecuteSQL(sSQL)
                 If StoreTaxBillBLOB("TaxBills" & sPropType, lClientId, lLocationId, lAssessmentId, lCollectorId, iTaxYear, sUserName, sFile) Then
                     ExecuteSQL("commit transaction")
                     Return True
@@ -2024,29 +2024,29 @@ Module modMain
             '    " AND t2.TaxYear = " & iToYear & ")"
             'lRows = ExecuteSQL(sSQL)
 
-            sSQL = "INSERT LocationsBPP (ClientId,LocationId,TaxYear,Address,Name,City,StateCd,Zip," & _
-                " LegalDescription,LegalOwner,ClientLocationId,Comment,InactiveFl,ConsultantName,AddUser)" & _
-                " SELECT t1.ClientId,t1.LocationId," & iToYear & "," & _
-                " t1.Address,t1.Name,t1.City,t1.StateCd,t1.Zip,t1.LegalDescription,t1.LegalOwner," & _
-                " t1.ClientLocationId,t1.Comment,t1.InactiveFl,t1.ConsultantName," & _
-                QuoStr(AppData.UserId) & _
-                " FROM LocationsBPP t1 WHERE t1.TaxYear = " & iFromYear & _
-                " AND NOT EXISTS(SELECT t2.ClientId FROM LocationsBPP t2" & _
-                " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" & _
+            sSQL = "INSERT LocationsBPP (ClientId,LocationId,TaxYear,Address,Name,City,StateCd,Zip," &
+                " LegalDescription,LegalOwner,ClientLocationId,Comment,InactiveFl,ConsultantName,AddUser,SICCode)" &
+                " SELECT t1.ClientId,t1.LocationId," & iToYear & "," &
+                " t1.Address,t1.Name,t1.City,t1.StateCd,t1.Zip,t1.LegalDescription,t1.LegalOwner," &
+                " t1.ClientLocationId,t1.Comment,t1.InactiveFl,t1.ConsultantName," &
+                QuoStr(AppData.UserId) & ",t1.SICCode" &
+                " FROM LocationsBPP t1 WHERE t1.TaxYear = " & iFromYear &
+                " AND NOT EXISTS(SELECT t2.ClientId FROM LocationsBPP t2" &
+                " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
                 " AND t2.TaxYear = " & iToYear & ")"
             If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
             If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId
             lRows = ExecuteSQL(sSQL)
 
-            sSQL = "INSERT LocationsRE (ClientId,LocationId,TaxYear,Address,Name,City,StateCd,Zip," & _
-                " LegalDescription,LegalOwner,ClientLocationId,Comment,InactiveFl,ConsultantName,AddUser)" & _
-                " SELECT t1.ClientId,t1.LocationId," & iToYear & "," & _
-                " t1.Address,t1.Name,t1.City,t1.StateCd,t1.Zip,t1.LegalDescription,t1.LegalOwner," & _
-                " t1.ClientLocationId,t1.Comment,t1.InactiveFl,t1.ConsultantName," & _
-                QuoStr(AppData.UserId) & _
-                " FROM LocationsRE t1 WHERE t1.TaxYear = " & iFromYear & _
-                " AND NOT EXISTS(SELECT t2.ClientId FROM LocationsRE t2" & _
-                " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" & _
+            sSQL = "INSERT LocationsRE (ClientId,LocationId,TaxYear,Address,Name,City,StateCd,Zip," &
+                " LegalDescription,LegalOwner,ClientLocationId,Comment,InactiveFl,ConsultantName,AddUser,SICCode)" &
+                " SELECT t1.ClientId,t1.LocationId," & iToYear & "," &
+                " t1.Address,t1.Name,t1.City,t1.StateCd,t1.Zip,t1.LegalDescription,t1.LegalOwner," &
+                " t1.ClientLocationId,t1.Comment,t1.InactiveFl,t1.ConsultantName," &
+                QuoStr(AppData.UserId) & ",t1.SICCode" &
+                " FROM LocationsRE t1 WHERE t1.TaxYear = " & iFromYear &
+                " AND NOT EXISTS(SELECT t2.ClientId FROM LocationsRE t2" &
+                " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
                 " AND t2.TaxYear = " & iToYear & ")"
             If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
             If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId
@@ -2279,6 +2279,30 @@ Module modMain
                 " AND NOT EXISTS(SELECT t2.ClientId FROM AssetAllocationPct t2" & _
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId AND t2.AssessmentId = t1.AssessmentId" & _
                 " AND t2.AssetId = t1.AssetId AND t2.FactorEntityId = t1.FactorEntityId" & _
+                " AND t2.TaxYear = " & iToYear & ")"
+            If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
+            If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId
+            If lAssessmentId > 0 Then sSQL = sSQL & " AND t1.AssessmentId = " & lAssessmentId
+            lRows = ExecuteSQL(sSQL)
+
+            sSQL = "INSERT TaxBillsBPP (ClientId,LocationId,AssessmentId,CollectorId,TaxYear,AddUser,TaxBillAcctNum)" &
+                " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId,t1.CollectorId," & iToYear & "," & QuoStr(AppData.UserId) & ",t1.TaxBillAcctNum" &
+                " FROM TaxBillsBPP t1 WHERE t1.TaxYear = " & iFromYear &
+                " AND NOT EXISTS(SELECT t2.ClientId FROM TaxBillsBPP t2" &
+                " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
+                " AND t2.AssessmentId = t1.AssessmentId AND t2.CollectorId = t1.CollectorId" &
+                " AND t2.TaxYear = " & iToYear & ")"
+            If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
+            If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId
+            If lAssessmentId > 0 Then sSQL = sSQL & " AND t1.AssessmentId = " & lAssessmentId
+            lRows = ExecuteSQL(sSQL)
+
+            sSQL = "INSERT TaxBillsRE (ClientId,LocationId,AssessmentId,CollectorId,TaxYear,AddUser,TaxBillAcctNum)" &
+                " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId,t1.CollectorId," & iToYear & "," & QuoStr(AppData.UserId) & ",t1.TaxBillAcctNum" &
+                " FROM TaxBillsRE t1 WHERE t1.TaxYear = " & iFromYear &
+                " AND NOT EXISTS(SELECT t2.ClientId FROM TaxBillsRE t2" &
+                " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
+                " AND t2.AssessmentId = t1.AssessmentId AND t2.CollectorId = t1.CollectorId" &
                 " AND t2.TaxYear = " & iToYear & ")"
             If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
             If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId

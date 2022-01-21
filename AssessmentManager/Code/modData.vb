@@ -1,8 +1,9 @@
 ﻿Module modData
-    Public Const csDol = "#,##0.00"   ' Note leading zero
-    Public Const csPct = "#0.00%"  ' Note 7 dec plc
-    Public Const csInt = "#,##0"      ' Note leading zero
-    Public Const csDate = "M/d/yyyy"   ' Note US format
+    Public Const csDol = "#,##0.00"
+    Public Const csPct = "#0.00%"
+    Public Const csPctNoDec = "#0%"
+    Public Const csInt = "#,##0"
+    Public Const csDate = "M/d/yyyy"
     Public Const csDateTime = "M/d/yyyy h:mm tt"
     Public Const csFactor = "0.00000000%" 'factor codes
     Public Const csShortDate = "M/d"

@@ -64,9 +64,10 @@
                 "Locations_Zip, AcctNum, BusinessUnits_Name, AssessmentId, Assessors_Name, Collectors_Name, Payee, AssessorId, CollectorId," &
                 "Collectors_DueDate, Collectors_DiscountFl," &
                 "Collectors_DiscountDate, Collectors_DiscountDate2, Collectors_DiscountDate3, Collectors_DiscountDate4," &
-                "Collectors_StateCd, Collectors_Address1, Collectors_City, Collectors_PayeeStateCd," &
-                "Collectors_Zip,Collectors_Phone,TaxBillLoaded," &
-                "ROUND(SUM(TaxDue), 2) AS TotalTaxDue FROM ("
+                "Collectors_StateCd, Collectors_Address1, Collectors_Address2, Collectors_City, Collectors_PayeeStateCd," &
+                "Collectors_Zip,Collectors_Phone,Consultants_ConsultantName,Consultants_EMail,Consultants_Phone,Consultants_FullName," &
+                "TaxBillNotes,TaxBillAcctNum," &
+                "TaxBillLoaded,ROUND(SUM(TaxDue), 2) AS TotalTaxDue FROM ("
         End If
 
         sSQL = sSQL & "SELECT l.TaxYear, c.Name AS Clients_Name, c.ClientId, l.LocationId, l.Address AS Locations_Address," &
@@ -125,7 +126,7 @@
         If Not bSavings Then
             sSQL = sSQL & " ISNULL((SELECT 'Yes' WHERE EXISTS(SELECT tb.ClientId FROM TaxBills" & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "RE") & " AS tb" &
                 " WHERE tb.ClientId = asmt.ClientId AND tb.LocationId = asmt.LocationId AND tb.AssessmentId = asmt.AssessmentId" &
-                " AND tb.CollectorId = j.CollectorId AND tb.TaxYear = j.TaxYear)),'No') AS TaxBillLoaded,"
+                " AND tb.CollectorId = j.CollectorId AND tb.TaxYear = j.TaxYear AND tb.FormData IS NOT NULL)),'No') AS TaxBillLoaded,"
         End If
 
         If bIncludeInstallmentFlag = False Then
@@ -320,10 +321,13 @@
             " collect.DiscountDate AS Collectors_DiscountDate,collect.DiscountDate2 AS Collectors_DiscountDate2,collect.DiscountDate3 AS Collectors_DiscountDate3,collect.DiscountDate4 AS Collectors_DiscountDate4," &
             " collect.DiscountFl as Collectors_DiscountFl,ISNULL(collect.Phone,'') as Collectors_Phone"
 
+        sSQL = sSQL & ",consult.ConsultantName AS Consultants_ConsultantName, consult.EMail AS Consultants_EMail, consult.Phone AS Consultants_Phone,consult.FullName AS Consultants_FullName"
+        sSQL = sSQL & ",taxbills.TaxBillNotes,ISNULL(taxbills.TaxBillAcctNum,ISNULL(asmt.AcctNum,'')) AS TaxBillAcctNum"
+
         If Not bJurisdictionList Then
             sSQL = sSQL & "," & IIf(ePropType = enumTable.enumLocationBPP, "'P'", "'R'") & " AS PropertyType," &
                 " collect.StateCd AS Collectors_StateCd,collect.PayeeStateCd AS Collectors_PayeeStateCd," &
-                " collect.Payee, collect.Address1 AS Collectors_Address1, collect.City AS Collectors_City," &
+                " collect.Payee, collect.Address1 AS Collectors_Address1, collect.Address2 AS Collectors_Address2, collect.City AS Collectors_City," &
                 " collect.Zip AS Collectors_Zip," &
                 " asr.LienDate," &
                 " ISNULL(c.ContactTaxName,'') AS ContactTaxName, ISNULL(c.ContactTaxAddress,'') AS ContactTaxAddress," &
@@ -365,6 +369,11 @@
                 " ON asr.AssessorId = asmt.AssessorId AND asr.TaxYear = asmt.TaxYear LEFT OUTER JOIN" &
                 " Collectors AS collect ON j.CollectorId = collect.CollectorId AND j.TaxYear = collect.TaxYear"
         sSQL = sSQL & " LEFT OUTER JOIN BusinessUnits bu ON asmt.ClientId = bu.ClientId AND asmt.BusinessUnitId = bu.BusinessUnitId"
+        sSQL = sSQL & " LEFT OUTER JOIN Consultants consult" &
+            " ON ISNULL(l.ConsultantName,c." & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "RE") & "ConsultantName) = consult.ConsultantName"
+        sSQL = sSQL & " LEFT OUTER JOIN TaxBills" & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "RE") & " taxbills" &
+            " ON taxbills.ClientId = ad.ClientId AND taxbills.LocationId = ad.LocationId AND taxbills.AssessmentId = ad.AssessmentId AND taxbills.CollectorId = j.CollectorId AND taxbills.TaxYear = ad.TaxYear"
+
         If lClientId > 0 Then
             If sWHERE = "" Then sWHERE = " WHERE " Else sWHERE = sWHERE & " AND "
             sWHERE = sWHERE & " ad.ClientId = " & lClientId
@@ -429,7 +438,9 @@
                 " AssessmentId, Assessors_Name, Collectors_Name, Payee, AssessorId, CollectorId, Collectors_DueDate, Collectors_DiscountFl," &
                 " Collectors_DiscountDate," &
                 " Collectors_DiscountDate2, Collectors_DiscountDate3, Collectors_DiscountDate4," &
-                " Collectors_StateCd, Collectors_PayeeStateCd, Collectors_Address1, Collectors_City, Collectors_Zip, Collectors_Phone, TaxBillLoaded"
+                " Collectors_StateCd, Collectors_PayeeStateCd, Collectors_Address1, Collectors_Address2, Collectors_City, Collectors_Zip, Collectors_Phone," &
+                " Consultants_ConsultantName, Consultants_EMail, Consultants_Phone, Consultants_FullName, TaxBillNotes,TaxBillAcctNum," &
+                " TaxBillLoaded"
             sSQL = sSQL & " ORDER BY TaxYear desc, Clients_Name, Locations_Address, Locations_ClientLocationId, Locations_City, Locations_StateCd, AcctNum, Collectors_Name"
         Else
             sSQL = sSQL & " ORDER BY l.TaxYear desc, collect.Name,j.Name"

@@ -32,7 +32,7 @@
         Dim bind As New BindingSource, sSQL As String, dtList As New DataTable
 
         Try
-            sSQL = "SELECT ConsultantName, FullName, ConsultantId FROM Consultants ORDER BY ConsultantName"
+            sSQL = "SELECT ConsultantName, FullName, ConsultantId, Phone, EMail FROM Consultants ORDER BY ConsultantName"
             GetData(sSQL, dtList)
             dgUsers.Columns.Clear()
             bind.DataSource = dtList
@@ -53,6 +53,14 @@
                         column.HeaderText = "User ID"
                         column.Width = 150
                         column.MaxInputLength = 50
+                    Case "Phone"
+                        column.HeaderText = "Phone"
+                        column.Width = 150
+                        column.MaxInputLength = 50
+                    Case "EMail"
+                        column.HeaderText = "E-Mail"
+                        column.Width = 275
+                        column.MaxInputLength = 255
                     Case Else
                         column.Visible = False
                 End Select

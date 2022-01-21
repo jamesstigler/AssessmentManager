@@ -572,15 +572,21 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\rptTaxBill.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>rptTaxBill.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\rptTaxBillCheckOff.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptTaxBillCheckOff.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptTaxBillTransmittal.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTaxBillTransmittal.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\rptTaxSavings.vb">
@@ -823,6 +829,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptTaxBillCheckOff.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptTaxBillTransmittal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTaxBillTransmittal.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptTaxSavings.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptTaxSavings.vb</LastGenOutput>
@@ -855,6 +865,7 @@
     <Content Include="Resources\Filter.ico" />
     <Content Include="Resources\Icon1.ico" />
     <Content Include="Resources\Location.ICO" />
+    <Content Include="Resources\V1Image.png" />
     <Content Include="StoredProcedures\DCAD_spUpdateREComps.sql" />
     <Content Include="StoredProcedures\NewGetAssetListStoredProc.sql" />
     <Content Include="StoredProcedures\spCleanFileName.sql" />

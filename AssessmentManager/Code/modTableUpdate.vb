@@ -116,9 +116,9 @@
             Return False
         End Try
     End Function
-    Public Function UpdateAssessmentDetailBPP(ByVal lClientId As Long, ByVal lLocationId As Long, _
-            ByVal lAssessmentId As Long, ByVal lJurisdictionId As Long, _
-            ByVal iTaxYear As Integer, ByVal sField As String, _
+    Public Function UpdateAssessmentDetailBPP(ByVal lClientId As Long, ByVal lLocationId As Long,
+            ByVal lAssessmentId As Long, ByVal lJurisdictionId As Long,
+            ByVal iTaxYear As Integer, ByVal sField As String,
             ByVal sValue As String, ByVal bApplyToAllJurisdictions As Boolean, ByRef sError As String) As Boolean
         Dim sSQL As String = "", eDataType As enumDataTypes, bAllowNull As Boolean = False
         Dim lLength As Long = 0, sFieldDescription As String = ""
@@ -166,6 +166,46 @@
             Return False
         End Try
     End Function
+
+    Public Function UpdateTaxBills(ByVal ePropType As enumTable, ByVal lClientId As Long, ByVal lLocationId As Long,
+            ByVal lAssessmentId As Long, ByVal lCollectorId As Long, ByVal iTaxYear As Integer, ByVal sField As String,
+            ByVal sValue As String, ByRef sError As String) As Boolean
+        Dim eDataType As enumDataTypes, bAllowNull As Boolean = False
+        Dim lLength As Long = 0, sFieldDescription As String = ""
+        Dim DBInfo As typeDBUpdateInfo, sFormat As String, vNewValue As Object, colDropDown As New Collection
+        Dim ctlTextBox As New TextBox
+
+        Try
+            sError = ""
+            ctlTextBox.Text = sValue
+            With DBInfo
+                .bAllowInsert = True
+                .sTable = "TaxBills" & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "RE")
+                .sUpdateField = sField
+                .vUpdateValue = sValue
+                ReDim .PrimaryKeys(4)
+                .PrimaryKeys(0).sField = "ClientId"
+                .PrimaryKeys(1).sField = "LocationId"
+                .PrimaryKeys(2).sField = "AssessmentId"
+                .PrimaryKeys(3).sField = "CollectorId"
+                .PrimaryKeys(4).sField = "TaxYear"
+                .PrimaryKeys(0).vValue = lClientId
+                .PrimaryKeys(1).vValue = lLocationId
+                .PrimaryKeys(2).vValue = lAssessmentId
+                .PrimaryKeys(3).vValue = lCollectorId
+                .PrimaryKeys(4).vValue = iTaxYear
+            End With
+            GetDataDefinition(DBInfo.sTable, sField, eDataType, bAllowNull, lLength, sFieldDescription)
+            SaveOneControl(DBInfo, ctlTextBox, eDataType, sFormat, bAllowNull, vNewValue, lLength, colDropDown, sError)
+
+            Return True
+        Catch ex As Exception
+            sError = "Error in UpdateAssessmentDetailRE:  " & ex.Message
+            Return False
+        End Try
+    End Function
+
+
     Public Function UpdateInstallments(ByVal ePropType As enumTable, ByVal lInstallId As Long, _
             ByVal sField As String, ByVal sValue As String, ByRef sError As String) As Boolean
         Dim eDataType As enumDataTypes, bAllowNull As Boolean = False

@@ -23,11 +23,10 @@ Partial Class frmREAssessment
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -49,11 +48,6 @@ Partial Class frmREAssessment
         Me.txtValueProtestCMRRR = New System.Windows.Forms.TextBox()
         Me.cboValueProtestStatus = New System.Windows.Forms.ComboBox()
         Me.txtValueProtestMailedDate = New System.Windows.Forms.TextBox()
-        Me.dgCollectors = New System.Windows.Forms.DataGridView()
-        Me.CollectorId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Collector = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FormData = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuContextImportTaxBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdRefresh = New System.Windows.Forms.Button()
@@ -80,9 +74,10 @@ Partial Class frmREAssessment
         Me.dgECU = New System.Windows.Forms.DataGridView()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboOccupiedStatus = New System.Windows.Forms.ComboBox()
+        Me.fraCollectors = New System.Windows.Forms.GroupBox()
+        Me.dgCollectors = New System.Windows.Forms.DataGridView()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip2.SuspendLayout()
         CType(Me.dgJurisdictions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.fraHistory.SuspendLayout()
@@ -93,6 +88,8 @@ Partial Class frmREAssessment
         Me.SplitContainer1.SuspendLayout()
         Me.fraECU.SuspendLayout()
         CType(Me.dgECU, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.fraCollectors.SuspendLayout()
+        CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cboAssessor
@@ -299,61 +296,6 @@ Partial Class frmREAssessment
         Me.txtValueProtestMailedDate.TabIndex = 6
         Me.txtValueProtestMailedDate.Tag = "@DB=AssessmentsRE.ValueProtestMailedDate;@fmt=date"
         '
-        'dgCollectors
-        '
-        Me.dgCollectors.AllowUserToAddRows = False
-        Me.dgCollectors.AllowUserToDeleteRows = False
-        Me.dgCollectors.AllowUserToOrderColumns = True
-        Me.dgCollectors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.dgCollectors.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        Me.dgCollectors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgCollectors.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CollectorId, Me.Collector, Me.Total, Me.FormData})
-        Me.dgCollectors.ContextMenuStrip = Me.ContextMenuStrip2
-        Me.dgCollectors.Location = New System.Drawing.Point(525, 143)
-        Me.dgCollectors.Name = "dgCollectors"
-        Me.dgCollectors.RowHeadersVisible = False
-        Me.dgCollectors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgCollectors.ShowCellErrors = False
-        Me.dgCollectors.ShowCellToolTips = False
-        Me.dgCollectors.ShowEditingIcon = False
-        Me.dgCollectors.ShowRowErrors = False
-        Me.dgCollectors.Size = New System.Drawing.Size(355, 121)
-        Me.dgCollectors.TabIndex = 216
-        Me.dgCollectors.Visible = False
-        '
-        'CollectorId
-        '
-        Me.CollectorId.HeaderText = "Collector ID"
-        Me.CollectorId.Name = "CollectorId"
-        Me.CollectorId.ReadOnly = True
-        Me.CollectorId.Visible = False
-        Me.CollectorId.Width = 68
-        '
-        'Collector
-        '
-        Me.Collector.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Collector.HeaderText = "Collector"
-        Me.Collector.Name = "Collector"
-        Me.Collector.ReadOnly = True
-        Me.Collector.Width = 175
-        '
-        'Total
-        '
-        Me.Total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Total.HeaderText = "Total"
-        Me.Total.Name = "Total"
-        Me.Total.ReadOnly = True
-        '
-        'FormData
-        '
-        Me.FormData.HeaderText = "Tax Bill"
-        Me.FormData.Name = "FormData"
-        Me.FormData.ReadOnly = True
-        Me.FormData.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.FormData.Width = 47
-        '
         'ContextMenuStrip2
         '
         Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextImportTaxBill})
@@ -394,7 +336,7 @@ Partial Class frmREAssessment
         Me.dgJurisdictions.ShowCellToolTips = False
         Me.dgJurisdictions.ShowEditingIcon = False
         Me.dgJurisdictions.ShowRowErrors = False
-        Me.dgJurisdictions.Size = New System.Drawing.Size(1213, 344)
+        Me.dgJurisdictions.Size = New System.Drawing.Size(1197, 344)
         Me.dgJurisdictions.TabIndex = 133
         '
         'Label11
@@ -481,7 +423,7 @@ Partial Class frmREAssessment
         Me.fraHistory.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.fraHistory.Controls.Add(Me.dgHistory)
         Me.fraHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.fraHistory.Location = New System.Drawing.Point(998, 6)
+        Me.fraHistory.Location = New System.Drawing.Point(982, 6)
         Me.fraHistory.Name = "fraHistory"
         Me.fraHistory.Size = New System.Drawing.Size(210, 130)
         Me.fraHistory.TabIndex = 249
@@ -495,23 +437,23 @@ Partial Class frmREAssessment
         Me.dgHistory.AllowUserToDeleteRows = False
         Me.dgHistory.AllowUserToOrderColumns = True
         Me.dgHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.Format = "N0"
-        DataGridViewCellStyle2.NullValue = Nothing
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.Format = "N0"
+        DataGridViewCellStyle9.NullValue = Nothing
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgHistory.Location = New System.Drawing.Point(3, 16)
         Me.dgHistory.Name = "dgHistory"
         Me.dgHistory.ReadOnly = True
         Me.dgHistory.RowHeadersVisible = False
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.dgHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgHistory.ShowCellErrors = False
         Me.dgHistory.ShowCellToolTips = False
@@ -531,6 +473,7 @@ Partial Class frmREAssessment
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.fraCollectors)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboAccountInvoicedStatus)
@@ -550,7 +493,6 @@ Partial Class frmREAssessment
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraHistory)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cmdRefresh)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.dgCollectors)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboAssessor)
         Me.SplitContainer1.Panel1.Controls.Add(Me.chkInactiveFl)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtComment)
@@ -562,7 +504,7 @@ Partial Class frmREAssessment
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgJurisdictions)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1213, 618)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1197, 618)
         Me.SplitContainer1.SplitterDistance = 271
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 250
@@ -656,23 +598,23 @@ Partial Class frmREAssessment
         Me.dgECU.AllowUserToDeleteRows = False
         Me.dgECU.AllowUserToOrderColumns = True
         Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.Format = "N0"
-        DataGridViewCellStyle4.NullValue = Nothing
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle11.Format = "N0"
+        DataGridViewCellStyle11.NullValue = Nothing
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgECU.Location = New System.Drawing.Point(3, 16)
         Me.dgECU.Name = "dgECU"
         Me.dgECU.ReadOnly = True
         Me.dgECU.RowHeadersVisible = False
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle12
         Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgECU.ShowCellErrors = False
         Me.dgECU.ShowCellToolTips = False
@@ -703,11 +645,40 @@ Partial Class frmREAssessment
         Me.cboOccupiedStatus.TabIndex = 3
         Me.cboOccupiedStatus.Tag = "@DB=AssessmentsRE.OccupiedStatus"
         '
+        'fraCollectors
+        '
+        Me.fraCollectors.Controls.Add(Me.dgCollectors)
+        Me.fraCollectors.Location = New System.Drawing.Point(520, 144)
+        Me.fraCollectors.Name = "fraCollectors"
+        Me.fraCollectors.Size = New System.Drawing.Size(672, 123)
+        Me.fraCollectors.TabIndex = 268
+        Me.fraCollectors.TabStop = False
+        Me.fraCollectors.Visible = False
+        '
+        'dgCollectors
+        '
+        Me.dgCollectors.AllowDrop = True
+        Me.dgCollectors.AllowUserToAddRows = False
+        Me.dgCollectors.AllowUserToDeleteRows = False
+        Me.dgCollectors.AllowUserToOrderColumns = True
+        Me.dgCollectors.ColumnHeadersHeight = 45
+        Me.dgCollectors.ContextMenuStrip = Me.ContextMenuStrip2
+        Me.dgCollectors.Location = New System.Drawing.Point(0, 4)
+        Me.dgCollectors.Name = "dgCollectors"
+        Me.dgCollectors.RowHeadersVisible = False
+        Me.dgCollectors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgCollectors.ShowCellErrors = False
+        Me.dgCollectors.ShowCellToolTips = False
+        Me.dgCollectors.ShowEditingIcon = False
+        Me.dgCollectors.ShowRowErrors = False
+        Me.dgCollectors.Size = New System.Drawing.Size(672, 116)
+        Me.dgCollectors.TabIndex = 212
+        '
         'frmREAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1213, 618)
+        Me.ClientSize = New System.Drawing.Size(1197, 618)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Name = "frmREAssessment"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -715,7 +686,6 @@ Partial Class frmREAssessment
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip2.ResumeLayout(False)
         CType(Me.dgJurisdictions, System.ComponentModel.ISupportInitialize).EndInit()
         Me.fraHistory.ResumeLayout(False)
@@ -727,6 +697,8 @@ Partial Class frmREAssessment
         Me.SplitContainer1.ResumeLayout(False)
         Me.fraECU.ResumeLayout(False)
         CType(Me.dgECU, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.fraCollectors.ResumeLayout(False)
+        CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -757,13 +729,8 @@ Partial Class frmREAssessment
     Friend WithEvents mnuContextPrint As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblTaxBillTotal As System.Windows.Forms.Label
     Friend WithEvents txtTaxBillTotal As System.Windows.Forms.TextBox
-    Friend WithEvents dgCollectors As System.Windows.Forms.DataGridView
     Friend WithEvents cmdTaxBillDetail As System.Windows.Forms.Button
     Friend WithEvents chkInactiveFl As System.Windows.Forms.CheckBox
-    Friend WithEvents CollectorId As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Collector As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Total As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents FormData As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents mnuContextImportTaxBill As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label21 As System.Windows.Forms.Label
@@ -782,4 +749,6 @@ Partial Class frmREAssessment
     Friend WithEvents Label10 As Label
     Friend WithEvents txtSICCode As TextBox
     Friend WithEvents Label12 As Label
+    Friend WithEvents fraCollectors As GroupBox
+    Friend WithEvents dgCollectors As DataGridView
 End Class

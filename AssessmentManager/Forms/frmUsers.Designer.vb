@@ -45,7 +45,7 @@ Partial Class frmUsers
         '
         'cmdNewUser
         '
-        Me.cmdNewUser.Location = New System.Drawing.Point(196, 324)
+        Me.cmdNewUser.Location = New System.Drawing.Point(424, 408)
         Me.cmdNewUser.Name = "cmdNewUser"
         Me.cmdNewUser.Size = New System.Drawing.Size(99, 23)
         Me.cmdNewUser.TabIndex = 23
@@ -70,14 +70,14 @@ Partial Class frmUsers
         Me.dgUsers.ShowCellToolTips = False
         Me.dgUsers.ShowEditingIcon = False
         Me.dgUsers.ShowRowErrors = False
-        Me.dgUsers.Size = New System.Drawing.Size(520, 307)
+        Me.dgUsers.Size = New System.Drawing.Size(949, 396)
         Me.dgUsers.TabIndex = 27
         '
         'frmUsers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(520, 353)
+        Me.ClientSize = New System.Drawing.Size(949, 440)
         Me.Controls.Add(Me.dgUsers)
         Me.Controls.Add(Me.cmdNewUser)
         Me.Name = "frmUsers"

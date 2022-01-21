@@ -391,8 +391,7 @@
         Dim dtsource As New DataTable
 
         Try
-
-            sSQL = BuildTaxBillQuery(m_ClientId, m_LocationId, m_AssessmentId, JurisdictionList, _
+            sSQL = BuildTaxBillQuery(m_ClientId, m_LocationId, m_AssessmentId, JurisdictionList,
                 0, enumTable.enumLocationBPP, False, False, False, True, False, 0)
             lRows = GetData(sSQL, dtList)
 
@@ -410,7 +409,7 @@
             dgJurisdictions.Columns.Clear()
             bind.DataSource = dtsource
             dgJurisdictions.DataSource = bind
-            dgCollectors.Rows.Clear()
+            dgCollectors.Columns.Clear()
 
             'MUST ADD FIELDS TO THIS WITH IF NEW COLUMNS ADDED
             With dgJurisdictions
@@ -574,161 +573,119 @@
                 End With
             End With
 
-            'For Each column As DataGridViewColumn In dgJurisdictions.Columns
-            '    If IsIndexField(column.Name) Then
-            '        column.Visible = False
-            '    ElseIf column.Name = "Jurisdictions_Name" Or column.Name = "NotifiedValue" Or
-            '            column.Name = "ConsultantValue" Or
-            '            column.Name = "FinalValue" Or column.Name = "AbatementReductionAmt" Or
-            '            column.Name = "FreeportReductionAmt" Or column.Name = "ClientFreeportAmt" Or
-            '            column.Name = "ClientAbatementAmt" Or column.Name = "TaxableValue" Or
-            '            column.Name = "TaxRate" Or column.Name = "TaxBillAdjDesc1" Or
-            '            column.Name = "TaxBillAdjAmt1" Or column.Name = "TaxDue" Or
-            '            column.Name = "TaxBillPrintedDate" Or column.Name = "BPPRatio" Or
-            '            column.Name = "PenaltyAmt1" Or column.Name = "Collectors_Name" Or column.Name = "Jurisdictions_FreeportFl" Or column.Name = "TaxYear" Then
-            '        column.Visible = True
-            '    Else
-            '        column.Visible = False
-            '    End If
-
-            '    If column.Name = "NotifiedValue" Then column.HeaderText = "Notified"
-            '    If column.Name = "FreeportReductionAmt" Then column.HeaderText = "V1 Freeport"
-            '    If column.Name = "AbatementReductionAmt" Then column.HeaderText = "V1 Abatement"
-            '    If column.Name = "ClientFreeportAmt" Then column.HeaderText = "Client Freeport"
-            '    If column.Name = "ClientAbatementAmt" Then column.HeaderText = "Client Abatement"
-            '    If column.Name = "BPPRatio" Then column.HeaderText = "Assessor Ratio"
-            '    If column.Name = "TaxBillAdjDesc1" Then column.HeaderText = "Tax Bill Adj Desc"
-            '    If column.Name = "TaxBillAdjAmt1" Then column.HeaderText = "Tax Bill Adj Amt"
-            '    If column.Name = "TaxDue" Then column.HeaderText = "Tax Due"
-            '    If column.Name = "TaxBillPrintedDate" Then column.HeaderText = "Tax Bill Printed Date"
-            '    If column.Name = "PenaltyAmt1" Then column.HeaderText = "Penalty Amt"
-            '    If column.Name = "Jurisdictions_FreeportFl" Then column.HeaderText = "Freeport"
-            '    If column.Name = "Collectors_Name" Then column.HeaderText = "Collector"
-            '    If column.Name = "Jurisdictions_Name" Then column.HeaderText = "Jurisdiction"
-            '    If column.Name = "FinalValue" Then column.HeaderText = "Final Value"
-            '    If column.Name = "TaxableValue" Then column.HeaderText = "Taxable Value"
-            '    If column.Name = "TaxYear" Then column.HeaderText = "Tax Year"
-
-
-            '    Select Case column.Name
-            '        Case "NotifiedValue", "ConsultantValue", "FinalValue", "AbatementReductionAmt",
-            '                "FreeportReductionAmt", "AdjDesc1", "AdjAmt1",
-            '                "TaxBillAdjDesc1", "TaxBillAdjAmt1", "TaxBillPrintedDate", "PenaltyAmt1",
-            '                "ClientFreeportAmt", "ClientAbatementAmt"
-            '            column.ReadOnly = False
-            '        Case Else
-            '            column.ReadOnly = True
-            '    End Select
-
-            '    Select Case column.Name
-            '        Case "NotifiedValue", "ConsultantValue", "FinalValue", "AbatementReductionAmt",
-            '                "FreeportReductionAmt", "AdjAmt1", "TaxBillAdjAmt1", "TaxDue", "TaxRate", "TaxableValue", "BPPRatio", "PenaltyAmt1",
-            '                "ClientFreeportAmt", "ClientAbatementAmt"
-            '            If column.Name = "TaxDue" Or column.Name = "TaxBillAdjAmt1" Or column.Name = "PenaltyAmt1" Then
-            '                column.DefaultCellStyle.Format = csDol
-            '            ElseIf column.Name = "TaxRate" Then
-            '                column.DefaultCellStyle.Format = csTaxRate
-            '            ElseIf column.Name = "BPPRatio" Then
-            '                column.DefaultCellStyle.Format = csPct
-            '            Else
-            '                column.DefaultCellStyle.Format = csInt
-            '            End If
-            '            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            '            If column.Name = "TaxDue" Then
-            '                Dim font As New Font(dgJurisdictions.DefaultCellStyle.Font.FontFamily, 8.25, FontStyle.Bold)
-            '                Try
-            '                    column.DefaultCellStyle.Font = font
-            '                Finally
-            '                    font.Dispose()
-            '                End Try
-            '            End If
-            '    End Select
-            '    Select Case column.Name
-            '        Case "NotifiedValue", "ConsultantValue", "FinalValue", "TaxableValue"
-            '            column.Width = 70
-            '        Case "AbatementReductionAmt", "FreeportReductionAmt", "ClientFreeportAmt", "ClientAbatementAmt"
-            '            column.Width = 70
-            '        Case "TaxBillAdjAmt1", "PenaltyAmt1"
-            '            column.Width = 50
-            '        Case "TaxDue"
-            '            column.Width = 85
-            '        Case "BPPRatio"
-            '            column.Width = 60
-            '        Case "Jurisdictions_FreeportFl"
-            '            column.Width = 30
-            '        Case "TaxRate"
-            '            column.Width = 75
-            '        Case "Jurisdictions_Name", "Collectors_Name"
-            '            column.Width = 125
-            '        Case "TaxBillAdjDesc1"
-            '            column.Width = 60
-            '        Case "TaxBillPrintedDate"
-            '            column.Width = 115
-            '        Case "TaxYear"
-            '            column.Width = 35
-            '    End Select
-            'Next
-
-            'dgJurisdictions.Columns("Jurisdictions_Name").DividerWidth = 2
-            'dgJurisdictions.Columns("Jurisdictions_Name").Frozen = True
-
             If lRows = 0 Then
                 dgJurisdictions.Enabled = False
             Else
                 dgJurisdictions.Enabled = True
             End If
 
-            Dim drs() As DataRow = dtList.Select("TaxYear = " & m_TaxYear)
-            If drs.Count > 0 Then
-                'populate dgcollector
-                Dim bFirst As Boolean = True
-                ReDim CollectorTotal(0)
-                ReDim dgRow(3)
-                CollectorTotal(0).lId = drs(0)("CollectorId")    '  dtList.Rows(0)("CollectorId")
-                CollectorTotal(0).sDescription = drs(0)("Collectors_Name")  ' dtList.Rows(0)("Collectors_Name")
-                'If dtList.Rows(0)("TaxBillLoaded") = "Yes" Then CollectorTotal(UBound(CollectorTotal)).bLoaded = True
-                If drs(0)("TaxBillLoaded") = "Yes" Then CollectorTotal(UBound(CollectorTotal)).bLoaded = True
-                For Each dr As DataRow In drs  '  dtList.Rows
-                    'If dr("TaxYear") = m_TaxYear Then
-                    bFound = False
-                    For l = 0 To UBound(CollectorTotal)
-                        If CollectorTotal(l).lId = dr("CollectorId") Then
-                            bFound = True
-                            Exit For
-                        End If
-                    Next
-                    If bFound Then
-                        CollectorTotal(l).dAmount = CollectorTotal(l).dAmount + dr("TaxDue")
-                    Else
-                        ReDim Preserve CollectorTotal(UBound(CollectorTotal) + 1)
-                        CollectorTotal(UBound(CollectorTotal)).lId = dr("CollectorId")
-                        CollectorTotal(UBound(CollectorTotal)).sDescription = dr("Collectors_Name")
-                        CollectorTotal(UBound(CollectorTotal)).dAmount = dr("TaxDue")
-                        If dr("TaxBillLoaded") = "Yes" Then CollectorTotal(UBound(CollectorTotal)).bLoaded = True
-                    End If
-                    d = d + dr("TaxDue")
-                    'End If
-                Next
-                For Each CollectorItem As structTotals In CollectorTotal
-                    dgRow(0) = CollectorItem.lId
-                    dgRow(1) = CollectorItem.sDescription
-                    dgRow(2) = Format(CollectorItem.dAmount, csDol)
-                    dgRow(3) = IIf(CollectorItem.bLoaded = True, "View", "")
-                    dgCollectors.Rows.Add(dgRow)
-                Next
-                dgCollectors.Sort(dgCollectors.Columns(1), System.ComponentModel.ListSortDirection.Ascending)
-                txtTaxBillTotal.Text = Format(d, csDol)
+            'collector, tax bill totals and tax bill notes
+            With dgCollectors
+                .Columns.Add("CollectorId", "CollectorId")
+                .Columns.Add("Collectors_Name", "Collector")
+                .Columns.Add("TotalTaxDue", "Total Tax Due")
+                .Columns.Add("TaxBillLoaded", "Tax Bill Loaded")
+                .Columns.Add("TaxBillAcctNum", "Tax Bill Account Number")
+                .Columns.Add("TaxBillNotes", "Notes")
+                .Columns("CollectorId").Visible = False
+                With .Columns("Collectors_Name")
+                    .Visible = True
+                    .HeaderText = "Collector"
+                    .Width = 100
+                    .ReadOnly = True
+                End With
+                With .Columns("TotalTaxDue")
+                    .Visible = True
+                    .HeaderText = "Total Tax Due"
+                    .Width = 85
+                    .ReadOnly = True
+                    .DefaultCellStyle.Format = csDol
+                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    .HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End With
+                With .Columns("TaxBillLoaded")
+                    .Visible = True
+                    .HeaderText = "Tax Bill Loaded"
+                    .Width = 50
+                    .ReadOnly = True
+                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    .HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    .DefaultCellStyle.BackColor = Color.Gray
+                End With
+                With .Columns("TaxBillAcctNum")
+                    .Visible = True
+                    .HeaderText = "Tax Bill Account Number"
+                    .Width = 150
+                    .ReadOnly = False
+                End With
+                With .Columns("TaxBillNotes")
+                    .Visible = True
+                    .HeaderText = "Tax Bill Notes"
+                    .Width = 330
+                    .ReadOnly = False
+                    .DefaultCellStyle.WrapMode = DataGridViewTriState.True
+                End With
+            End With
 
-            End If
+            sSQL = BuildTaxBillQuery(m_ClientId, m_LocationId, m_AssessmentId, New List(Of Long), m_TaxYear, enumTable.enumLocationBPP, False, False, True, False, False, 0)
+            lRows = GetData(sSQL, dtList)
+            d = 0
+            For Each dr As DataRow In dtList.Rows
+                dgCollectors.Rows.Add(dr("CollectorId").ToString, dr("Collectors_Name").ToString, Format(dr("TotalTaxDue"), csDol), dr("TaxBillLoaded").ToString,
+                    dr("TaxBillAcctNum").ToString, dr("TaxBillNotes").ToString)
+                d = d + dr("TotalTaxDue")
+            Next
+            txtTaxBillTotal.Text = Format(d, csDol)
 
+
+            'Dim drs() As DataRow = dtList.Select("TaxYear = " & m_TaxYear)
+            'If drs.Count > 0 Then
+            '    'populate dgcollector
+            '    Dim bFirst As Boolean = True
+            '    ReDim CollectorTotal(0)
+            '    ReDim dgRow(3)
+            '    CollectorTotal(0).lId = drs(0)("CollectorId")
+            '    CollectorTotal(0).sDescription = drs(0)("Collectors_Name")
+            '    If drs(0)("TaxBillLoaded") = "Yes" Then CollectorTotal(UBound(CollectorTotal)).bLoaded = True
+            '    For Each dr As DataRow In drs
+            '        bFound = False
+            '        For l = 0 To UBound(CollectorTotal)
+            '            If CollectorTotal(l).lId = dr("CollectorId") Then
+            '                bFound = True
+            '                Exit For
+            '            End If
+            '        Next
+            '        If bFound Then
+            '            CollectorTotal(l).dAmount = CollectorTotal(l).dAmount + dr("TaxDue")
+            '        Else
+            '            ReDim Preserve CollectorTotal(UBound(CollectorTotal) + 1)
+            '            CollectorTotal(UBound(CollectorTotal)).lId = dr("CollectorId")
+            '            CollectorTotal(UBound(CollectorTotal)).sDescription = dr("Collectors_Name")
+            '            CollectorTotal(UBound(CollectorTotal)).dAmount = dr("TaxDue")
+            '            If dr("TaxBillLoaded") = "Yes" Then CollectorTotal(UBound(CollectorTotal)).bLoaded = True
+            '        End If
+            '        d = d + dr("TaxDue")
+            '    Next
+            '    For Each CollectorItem As structTotals In CollectorTotal
+            '        dgRow(0) = CollectorItem.lId
+            '        dgRow(1) = CollectorItem.sDescription
+            '        dgRow(2) = Format(CollectorItem.dAmount, csDol)
+            '        dgRow(3) = IIf(CollectorItem.bLoaded = True, "View", "")
+            '        dgCollectors.Rows.Add(dgRow)
+            '    Next
+            '    dgCollectors.Sort(dgCollectors.Columns(1), System.ComponentModel.ListSortDirection.Ascending)
+            '    txtTaxBillTotal.Text = Format(d, csDol)
+            'End If
+
+            'value history
             Dim bindHist As New BindingSource
             Dim dtListHist As New DataTable
             dgHistory.Columns.Clear()
-            sSQL = "SELECT TaxYear as [Year], MAX(FinalValue) AS [Value]" & _
-                " FROM AssessmentDetailBPP" & _
-                " WHERE ClientId = " & m_ClientId & _
-                " AND LocationId = " & m_LocationId & _
-                " AND AssessmentId = " & m_AssessmentId & _
+            sSQL = "SELECT TaxYear as [Year], MAX(FinalValue) AS [Value]" &
+                " FROM AssessmentDetailBPP" &
+                " WHERE ClientId = " & m_ClientId &
+                " AND LocationId = " & m_LocationId &
+                " AND AssessmentId = " & m_AssessmentId &
                 " GROUP BY TaxYear ORDER BY TaxYear DESC"
             lRows = GetData(sSQL, dtListHist)
             bindHist.DataSource = dtListHist
@@ -823,9 +780,9 @@
                         iMouseClickColIndex = e.ColumnIndex
                         ContextMenuStrip1.Enabled = True
                         mnuContextPrint.Enabled = True
-                        If dgJurisdictions.Rows(e.RowIndex).Cells("HasInstallments").Value = 1 Then
-                            mnuContextPrint.Enabled = False
-                        End If
+                        'If dgJurisdictions.Rows(e.RowIndex).Cells("HasInstallments").Value = 1 Then
+                        '    mnuContextPrint.Enabled = False
+                        'End If
                     Case MouseButtons.Middle
                     Case MouseButtons.XButton1
                     Case MouseButtons.XButton2
@@ -906,11 +863,11 @@
     Private Sub dgCollectors_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgCollectors.CellClick
         Try
             Dim sError As String = ""
-            If e.RowIndex < 0 OrElse Not e.ColumnIndex = dgCollectors.Columns("FormData").Index Then Return
-            If dgCollectors(3, e.RowIndex).Value = "" Then Return
-            Dim lCollectorId As Long = CLng(dgCollectors(0, e.RowIndex).Value)
-            If ViewTaxBill("TaxBillsBPP", m_ClientId, m_LocationId, m_AssessmentId, lCollectorId, m_TaxYear, dgCollectors(1, e.RowIndex).Value & "_" & txtAcctNum.Text, False, sError) Then
-
+            If e.RowIndex < 0 OrElse Not e.ColumnIndex = dgCollectors.Columns("TaxBillLoaded").Index Then Return
+            If dgCollectors("TaxBillLoaded", e.RowIndex).Value.ToString.ToUpper.StartsWith("Y") = False Then Return
+            Dim lCollectorId As Long = CLng(dgCollectors("CollectorId", e.RowIndex).Value)
+            If ViewTaxBill("TaxBillsBPP", m_ClientId, m_LocationId, m_AssessmentId, lCollectorId, m_TaxYear,
+                    dgCollectors("Collectors_Name", e.RowIndex).Value & "_" & dgCollectors("TaxBillAcctNum", e.RowIndex).Value, False, sError) Then
             Else
                 MsgBox("Error opening tax bill:  " & sError)
             End If
@@ -921,13 +878,13 @@
     Private Sub dgCollectors_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgCollectors.CellDoubleClick
         Try
             Dim sError As String = ""
-            If e.RowIndex < 0 Or e.ColumnIndex = dgCollectors.Columns("FormData").Index Then Return
-            Dim lCollectorId As Long = CLng(dgCollectors(0, e.RowIndex).Value)
+            If e.RowIndex < 0 Or e.ColumnIndex = dgCollectors.Columns("TaxBillLoaded").Index Then Return
+            Dim lCollectorId As Long = CLng(dgCollectors("CollectorId", e.RowIndex).Value)
             Dim frmI As frmInstallments
             For Each frm As Form In MDIParent1.MdiChildren
                 If frm.Name = "frmInstallments" Then
                     frmI = frm
-                    If frmI.ClientId = m_ClientId And frmI.LocationId = m_LocationId And frmI.AssessmentId = m_AssessmentId And _
+                    If frmI.ClientId = m_ClientId And frmI.LocationId = m_LocationId And frmI.AssessmentId = m_AssessmentId And
                                 frmI.TaxYear = m_TaxYear And frmI.PropType = enumTable.enumLocationBPP And frmI.CollectorId = lCollectorId Then
                         frm.Focus()
                         Exit Sub
@@ -946,9 +903,21 @@
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-
     End Sub
 
+    Private Sub dgCollectors_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgCollectors.CellEndEdit
+        Dim sError As String = ""
+
+        If Not UpdateTaxBills(enumTable.enumLocationBPP, m_ClientId, m_LocationId, m_AssessmentId, dgCollectors.Rows(e.RowIndex).Cells("CollectorId").Value, m_TaxYear,
+                dgCollectors.Columns(e.ColumnIndex).Name, Trim(UnNullToString(dgCollectors.Rows(e.RowIndex).Cells(e.ColumnIndex).Value)), sError) Then
+            MsgBox(sError)
+        End If
+        dgCollectors.Rows(e.RowIndex).ErrorText = String.Empty
+    End Sub
+
+    Private Sub dgCollectors_CellMouseDown(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgCollectors.CellMouseDown
+
+    End Sub
 
     Private Sub mnuContextImportTaxBill_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnuContextImportTaxBill.Click
         Try
@@ -1137,5 +1106,7 @@
         End Try
     End Sub
 
+    Private Sub SplitContainer1_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles SplitContainer1.Panel1.Paint
 
+    End Sub
 End Class
