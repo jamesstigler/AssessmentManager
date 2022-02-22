@@ -13,6 +13,7 @@
         NoError = 0
         DuplicateAsset = 1
         BadData = 2
+        Mismatch = 3
     End Enum
     Private Const LOCATIONIDHEADER As String = "Location ID"
     Private _IsSpecificAccount As Boolean = False
@@ -51,7 +52,7 @@
                 " PurchaseDate datetime, Description varchar(255), GLCode varchar(50), VIN varchar(255), LocationAddress varchar(255)," &
                 " AssetId varchar(30)," &
                 " [LessorName] [varchar](50) NULL,[LessorAddress] [varchar](255) NULL,[LeaseTerm] [smallint] NULL,[EquipmentMake] [varchar](50) NULL," &
-                " [EquipmentModel] [varchar](50) NULL,[LeaseType] [varchar](50) NULL)"
+                " [EquipmentModel] [varchar](50) NULL,[LeaseType] [varchar](50) NULL, AuditFl bit null)"
             lRows = ExecuteSQL(sSQL)
             sSQL = "INSERT INTO " & sExistingAssetsTableName &
                 " SELECT c.Name, l.Address, l.City, l.StateCd, l.Zip, ISNULL(assess.AcctNum,'') AS AcctNum," &
@@ -60,6 +61,7 @@
                 " ISNULL(a.VIN,'') AS VIN, ISNULL(a.LocationAddress,'') AS LocationAddress," &
                 " a.AssetId," &
                 " ISNULL(a.[LessorName],''),ISNULL(a.[LessorAddress],''),ISNULL(a.[LeaseTerm],0),ISNULL(a.[EquipmentMake],''),ISNULL(a.[EquipmentModel],''),ISNULL(a.[LeaseType],'')" &
+                " ,ISNULL(a.AuditFl,0)" &
                 " FROM Clients AS c INNER JOIN" &
                 " LocationsBPP AS l ON c.ClientId = l.ClientId INNER JOIN" &
                 " AssessmentsBPP AS assess ON l.ClientId = assess.ClientId AND l.LocationId = assess.LocationId AND" &
@@ -91,7 +93,7 @@
             sSQL = sSQL & "[AssetId] [varchar](30) NULL,"
             sSQL = sSQL & "[InterstateAllocationPct] [float] NULL,"
             sSQL = sSQL & "[LessorName] [varchar](50) NULL, [LessorAddress] [varchar](255) NULL, [LeaseTerm] [smallint] NULL,"
-            sSQL = sSQL & "[EquipmentMake] [varchar](50) NULL, [EquipmentModel] [varchar](50) NULL, [LeaseType] [varchar](50) NULL,"
+            sSQL = sSQL & "[EquipmentMake] [varchar](50) NULL, [EquipmentModel] [varchar](50) NULL, [LeaseType] [varchar](50) NULL, AuditFl bit null,"
             sSQL = sSQL & "[Status] [varchar](50) NULL,"
             sSQL = sSQL & "[ErrorType] [int] NULL)"
             ExecuteSQL(sSQL)
@@ -117,7 +119,7 @@
         End Try
     End Function
 
-    Private Sub frmImportAssets_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+    Private Sub frmBatchImportAssets_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         If bActivated Then Exit Sub
 
         lblTotals.Text = ""
@@ -237,14 +239,10 @@
         If ListOfLocationsWithError.Count = 0 Then
             bLoadAnyway = True
         Else
-            If _IsSpecificAccount Then
-                Exit Sub
+            If MsgBox("Errors exist for some locations.  Load those locations?  Existing assets will be overwritten Or deleted.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                bLoadAnyway = True
             Else
-                If MsgBox("Errors exist for some locations.  Load those locations?  Existing assets will be overwritten Or deleted.", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    bLoadAnyway = True
-                Else
-                    bLoadAnyway = False
-                End If
+                bLoadAnyway = False
             End If
         End If
 
@@ -339,8 +337,10 @@
                     Asset.sPurchaseDate = sPurchaseDate
                     Asset.sVIN = sVIN
 
-                    If sStatus = "Exists" And radioImportComplete.Checked Then
+                    If (sStatus = "Exists" Or sStatus = "Error:  Mismatch") And radioImportComplete.Checked Then
                         sSQL = "UPDATE Assets SET GLCode = " & QuoStr(sGLCode) & "," &
+                            " OriginalCost = " & lOriginalCost & "," &
+                            " PurchaseDate = " & QuoStr(sPurchaseDate) & "," & 
                             " Description = " & QuoStr(sDescription) & "," &
                             " VIN = " & IIf(sVIN = "", "NULL", QuoStr(sVIN)) & "," &
                             " LocationAddress = " & IIf(sLocationAddress = "", "NULL", QuoStr(sLocationAddress)) & "," &
@@ -540,8 +540,8 @@
             fraColumns.Visible = False
             MDIParent1.ShowStatus("Comparing assets")
             Me.Cursor = Cursors.WaitCursor
-            Dim bLocationsWithErrors As Boolean = False
-            CompareAssets(bLocationsWithErrors)
+            Dim bLocationsWithErrors As Boolean = False, bLocationsWithMismatches As Boolean = False
+            CompareAssets(bLocationsWithErrors, bLocationsWithMismatches)
             MDIParent1.ShowStatus()
             Me.Cursor = Cursors.Default
             cmdPrint.Enabled = True
@@ -554,6 +554,9 @@
                         bContinue = False
                     End If
                 End If
+            End If
+            If bLocationsWithMismatches Then
+                MsgBox("Mismatches exist.", MsgBoxStyle.Exclamation + MsgBoxStyle.OkOnly)
             End If
             If bContinue Then
                 cmdFinish.Enabled = True
@@ -776,18 +779,19 @@
         Catch ex As Exception
         End Try
     End Sub
-    Private Sub frmImportAssets_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmBatchImportAssets_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         fraColumns.Left = fraFile.Left
         fraColumns.Top = fraFile.Top
         fraResults.Left = fraFile.Left
         fraResults.Top = fraFile.Top
     End Sub
-    Private Function CompareAssets(bSomeLocationsHaveErrors As Boolean) As Boolean
+    Private Function CompareAssets(ByRef bSomeLocationsHaveErrors As Boolean, ByRef bSomeLocationsHaveMismatches As Boolean) As Boolean
         Try
             Dim sSQL As String = "", lRows As Long = 0
             Dim sInsertSQL As String = ""
             lblTotals.Text = ""
-            bSomeLocationsHaveErrors = False  '' : m_ListOfLocationsWithError = New List(Of String)
+            bSomeLocationsHaveErrors = False
+            bSomeLocationsHaveMismatches = False
 
             sInsertSQL = " INSERT " & sResultsTableName & " (ClientLocationId, AssetId, GLCode, OriginalCost, PurchaseDate, " &
                 "Status, ErrorType"
@@ -892,7 +896,7 @@
             If ExecuteSQL(sSQL) > 0 Then bSomeLocationsHaveErrors = True
 
             'for locationid/assets that match up between import file and existing assets, if cost or date doesn't match
-            sSQL = "UPDATE " & sResultsTableName & " SET Status = 'Error:  Mismatch', ErrorType = 2"
+            sSQL = "UPDATE " & sResultsTableName & " SET Status = 'Error:  Mismatch', ErrorType = " & ErrorType.Mismatch
             If _IsSpecificAccount Then
                 sSQL = sSQL & " FROM " & sResultsTableName & " AS r" &
                     " INNER JOIN " & sExistingAssetsTableName & " AS e ON r.AssetId = e.AssetId WHERE" &
@@ -905,7 +909,7 @@
                     " (ABS(ABS(e.OriginalCost) - ABS(r.OriginalCost)) > 1) OR" &
                     " (YEAR(e.PurchaseDate) <> YEAR(r.PurchaseDate))"
             End If
-            If ExecuteSQL(sSQL) > 0 Then bSomeLocationsHaveErrors = True
+            If ExecuteSQL(sSQL) > 0 Then bSomeLocationsHaveMismatches = True
 
             'where assets match and not in error, set status to exists or delete
             sSQL = "UPDATE " & sResultsTableName & " SET Status = "
@@ -921,7 +925,7 @@
             If _IsSpecificAccount = False Then
                 sSQL = sSQL & " AND r.ClientLocationId = e.ClientLocationId"
             End If
-            sSQL = sSQL & " WHERE r.ErrorType = 0"
+            sSQL = sSQL & " WHERE r.ErrorType = " & ErrorType.NoError
             ExecuteSQL(sSQL)
 
             'for complete import, set to Add for those assets in the import file, but do not exist
@@ -933,20 +937,20 @@
                 If _IsSpecificAccount = False Then
                     sSQL = sSQL & " AND r.ClientLocationId = e.ClientLocationId"
                 End If
-                sSQL = sSQL & " WHERE r.ErrorType = 0 AND e.AssetId IS NULL"
+                sSQL = sSQL & " WHERE r.ErrorType = " & ErrorType.NoError & " AND e.AssetId IS NULL"
                 ExecuteSQL(sSQL)
             End If
 
             'add any existing assets not in the import file.  set to delete if complete list
             'if deletions then set to exists.  if additions then exists
             sSQL = "INSERT " & sResultsTableName & " (" & IIf(_IsSpecificAccount, "", "ClientLocationId,") & "AssetId,OriginalCost,PurchaseDate," &
-                " Description, GLCode, VIN,LocationAddress,Status,ErrorType)" &
+                " Description, GLCode, VIN,LocationAddress,AuditFl,Status,ErrorType)" &
                 " SELECT " & IIf(_IsSpecificAccount, "", "e.ClientLocationId,") & "e.AssetId, e.OriginalCost, e.PurchaseDate," &
-                " e.Description, e.GLCode, e.VIN, e.LocationAddress,"
+                " e.Description, e.GLCode, e.VIN, e.LocationAddress, e.AuditFl,"
             If radioImportComplete.Checked = True Then
-                sSQL = sSQL & "'Delete'"
+                sSQL = sSQL & "CASE WHEN e.AuditFl=1 THEN 'Audit' ELSE 'Delete' END"
             Else
-                sSQL = sSQL & "'Exists'"
+                sSQL = sSQL & "CASE WHEN e.AuditFl=1 THEN 'Audit' ELSE 'Exists' END"
             End If
             sSQL = sSQL & ",0 FROM " & sExistingAssetsTableName & " AS e" &
                 " LEFT OUTER JOIN " & sResultsTableName & " AS r" &
@@ -989,7 +993,7 @@
         End Try
     End Function
 
-    Private Sub frmImportAssets_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
+    Private Sub frmBatchImportAssets_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         Dim Buttons(4) As Control
 
         Buttons(0) = cmdBack
@@ -1034,7 +1038,7 @@
                 " FROM " & sResultsTableName & " AS t" &
                 " INNER JOIN (SELECT DISTINCT t3.ClientLocationId" &
                 " FROM " & sResultsTableName & " t3 WHERE Not EXISTS (SELECT t4.ClientLocationId FROM " & sResultsTableName & " t4" &
-                " WHERE t4.ClientLocationId = t3.ClientLocationId And t4.ErrorType <> 0)) AS ul" &
+                " WHERE t4.ClientLocationId = t3.ClientLocationId And t4.ErrorType NOT IN(" & ErrorType.NoError & "," & ErrorType.Mismatch  & "))) AS ul" &
                 " ON t.ClientLocationId = ul.ClientLocationId WHERE t.Status <> 'Delete') t2" &
                 " GROUP BY t2.ClientLocationId"
             GetData(sSQL, dt)
@@ -1068,7 +1072,7 @@
             Next
 
             'print detail for assets that had errors
-            sSQL = "SELECT * FROM " & sResultsTableName & " WHERE ErrorType <> 0 ORDER BY ClientLocationId, AssetId"
+            sSQL = "SELECT * FROM " & sResultsTableName & " WHERE ErrorType <> " & ErrorType.NoError & " ORDER BY ClientLocationId, AssetId"
             Dim lRows As Long = 0
             lRows = GetData(sSQL, dt)
             For Each dr In dt.Rows
@@ -1078,6 +1082,8 @@
                     sTitle = "Bad Data"
                 ElseIf enumErrorType = ErrorType.DuplicateAsset Then
                     sTitle = "Duplicate Assets"
+                ElseIf enumErrorType = ErrorType.Mismatch Then
+                    sTitle = "Mismatch"
                 ElseIf dr("Status").Value = "Delete" Then
                     sTitle = "Deleted Assets"
                 End If

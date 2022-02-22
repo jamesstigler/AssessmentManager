@@ -77,6 +77,7 @@ Partial Class frmAsset
         Me.txtLeaseTerm = New System.Windows.Forms.TextBox()
         Me.txtEquipmentModel = New System.Windows.Forms.TextBox()
         Me.cboLeaseType = New System.Windows.Forms.ComboBox()
+        Me.chkAuditFl = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'cboFactorOvr1
@@ -569,7 +570,7 @@ Partial Class frmAsset
         Me.txtLessorName.Location = New System.Drawing.Point(660, 268)
         Me.txtLessorName.Name = "txtLessorName"
         Me.txtLessorName.Size = New System.Drawing.Size(180, 20)
-        Me.txtLessorName.TabIndex = 28
+        Me.txtLessorName.TabIndex = 29
         Me.txtLessorName.Tag = "@DB=Assets.LessorName"
         Me.txtLessorName.WordWrap = False
         '
@@ -579,7 +580,7 @@ Partial Class frmAsset
         Me.txtLessorAddress.Location = New System.Drawing.Point(660, 292)
         Me.txtLessorAddress.Name = "txtLessorAddress"
         Me.txtLessorAddress.Size = New System.Drawing.Size(296, 20)
-        Me.txtLessorAddress.TabIndex = 29
+        Me.txtLessorAddress.TabIndex = 30
         Me.txtLessorAddress.Tag = "@DB=Assets.LessorAddress"
         '
         'txtEquipmentMake
@@ -588,7 +589,7 @@ Partial Class frmAsset
         Me.txtEquipmentMake.Location = New System.Drawing.Point(660, 340)
         Me.txtEquipmentMake.Name = "txtEquipmentMake"
         Me.txtEquipmentMake.Size = New System.Drawing.Size(180, 20)
-        Me.txtEquipmentMake.TabIndex = 31
+        Me.txtEquipmentMake.TabIndex = 32
         Me.txtEquipmentMake.Tag = "@DB=Assets.EquipmentMake"
         '
         'txtLeaseTerm
@@ -597,7 +598,7 @@ Partial Class frmAsset
         Me.txtLeaseTerm.Location = New System.Drawing.Point(660, 316)
         Me.txtLeaseTerm.Name = "txtLeaseTerm"
         Me.txtLeaseTerm.Size = New System.Drawing.Size(56, 20)
-        Me.txtLeaseTerm.TabIndex = 30
+        Me.txtLeaseTerm.TabIndex = 31
         Me.txtLeaseTerm.Tag = "@DB=Assets.LeaseTerm;@FMT=int"
         Me.txtLeaseTerm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -607,7 +608,7 @@ Partial Class frmAsset
         Me.txtEquipmentModel.Location = New System.Drawing.Point(660, 364)
         Me.txtEquipmentModel.Name = "txtEquipmentModel"
         Me.txtEquipmentModel.Size = New System.Drawing.Size(180, 20)
-        Me.txtEquipmentModel.TabIndex = 32
+        Me.txtEquipmentModel.TabIndex = 33
         Me.txtEquipmentModel.Tag = "@DB=Assets.EquipmentModel"
         '
         'cboLeaseType
@@ -619,15 +620,27 @@ Partial Class frmAsset
         Me.cboLeaseType.Location = New System.Drawing.Point(660, 244)
         Me.cboLeaseType.Name = "cboLeaseType"
         Me.cboLeaseType.Size = New System.Drawing.Size(180, 21)
-        Me.cboLeaseType.TabIndex = 27
+        Me.cboLeaseType.TabIndex = 28
         Me.cboLeaseType.Tag = "@DB=Assets.LeaseType"
+        '
+        'chkAuditFl
+        '
+        Me.chkAuditFl.AutoSize = True
+        Me.chkAuditFl.Location = New System.Drawing.Point(20, 392)
+        Me.chkAuditFl.Name = "chkAuditFl"
+        Me.chkAuditFl.Size = New System.Drawing.Size(62, 17)
+        Me.chkAuditFl.TabIndex = 27
+        Me.chkAuditFl.Tag = "@DB=Assets.AuditFl"
+        Me.chkAuditFl.Text = "Audited"
+        Me.chkAuditFl.UseVisualStyleBackColor = True
         '
         'frmAsset
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(973, 399)
+        Me.ClientSize = New System.Drawing.Size(973, 419)
+        Me.Controls.Add(Me.chkAuditFl)
         Me.Controls.Add(Me.cboLeaseType)
         Me.Controls.Add(Me.txtLessorName)
         Me.Controls.Add(Me.txtLessorAddress)
@@ -747,4 +760,5 @@ Partial Class frmAsset
     Friend WithEvents txtLeaseTerm As TextBox
     Friend WithEvents txtEquipmentModel As TextBox
     Friend WithEvents cboLeaseType As ComboBox
+    Friend WithEvents chkAuditFl As CheckBox
 End Class

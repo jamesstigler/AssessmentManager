@@ -962,26 +962,6 @@ Module modMain
     End Function
 
     Public Function ImportAssets(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal lAssessmentId As Long, ByVal iTaxYear As Integer) As Boolean
-        'Dim frmI As frmImportAssets
-        'For Each frm As Form In MDIParent1.MdiChildren
-        '    If frm.Name = "frmImportAssets" Then
-        '        frmI = frm
-        '        If frmI.ClientId = lClientId And frmI.LocationId = lLocationId And frmI.AssessmentId = lAssessmentId And _
-        '                frmI.TaxYear = iTaxYear Then
-        '            frm.Focus()
-        '            Exit Function
-        '        End If
-        '    End If
-        'Next
-        'frmI = New frmImportAssets
-        'frmI.ClientId = lClientId
-        'frmI.LocationId = lLocationId
-        'frmI.AssessmentId = lAssessmentId
-        'frmI.TaxYear = iTaxYear
-        'frmI.MdiParent = MDIParent1
-        'frmI.Show()
-        'Return True
-
         Dim frmI As frmBatchImportAssets
         For Each frm As Form In MDIParent1.MdiChildren
             If frm.Name = "frmBatchImportAssets" Then

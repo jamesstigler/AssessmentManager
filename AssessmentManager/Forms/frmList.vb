@@ -929,6 +929,7 @@
             mnuContextSetRenditionServiceLevel.Visible = True
             mnuContextSetRenditionInterstateAllocation.Visible = True
             mnuContextSetLeaseInfo.Visible = True
+            mnuContextSetRenditionAuditFl.Visible = True
             cmdNew.Visible = True
             cmdNew.Enabled = True
             cmdNew.Text = "New Asset"
@@ -938,6 +939,7 @@
             mnuContextFactor.Visible = False
             mnuContextSetRenditionServiceLevel.Visible = False
             mnuContextSetRenditionInterstateAllocation.Visible = False
+            mnuContextSetRenditionAuditFl.Visible = False
             mnuContextSetLeaseInfo.Visible = False
             cmdNew.Visible = False
             cmdImport.Visible = False
@@ -1033,6 +1035,7 @@
             pnlBusinessUnit.Location = New Point(iX - (pnlBusinessUnit.Width / 2), iY - (pnlBusinessUnit.Height / 2))
             pnlConsultantName.Location = New Point(iX - (pnlConsultantName.Width / 2), iY - (pnlConsultantName.Height / 2))
             pnlLeaseInfo.Location = New Point(iX - (pnlLeaseInfo.Width / 2), iY - (pnlLeaseInfo.Height / 2))
+            pnlAuditFl.Location = New Point(iX - (pnlAuditFl.Width / 2), iY - (pnlAuditFl.Height / 2))
         Catch ex As Exception
 
         End Try
@@ -1284,6 +1287,7 @@
         Dim iCol As Integer = 0
         Dim bReturn As Boolean = False, lWidth As Long = 0
         Dim bShowLeaseType As Boolean = False
+        Dim bShowAuditFl As Boolean = False
         Dim dtsource As New DataTable
 
         If Not IsNothing(dtList) Then dtList.Rows.Clear()
@@ -1303,6 +1307,9 @@
         End If
         If dtList.Columns.Contains("LeaseType") = True Then
             bShowLeaseType = dtList.Select("ISNULL(LeaseType,'')<>''").Count > 0
+        End If
+        If dtList.Columns.Contains("AuditFl") = True Then
+            bShowAuditFl = dtList.Select("ISNULL(AuditFl,0)<>0").Count > 0
         End If
 
         'MUST ADD FIELDS TO THIS SELECT IF NEW COLUMNS ADDED
@@ -1326,6 +1333,8 @@
                     End If
                 Case "LeaseType"
                     If bShowLeaseType Then baddcolumn = True
+                Case "AuditFl"
+                    If bShowAuditFl Then baddcolumn = True
             End Select
             If baddcolumn Then dtsource.Columns.Add(col.ColumnName, col.DataType)
         Next
@@ -1334,19 +1343,6 @@
         dgList.Columns.Clear()
         bind.DataSource = dtsource
         dgList.DataSource = bind
-
-        'With dgList
-        '    With .Columns("AssetId")
-        '        .HeaderText = "Asset ID"
-        '        If Not bHasLoadedAlready Then .Width = GetColumnWidth(m_ListType, m_QueryId, .Name)
-        '    End With
-        '    With .Columns("OriginalCost")
-        '        .HeaderText = "Original Cost"
-        '        .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-        '        .DefaultCellStyle.Format = csInt
-        '        If Not bHasLoadedAlready Then .Width = GetColumnWidth(m_ListType, m_QueryId, .Name)
-        '    End With
-        'End With
 
         For Each column As DataGridViewColumn In dgList.Columns
             Select Case column.Name
@@ -1409,6 +1405,8 @@
                     column.HeaderText = "Equipment Make"
                 Case "EquipmentModel"
                     column.HeaderText = "Equipment Model"
+                Case "AuditFl"
+                    column.HeaderText = "Audited"
                 Case "EntityFactorCode1" To "EntityFactorCode5", "ClientFactorCode1" To "ClientFactorCode5",
                         "ClientId", "LocationId", "AssessmentId",
                         "FactorEntityId1" To "FactorEntityId5",
@@ -1425,7 +1423,7 @@
         cmdExport.Enabled = True
 
         Dim dt As New DataTable
-        Dim sSQL As String = "select c.Name, l.Address, a.AcctNum," &
+        Dim sSQL As String = "select c.Name, isnull(l.ClientLocationId,'') AS ClientLocationId, l.Address, a.AcctNum," &
             " ISNULL((SELECT Name FROM Assessors WHERE AssessorId = a.AssessorId AND TaxYear = " & m_TaxYear & "),'') AS Assessors_Name" &
             " from Clients c, LocationsBPP l, AssessmentsBPP a" &
             " WHERE c.ClientId = l.ClientId AND a.ClientId = l.ClientId and a.LocationId = l.LocationId" &
@@ -1433,7 +1431,7 @@
         GetData(sSQL, dt)
         Me.Text = "List of Assets:  " & Trim(UnNullToString(dt.Rows(0).Item("Name"))) & "   " &
             Trim(UnNullToString(dt.Rows(0).Item("Address"))) & "   " & Trim(UnNullToString(dt.Rows(0).Item("AcctNum"))) &
-            "   " & Trim(dt.Rows(0).Item("Assessors_Name"))
+            "   " & Trim(dt.Rows(0).Item("Assessors_Name")) & IIf(dt.Rows(0)("ClientLocationId").ToString.Trim <> "", "    " & dt.Rows(0)("ClientLocationId").ToString, "")
 
         txtTotal.Text = "Total original cost:  " & Format(dTotal, csInt)
         bHasLoadedAlready = True
@@ -2602,7 +2600,6 @@
         dgList.Enabled = True
     End Sub
 
-
     Private Sub cmdLeadMailDateCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdLeadMailDateCancel.Click
         pnlLeadMailDate.Visible = False
         dgList.Enabled = True
@@ -2621,6 +2618,59 @@
     Private Sub cmdSolicitTypeCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdSolicitTypeCancel.Click
         pnlSolicitType.Visible = False
         dgList.Enabled = True
+    End Sub
+
+    Private Sub cmdAuditFlOK_Click(sender As Object, e As EventArgs) Handles cmdAuditFlOK.Click
+        Dim row As DataGridViewRow, assetids As New StringBuilder, sql As New StringBuilder
+        Try
+            If dgList.SelectedRows.Count = 0 Then Exit Sub
+            Me.Cursor = Cursors.WaitCursor
+            assetids.Clear()
+            For Each row In dgList.SelectedRows
+                If assetids.Length > 0 Then
+                    assetids.Append(",")
+                End If
+                assetids.Append(QuoStr(row.Cells("AssetId").Value))
+            Next
+            sql.Clear()
+            sql.Append("UPDATE Assets SET AuditFl = ").Append(IIf(chkAuditFl.CheckState = CheckState.Checked, "1", "NULL"))
+            sql.Append(" WHERE ClientId = ").Append(m_ClientId).Append(" AND LocationId = ").Append(m_LocationId).Append(" AND AssessmentId = ").Append(m_AssessmentId)
+            sql.Append(" AND AssetId IN (").Append(assetids.ToString).Append(")").Append(" AND TaxYear = ").Append(m_TaxYear)
+            ExecuteSQL(sql.ToString)
+        Catch ex As Exception
+            MsgBox("Error setting audit flag:  " & ex.Message)
+        Finally
+            pnlAuditFl.Visible = False
+            dgList.Enabled = True
+            Me.Cursor = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub cmdAuditFlCancel_Click(sender As Object, e As EventArgs) Handles cmdAuditFlCancel.Click
+        pnlAuditFl.Visible = False
+        dgList.Enabled = True
+    End Sub
+
+    Private Sub mnuContextSetRenditionAuditFl_Click(sender As Object, e As EventArgs) Handles mnuContextSetRenditionAuditFl.Click
+        Dim row As DataGridViewRow, i As Integer
+        Try
+            If iMouseClickColIndex < 0 Then
+                Exit Sub
+            End If
+            If dgList.SelectedRows.Count <= 0 Then
+                Exit Sub
+            End If
+
+            i = Val(Microsoft.VisualBasic.Right(dgList.Columns(iMouseClickColIndex).Name, 1))
+            row = dgList.SelectedRows(0)
+            pnlAuditFl.Visible = True
+            pnlAuditFl.BringToFront()
+            dgList.Enabled = False
+            Exit Sub
+
+        Catch ex As Exception
+            MsgBox("Error setting audit flag:  " & ex.Message)
+        End Try
     End Sub
 
     Private Sub mnuContextSetRenditionAllocationPct_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuContextSetRenditionServiceLevel.Click,

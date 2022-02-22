@@ -262,12 +262,6 @@
     <Compile Include="Forms\frmImportAssessments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmImportAssets.Designer.vb">
-      <DependentUpon>frmImportAssets.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmImportAssets.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmImportBPPComps.designer.vb">
       <DependentUpon>frmImportBPPComps.vb</DependentUpon>
     </Compile>
@@ -647,9 +641,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmImportAssessments.resx">
       <DependentUpon>frmImportAssessments.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmImportAssets.resx">
-      <DependentUpon>frmImportAssets.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmImportBPPComps.resx">
       <DependentUpon>frmImportBPPComps.vb</DependentUpon>

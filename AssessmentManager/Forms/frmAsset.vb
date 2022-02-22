@@ -82,7 +82,6 @@
         DBPrimaryKeys(0).PrimaryKeys(3).sField = "AssetId"
         DBPrimaryKeys(0).PrimaryKeys(4).sField = "TaxYear"
 
-
         InitControls(Me, DBUpdate, DBPrimaryKeys)
         For l = 0 To UBound(DBUpdate)
             DBUpdate(l).PrimaryKeys(0).vValue = m_ClientId
@@ -111,7 +110,7 @@
                 " a.AssessmentId, a.AssetId, a.TaxYear, assess.FactorEntityId1, assess.FactorEntityId2," &
                 " assess.FactorEntityId3, assess.FactorEntityId4, assess.FactorEntityId5," &
                 " a.VIN, a.LocationAddress,a.OriginalCost,a.PurchaseDate,a.Description,a.GLCode," &
-                " a.LessorName, a.LessorAddress, a.LeaseTerm, a.EquipmentMake, a.EquipmentModel, a.LeaseType" &
+                " a.LessorName, a.LessorAddress, a.LeaseTerm, a.EquipmentMake, a.EquipmentModel, a.LeaseType, a.AuditFl" &
                 " FROM Clients AS c INNER JOIN" &
                 " LocationsBPP AS l ON c.ClientId = l.ClientId INNER JOIN" &
                 " AssessmentsBPP AS assess ON l.ClientId = assess.ClientId" &
@@ -225,7 +224,7 @@
             txtPct1.TextChanged, txtPct2.TextChanged, txtPct3.TextChanged, txtPct4.TextChanged, txtPct5.TextChanged,
             txtPct1Interstate.TextChanged, txtPct2Interstate.TextChanged, txtPct3Interstate.TextChanged, txtPct4Interstate.TextChanged, txtPct5Interstate.TextChanged,
             txtEquipmentMake.TextChanged, txtEquipmentModel.TextChanged, txtLeaseTerm.TextChanged, txtLessorAddress.TextChanged, txtLessorName.TextChanged,
-            cboLeaseType.TextChanged
+            cboLeaseType.TextChanged, chkAuditFl.CheckedChanged
         If bActivated Then bChanged = True
     End Sub
     Private Sub ComboBox_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
@@ -238,7 +237,7 @@
             txtPct1.LostFocus, txtPct2.LostFocus, txtPct3.LostFocus, txtPct4.LostFocus, txtPct5.LostFocus,
             txtPct1Interstate.LostFocus, txtPct2Interstate.LostFocus, txtPct3Interstate.LostFocus, txtPct4Interstate.LostFocus, txtPct5Interstate.LostFocus,
             txtEquipmentMake.LostFocus, txtEquipmentModel.LostFocus, txtLeaseTerm.LostFocus, txtLessorAddress.LostFocus, txtLessorName.LostFocus,
-            cboLeaseType.LostFocus
+            cboLeaseType.LostFocus, chkAuditFl.LostFocus
 
         If bChanged Then
 
@@ -354,4 +353,7 @@
 
     End Function
 
+    Private Sub cboLeaseType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboLeaseType.SelectedIndexChanged
+
+    End Sub
 End Class

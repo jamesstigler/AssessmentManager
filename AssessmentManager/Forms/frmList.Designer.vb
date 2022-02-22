@@ -129,6 +129,10 @@ Partial Class frmList
         Me.cmdImport = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pnlAuditFl = New System.Windows.Forms.Panel()
+        Me.cmdAuditFlCancel = New System.Windows.Forms.Button()
+        Me.chkAuditFl = New System.Windows.Forms.CheckBox()
+        Me.cmdAuditFlOK = New System.Windows.Forms.Button()
         Me.pnlLeaseInfo = New System.Windows.Forms.Panel()
         Me.txtLessorName = New System.Windows.Forms.TextBox()
         Me.txtLessorAddress = New System.Windows.Forms.TextBox()
@@ -159,6 +163,7 @@ Partial Class frmList
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmdECUParentOK = New System.Windows.Forms.Button()
         Me.cboECUParent = New System.Windows.Forms.ComboBox()
+        Me.mnuContextSetRenditionAuditFl = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -178,6 +183,7 @@ Partial Class frmList
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.pnlAuditFl.SuspendLayout()
         Me.pnlLeaseInfo.SuspendLayout()
         Me.pnlConsultantName.SuspendLayout()
         Me.pnlBusinessUnit.SuspendLayout()
@@ -209,96 +215,96 @@ Partial Class frmList
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(206, 609)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 653)
         '
         'mnuContextCopy
         '
         Me.mnuContextCopy.Name = "mnuContextCopy"
-        Me.mnuContextCopy.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextCopy.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextCopy.Text = "Copy"
         '
         'mnuContextDelete
         '
         Me.mnuContextDelete.Name = "mnuContextDelete"
-        Me.mnuContextDelete.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextDelete.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextDelete.Text = "Delete"
         '
         'mnuContextFactor
         '
         Me.mnuContextFactor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuContextFactor.Name = "mnuContextFactor"
-        Me.mnuContextFactor.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextFactor.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextFactor.Text = "Factor"
         '
         'mnuContextPrint
         '
         Me.mnuContextPrint.Name = "mnuContextPrint"
-        Me.mnuContextPrint.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextPrint.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextPrint.Text = "Print"
         '
         'mnuContextSetECUParent
         '
         Me.mnuContextSetECUParent.Name = "mnuContextSetECUParent"
-        Me.mnuContextSetECUParent.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetECUParent.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetECUParent.Text = "Set ECU Parent"
         '
         'mnuContextSetBusinessUnit
         '
         Me.mnuContextSetBusinessUnit.Name = "mnuContextSetBusinessUnit"
-        Me.mnuContextSetBusinessUnit.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetBusinessUnit.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetBusinessUnit.Text = "Set Business Unit"
         Me.mnuContextSetBusinessUnit.Visible = False
         '
         'mnuContextSetConsultantName
         '
         Me.mnuContextSetConsultantName.Name = "mnuContextSetConsultantName"
-        Me.mnuContextSetConsultantName.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetConsultantName.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetConsultantName.Text = "Set Consultant Name"
         '
         'mnuContextImportTaxBill
         '
         Me.mnuContextImportTaxBill.Name = "mnuContextImportTaxBill"
-        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextImportTaxBill.Text = "Import Tax Bill"
         Me.mnuContextImportTaxBill.Visible = False
         '
         'mnuContextViewTaxBill
         '
         Me.mnuContextViewTaxBill.Name = "mnuContextViewTaxBill"
-        Me.mnuContextViewTaxBill.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextViewTaxBill.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextViewTaxBill.Text = "View Tax Bill"
         Me.mnuContextViewTaxBill.Visible = False
         '
         'mnuContextModifyQuery
         '
         Me.mnuContextModifyQuery.Name = "mnuContextModifyQuery"
-        Me.mnuContextModifyQuery.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextModifyQuery.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextModifyQuery.Text = "Modify Query"
         '
         'mnuContextAddJurisdiction
         '
         Me.mnuContextAddJurisdiction.Name = "mnuContextAddJurisdiction"
-        Me.mnuContextAddJurisdiction.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextAddJurisdiction.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextAddJurisdiction.Text = "Add Jurisdiction"
         '
         'mnuContextOpenListOfAssets
         '
         Me.mnuContextOpenListOfAssets.Name = "mnuContextOpenListOfAssets"
-        Me.mnuContextOpenListOfAssets.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextOpenListOfAssets.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextOpenListOfAssets.Text = "Open List of Assets"
         '
         'mnuContextOpenAssessmentValues
         '
         Me.mnuContextOpenAssessmentValues.Name = "mnuContextOpenAssessmentValues"
-        Me.mnuContextOpenAssessmentValues.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextOpenAssessmentValues.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextOpenAssessmentValues.Text = "Open Assessment Values"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(202, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(201, 6)
         Me.ToolStripSeparator1.Visible = False
         '
         'mnuContextLabelEdit
@@ -324,81 +330,81 @@ Partial Class frmList
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(202, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(201, 6)
         Me.ToolStripSeparator2.Visible = False
         '
         'mnuContextOpenProspect
         '
         Me.mnuContextOpenProspect.Name = "mnuContextOpenProspect"
-        Me.mnuContextOpenProspect.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextOpenProspect.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextOpenProspect.Text = "Open Prospect"
         Me.mnuContextOpenProspect.Visible = False
         '
         'mnuContextAssignToClient
         '
         Me.mnuContextAssignToClient.Name = "mnuContextAssignToClient"
-        Me.mnuContextAssignToClient.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextAssignToClient.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextAssignToClient.Text = "Assign to Client"
         Me.mnuContextAssignToClient.Visible = False
         '
         'mnuContextSetSolicitType
         '
         Me.mnuContextSetSolicitType.Name = "mnuContextSetSolicitType"
-        Me.mnuContextSetSolicitType.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetSolicitType.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetSolicitType.Text = "Set Solicitation Type"
         '
         'mnuContextSetSolicitSentDate
         '
         Me.mnuContextSetSolicitSentDate.Name = "mnuContextSetSolicitSentDate"
-        Me.mnuContextSetSolicitSentDate.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetSolicitSentDate.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetSolicitSentDate.Text = "Set Solicitation Date"
         '
         'mnuContextSetLeadMailDate
         '
         Me.mnuContextSetLeadMailDate.Name = "mnuContextSetLeadMailDate"
-        Me.mnuContextSetLeadMailDate.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetLeadMailDate.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeadMailDate.Text = "Set Mail/Email Date"
         '
         'mnuContextSetLeadFollowUpDate
         '
         Me.mnuContextSetLeadFollowUpDate.Name = "mnuContextSetLeadFollowUpDate"
-        Me.mnuContextSetLeadFollowUpDate.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetLeadFollowUpDate.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeadFollowUpDate.Text = "Set Follow-up Date"
         '
         'mnuContextSetLeadInfoSentFl
         '
         Me.mnuContextSetLeadInfoSentFl.Name = "mnuContextSetLeadInfoSentFl"
-        Me.mnuContextSetLeadInfoSentFl.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetLeadInfoSentFl.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeadInfoSentFl.Text = "Set Lead Info Sent Flag"
         '
         'mnuContextSetLeadStatus
         '
         Me.mnuContextSetLeadStatus.Name = "mnuContextSetLeadStatus"
-        Me.mnuContextSetLeadStatus.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetLeadStatus.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeadStatus.Text = "Set Lead Status"
         '
         'mnuContextSetClientCoordinatorName
         '
         Me.mnuContextSetClientCoordinatorName.Name = "mnuContextSetClientCoordinatorName"
-        Me.mnuContextSetClientCoordinatorName.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetClientCoordinatorName.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetClientCoordinatorName.Text = "Set Client Coordinator"
         '
         'mnuContextSetRenditionServiceLevel
         '
         Me.mnuContextSetRenditionServiceLevel.Name = "mnuContextSetRenditionServiceLevel"
-        Me.mnuContextSetRenditionServiceLevel.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetRenditionServiceLevel.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetRenditionServiceLevel.Text = "Set Service Level"
         '
         'mnuContextSetRenditionInterstateAllocation
         '
         Me.mnuContextSetRenditionInterstateAllocation.Name = "mnuContextSetRenditionInterstateAllocation"
-        Me.mnuContextSetRenditionInterstateAllocation.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetRenditionInterstateAllocation.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetRenditionInterstateAllocation.Text = "Set Interstate Allocation"
         '
         'mnuContextSetLeaseInfo
         '
         Me.mnuContextSetLeaseInfo.Name = "mnuContextSetLeaseInfo"
-        Me.mnuContextSetLeaseInfo.Size = New System.Drawing.Size(205, 22)
+        Me.mnuContextSetLeaseInfo.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeaseInfo.Text = "Set Lease Information"
         '
         'GroupBox1
@@ -1214,6 +1220,7 @@ Partial Class frmList
         '
         'SplitContainer1.Panel2
         '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlAuditFl)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlLeaseInfo)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlSolicitType)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlSolicitSentDate)
@@ -1244,6 +1251,51 @@ Partial Class frmList
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(206, 101)
         Me.Panel1.TabIndex = 37
+        '
+        'pnlAuditFl
+        '
+        Me.pnlAuditFl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlAuditFl.Controls.Add(Me.cmdAuditFlCancel)
+        Me.pnlAuditFl.Controls.Add(Me.chkAuditFl)
+        Me.pnlAuditFl.Controls.Add(Me.cmdAuditFlOK)
+        Me.pnlAuditFl.Location = New System.Drawing.Point(1009, 209)
+        Me.pnlAuditFl.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlAuditFl.Name = "pnlAuditFl"
+        Me.pnlAuditFl.Size = New System.Drawing.Size(247, 88)
+        Me.pnlAuditFl.TabIndex = 35
+        Me.pnlAuditFl.Visible = False
+        '
+        'cmdAuditFlCancel
+        '
+        Me.cmdAuditFlCancel.Location = New System.Drawing.Point(126, 42)
+        Me.cmdAuditFlCancel.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdAuditFlCancel.Name = "cmdAuditFlCancel"
+        Me.cmdAuditFlCancel.Size = New System.Drawing.Size(99, 28)
+        Me.cmdAuditFlCancel.TabIndex = 21
+        Me.cmdAuditFlCancel.Text = "Cancel"
+        Me.cmdAuditFlCancel.UseVisualStyleBackColor = True
+        '
+        'chkAuditFl
+        '
+        Me.chkAuditFl.AutoSize = True
+        Me.chkAuditFl.Location = New System.Drawing.Point(88, 12)
+        Me.chkAuditFl.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAuditFl.Name = "chkAuditFl"
+        Me.chkAuditFl.Size = New System.Drawing.Size(62, 17)
+        Me.chkAuditFl.TabIndex = 20
+        Me.chkAuditFl.Tag = ""
+        Me.chkAuditFl.Text = "Audited"
+        Me.chkAuditFl.UseVisualStyleBackColor = True
+        '
+        'cmdAuditFlOK
+        '
+        Me.cmdAuditFlOK.Location = New System.Drawing.Point(20, 42)
+        Me.cmdAuditFlOK.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdAuditFlOK.Name = "cmdAuditFlOK"
+        Me.cmdAuditFlOK.Size = New System.Drawing.Size(99, 28)
+        Me.cmdAuditFlOK.TabIndex = 19
+        Me.cmdAuditFlOK.Text = "OK"
+        Me.cmdAuditFlOK.UseVisualStyleBackColor = True
         '
         'pnlLeaseInfo
         '
@@ -1571,6 +1623,12 @@ Partial Class frmList
         Me.cboECUParent.Size = New System.Drawing.Size(689, 21)
         Me.cboECUParent.TabIndex = 4
         '
+        'mnuContextSetRenditionAuditFl
+        '
+        Me.mnuContextSetRenditionAuditFl.Name = "mnuContextSetRenditionAuditFl"
+        Me.mnuContextSetRenditionAuditFl.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextSetRenditionAuditFl.Text = "Set Audit Flag"
+        '
         'frmList
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1608,6 +1666,8 @@ Partial Class frmList
         Me.SplitContainer1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.pnlAuditFl.ResumeLayout(False)
+        Me.pnlAuditFl.PerformLayout()
         Me.pnlLeaseInfo.ResumeLayout(False)
         Me.pnlLeaseInfo.PerformLayout()
         Me.pnlConsultantName.ResumeLayout(False)
@@ -1752,4 +1812,9 @@ Partial Class frmList
     Friend WithEvents Label16 As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents Label18 As Label
+    Friend WithEvents pnlAuditFl As Panel
+    Friend WithEvents cmdAuditFlCancel As Button
+    Friend WithEvents chkAuditFl As CheckBox
+    Friend WithEvents cmdAuditFlOK As Button
+    Friend WithEvents mnuContextSetRenditionAuditFl As ToolStripMenuItem
 End Class
