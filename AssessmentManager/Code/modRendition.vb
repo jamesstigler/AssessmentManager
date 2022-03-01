@@ -43,9 +43,18 @@
     ''' <param name="bAccrual"></param>
     ''' <returns>Dataset with multiple tables</returns>
     Public Function GetAssetList(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal lAssessmentId As Long, ByVal iTaxYear As Integer, ByVal lFactoringEntityId As Long,
-            ByVal bNeedFactoredAmounts As Boolean, ByVal bNeedFactoringEntityNames As Boolean, ByVal bNeedTotalValues As Boolean, ByVal bNeedTotalOriginalCost As Boolean, ByVal bNeedDetail As Boolean, ByVal bAccrual As Boolean) As DataSet
-        Return cData.GetAssetList(lClientId, lLocationId, lAssessmentId, iTaxYear, lFactoringEntityId, bNeedFactoredAmounts, bNeedFactoringEntityNames, bNeedTotalValues, bNeedTotalOriginalCost, bNeedDetail, bAccrual)
+            ByVal bNeedFactoredAmounts As Boolean, ByVal bNeedFactoringEntityNames As Boolean, ByVal bNeedTotalValues As Boolean, ByVal bNeedTotalOriginalCost As Boolean,
+            ByVal bNeedDetail As Boolean, ByVal bAccrual As Boolean) As DataSet
+        Return cData.GetAssetList(lClientId, lLocationId, lAssessmentId, iTaxYear, lFactoringEntityId, bNeedFactoredAmounts, bNeedFactoringEntityNames, bNeedTotalValues,
+            bNeedTotalOriginalCost, bNeedDetail, bAccrual, False)
     End Function
+    Public Function GetAssetList(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal lAssessmentId As Long, ByVal iTaxYear As Integer, ByVal lFactoringEntityId As Long,
+            ByVal bNeedFactoredAmounts As Boolean, ByVal bNeedFactoringEntityNames As Boolean, ByVal bNeedTotalValues As Boolean, ByVal bNeedTotalOriginalCost As Boolean,
+            ByVal bNeedDetail As Boolean, ByVal bAccrual As Boolean, ByVal bNeedFixedAndInv As Boolean) As DataSet
+        Return cData.GetAssetList(lClientId, lLocationId, lAssessmentId, iTaxYear, lFactoringEntityId, bNeedFactoredAmounts, bNeedFactoringEntityNames, bNeedTotalValues,
+            bNeedTotalOriginalCost, bNeedDetail, bAccrual, bNeedTotalOriginalCost)
+    End Function
+
 
     ''' <summary>
     ''' Function returns SQL to query assets.  Use only for the reconciliation reports.  All other asset listings/renditions must use GetAssetList

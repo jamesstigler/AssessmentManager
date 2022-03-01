@@ -625,7 +625,8 @@
                 If ePropType = enumTable.enumLocationRE Or ePropType = enumTable.enumUnknown Then
                     'Run RE tax savings once since don't have rendition for RE
                     'and add to dtSavingsTemp results table
-                    sSQL = BuildTaxBillQuery(lClientId, lLocationId, lAssessmentId, JurisdictionList, iTaxYear, enumTable.enumLocationRE, False, False, False, False, True, 0, lBusinessUnitId, sStateCd)
+                    sSQL = BuildTaxBillQuery(lClientId, lLocationId, lAssessmentId, JurisdictionList, iTaxYear, enumTable.enumLocationRE, False, False, False, False, True, 0,
+                        lBusinessUnitId, sStateCd)
                     GetData(sSQL, dtTaxBills)
                     If dtSavings.Columns.Count = 0 Then dtSavings = dtTaxBills.Clone
                     For Each rowTaxBills In dtTaxBills.Rows
@@ -680,6 +681,7 @@
                     If lLocationId <> 0 Then sSQL = sSQL & " AND a.LocationId = " & lLocationId
                     If lAssessmentId <> 0 Then sSQL = sSQL & " AND a.AssessmentId = " & lAssessmentId
                     If lBusinessUnitId <> 0 Then sSQL = sSQL & " AND a.BusinessUnitId = " & lBusinessUnitId
+                    If sStateCd.Trim <> "" Then sSQL = sSQL & " AND l.StateCd = " & QuoStr(sStateCd)
                     sSQL = sSQL & " AND ISNULL(c.ProspectFl,0) = 0 "
                     If bIncludeInactive = False Then
                         sSQL = sSQL & " AND ISNULL(c.InactiveFl,0) = 0 AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(a.InactiveFl,0) = 0 "
@@ -737,6 +739,7 @@
                     If lLocationId <> 0 Then sSQL = sSQL & " AND a.LocationId = " & lLocationId
                     If lAssessmentId <> 0 Then sSQL = sSQL & " AND a.AssessmentId = " & lAssessmentId
                     If lBusinessUnitId <> 0 Then sSQL = sSQL & " AND a.BusinessUnitId = " & lBusinessUnitId
+                    If sStateCd.Trim <> "" Then sSQL = sSQL & " AND l.StateCd = " & QuoStr(sStateCd)
                     sSQL = sSQL & " AND ISNULL(c.ProspectFl,0) = 0 "
                     If bIncludeInactive = False Then
                         sSQL = sSQL & " AND ISNULL(c.InactiveFl,0) = 0 AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(a.InactiveFl,0) = 0 "
@@ -1011,653 +1014,627 @@
                 Dim dtinstallments As DataTable
                 dtinstallments = GetInstallments(lClientId, lLocationId, lAssessmentId, iTaxYear, ePropType)
                 clsReport = New clsReportData
-                For Each row In dt.Rows
-                    clsReport.Title01 = AppData.FirmName & vbCrLf & sTitle
-                    clsReport.Title02 = sName
-                    clsReport.Date02 = IIf(IsDBNull(row("Collectors_DueDate")), "NULL", UnNullToString(row("Collectors_DueDate")))
-                    clsReport.Date03 = IIf(IsDBNull(row("Collectors_DueDate")), "NULL", UnNullToString(Convert.ToDateTime(row("Collectors_DueDate")).AddDays(1)))
-                    sProperty.Clear()
-                    sProperty.Append(IIf(row("LegalOwner").ToString.Trim.ToUpper = "", row("Clients_Name").ToString.Trim, row("LegalOwner").ToString.Trim)).Append(vbCrLf)
-                    sProperty.Append(UnNullToString(row("Locations_Address"))).Append(vbCrLf)
-                    sProperty.Append(UnNullToString(row("Locations_City"))).Append(", ").Append(row("Locations_StateCd").ToString).Append(vbCrLf)
-                    sProperty.Append(UnNullToString(row("Locations_Name"))).Append(IIf(row("Locations_Name").ToString().Trim() <> "", " ", ""))
-                    sProperty.Append(UnNullToString(row("ClientLocationId")))
-                    clsReport.Text01 = sProperty.ToString
-                    clsReport.Text02 = IIf(row("PropertyType") = "P", "BPP", "Real Estate")
-                    clsReport.Text03 = IIf(row("PropertyType") = "P", Format(row("BPPRatio"), csPctNoDec), Format(row("RERatio"), csPctNoDec))
-                    'installments
-                    clsReport.Text04 = ""
-                    clsReport.Text05 = ""
-                    clsReport.Text06 = ""
-                    clsReport.Text07 = ""
-                    Dim dv As New DataView(dtinstallments, "CollectorId=" & row("CollectorId"), "PayToDt", DataViewRowState.OriginalRows)
-                    If dv.Count > 0 Then
-                        Dim dtthisinstall = dv.ToTable()
-                        If dtthisinstall.Rows.Count > 0 Then
+                clsReport.Title01 = AppData.FirmName & vbCrLf & sTitle
+                clsReport.Title02 = sName
+                If dt.Rows.Count > 0 Then
+                    row = dt.Rows(0)
+                    If row("Clients_InactiveFl").ToString.ToUpper.Trim = "TRUE" Or
+                            row("Locations_InactiveFl").ToString.ToUpper.Trim = "TRUE" Or
+                            row("Assessments_InactiveFl").ToString.ToUpper.Trim = "TRUE" Then
+                        sProperty.Clear()
+                        sProperty.Append("INACTIVE").AppendLine()
+                        sProperty.Append(IIf(row("LegalOwner").ToString.Trim.ToUpper = "", row("Clients_Name").ToString.Trim, row("LegalOwner").ToString.Trim)).AppendLine()
+                        sProperty.Append(UnNullToString(row("Locations_Address"))).AppendLine()
+                        sProperty.Append(UnNullToString(row("Locations_City"))).Append(", ").Append(row("Locations_StateCd").ToString).AppendLine()
+                        sProperty.Append(UnNullToString(row("Locations_Name"))).Append(IIf(row("Locations_Name").ToString().Trim() <> "", " ", ""))
+                        sProperty.Append(UnNullToString(row("ClientLocationId")))
+                        clsReport.Text01 = sProperty.ToString
+                        clsReport.WriteReportData()
+                    Else
+                        For Each row In dt.Rows
+                            clsReport.Date02 = IIf(IsDBNull(row("Collectors_DueDate")), "NULL", UnNullToString(row("Collectors_DueDate")))
+                            clsReport.Date03 = IIf(IsDBNull(row("Collectors_DueDate")), "NULL", UnNullToString(Convert.ToDateTime(row("Collectors_DueDate")).AddDays(1)))
+                            sProperty.Clear()
+                            sProperty.Append(IIf(row("LegalOwner").ToString.Trim.ToUpper = "", row("Clients_Name").ToString.Trim, row("LegalOwner").ToString.Trim)).AppendLine()
+                            sProperty.Append(UnNullToString(row("Locations_Address"))).AppendLine()
+                            sProperty.Append(UnNullToString(row("Locations_City"))).Append(", ").Append(row("Locations_StateCd").ToString).AppendLine()
+                            If row("ClientLocationId").ToString.Trim = "" Then
+                                sProperty.Append(UnNullToString(row("Locations_Name"))).Append(IIf(row("Locations_Name").ToString().Trim() <> "", " ", ""))
+                            End If
+                            sProperty.Append(row("ClientLocationId").ToString.Trim)
+                            clsReport.Text01 = sProperty.ToString
+                            clsReport.Text02 = IIf(row("PropertyType") = "P", "BPP", "Real Estate")
+                            clsReport.Text03 = IIf(row("PropertyType") = "P", Format(row("BPPRatio"), csPctNoDec), Format(row("RERatio"), csPctNoDec))
+                            'installments
                             clsReport.Text04 = ""
                             clsReport.Text05 = ""
                             clsReport.Text06 = ""
-                            clsReport.Text07 = "Installments"
-                            For Each dr As DataRow In dtthisinstall.Rows
-                                If clsReport.Text04 <> "" Then clsReport.Text04 = clsReport.Text04 & vbCrLf
-                                If clsReport.Text05 <> "" Then clsReport.Text05 = clsReport.Text05 & vbCrLf
-                                If clsReport.Text06 <> "" Then clsReport.Text06 = clsReport.Text06 & vbCrLf
-                                clsReport.Text04 = clsReport.Text04 & "Due"
-                                clsReport.Text05 = clsReport.Text05 & Format(dr("PayToDt"), csDate)
-                                clsReport.Text06 = clsReport.Text06 & Format(dr("PayAmt"), csDol)
-                            Next
-                        End If
-                    End If
-                    clsReport.Text09 = row("Assessors_Name").ToString
-                    clsReport.Text10 = row("Jurisdictions_Name").ToString
-                    clsReport.Text11 = row("TaxBillAcctNum").ToString()
-                    clsReport.Text12 = row("Payee").ToString() & vbCrLf &
-                        row("Collectors_Address1").ToString & vbCrLf &
-                        row("Collectors_City").ToString & ", " & row("Collectors_PayeeStateCd").ToString & "  " & row("Collectors_Zip")
-                    clsReport.Text14 = sName
-                    clsReport.Text15 = "Tax Consultant:" & vbCrLf &
-                        row("Consultants_FullName").ToString & vbCrLf &
-                        row("Consultants_EMail").ToString & vbCrLf &
-                        row("Consultants_Phone").ToString & vbCrLf
-                    If row("TaxBillNotes").ToString.Length > 0 Then
-                        clsReport.Text16 = "Important Tax Notes:" & vbCrLf & vbCrLf & row("TaxBillNotes").ToString
-                    Else
-                        clsReport.Text16 = ""
-                    End If
-                    clsReport.Number01 = iTaxYear
-                    clsReport.Number02 = UnNullToDouble(row("TaxDue"))
-                    clsReport.Number03 = UnNullToDouble(row("CollectorId"))
-                    clsReport.Number04 = UnNullToDouble(row("TaxRate"))
-                    clsReport.Number05 = UnNullToDouble(row("FinalValue"))
-                    clsReport.Number06 = UnNullToDouble(row("TaxableValue"))
-                    'clsReport.Number07 = UnNullToDouble(row("TaxBillAdjAmt1"))
-                    clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.TaxBill,
-                        row("ClientId"), row("TaxYear"),
-                        IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
-                        row("LocationId"),
-                        row("AssessmentId"), 0, row("CollectorId"))
-                    clsReport.BarCode2 = BuildBarCode2(enumBarCodeTypes.TaxBill,
-                        row("ClientId"), row("TaxYear"),
-                        IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
-                        row("LocationId"),
-                        row("AssessmentId"), 0, row("CollectorId"))
-
-                    clsReport.WriteReportData()
-                Next
-
-
-
-                'For Each row In dt.Rows
-                '    sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Title02,Date01," &
-                '        " Text01,Text02,Text03," &
-                '        " Date02," &
-                '        " Text05," &
-                '        " Text06," &
-                '        " Text07," &
-                '        " Text08,Text09," &
-                '        " Text10,Text11," &
-                '        " Text12,Text13," &
-                '        " Number01,Number02,Number03," &
-                '        "Text14, BarCode1, BarCode2) SELECT " &
-                '        QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                '        QuoStr(AppData.FirmName & vbCrLf & sTitle) & "," & QuoStr(sName) & "," & QuoStr(Format(Now, csDate)) & "," &
-                '        QuoStr(IIf(row("LegalOwner").ToString.Trim.ToUpper = row("Clients_Name").ToString.Trim.ToUpper, "", row("LegalOwner").ToString.Trim)) & "," &
-                '        QuoStr(row("Locations_StateCd")) & "," & QuoStr(UnNullToString(row("Collectors_Name"))) & "," &
-                '        IIf(IsDBNull(row("Collectors_DueDate")), "NULL", QuoStr(UnNullToString(row("Collectors_DueDate")))) & "," &
-                '        QuoStr(UnNullToString(row("LienDate"))) & "," &
-                '        IIf(row("PropertyType") = "P", "'Personal Property'", "'Real Estate'") & "," &
-                '        QuoStr(UnNullToString(row("Locations_Address")) & vbCrLf &
-                '        UnNullToString(row("Locations_City")) & ", " & row("Locations_StateCd")) & "," &
-                '        QuoStr(UnNullToString(row("Locations_Name"))) & "," & QuoStr(UnNullToString(row("ClientLocationId"))) & "," &
-                '        QuoStr(UnNullToString(row("Jurisdictions_Name"))) & "," & QuoStr(UnNullToString(row("AcctNum"))) & "," &
-                '        QuoStr(UnNullToString(row("Payee"))) & "," & QuoStr(UnNullToString(row("Collectors_Address1")) & vbCrLf &
-                '        UnNullToString(row("Collectors_City")) & ", " & UnNullToString(row("Collectors_PayeeStateCd")) & "  " &
-                '        UnNullToString(row("Collectors_Zip"))) & "," &
-                '        iTaxYear & "," & UnNullToDouble(row("TaxDue")) & "," & UnNullToDouble(row("CollectorId")) & "," &
-                '        QuoStr(row("Clients_Name")) & "," &
-                '        QuoStr(BuildBarCode1(enumBarCodeTypes.TaxBill,
-                '        row("ClientId"), row("TaxYear"),
-                '        IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
-                '        row("LocationId"),
-                '        row("AssessmentId"), 0, row("CollectorId"))) & "," &
-                '        QuoStr(BuildBarCode2(enumBarCodeTypes.TaxBill,
-                '        row("ClientId"), row("TaxYear"),
-                '        IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
-                '        row("LocationId"),
-                '        row("AssessmentId"), 0, row("CollectorId")))
-                '    ExecuteSQL(sSQL)
-                'Next
-            ElseIf eType = enumReport.enumBarCode Then
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    Dim sBarCode1 As String = "", sBarCode2 As String = "", sBarCodeDesc As String = ""
-                    Dim byteBarCodeImage As Byte()
-                    If eBarCodeType = enumBarCodeTypes.TaxBill Then
-                        sBarCode1 = BuildBarCode1(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
-                            row("LocationId"), row("AssessmentId"), 0, row("CollectorId"))
-                        sBarCode2 = BuildBarCode2(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
-                            row("LocationId"), row("AssessmentId"), 0, row("CollectorId"))
-                        sBarCodeDesc = BuildBarCodeDesc(eBarCodeType, "", row("ClientName"),
-                            row("TaxYear"), row("Address"), row("City"), row("StateCd"), row("AcctNum"),
-                            row("ClientLocationId"), row("AssessorName"), row("CollectorName"))
-                        byteBarCodeImage = BuildBarCodeImage(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
-                            row("LocationId"), row("AssessmentId"), 0, row("CollectorId"))
-                    Else
-                        sBarCode1 = BuildBarCode1(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
-                            row("LocationId"), row("AssessmentId"), 0, 0)
-                        sBarCode2 = BuildBarCode2(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
-                            row("LocationId"), row("AssessmentId"), 0, 0)
-                        sBarCodeDesc = BuildBarCodeDesc(eBarCodeType, "", row("ClientName"),
-                            row("TaxYear"), row("Address"), row("City"), row("StateCd"), row("AcctNum"),
-                            row("ClientLocationId"), row("AssessorName"), "")
-                        byteBarCodeImage = BuildBarCodeImage(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
-                            row("LocationId"), row("AssessmentId"), 0, 0)
-                    End If
-                    clsReport.BarCode1 = sBarCode1
-                    clsReport.BarCode2 = sBarCode2
-                    clsReport.BarCodeDesc = sBarCodeDesc
-                    clsReport.BarCodeImage = byteBarCodeImage
-                    clsReport.Text01 = AppData.FirmName
-                    clsReport.Text02 = AppData.FirmAddress
-                    clsReport.Text03 = AppData.FirmCity + ", " + AppData.FirmStateCd + "  " + AppData.FirmZip
-                    clsReport.Text04 = AppData.FirmPhone
-                    clsReport.Text05 = row("AssessorName").ToString.Trim
-                    clsReport.Text06 = row("AssessorAddress").ToString.Trim
-                    clsReport.Text07 = row("AssessorCityStZip").ToString.Trim
-
-                    clsReport.WriteReportData()
-                Next
-            ElseIf eType = enumReport.enumTaxBillCheckOff Then
-                For Each row In dt.Rows
-                    sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09," &
-                        "Number01,Number02,Date01,Text10,Text11,Text12) SELECT " &
-                        QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                        QuoStr(Trim(row("Clients_Name")) & " - " & iTaxYear & " Tax Report" & vbCrLf &
-                        IIf(ePropType = enumTable.enumLocationBPP, "Business Personal Property", "Real Estate")) & "," &
-                        QuoStr(row("Clients_Name")) & "," &
-                        QuoStr(row("Locations_ClientLocationId").ToString.Trim &
-                        IIf(row("Locations_ClientLocationId").ToString.Trim = "", "", Space(10)) &
-                        row("Locations_Address").ToString.Trim) & "," &
-                        QuoStr(row("Locations_City")) & "," &
-                        QuoStr(row("Locations_StateCd")) & "," &
-                        QuoStr(row("AcctNum")) & "," &
-                        QuoStr(row("Assessors_Name")) & "," &
-                        QuoStr(row("Collectors_Name")) & "," &
-                        QuoStr(row("Jurisdictions_Name")) & "," &
-                        QuoStr(Trim(row("Locations_City")) & ", " & Trim(row("Locations_StateCd"))) & "," &
-                        row("TaxRate") & "," & row("TaxDue") & ","
-                    If IsDBNull(row("Collectors_DueDate")) Then
-                        sSQL = sSQL & "NULL,"
-                    Else
-                        sSQL = sSQL & QuoStr(Format(row("Collectors_DueDate"), csDate)) & ","
-                    End If
-                    sSQL = sSQL & QuoStr(Trim(row("Payee").ToString)) & "," &
-                        QuoStr(Trim(row("Collectors_Address1").ToString)) & "," &
-                        QuoStr(Trim(row("Collectors_City").ToString) & ", " &
-                        Trim(row("Collectors_PayeeStateCd").ToString) & "  " & Trim(row("Collectors_Zip").ToString))
-                    ExecuteSQL(sSQL)
-                Next
-            ElseIf eType = enumReport.enumCompletedRenditions Then
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    If IsDBNull(row("RenditionDueDate")) Then
-                        clsReport.Date01 = Convert.ToDateTime("12/30/1899")
-                    Else
-                        clsReport.Date01 = Convert.ToDateTime(row("RenditionDueDate"))
-                    End If
-                    clsReport.Text01 = row("Clients_Name").ToString.Trim
-                    clsReport.Text02 = row("Address").ToString.Trim
-                    clsReport.Text03 = row("City").ToString.Trim
-                    clsReport.Text04 = row("StateCd").ToString.Trim
-                    clsReport.Text05 = row("Zip").ToString.Trim
-                    clsReport.Text06 = row("AcctNum").ToString.Trim
-                    clsReport.Text07 = row("Assessors_Name").ToString.Trim
-                    clsReport.Text08 = row("Clients_ConsultantName").ToString.Trim
-                    If IsDBNull(row("RenditionCompleteDate")) Then
-                        clsReport.Date02 = Convert.ToDateTime("12/30/1899")
-                    Else
-                        clsReport.Date02 = Convert.ToDateTime(row("RenditionCompleteDate"))
-                    End If
-                    If IsDBNull(row("ChangeDate")) Then
-                        clsReport.Date03 = Convert.ToDateTime("12/30/1899")
-                    Else
-                        clsReport.Date03 = Convert.ToDateTime(row("ChangeDate"))
-                    End If
-                    clsReport.BarCode1 = row("Comment").ToString.Trim
-                    clsReport.WriteReportData()
-                Next
-            ElseIf eType = enumReport.enumRenditionDueDate Then
-                For Each row In dt.Rows
-                    sSQL = "INSERT INTO ReportData (UserName, ReportId, Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08)" &
-                        " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & ","
-                    If IsDBNull(row("RenditionDueDate")) Then
-                        sSQL = sSQL & "NULL,"
-                    Else
-                        sSQL = sSQL & QuoStr(Format(row("RenditionDueDate"), csDate)) & ","
-                    End If
-                    sSQL = sSQL & QuoStr(Trim(row("Clients_Name"))) & "," &
-                        QuoStr(row("Address")) & "," &
-                        QuoStr(row("City")) & "," &
-                        QuoStr(row("StateCd")) & "," &
-                        QuoStr(row("Zip")) & "," &
-                        QuoStr(row("AcctNum")) & "," &
-                        QuoStr(row("Assessors_Name")) & "," & QuoStr(row("Clients_ConsultantName"))
-                    ExecuteSQL(sSQL)
-                Next
-            ElseIf eType = enumReport.enumMissingTaxBills Then
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    If IsDBNull(row("DueDate")) Then
-                        clsReport.Date01 = Convert.ToDateTime("12/30/1899")
-                    Else
-                        clsReport.Date01 = Convert.ToDateTime(row("DueDate"))
-                    End If
-                    clsReport.Text01 = row("Clients_Name")
-                    clsReport.Text02 = row("Address")
-                    clsReport.Text03 = row("City")
-                    clsReport.Text04 = row("StateCd")
-                    clsReport.Text05 = row("Zip")
-                    clsReport.Text06 = row("AcctNum")
-                    clsReport.Text07 = row("Jurisdictions_Name")
-                    clsReport.Text08 = row("Collectors_Name")
-                    clsReport.Text09 = row("PropType")
-                    clsReport.Text10 = row("Clients_ConsultantName")
-                    clsReport.WriteReportData()
-                Next
-            ElseIf eType = enumReport.enumClientLocationListing Then
-                For Each row In dt.Rows
-                    sSQL = "INSERT INTO ReportData (UserName, ReportId, Title01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09)" &
-                        " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & ","
-                    sSQL = sSQL & QuoStr(sTitle) & "," & QuoStr(row("Clients_Name")) & "," &
-                        QuoStr(row("Locations_ClientLocationId")) & "," &
-                        QuoStr(row("Locations_Address")) & "," &
-                        QuoStr(row("Locations_City")) & "," &
-                        QuoStr(row("Locations_StateCd")) & "," &
-                        QuoStr(row("Locations_Zip")) & "," &
-                        QuoStr(row("Assessments_AcctNum")) & "," &
-                        QuoStr(row("Type")) & "," &
-                        QuoStr(row("Locations_LegalOwner"))
-                    ExecuteSQL(sSQL)
-                Next
-            ElseIf eType = enumReport.enumMissingNotice Then
-                For Each row In dt.Rows
-                    sSQL = "INSERT INTO ReportData (UserName, ReportId, Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09)" &
-                        " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & ","
-                    If IsDBNull(row("NoticeDate")) Then
-                        sSQL = sSQL & "NULL,"
-                    Else
-                        sSQL = sSQL & QuoStr(Format(row("NoticeDate"), csDate)) & ","
-                    End If
-                    sSQL = sSQL & QuoStr(row("Clients_Name")) & "," &
-                        QuoStr(row("Address")) & "," &
-                        QuoStr(row("City")) & "," &
-                        QuoStr(row("StateCd")) & "," &
-                        QuoStr(row("Zip")) & "," &
-                        QuoStr(row("AcctNum")) & "," &
-                        QuoStr(row("Assessors_Name")) & "," & QuoStr(row("PropType")) & "," & QuoStr(row("Clients_ConsultantName"))
-                    ExecuteSQL(sSQL)
-                Next
-            ElseIf eType = enumReport.enumClientEnvelope Or eType = enumReport.enumAssessorEnvelope Then
-                For Each row In dt.Rows
-                    sSQL = "INSERT INTO ReportData" &
-                        " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08)" &
-                        " SELECT " & QuoStr(AppData.UserId) & "," &
-                        AppData.ReportId & "," &
-                        QuoStr(row("FirmName")) & "," &
-                        QuoStr(row("FirmAddress")) & "," &
-                        QuoStr(row("FirmCityStZip")) & "," &
-                        QuoStr(row("FirmPhone")) & ","
-                    If eType = enumReport.enumClientEnvelope Then
-                        sSQL = sSQL &
-                            QuoStr(row("Name")) & "," &
-                            QuoStr("Attn:  " & row("ContactName")) & "," &
-                            QuoStr(row("ContactAddress")) & "," &
-                            QuoStr(row("ContactCityStZip"))
-                    Else
-                        sSQL = sSQL &
-                            QuoStr(row("Name")) & "," &
-                            QuoStr(row("Address")) & "," &
-                            QuoStr(row("CityStZip")) & ",''"
-                    End If
-                    ExecuteSQL(sSQL)
-                Next
-            ElseIf eType = enumReport.enumFixedAssetReconByGLCode Or eType = enumReport.enumFixedAssetReconByDeprCode Then
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    clsReport.Title01 = sTitle
-                    clsReport.Text01 = row("Address").ToString.Trim & "  " & row("City").ToString.Trim & ", " & row("StateCd").ToString.Trim & "  " & row("ClientLocationId").ToString.Trim
-                    If eType = enumReport.enumFixedAssetReconByGLCode Then
-                        If row("GLCode") = "INVENTORY" Then
-                            clsReport.Text02 = "INVENTORY"
-                        Else
-                            clsReport.Text02 = "FIXED ASSETS TOTAL"
-                        End If
-                    Else
-                        If row("FactorCode1") = "INVENTORY" Then
-                            clsReport.Text02 = "INVENTORY"
-                        Else
-                            clsReport.Text02 = "FIXED ASSETS TOTAL"
-                        End If
-                    End If
-                    clsReport.Text03 = "Cost " & iTaxYear - 1
-                    clsReport.Text04 = "Cost " & iTaxYear
-                    If eType = enumReport.enumFixedAssetReconByGLCode Then
-                        clsReport.Text05 = row("GLCode").ToString().Trim()
-                    Else
-                        clsReport.Text05 = row("FactorCode1").ToString().Trim()
-                    End If
-                    clsReport.Text06 = row("Clients_Name").ToString.Trim
-
-                    If eType = enumReport.enumFixedAssetReconByGLCode Then
-                        If row("GLCode").ToString.Trim.ToUpper = "INVENTORY" Then
-                            clsReport.Number01 = 1
-                        Else
-                            clsReport.Number01 = 0
-                        End If
-                        clsReport.Text07 = "G/L Code"
-                    Else
-                        If row("FactorCode1").ToString.Trim.ToUpper = "INVENTORY" Then
-                            clsReport.Number01 = 1
-                        Else
-                            clsReport.Number01 = 0
-                        End If
-                        clsReport.Text07 = "Depreciation Code"
-                    End If
-
-                    clsReport.Number02 = row("YearPurchased")
-                    clsReport.Number03 = row("PreviousYearCost")
-                    clsReport.Number04 = row("Difference")
-                    clsReport.Number05 = row("CurrentYearCost")
-                    clsReport.WriteReportData()
-                Next
-            ElseIf eType = enumReport.enumTaxSavings Then
-                Dim bHasBusinessUnits As Boolean = True
-                If lClientId > 0 Then
-                    If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
-                        bHasBusinessUnits = True
-                    Else
-                        bHasBusinessUnits = False
-                    End If
-                End If
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    clsReport.Text01 = row("Clients_Name").ToString.Trim
-                    clsReport.Text02 = row("TaxYear") & " Tax Accrual Savings Report"
-                    clsReport.Text03 = "Tax Rate"
-                    clsReport.Text04 = row("Clients_Name").ToString.Trim
-                    clsReport.Text05 = row("AcctNum").ToString.Trim
-                    clsReport.Text06 = row("Locations_StateCd").ToString
-                    clsReport.Text07 = row("Locations_Address").ToString.Trim
-                    clsReport.Text08 = row("Locations_City").ToString.Trim
-                    clsReport.Text09 = row("ValueSource").ToString
-                    clsReport.Text12 = row("AcctNum").ToString.Trim & "  " & row("Locations_StateCd").ToString & "  " & row("Locations_Address").ToString.Trim &
-                        "  " & row("Locations_City").ToString.Trim
-                    clsReport.Text10 = IIf(row("PropertyType") = "R", "Real Estate", "Business Personal Property")
-                    clsReport.Text11 = row("Jurisdictions_Name").ToString.Trim
-                    clsReport.Text13 = row("Assessors_Name").ToString.Trim
-                    clsReport.Text14 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
-                        "  " & row("AcctNum").ToString.Trim
-                    clsReport.Text15 = IIf(row("ClientLocationId").ToString.Length > 0, "Loc " & row("ClientLocationId").ToString.Trim, "")
-                    If row("PropertyType") = "R" Then
-                        clsReport.Text17 = "Last year value:  " & Format(row("PriorYearTotalFinalValue"), csInt)
-                    Else
-                        clsReport.Text17 = ""
-                    End If
-                    If row("PropertyType") = "P" Then
-                        clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("BPPRatio")), csPct)
-                    Else
-                        clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("RERatio")), csPct)
-                    End If
-                    clsReport.Text18 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
-                    clsReport.Text19 = "Total For " & clsReport.Text18
-                    clsReport.Number01 = UnNullToDouble(row("TaxRate"))
-                    clsReport.Number02 = UnNullToDouble(row("TotalAssessedValue"))
-                    clsReport.Number03 = UnNullToDouble(row("FinalValue"))
-                    clsReport.Number04 = UnNullToDouble(row("AbatementReductionAmt")) + UnNullToDouble(row("FreeportReductionAmt")) - UnNullToDouble(row("AdjAmt1"))
-                    clsReport.Number05 = UnNullToDouble(row("ValueDifference"))
-                    clsReport.Number06 = UnNullToDouble(row("TaxDueBeforeSavings"))
-                    clsReport.Number07 = UnNullToDouble(row("TaxDueUsingPreviousYearRate"))
-                    clsReport.Number08 = UnNullToDouble(row("SavingsAmt"))
-                    'suppress business units if not business units, suppress=1
-                    clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
-                    clsReport.WriteReportData()
-                Next
-            ElseIf eType = enumReport.enumAssessorCover Then
-                For Each row In dt.Rows
-                    sSQL = "INSERT INTO ReportData" &
-                        " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10,Text11,Text12,Text13)" &
-                        " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                        QuoStr(row("FirmName")) & "," &
-                        QuoStr(row("FirmAddress")) & "," &
-                        QuoStr(row("FirmCityStZip")) & "," &
-                        QuoStr(row("FirmPhone")) & "," &
-                        QuoStr(row("Name")) & "," & QuoStr(row("Address")) & "," & QuoStr(row("City")) & "," &
-                        QuoStr(row("Phone")) & "," & QuoStr("") & "," &
-                        QuoStr("") & "," & QuoStr("") & "," & QuoStr("") & "," &
-                        QuoStr("")
-                    ExecuteSQL(sSQL)
-                Next
-            ElseIf eType = enumReport.enumTaxAccrual Or eType = enumReport.enumTaxAccrualSummary Then
-                Dim bHasBusinessUnits As Boolean = True
-                Dim excludecode As enumSavingsExclusionCd
-                Dim dValue As Double = 0
-                Dim dAbatement As Double = 0
-                Dim dFreeport As Double = 0
-                Dim lNetTaxableValue As Long = 0
-
-                If lClientId > 0 Then
-                    If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
-                        bHasBusinessUnits = True
-                    Else
-                        bHasBusinessUnits = False
-                    End If
-                End If
-                ''need to add abatement and freeport and taxable values to report
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    excludecode = row("Assessments_SavingsExclusionCd")
-                    dValue = 0
-                    dAbatement = 0
-                    dFreeport = 0
-                    lNetTaxableValue = 0
-
-                    If row("PropertyType") = "BPP" Then
-                        If row("Clients_ExcludeNotified") And row("Clients_ExcludeClient") Then
-                            dValue = 0
-                        Else
-                            If row("Clients_ExcludeNotified") Then
-                                dValue = UnNullToDouble(row("SumOfFactoredAmount"))
-                            ElseIf row("Clients_ExcludeClient") Then
-                                dValue = UnNullToDouble(row("NotifiedValue"))
+                            clsReport.Text07 = ""
+                            Dim dv As New DataView(dtinstallments, "CollectorId=" & row("CollectorId"), "PayToDt", DataViewRowState.OriginalRows)
+                            If dv.Count > 0 Then
+                                Dim dtthisinstall = dv.ToTable()
+                                If dtthisinstall.Rows.Count > 0 Then
+                                    clsReport.Text04 = ""
+                                    clsReport.Text05 = ""
+                                    clsReport.Text06 = ""
+                                    clsReport.Text07 = "Installments"
+                                    For Each dr As DataRow In dtthisinstall.Rows
+                                        If clsReport.Text04 <> "" Then clsReport.Text04 = clsReport.Text04 & vbCrLf
+                                        If clsReport.Text05 <> "" Then clsReport.Text05 = clsReport.Text05 & vbCrLf
+                                        If clsReport.Text06 <> "" Then clsReport.Text06 = clsReport.Text06 & vbCrLf
+                                        clsReport.Text04 = clsReport.Text04 & "Due"
+                                        clsReport.Text05 = clsReport.Text05 & Format(dr("PayToDt"), csDate)
+                                        clsReport.Text06 = clsReport.Text06 & Format(dr("PayAmt"), csDol)
+                                    Next
+                                End If
+                            End If
+                            clsReport.Text09 = row("Assessors_Name").ToString
+                            clsReport.Text10 = row("Jurisdictions_Name").ToString
+                            clsReport.Text11 = row("TaxBillAcctNum").ToString()
+                            clsReport.Text12 = row("Payee").ToString() & vbCrLf &
+                            row("Collectors_Address1").ToString & vbCrLf &
+                            row("Collectors_City").ToString & ", " & row("Collectors_PayeeStateCd").ToString & "  " & row("Collectors_Zip")
+                            clsReport.Text14 = sName
+                            clsReport.Text15 = "Tax Consultant:" & vbCrLf &
+                            row("Consultants_FullName").ToString & vbCrLf &
+                            row("Consultants_EMail").ToString & vbCrLf &
+                            row("Consultants_Phone").ToString & vbCrLf
+                            If row("TaxBillNotes").ToString.Length > 0 Then
+                                clsReport.Text16 = "Important Tax Notes:" & vbCrLf & vbCrLf & row("TaxBillNotes").ToString
                             Else
-                                Select Case excludecode
-                                    Case enumSavingsExclusionCd.enumNotified,
-                                            enumSavingsExclusionCd.enumNotifiedAbatements,
-                                            enumSavingsExclusionCd.enumNotifiedAbatementsFreeport,
-                                            enumSavingsExclusionCd.enumNotifiedFreeport
-                                        dValue = UnNullToDouble(row("SumOfFactoredAmount"))
-                                    Case enumSavingsExclusionCd.enumClient,
-                                            enumSavingsExclusionCd.enumClientAbatements,
-                                            enumSavingsExclusionCd.enumClientAbatementsFreeport,
-                                            enumSavingsExclusionCd.enumClientFreeport
-                                        dValue = UnNullToDouble(row("NotifiedValue"))
-                                    Case Else
-                                        dValue = UnNullToDouble(row("FinalValue"))
-                                End Select
+                                clsReport.Text16 = ""
+                            End If
+                            clsReport.Number01 = iTaxYear
+                            clsReport.Number02 = UnNullToDouble(row("TaxDue"))
+                            clsReport.Number03 = UnNullToDouble(row("CollectorId"))
+                            clsReport.Number04 = UnNullToDouble(row("TaxRate"))
+                            clsReport.Number05 = UnNullToDouble(row("FinalValue"))
+                            clsReport.Number06 = UnNullToDouble(row("TaxableValue"))
+                            'clsReport.Number07 = UnNullToDouble(row("TaxBillAdjAmt1"))
+                            clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.TaxBill,
+                                row("ClientId"), row("TaxYear"),
+                                IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
+                                row("LocationId"),
+                                row("AssessmentId"), 0, row("CollectorId"))
+                            clsReport.BarCode2 = BuildBarCode2(enumBarCodeTypes.TaxBill, row("ClientId"), row("TaxYear"),
+                                IIf(row("PropertyType").ToString.StartsWith("R"), enumTable.enumLocationRE, enumTable.enumLocationBPP),
+                                row("LocationId"), row("AssessmentId"), 0, row("CollectorId"))
+
+                            clsReport.WriteReportData()
+                        Next
+                    End If
+                End If                ''''If dt.rows>0
+            ElseIf eType = enumReport.enumBarCode Then
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        Dim sBarCode1 As String = "", sBarCode2 As String = "", sBarCodeDesc As String = ""
+                        Dim byteBarCodeImage As Byte()
+                        If eBarCodeType = enumBarCodeTypes.TaxBill Then
+                            sBarCode1 = BuildBarCode1(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
+                                row("LocationId"), row("AssessmentId"), 0, row("CollectorId"))
+                            sBarCode2 = BuildBarCode2(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
+                                row("LocationId"), row("AssessmentId"), 0, row("CollectorId"))
+                            sBarCodeDesc = BuildBarCodeDesc(eBarCodeType, "", row("ClientName"),
+                                row("TaxYear"), row("Address"), row("City"), row("StateCd"), row("AcctNum"),
+                                row("ClientLocationId"), row("AssessorName"), row("CollectorName"))
+                            byteBarCodeImage = BuildBarCodeImage(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
+                                row("LocationId"), row("AssessmentId"), 0, row("CollectorId"))
+                        Else
+                            sBarCode1 = BuildBarCode1(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
+                                row("LocationId"), row("AssessmentId"), 0, 0)
+                            sBarCode2 = BuildBarCode2(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
+                                row("LocationId"), row("AssessmentId"), 0, 0)
+                            sBarCodeDesc = BuildBarCodeDesc(eBarCodeType, "", row("ClientName"),
+                                row("TaxYear"), row("Address"), row("City"), row("StateCd"), row("AcctNum"),
+                                row("ClientLocationId"), row("AssessorName"), "")
+                            byteBarCodeImage = BuildBarCodeImage(eBarCodeType, row("ClientId"), iTaxYear, ePropType,
+                                row("LocationId"), row("AssessmentId"), 0, 0)
+                        End If
+                        clsReport.BarCode1 = sBarCode1
+                        clsReport.BarCode2 = sBarCode2
+                        clsReport.BarCodeDesc = sBarCodeDesc
+                        clsReport.BarCodeImage = byteBarCodeImage
+                        clsReport.Text01 = AppData.FirmName
+                        clsReport.Text02 = AppData.FirmAddress
+                        clsReport.Text03 = AppData.FirmCity + ", " + AppData.FirmStateCd + "  " + AppData.FirmZip
+                        clsReport.Text04 = AppData.FirmPhone
+                        clsReport.Text05 = row("AssessorName").ToString.Trim
+                        clsReport.Text06 = row("AssessorAddress").ToString.Trim
+                        clsReport.Text07 = row("AssessorCityStZip").ToString.Trim
+
+                        clsReport.WriteReportData()
+                    Next
+                ElseIf eType = enumReport.enumTaxBillCheckOff Then
+                    For Each row In dt.Rows
+                        sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09," &
+                            "Number01,Number02,Date01,Text10,Text11,Text12) SELECT " &
+                            QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
+                            QuoStr(Trim(row("Clients_Name")) & " - " & iTaxYear & " Tax Report" & vbCrLf &
+                            IIf(ePropType = enumTable.enumLocationBPP, "Business Personal Property", "Real Estate")) & "," &
+                            QuoStr(row("Clients_Name")) & "," &
+                            QuoStr(row("Locations_ClientLocationId").ToString.Trim &
+                            IIf(row("Locations_ClientLocationId").ToString.Trim = "", "", Space(10)) &
+                            row("Locations_Address").ToString.Trim) & "," &
+                            QuoStr(row("Locations_City")) & "," &
+                            QuoStr(row("Locations_StateCd")) & "," &
+                            QuoStr(row("AcctNum")) & "," &
+                            QuoStr(row("Assessors_Name")) & "," &
+                            QuoStr(row("Collectors_Name")) & "," &
+                            QuoStr(row("Jurisdictions_Name")) & "," &
+                            QuoStr(Trim(row("Locations_City")) & ", " & Trim(row("Locations_StateCd"))) & "," &
+                            row("TaxRate") & "," & row("TaxDue") & ","
+                        If IsDBNull(row("Collectors_DueDate")) Then
+                            sSQL = sSQL & "NULL,"
+                        Else
+                            sSQL = sSQL & QuoStr(Format(row("Collectors_DueDate"), csDate)) & ","
+                        End If
+                        sSQL = sSQL & QuoStr(Trim(row("Payee").ToString)) & "," &
+                            QuoStr(Trim(row("Collectors_Address1").ToString)) & "," &
+                            QuoStr(Trim(row("Collectors_City").ToString) & ", " &
+                            Trim(row("Collectors_PayeeStateCd").ToString) & "  " & Trim(row("Collectors_Zip").ToString))
+                        ExecuteSQL(sSQL)
+                    Next
+                ElseIf eType = enumReport.enumCompletedRenditions Then
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        If IsDBNull(row("RenditionDueDate")) Then
+                            clsReport.Date01 = Convert.ToDateTime("12/30/1899")
+                        Else
+                            clsReport.Date01 = Convert.ToDateTime(row("RenditionDueDate"))
+                        End If
+                        clsReport.Text01 = row("Clients_Name").ToString.Trim
+                        clsReport.Text02 = row("Address").ToString.Trim
+                        clsReport.Text03 = row("City").ToString.Trim
+                        clsReport.Text04 = row("StateCd").ToString.Trim
+                        clsReport.Text05 = row("Zip").ToString.Trim
+                        clsReport.Text06 = row("AcctNum").ToString.Trim
+                        clsReport.Text07 = row("Assessors_Name").ToString.Trim
+                        clsReport.Text08 = row("Clients_ConsultantName").ToString.Trim
+                        If IsDBNull(row("RenditionCompleteDate")) Then
+                            clsReport.Date02 = Convert.ToDateTime("12/30/1899")
+                        Else
+                            clsReport.Date02 = Convert.ToDateTime(row("RenditionCompleteDate"))
+                        End If
+                        If IsDBNull(row("ChangeDate")) Then
+                            clsReport.Date03 = Convert.ToDateTime("12/30/1899")
+                        Else
+                            clsReport.Date03 = Convert.ToDateTime(row("ChangeDate"))
+                        End If
+                        clsReport.BarCode1 = row("Comment").ToString.Trim
+                        clsReport.WriteReportData()
+                    Next
+                ElseIf eType = enumReport.enumRenditionDueDate Then
+                    For Each row In dt.Rows
+                        sSQL = "INSERT INTO ReportData (UserName, ReportId, Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08)" &
+                            " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & ","
+                        If IsDBNull(row("RenditionDueDate")) Then
+                            sSQL = sSQL & "NULL,"
+                        Else
+                            sSQL = sSQL & QuoStr(Format(row("RenditionDueDate"), csDate)) & ","
+                        End If
+                        sSQL = sSQL & QuoStr(Trim(row("Clients_Name"))) & "," &
+                            QuoStr(row("Address")) & "," &
+                            QuoStr(row("City")) & "," &
+                            QuoStr(row("StateCd")) & "," &
+                            QuoStr(row("Zip")) & "," &
+                            QuoStr(row("AcctNum")) & "," &
+                            QuoStr(row("Assessors_Name")) & "," & QuoStr(row("Clients_ConsultantName"))
+                        ExecuteSQL(sSQL)
+                    Next
+                ElseIf eType = enumReport.enumMissingTaxBills Then
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        If IsDBNull(row("DueDate")) Then
+                            clsReport.Date01 = Convert.ToDateTime("12/30/1899")
+                        Else
+                            clsReport.Date01 = Convert.ToDateTime(row("DueDate"))
+                        End If
+                        clsReport.Text01 = row("Clients_Name")
+                        clsReport.Text02 = row("Address")
+                        clsReport.Text03 = row("City")
+                        clsReport.Text04 = row("StateCd")
+                        clsReport.Text05 = row("Zip")
+                        clsReport.Text06 = row("AcctNum")
+                        clsReport.Text07 = row("Jurisdictions_Name")
+                        clsReport.Text08 = row("Collectors_Name")
+                        clsReport.Text09 = row("PropType")
+                        clsReport.Text10 = row("Clients_ConsultantName")
+                        clsReport.WriteReportData()
+                    Next
+                ElseIf eType = enumReport.enumClientLocationListing Then
+                    For Each row In dt.Rows
+                        sSQL = "INSERT INTO ReportData (UserName, ReportId, Title01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09)" &
+                            " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & ","
+                        sSQL = sSQL & QuoStr(sTitle) & "," & QuoStr(row("Clients_Name")) & "," &
+                            QuoStr(row("Locations_ClientLocationId")) & "," &
+                            QuoStr(row("Locations_Address")) & "," &
+                            QuoStr(row("Locations_City")) & "," &
+                            QuoStr(row("Locations_StateCd")) & "," &
+                            QuoStr(row("Locations_Zip")) & "," &
+                            QuoStr(row("Assessments_AcctNum")) & "," &
+                            QuoStr(row("Type")) & "," &
+                            QuoStr(row("Locations_LegalOwner"))
+                        ExecuteSQL(sSQL)
+                    Next
+                ElseIf eType = enumReport.enumMissingNotice Then
+                    For Each row In dt.Rows
+                        sSQL = "INSERT INTO ReportData (UserName, ReportId, Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09)" &
+                            " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & ","
+                        If IsDBNull(row("NoticeDate")) Then
+                            sSQL = sSQL & "NULL,"
+                        Else
+                            sSQL = sSQL & QuoStr(Format(row("NoticeDate"), csDate)) & ","
+                        End If
+                        sSQL = sSQL & QuoStr(row("Clients_Name")) & "," &
+                            QuoStr(row("Address")) & "," &
+                            QuoStr(row("City")) & "," &
+                            QuoStr(row("StateCd")) & "," &
+                            QuoStr(row("Zip")) & "," &
+                            QuoStr(row("AcctNum")) & "," &
+                            QuoStr(row("Assessors_Name")) & "," & QuoStr(row("PropType")) & "," & QuoStr(row("Clients_ConsultantName"))
+                        ExecuteSQL(sSQL)
+                    Next
+                ElseIf eType = enumReport.enumClientEnvelope Or eType = enumReport.enumAssessorEnvelope Then
+                    For Each row In dt.Rows
+                        sSQL = "INSERT INTO ReportData" &
+                            " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08)" &
+                            " SELECT " & QuoStr(AppData.UserId) & "," &
+                            AppData.ReportId & "," &
+                            QuoStr(row("FirmName")) & "," &
+                            QuoStr(row("FirmAddress")) & "," &
+                            QuoStr(row("FirmCityStZip")) & "," &
+                            QuoStr(row("FirmPhone")) & ","
+                        If eType = enumReport.enumClientEnvelope Then
+                            sSQL = sSQL &
+                                QuoStr(row("Name")) & "," &
+                                QuoStr("Attn:  " & row("ContactName")) & "," &
+                                QuoStr(row("ContactAddress")) & "," &
+                                QuoStr(row("ContactCityStZip"))
+                        Else
+                            sSQL = sSQL &
+                                QuoStr(row("Name")) & "," &
+                                QuoStr(row("Address")) & "," &
+                                QuoStr(row("CityStZip")) & ",''"
+                        End If
+                        ExecuteSQL(sSQL)
+                    Next
+                ElseIf eType = enumReport.enumFixedAssetReconByGLCode Or eType = enumReport.enumFixedAssetReconByDeprCode Then
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        clsReport.Title01 = sTitle
+                        clsReport.Text01 = row("Address").ToString.Trim & "  " & row("City").ToString.Trim & ", " & row("StateCd").ToString.Trim & "  " & row("ClientLocationId").ToString.Trim
+                        If eType = enumReport.enumFixedAssetReconByGLCode Then
+                            If row("GLCode") = "INVENTORY" Then
+                                clsReport.Text02 = "INVENTORY"
+                            Else
+                                clsReport.Text02 = "FIXED ASSETS TOTAL"
+                            End If
+                        Else
+                            If row("FactorCode1") = "INVENTORY" Then
+                                clsReport.Text02 = "INVENTORY"
+                            Else
+                                clsReport.Text02 = "FIXED ASSETS TOTAL"
                             End If
                         End If
-                        dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
-                        dFreeport = UnNullToDouble(row("ClientFreeportAmt"))
-                    Else
-                        dValue = UnNullToDouble(row("FinalValue"))
-                        dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
+                        clsReport.Text03 = "Cost " & iTaxYear - 1
+                        clsReport.Text04 = "Cost " & iTaxYear
+                        If eType = enumReport.enumFixedAssetReconByGLCode Then
+                            clsReport.Text05 = row("GLCode").ToString().Trim()
+                        Else
+                            clsReport.Text05 = row("FactorCode1").ToString().Trim()
+                        End If
+                        clsReport.Text06 = row("Clients_Name").ToString.Trim
+
+                        If eType = enumReport.enumFixedAssetReconByGLCode Then
+                            If row("GLCode").ToString.Trim.ToUpper = "INVENTORY" Then
+                                clsReport.Number01 = 1
+                            Else
+                                clsReport.Number01 = 0
+                            End If
+                            clsReport.Text07 = "G/L Code"
+                        Else
+                            If row("FactorCode1").ToString.Trim.ToUpper = "INVENTORY" Then
+                                clsReport.Number01 = 1
+                            Else
+                                clsReport.Number01 = 0
+                            End If
+                            clsReport.Text07 = "Depreciation Code"
+                        End If
+
+                        clsReport.Number02 = row("YearPurchased")
+                        clsReport.Number03 = row("PreviousYearCost")
+                        clsReport.Number04 = row("Difference")
+                        clsReport.Number05 = row("CurrentYearCost")
+                        clsReport.WriteReportData()
+                    Next
+                ElseIf eType = enumReport.enumTaxSavings Then
+                    Dim bHasBusinessUnits As Boolean = True
+                    If lClientId > 0 Then
+                        If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
+                            bHasBusinessUnits = True
+                        Else
+                            bHasBusinessUnits = False
+                        End If
                     End If
-                    clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"
-                    clsReport.Text02 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
-                    clsReport.Text03 = iTaxYear - 1 & " Tax Rate"
-                    clsReport.Text04 = UnNullToString(row("Assessments_AcctNum"))
-                    clsReport.Text05 = row("Locations_StateCd")
-                    clsReport.Text06 = Trim(UnNullToString(row("Locations_ClientLocationId"))) & "  " & Trim(UnNullToString(row("Locations_Address"))) & "  " &
-                        Trim(UnNullToString(row("Locations_City")))
-                    clsReport.Text07 = "Total For " & clsReport.Text02
-                    clsReport.Text08 = UnNullToString(row("Assessors_Name"))
-                    clsReport.Text09 = IIf(row("PropertyType") = "BPP", "Business Personal Property", "Real Estate")
-                    clsReport.Text10 = UnNullToString(row("Jurisdictions_Name"))
-                    clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
-                        "  " & row("Assessments_AcctNum").ToString.Trim
-                    clsReport.Number01 = iTaxYear
-                    clsReport.Number09 = UnNullToDouble(row("TaxRate"))
-                    If row("ClientRenditionValue") = 0 Then
-                        clsReport.Number10 = dValue
-                        lNetTaxableValue = dValue - dAbatement - dFreeport
-                        dTaxDue = (row("Assessors_Ratio") *
-                            (dValue -
-                            dAbatement -
-                            dFreeport)) / 100 *
-                            UnNullToDouble(row("TaxRate"))
-                    Else
-                        clsReport.Number10 = dValue
-                        lNetTaxableValue = dValue - dAbatement - dFreeport
-                        dTaxDue = (row("Assessors_Ratio") *
-                            (dValue -
-                            dAbatement -
-                            dFreeport)) / 100 *
-                            UnNullToDouble(row("TaxRate"))
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        clsReport.Text01 = row("Clients_Name").ToString.Trim
+                        clsReport.Text02 = row("TaxYear") & " Tax Accrual Savings Report"
+                        clsReport.Text03 = "Tax Rate"
+                        clsReport.Text04 = row("Clients_Name").ToString.Trim
+                        clsReport.Text05 = row("AcctNum").ToString.Trim
+                        clsReport.Text06 = row("Locations_StateCd").ToString
+                        clsReport.Text07 = row("Locations_Address").ToString.Trim
+                        clsReport.Text08 = row("Locations_City").ToString.Trim
+                        clsReport.Text09 = row("ValueSource").ToString
+                        clsReport.Text12 = row("AcctNum").ToString.Trim & "  " & row("Locations_StateCd").ToString & "  " & row("Locations_Address").ToString.Trim &
+                            "  " & row("Locations_City").ToString.Trim
+                        clsReport.Text10 = IIf(row("PropertyType") = "R", "Real Estate", "Business Personal Property")
+                        clsReport.Text11 = row("Jurisdictions_Name").ToString.Trim
+                        clsReport.Text13 = row("Assessors_Name").ToString.Trim
+                        clsReport.Text14 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
+                            "  " & row("AcctNum").ToString.Trim
+                        clsReport.Text15 = IIf(row("ClientLocationId").ToString.Length > 0, "Loc " & row("ClientLocationId").ToString.Trim, "")
+                        If row("PropertyType") = "R" Then
+                            clsReport.Text17 = "Last year value:  " & Format(row("PriorYearTotalFinalValue"), csInt)
+                        Else
+                            clsReport.Text17 = ""
+                        End If
+                        If row("PropertyType") = "P" Then
+                            clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("BPPRatio")), csPct)
+                        Else
+                            clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("RERatio")), csPct)
+                        End If
+                        clsReport.Text18 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
+                        clsReport.Text19 = "Total For " & clsReport.Text18
+                        clsReport.Number01 = UnNullToDouble(row("TaxRate"))
+                        clsReport.Number02 = UnNullToDouble(row("TotalAssessedValue"))
+                        clsReport.Number03 = UnNullToDouble(row("FinalValue"))
+                        clsReport.Number04 = UnNullToDouble(row("AbatementReductionAmt")) + UnNullToDouble(row("FreeportReductionAmt")) - UnNullToDouble(row("AdjAmt1"))
+                        clsReport.Number05 = UnNullToDouble(row("ValueDifference"))
+                        clsReport.Number06 = UnNullToDouble(row("TaxDueBeforeSavings"))
+                        clsReport.Number07 = UnNullToDouble(row("TaxDueUsingPreviousYearRate"))
+                        clsReport.Number08 = UnNullToDouble(row("SavingsAmt"))
+                        'suppress business units if not business units, suppress=1
+                        clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
+                        clsReport.WriteReportData()
+                    Next
+                ElseIf eType = enumReport.enumAssessorCover Then
+                    For Each row In dt.Rows
+                        sSQL = "INSERT INTO ReportData" &
+                            " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10,Text11,Text12,Text13)" &
+                            " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
+                            QuoStr(row("FirmName")) & "," &
+                            QuoStr(row("FirmAddress")) & "," &
+                            QuoStr(row("FirmCityStZip")) & "," &
+                            QuoStr(row("FirmPhone")) & "," &
+                            QuoStr(row("Name")) & "," & QuoStr(row("Address")) & "," & QuoStr(row("City")) & "," &
+                            QuoStr(row("Phone")) & "," & QuoStr("") & "," &
+                            QuoStr("") & "," & QuoStr("") & "," & QuoStr("") & "," &
+                            QuoStr("")
+                        ExecuteSQL(sSQL)
+                    Next
+                ElseIf eType = enumReport.enumTaxAccrual Or eType = enumReport.enumTaxAccrualSummary Then
+                    Dim bHasBusinessUnits As Boolean = True
+                    Dim excludecode As enumSavingsExclusionCd
+                    Dim dValue As Double = 0
+                    Dim dAbatement As Double = 0
+                    Dim dFreeport As Double = 0
+                    Dim lNetTaxableValue As Long = 0
+
+                    If lClientId > 0 Then
+                        If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
+                            bHasBusinessUnits = True
+                        Else
+                            bHasBusinessUnits = False
+                        End If
                     End If
-                    clsReport.Number14 = Val(Format(dTaxDue, "0.00"))
-                    clsReport.Number15 = row("Assessors_Ratio") * 100
-                    clsReport.Number02 = Val(Format(dAbatement, "0.00"))
-                    clsReport.Number03 = Val(Format(dFreeport, "0.00"))
-                    clsReport.Number04 = lNetTaxableValue
-                    'suppress business units if not business units, suppress=1
-                    clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
-                    clsReport.Number16 = row("ClientId")
-                    clsReport.Number17 = row("LocationId")
-                    clsReport.Number18 = row("AssessmentId")
-                    clsReport.Number19 = row("JurisdictionId")
-                    clsReport.Number20 = row("NotifiedValue")
-                    'Number01 is tax year
+                    ''need to add abatement and freeport and taxable values to report
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        excludecode = row("Assessments_SavingsExclusionCd")
+                        dValue = 0
+                        dAbatement = 0
+                        dFreeport = 0
+                        lNetTaxableValue = 0
 
-                    clsReport.WriteReportData()
-                Next
+                        If row("PropertyType") = "BPP" Then
+                            If row("Clients_ExcludeNotified") And row("Clients_ExcludeClient") Then
+                                dValue = 0
+                            Else
+                                If row("Clients_ExcludeNotified") Then
+                                    dValue = UnNullToDouble(row("SumOfFactoredAmount"))
+                                ElseIf row("Clients_ExcludeClient") Then
+                                    dValue = UnNullToDouble(row("NotifiedValue"))
+                                Else
+                                    Select Case excludecode
+                                        Case enumSavingsExclusionCd.enumNotified,
+                                                enumSavingsExclusionCd.enumNotifiedAbatements,
+                                                enumSavingsExclusionCd.enumNotifiedAbatementsFreeport,
+                                                enumSavingsExclusionCd.enumNotifiedFreeport
+                                            dValue = UnNullToDouble(row("SumOfFactoredAmount"))
+                                        Case enumSavingsExclusionCd.enumClient,
+                                                enumSavingsExclusionCd.enumClientAbatements,
+                                                enumSavingsExclusionCd.enumClientAbatementsFreeport,
+                                                enumSavingsExclusionCd.enumClientFreeport
+                                            dValue = UnNullToDouble(row("NotifiedValue"))
+                                        Case Else
+                                            dValue = UnNullToDouble(row("FinalValue"))
+                                    End Select
+                                End If
+                            End If
+                            dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
+                            dFreeport = UnNullToDouble(row("ClientFreeportAmt"))
+                        Else
+                            dValue = UnNullToDouble(row("FinalValue"))
+                            dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
+                        End If
+                        clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"
+                        clsReport.Text02 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
+                        clsReport.Text03 = iTaxYear - 1 & " Tax Rate"
+                        clsReport.Text04 = UnNullToString(row("Assessments_AcctNum"))
+                        clsReport.Text05 = row("Locations_StateCd")
+                        clsReport.Text06 = Trim(UnNullToString(row("Locations_ClientLocationId"))) & "  " & Trim(UnNullToString(row("Locations_Address"))) & "  " &
+                            Trim(UnNullToString(row("Locations_City")))
+                        clsReport.Text07 = "Total For " & clsReport.Text02
+                        clsReport.Text08 = UnNullToString(row("Assessors_Name"))
+                        clsReport.Text09 = IIf(row("PropertyType") = "BPP", "Business Personal Property", "Real Estate")
+                        clsReport.Text10 = UnNullToString(row("Jurisdictions_Name"))
+                        clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
+                            "  " & row("Assessments_AcctNum").ToString.Trim
+                        clsReport.Number01 = iTaxYear
+                        clsReport.Number09 = UnNullToDouble(row("TaxRate"))
+                        If row("ClientRenditionValue") = 0 Then
+                            clsReport.Number10 = dValue
+                            lNetTaxableValue = dValue - dAbatement - dFreeport
+                            dTaxDue = (row("Assessors_Ratio") *
+                                (dValue -
+                                dAbatement -
+                                dFreeport)) / 100 *
+                                UnNullToDouble(row("TaxRate"))
+                        Else
+                            clsReport.Number10 = dValue
+                            lNetTaxableValue = dValue - dAbatement - dFreeport
+                            dTaxDue = (row("Assessors_Ratio") *
+                                (dValue -
+                                dAbatement -
+                                dFreeport)) / 100 *
+                                UnNullToDouble(row("TaxRate"))
+                        End If
+                        clsReport.Number14 = Val(Format(dTaxDue, "0.00"))
+                        clsReport.Number15 = row("Assessors_Ratio") * 100
+                        clsReport.Number02 = Val(Format(dAbatement, "0.00"))
+                        clsReport.Number03 = Val(Format(dFreeport, "0.00"))
+                        clsReport.Number04 = lNetTaxableValue
+                        'suppress business units if not business units, suppress=1
+                        clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
+                        clsReport.Number16 = row("ClientId")
+                        clsReport.Number17 = row("LocationId")
+                        clsReport.Number18 = row("AssessmentId")
+                        clsReport.Number19 = row("JurisdictionId")
+                        clsReport.Number20 = row("NotifiedValue")
+                        'Number01 is tax year
 
-                'hack to sum up the accrual detail stored in clsReport (need stored proc to do accrual calculations)
-                'write data back to sql and use sql to sum/group by and store in ReportData table
-                If eType = enumReport.enumTaxAccrualSummary Then
-                    If Not RunTaxAccrualSummaryReport(clsReport) Then Return False
-                End If
+                        clsReport.WriteReportData()
+                    Next
 
-            ElseIf eType = enumReport.enumREComp Then
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    clsReport.Title01 = AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")
-                    clsReport.Text01 = row("AcctNum")
-                    clsReport.Text02 = row("StreetName")
-                    clsReport.Text03 = row("BusinessName")
-                    clsReport.Text04 = row("BuildingClass")
-                    clsReport.Text05 = row("Mapsco")
-                    clsReport.Text06 = row("NeighborhoodGroup")
-                    clsReport.Text07 = row("EconomicArea")
-                    clsReport.Text08 = row("ComparabilityCode")
-                    clsReport.Text09 = IIf(row("DateSwitch") = 1, "Date:  " & Now.ToString("M/d/yyyy"), "")
-                    clsReport.Text10 = IIf(row("SortField") = 1, "", "Comparison Account")
-                    clsReport.Text11 = row("AppraisalMethod")
-                    clsReport.Text12 = row("PricingMethod")
-                    clsReport.Text13 = row("EffectiveYear")
-                    clsReport.Text14 = row("ConstructionType")
-                    clsReport.Number01 = row("BuildingSqFt")
-                    clsReport.Number02 = row("LandSqFt")
-                    clsReport.Number03 = row("YearBuilt")
-                    clsReport.Number04 = row("LandValue")
-                    clsReport.Number05 = row("ImprovementValue")
-                    clsReport.Number06 = row("TotalValue")
-                    clsReport.Number07 = row("LandValuePerSqFt")
-                    clsReport.Number08 = row("ImprovementValuePerSqFt")
-                    clsReport.Number09 = row("TotalValuePerSqFt")
-                    clsReport.Number10 = row("LandBuildingRatio")
-                    clsReport.Number11 = row("NumberOfUnits")
-                    clsReport.Number12 = row("TotalValuePerUnit")
-                    clsReport.Number13 = row("AVGLandValueSqFt")
-                    clsReport.Number14 = row("AVGImproveValSqFt")
-                    clsReport.Number15 = row("AVGTotalValueSqFt")
-                    clsReport.Number16 = row("AVGTotalValueUnit")
-                    clsReport.Number17 = IIf(row("SortField") = 0, 1, 0)
-                    clsReport.Number18 = dt.Rows.Count - 1
-                    clsReport.Number19 = row("AVGLandBldgRatio")
-
-                    clsReport.WriteReportData()
-                Next
-
-
-
-
-
-                'For Each row In dt.Rows
-                '    sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10," &
-                '        "Text11,Text12,Text13,Text14," &
-                '        "Number01,Number02,Number03,Number04,Number05,Number06,Number07,Number08,Number09,Number10,Number11,Number12,Number13,Number14," &
-                '        "Number15,Number16,Number17,Number18,Number19)"
-                '    sSQL = sSQL & " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                '        QuoStr(AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")) & "," &
-                '        QuoStr(row("AcctNum")) & "," & QuoStr(row("StreetName")) & "," & QuoStr(row("BusinessName")) & "," &
-                '        QuoStr(row("BuildingClass")) & "," & QuoStr(row("Mapsco")) & "," & QuoStr(row("NeighborhoodGroup")) & "," &
-                '        QuoStr(row("EconomicArea")) & "," & QuoStr(row("ComparabilityCode")) & "," &
-
-                '        QuoStr(IIf(row("DateSwitch") = 1, "Date:  " & Now.ToString("M/d/yyyy"), "")) & "," &
-                '        QuoStr(IIf(row("SortField") = 1, "", "Comparison Account")) & ","
-                '    sSQL = sSQL & row("BuildingSqFt") & "," & row("LandSqFt") & "," & row("YearBuilt") & "," & row("LandValue") & "," & row("ImprovementValue") & "," &
-                '        row("TotalValue") & "," & row("LandValuePerSqFt") & "," & row("ImprovementValuePerSqFt") & "," & row("TotalValuePerSqFt") & "," &
-                '        row("LandBuildingRatio") & "," & row("NumberOfUnits") & "," & row("TotalValuePerUnit") & "," & row("AVGLandValueSqFt") & "," &
-                '        row("AVGImproveValSqFt") & "," & row("AVGTotalValueSqFt") & "," & row("AVGTotalValueUnit") & "," & IIf(row("SortField") = 0, 1, 0) & "," &
-                '        dt.Rows.Count - 1 & "," & row("AVGLandBldgRatio")
-                '    ExecuteSQL(sSQL)
-                'Next
-            ElseIf eType = enumReport.enumBPPCompBarCode Then
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.BPPComps, row("CompID"))
-                    clsReport.BarCode2 = BuildBarCode2(enumBarCodeTypes.BPPComps, row("CompID"))
-                    clsReport.BarCodeDesc = BuildBarCodeDesc(enumBarCodeTypes.BPPComps, row("CompID"), row("AssetType"), row("ManufactureYear"),
-                        row("Manufacturer"), row("Model"), row("SerialNumber"))
-                    clsReport.BarCodeImage = BuildBarCodeImage(enumBarCodeTypes.BPPComps, 0, 0, enumTable.enumLocationBPP, 0, 0, 0, 0, row("CompID"))
-                    clsReport.WriteReportData()
-                Next
-            ElseIf eType = enumReport.enumValueComparison Then
-                Dim bHasBusinessUnits As Boolean = True
-                If lClientId > 0 Then
-                    If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
-                        bHasBusinessUnits = True
-                    Else
-                        bHasBusinessUnits = False
+                    'hack to sum up the accrual detail stored in clsReport (need stored proc to do accrual calculations)
+                    'write data back to sql and use sql to sum/group by and store in ReportData table
+                    If eType = enumReport.enumTaxAccrualSummary Then
+                        If Not RunTaxAccrualSummaryReport(clsReport) Then Return False
                     End If
-                End If
-                clsReport = New clsReportData
-                For Each row In dt.Rows
-                    clsReport.Title01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Value Comparison - " & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "Real Estate")
-                    clsReport.Text01 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
-                    clsReport.Text02 = row("Assessors_Name")
-                    clsReport.Text03 = row("Assessments_AcctNum")
-                    clsReport.Text04 = IIf(row("Locations_ClientLocationId") = "", "", row("Locations_ClientLocationId") & "  ") & row("Locations_Address") & "  " &
-                        row("Locations_City") & ", " & row("Locations_StateCd")
-                    clsReport.Text05 = IIf(row("PropType") = "P", "BPP", "Real")
-                    ''sorting
-                    clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
-                        "  " & row("Assessments_AcctNum").ToString.Trim
-                    clsReport.Number01 = row("PriorYearFinalValue")
-                    If row("PropType").ToString() = "P" Then
-                        clsReport.Number02 = row("CountyReclassValue")
-                        clsReport.Number03 = row("MarketReclassValue")
-                    Else
-                        clsReport.Number02 = row("CurrentYearAssessedValue")
+
+                ElseIf eType = enumReport.enumREComp Then
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        clsReport.Title01 = AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")
+                        clsReport.Text01 = row("AcctNum")
+                        clsReport.Text02 = row("StreetName")
+                        clsReport.Text03 = row("BusinessName")
+                        clsReport.Text04 = row("BuildingClass")
+                        clsReport.Text05 = row("Mapsco")
+                        clsReport.Text06 = row("NeighborhoodGroup")
+                        clsReport.Text07 = row("EconomicArea")
+                        clsReport.Text08 = row("ComparabilityCode")
+                        clsReport.Text09 = IIf(row("DateSwitch") = 1, "Date:  " & Now.ToString("M/d/yyyy"), "")
+                        clsReport.Text10 = IIf(row("SortField") = 1, "", "Comparison Account")
+                        clsReport.Text11 = row("AppraisalMethod")
+                        clsReport.Text12 = row("PricingMethod")
+                        clsReport.Text13 = row("EffectiveYear")
+                        clsReport.Text14 = row("ConstructionType")
+                        clsReport.Number01 = row("BuildingSqFt")
+                        clsReport.Number02 = row("LandSqFt")
+                        clsReport.Number03 = row("YearBuilt")
+                        clsReport.Number04 = row("LandValue")
+                        clsReport.Number05 = row("ImprovementValue")
+                        clsReport.Number06 = row("TotalValue")
+                        clsReport.Number07 = row("LandValuePerSqFt")
+                        clsReport.Number08 = row("ImprovementValuePerSqFt")
+                        clsReport.Number09 = row("TotalValuePerSqFt")
+                        clsReport.Number10 = row("LandBuildingRatio")
+                        clsReport.Number11 = row("NumberOfUnits")
+                        clsReport.Number12 = row("TotalValuePerUnit")
+                        clsReport.Number13 = row("AVGLandValueSqFt")
+                        clsReport.Number14 = row("AVGImproveValSqFt")
+                        clsReport.Number15 = row("AVGTotalValueSqFt")
+                        clsReport.Number16 = row("AVGTotalValueUnit")
+                        clsReport.Number17 = IIf(row("SortField") = 0, 1, 0)
+                        clsReport.Number18 = dt.Rows.Count - 1
+                        clsReport.Number19 = row("AVGLandBldgRatio")
+
+                        clsReport.WriteReportData()
+                    Next
+
+
+
+
+
+                    'For Each row In dt.Rows
+                    '    sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10," &
+                    '        "Text11,Text12,Text13,Text14," &
+                    '        "Number01,Number02,Number03,Number04,Number05,Number06,Number07,Number08,Number09,Number10,Number11,Number12,Number13,Number14," &
+                    '        "Number15,Number16,Number17,Number18,Number19)"
+                    '    sSQL = sSQL & " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
+                    '        QuoStr(AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")) & "," &
+                    '        QuoStr(row("AcctNum")) & "," & QuoStr(row("StreetName")) & "," & QuoStr(row("BusinessName")) & "," &
+                    '        QuoStr(row("BuildingClass")) & "," & QuoStr(row("Mapsco")) & "," & QuoStr(row("NeighborhoodGroup")) & "," &
+                    '        QuoStr(row("EconomicArea")) & "," & QuoStr(row("ComparabilityCode")) & "," &
+
+                    '        QuoStr(IIf(row("DateSwitch") = 1, "Date:  " & Now.ToString("M/d/yyyy"), "")) & "," &
+                    '        QuoStr(IIf(row("SortField") = 1, "", "Comparison Account")) & ","
+                    '    sSQL = sSQL & row("BuildingSqFt") & "," & row("LandSqFt") & "," & row("YearBuilt") & "," & row("LandValue") & "," & row("ImprovementValue") & "," &
+                    '        row("TotalValue") & "," & row("LandValuePerSqFt") & "," & row("ImprovementValuePerSqFt") & "," & row("TotalValuePerSqFt") & "," &
+                    '        row("LandBuildingRatio") & "," & row("NumberOfUnits") & "," & row("TotalValuePerUnit") & "," & row("AVGLandValueSqFt") & "," &
+                    '        row("AVGImproveValSqFt") & "," & row("AVGTotalValueSqFt") & "," & row("AVGTotalValueUnit") & "," & IIf(row("SortField") = 0, 1, 0) & "," &
+                    '        dt.Rows.Count - 1 & "," & row("AVGLandBldgRatio")
+                    '    ExecuteSQL(sSQL)
+                    'Next
+                ElseIf eType = enumReport.enumBPPCompBarCode Then
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.BPPComps, row("CompID"))
+                        clsReport.BarCode2 = BuildBarCode2(enumBarCodeTypes.BPPComps, row("CompID"))
+                        clsReport.BarCodeDesc = BuildBarCodeDesc(enumBarCodeTypes.BPPComps, row("CompID"), row("AssetType"), row("ManufactureYear"),
+                            row("Manufacturer"), row("Model"), row("SerialNumber"))
+                        clsReport.BarCodeImage = BuildBarCodeImage(enumBarCodeTypes.BPPComps, 0, 0, enumTable.enumLocationBPP, 0, 0, 0, 0, row("CompID"))
+                        clsReport.WriteReportData()
+                    Next
+                ElseIf eType = enumReport.enumValueComparison Then
+                    Dim bHasBusinessUnits As Boolean = True
+                    If lClientId > 0 Then
+                        If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
+                            bHasBusinessUnits = True
+                        Else
+                            bHasBusinessUnits = False
+                        End If
                     End If
-                    'suppress business units if not business units, suppress=1
-                    clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
-                    clsReport.WriteReportData()
-                Next
-            Else
-                '1 thru 5 are the 5 potential depreciation schedules
-                '1 is printed twice, 1a is client value, 1b is normal reclassed
-                If lFactorEntityId = 0 Or bPrintClientScheduleOnly Then
+                    clsReport = New clsReportData
+                    For Each row In dt.Rows
+                        clsReport.Title01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Value Comparison - " & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "Real Estate")
+                        clsReport.Text01 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
+                        clsReport.Text02 = row("Assessors_Name")
+                        clsReport.Text03 = row("Assessments_AcctNum")
+                        clsReport.Text04 = IIf(row("Locations_ClientLocationId") = "", "", row("Locations_ClientLocationId") & "  ") & row("Locations_Address") & "  " &
+                            row("Locations_City") & ", " & row("Locations_StateCd")
+                        clsReport.Text05 = IIf(row("PropType") = "P", "BPP", "Real")
+                        ''sorting
+                        clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
+                            "  " & row("Assessments_AcctNum").ToString.Trim
+                        clsReport.Number01 = row("PriorYearFinalValue")
+                        If row("PropType").ToString() = "P" Then
+                            clsReport.Number02 = row("CountyReclassValue")
+                            clsReport.Number03 = row("MarketReclassValue")
+                        Else
+                            clsReport.Number02 = row("CurrentYearAssessedValue")
+                        End If
+                        'suppress business units if not business units, suppress=1
+                        clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
+                        clsReport.WriteReportData()
+                    Next
+                Else
+                    '1 thru 5 are the 5 potential depreciation schedules
+                    '1 is printed twice, 1a is client value, 1b is normal reclassed
+                    If lFactorEntityId = 0 Or bPrintClientScheduleOnly Then
                     bPrintingClientValue = True
                 Else
                     bPrintingClientValue = False

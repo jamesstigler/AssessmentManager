@@ -408,7 +408,7 @@
                 Me.Controls.Add(cboPropType)
             End If
 
-            If m_TypeOfReport = enumReport.enumTaxSavings Then
+            If m_TypeOfReport = enumReport.enumTaxSavings Or m_TypeOfReport = enumReport.enumTaxAccrual Or m_TypeOfReport = enumReport.enumTaxAccrualSummary Then
                 CreateStateCdDropDown("State", 100)
             End If
 
@@ -1260,15 +1260,19 @@
                 Else
                     ePropType = enumTable.enumUnknown
                 End If
-                If m_TypeOfReport = enumReport.enumTaxAccrual Or m_TypeOfReport = enumReport.enumTaxAccrualSummary Then
-                    RunReport(m_TypeOfReport, colClients(cboClient.Text), AppData.TaxYear, ePropType, colBusinessUnits(cboBusinessUnit.Text),
-                        m_SendToPrinter, sPDFFileName, m_ExportFolder)
-                ElseIf m_TypeOfReport = enumReport.enumTaxSavings Then
-                    RunReport(m_TypeOfReport, colClients(cboClient.Text), 0, 0, New List(Of Long), AppData.TaxYear, ePropType, 0,
+                'If m_TypeOfReport = enumReport.enumTaxAccrual Or m_TypeOfReport = enumReport.enumTaxAccrualSummary Then
+                'RunReport(m_TypeOfReport, colClients(cboClient.Text), AppData.TaxYear, ePropType, colBusinessUnits(cboBusinessUnit.Text),
+                '    m_SendToPrinter, sPDFFileName, m_ExportFolder)
+                RunReport(m_TypeOfReport, colClients(cboClient.Text), 0, 0, New List(Of Long), AppData.TaxYear, ePropType, 0,
                         0, m_SendToPrinter, sPDFFileName, m_ExportFolder, 0, False,
                         enumContactTypes.enumTax, enumBarCodeTypes.Audit, False, New DataTable, False, AppData.IncludeInactive, colBusinessUnits(cboBusinessUnit.Text),
                         colStateCodes(cboStateCd.Text))
-                End If
+                'ElseIf m_TypeOfReport = enumReport.enumTaxSavings Then
+                '    RunReport(m_TypeOfReport, colClients(cboClient.Text), 0, 0, New List(Of Long), AppData.TaxYear, ePropType, 0,
+                '        0, m_SendToPrinter, sPDFFileName, m_ExportFolder, 0, False,
+                '        enumContactTypes.enumTax, enumBarCodeTypes.Audit, False, New DataTable, False, AppData.IncludeInactive, colBusinessUnits(cboBusinessUnit.Text),
+                '        colStateCodes(cboStateCd.Text))
+                'End If
             ElseIf m_TypeOfReport = enumReport.enumClientEnvelope Then
                 sPDFFileName = CleanFileName("ClientEnvelope" & Trim(cboClient.Text) & ".pdf")
                 RunReport(m_TypeOfReport, colClients(cboClient.Text), 0, 0,

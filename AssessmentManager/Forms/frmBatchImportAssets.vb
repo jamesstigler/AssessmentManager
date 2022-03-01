@@ -547,7 +547,7 @@
             cmdPrint.Enabled = True
             Dim bContinue As Boolean = True
             If _IsSpecificAccount Then
-                If bLocationsWithErrors Then bContinue = False
+                'If bLocationsWithErrors Then bContinue = False
             Else
                 If bLocationsWithErrors Then
                     If MsgBox("Errors exist.  Do you want To load those locations that Do Not have errors?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then

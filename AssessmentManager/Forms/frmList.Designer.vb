@@ -54,6 +54,7 @@ Partial Class frmList
         Me.mnuContextSetRenditionServiceLevel = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetRenditionInterstateAllocation = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetLeaseInfo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextSetRenditionAuditFl = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.cboSortType3 = New System.Windows.Forms.ComboBox()
         Me.cboSortType2 = New System.Windows.Forms.ComboBox()
@@ -129,6 +130,11 @@ Partial Class frmList
         Me.cmdImport = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblTotal = New System.Windows.Forms.Label()
+        Me.lblFixed = New System.Windows.Forms.Label()
+        Me.lblInv = New System.Windows.Forms.Label()
+        Me.txtInv = New System.Windows.Forms.TextBox()
+        Me.txtFixed = New System.Windows.Forms.TextBox()
         Me.pnlAuditFl = New System.Windows.Forms.Panel()
         Me.cmdAuditFlCancel = New System.Windows.Forms.Button()
         Me.chkAuditFl = New System.Windows.Forms.CheckBox()
@@ -163,7 +169,6 @@ Partial Class frmList
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmdECUParentOK = New System.Windows.Forms.Button()
         Me.cboECUParent = New System.Windows.Forms.ComboBox()
-        Me.mnuContextSetRenditionAuditFl = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -217,7 +222,7 @@ Partial Class frmList
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 653)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 631)
         '
         'mnuContextCopy
         '
@@ -407,6 +412,12 @@ Partial Class frmList
         Me.mnuContextSetLeaseInfo.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeaseInfo.Text = "Set Lease Information"
         '
+        'mnuContextSetRenditionAuditFl
+        '
+        Me.mnuContextSetRenditionAuditFl.Name = "mnuContextSetRenditionAuditFl"
+        Me.mnuContextSetRenditionAuditFl.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextSetRenditionAuditFl.Text = "Set Audit Flag"
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.cboSortType3)
@@ -577,7 +588,7 @@ Partial Class frmList
         '
         Me.txtRowCount.BackColor = System.Drawing.SystemColors.Control
         Me.txtRowCount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtRowCount.Location = New System.Drawing.Point(8, 72)
+        Me.txtRowCount.Location = New System.Drawing.Point(68, 84)
         Me.txtRowCount.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRowCount.Name = "txtRowCount"
         Me.txtRowCount.ReadOnly = True
@@ -664,10 +675,10 @@ Partial Class frmList
         '
         'chkShowFactor
         '
-        Me.chkShowFactor.Location = New System.Drawing.Point(11, 4)
+        Me.chkShowFactor.Location = New System.Drawing.Point(84, 4)
         Me.chkShowFactor.Margin = New System.Windows.Forms.Padding(4)
         Me.chkShowFactor.Name = "chkShowFactor"
-        Me.chkShowFactor.Size = New System.Drawing.Size(174, 29)
+        Me.chkShowFactor.Size = New System.Drawing.Size(144, 20)
         Me.chkShowFactor.TabIndex = 23
         Me.chkShowFactor.Text = "Show factored amounts"
         Me.chkShowFactor.UseVisualStyleBackColor = True
@@ -676,12 +687,12 @@ Partial Class frmList
         '
         Me.txtTotal.BackColor = System.Drawing.SystemColors.Control
         Me.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTotal.Location = New System.Drawing.Point(11, 32)
+        Me.txtTotal.Location = New System.Drawing.Point(152, 24)
         Me.txtTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTotal.Multiline = True
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.ReadOnly = True
-        Me.txtTotal.Size = New System.Drawing.Size(180, 36)
+        Me.txtTotal.Size = New System.Drawing.Size(100, 16)
         Me.txtTotal.TabIndex = 24
         Me.txtTotal.TabStop = False
         Me.txtTotal.Text = "txtTotal"
@@ -1243,14 +1254,82 @@ Partial Class frmList
         'Panel1
         '
         Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Panel1.Controls.Add(Me.lblTotal)
+        Me.Panel1.Controls.Add(Me.lblFixed)
+        Me.Panel1.Controls.Add(Me.lblInv)
+        Me.Panel1.Controls.Add(Me.txtInv)
+        Me.Panel1.Controls.Add(Me.txtFixed)
         Me.Panel1.Controls.Add(Me.chkShowFactor)
         Me.Panel1.Controls.Add(Me.txtTotal)
         Me.Panel1.Controls.Add(Me.txtRowCount)
-        Me.Panel1.Location = New System.Drawing.Point(1239, 10)
+        Me.Panel1.Location = New System.Drawing.Point(1188, 4)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(206, 101)
+        Me.Panel1.Size = New System.Drawing.Size(257, 108)
         Me.Panel1.TabIndex = 37
+        '
+        'lblTotal
+        '
+        Me.lblTotal.Location = New System.Drawing.Point(24, 24)
+        Me.lblTotal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblTotal.Name = "lblTotal"
+        Me.lblTotal.Size = New System.Drawing.Size(112, 12)
+        Me.lblTotal.TabIndex = 29
+        Me.lblTotal.Text = "Total original cost"
+        Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblTotal.Visible = False
+        '
+        'lblFixed
+        '
+        Me.lblFixed.Location = New System.Drawing.Point(24, 40)
+        Me.lblFixed.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblFixed.Name = "lblFixed"
+        Me.lblFixed.Size = New System.Drawing.Size(112, 12)
+        Me.lblFixed.TabIndex = 28
+        Me.lblFixed.Text = "Total fixed asset cost"
+        Me.lblFixed.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblFixed.Visible = False
+        '
+        'lblInv
+        '
+        Me.lblInv.Location = New System.Drawing.Point(24, 56)
+        Me.lblInv.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblInv.Name = "lblInv"
+        Me.lblInv.Size = New System.Drawing.Size(112, 12)
+        Me.lblInv.TabIndex = 27
+        Me.lblInv.Text = "Total inventory cost"
+        Me.lblInv.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblInv.Visible = False
+        '
+        'txtInv
+        '
+        Me.txtInv.BackColor = System.Drawing.SystemColors.Control
+        Me.txtInv.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtInv.Location = New System.Drawing.Point(152, 56)
+        Me.txtInv.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtInv.Multiline = True
+        Me.txtInv.Name = "txtInv"
+        Me.txtInv.ReadOnly = True
+        Me.txtInv.Size = New System.Drawing.Size(100, 16)
+        Me.txtInv.TabIndex = 26
+        Me.txtInv.TabStop = False
+        Me.txtInv.Text = "txtInv"
+        Me.txtInv.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtFixed
+        '
+        Me.txtFixed.BackColor = System.Drawing.SystemColors.Control
+        Me.txtFixed.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtFixed.Location = New System.Drawing.Point(152, 40)
+        Me.txtFixed.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtFixed.Multiline = True
+        Me.txtFixed.Name = "txtFixed"
+        Me.txtFixed.ReadOnly = True
+        Me.txtFixed.Size = New System.Drawing.Size(100, 16)
+        Me.txtFixed.TabIndex = 25
+        Me.txtFixed.TabStop = False
+        Me.txtFixed.Text = "txtFixed"
+        Me.txtFixed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'pnlAuditFl
         '
@@ -1623,12 +1702,6 @@ Partial Class frmList
         Me.cboECUParent.Size = New System.Drawing.Size(689, 21)
         Me.cboECUParent.TabIndex = 4
         '
-        'mnuContextSetRenditionAuditFl
-        '
-        Me.mnuContextSetRenditionAuditFl.Name = "mnuContextSetRenditionAuditFl"
-        Me.mnuContextSetRenditionAuditFl.Size = New System.Drawing.Size(204, 22)
-        Me.mnuContextSetRenditionAuditFl.Text = "Set Audit Flag"
-        '
         'frmList
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1817,4 +1890,9 @@ Partial Class frmList
     Friend WithEvents chkAuditFl As CheckBox
     Friend WithEvents cmdAuditFlOK As Button
     Friend WithEvents mnuContextSetRenditionAuditFl As ToolStripMenuItem
+    Friend WithEvents txtInv As TextBox
+    Friend WithEvents txtFixed As TextBox
+    Friend WithEvents lblTotal As Label
+    Friend WithEvents lblFixed As Label
+    Friend WithEvents lblInv As Label
 End Class

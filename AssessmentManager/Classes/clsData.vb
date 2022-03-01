@@ -154,7 +154,8 @@ Public Class clsData
     End Function
 
     Public Function GetAssetList(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal lAssessmentId As Long, ByVal iTaxYear As Integer, ByVal lFactoringEntityId As Long,
-            ByVal bNeedFactoredAmounts As Boolean, ByVal bNeedFactoringEntityNames As Boolean, ByVal bNeedTotalValues As Boolean, ByVal bNeedTotalOriginalCost As Boolean, ByVal bNeedDetail As Boolean, ByVal bAccrual As Boolean) As DataSet
+            ByVal bNeedFactoredAmounts As Boolean, ByVal bNeedFactoringEntityNames As Boolean, ByVal bNeedTotalValues As Boolean, ByVal bNeedTotalOriginalCost As Boolean,
+            ByVal bNeedDetail As Boolean, ByVal bAccrual As Boolean, ByVal bNeedFixedAndInv As Boolean) As DataSet
         Dim cmd As SqlCommand = New SqlCommand("spGetAssetList", cn)
         cmd.CommandTimeout = 600
         cmd.CommandType = CommandType.StoredProcedure
@@ -180,6 +181,8 @@ Public Class clsData
         cmd.Parameters("@NeedDetail").Value = IIf(bNeedDetail, "1", "0")
         cmd.Parameters.Add("@Accrual", SqlDbType.TinyInt, 4)
         cmd.Parameters("@Accrual").Value = IIf(bAccrual, "1", "0")
+        cmd.Parameters.Add("@NeedFixedAndInv", SqlDbType.TinyInt, 4)
+        cmd.Parameters("@NeedFixedAndInv").Value = IIf(bNeedFixedAndInv, "1", "0")
 
         Dim parm As System.Data.SqlClient.SqlParameter
 
@@ -189,16 +192,12 @@ Public Class clsData
         Next
         Debug.WriteLine("")
 
-
         Dim adapter As New SqlDataAdapter(cmd)
         Dim ds As New DataSet()
         adapter.Fill(ds)
         For Each dt As DataTable In ds.Tables
             dt.TableName = dt.Columns(0).ColumnName
         Next
-
-
-
 
         Return ds
     End Function

@@ -80,6 +80,7 @@
         sSQL = sSQL &
                 " asmt.AssessmentId, ISNULL(asmt.SavingsExclusionCd,0) AS SavingsExclusionCd," &
                 " ISNULL(asr.Name,'') AS Assessors_Name, j.FreeportFl AS Jurisdictions_FreeportFl,"
+        sSQL = sSQL & "ISNULL(c.InactiveFl,0) AS Clients_InactiveFl,ISNULL(l.InactiveFl,0) AS Locations_InactiveFl,ISNULL(asmt.InactiveFl,0) AS Assessments_InactiveFl,"
         sSQL = sSQL & "ISNULL(collect.Name,'NONE') AS Collectors_Name,ISNULL(j.Name,'') AS Jurisdictions_Name,"
         If ePropType = enumTable.enumLocationBPP Then
             If bSavings Then

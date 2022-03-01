@@ -888,6 +888,8 @@
         'Me.Top = 0
         txtRowCount.Text = ""
         txtTotal.Text = ""
+        txtFixed.Text = ""
+        txtInv.Text = ""
 
         Dim tt As New ToolTip
         tt.AutoPopDelay = 5000
@@ -1283,7 +1285,7 @@
         Dim bind As New BindingSource
         Dim sFactoringEntityNames(4) As String
         Dim lRows As Long
-        Dim dTotal As Double = 0
+        Dim dTotal As Long = 0, dFixed As Long = 0, dInv As Long = 0
         Dim iCol As Integer = 0
         Dim bReturn As Boolean = False, lWidth As Long = 0
         Dim bShowLeaseType As Boolean = False
@@ -1292,10 +1294,13 @@
 
         If Not IsNothing(dtList) Then dtList.Rows.Clear()
         Dim ds As DataSet
-        ds = GetAssetList(m_ClientId, m_LocationId, m_AssessmentId, AppData.TaxYear, 0, IIf(chkShowFactor.CheckState = CheckState.Checked, True, False), True, False, True, True, False)
+        ds = GetAssetList(m_ClientId, m_LocationId, m_AssessmentId, AppData.TaxYear, 0, IIf(chkShowFactor.CheckState = CheckState.Checked, True, False), True, False, True, True, False, True)
 
         dtList = ds.Tables("ReturnTypeDetail").Copy
         dTotal = UnNullToDouble(ds.Tables("ReturnTypeSumOfOriginalCost").Rows(0)("SumOfOriginalCost"))
+        dFixed = UnNullToDouble(ds.Tables("ReturnTypeFixedAndInv").Rows(0)("SumOfFixed"))
+        dInv = UnNullToDouble(ds.Tables("ReturnTypeFixedAndInv").Rows(0)("SumOfInv"))
+
         Dim dtFactorEntities As DataTable = ds.Tables("ReturnTypeFactoringEntityNames").Copy
 
         lRows = dtList.Rows.Count
@@ -1433,7 +1438,13 @@
             Trim(UnNullToString(dt.Rows(0).Item("Address"))) & "   " & Trim(UnNullToString(dt.Rows(0).Item("AcctNum"))) &
             "   " & Trim(dt.Rows(0).Item("Assessors_Name")) & IIf(dt.Rows(0)("ClientLocationId").ToString.Trim <> "", "    " & dt.Rows(0)("ClientLocationId").ToString, "")
 
-        txtTotal.Text = "Total original cost:  " & Format(dTotal, csInt)
+        txtTotal.Text = Format(dTotal, csInt)
+        txtFixed.Text = Format(dFixed, csInt)
+        txtInv.Text = Format(dInv, csInt)
+        lblTotal.Visible = True
+        lblFixed.Visible = True
+        lblInv.Visible = True
+
         bHasLoadedAlready = True
 
         If lRows = 0 Then

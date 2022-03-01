@@ -12,7 +12,8 @@ CREATE PROCEDURE spGetAssetList
 	@NeedTotalValues tinyint = 0,
 	@NeedTotalOriginalCost tinyint = 0,
 	@NeedDetail tinyint = 0,
-	@FactorEntityId bigint = 0
+	@FactorEntityId bigint = 0,
+	@NeedFixedAndInv tinyint = 0
 	 
 AS
 	BEGIN
@@ -590,7 +591,7 @@ AS
 			BEGIN
 				UPDATE #temptbl SET ClientValue1 = OriginalCost, EntityValue1 = OriginalCost
 					WHERE GLCode IN('INV','Inventory') OR AssetId IN('INV','Inventory') OR [Description] IN('INV','Inventory')
-			END
+			END 
 
 			IF @NeedTotalValues = 1
 				SELECT NULL AS ReturnTypeSumOfValues,
@@ -801,6 +802,14 @@ AS
 		IF @NeedDetail = 1
 			BEGIN
 				SELECT NULL AS ReturnTypeDetail,* FROM #temptbl ORDER BY AssetId
+			END
+		IF @NeedFixedAndInv = 1
+			BEGIN
+				SELECT NULL AS ReturnTypeFixedAndInv, 
+				(SELECT SUM(OriginalCost) FROM #temptbl WHERE GLCode IN('INV','Inventory') OR AssetId IN('INV','Inventory') OR [Description] IN('INV','Inventory'))
+					AS SumOfInv,
+				(SELECT SUM(OriginalCost) FROM #temptbl WHERE NOT (GLCode IN('INV','Inventory') OR AssetId IN('INV','Inventory') OR [Description] IN('INV','Inventory')))
+					AS SumOfFixed
 			END
 	END
 GO
