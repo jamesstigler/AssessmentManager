@@ -330,7 +330,7 @@ Public Class MDIParent1
 
     Private Sub MDIParent1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not StartApp() Then End
-        Me.Text = AppData.AppName & " version:  " & AppData.Version & IIf(AppData.PrintServer, " (Print Server)", "") & ", datebase:  " & AppData.Server
+        Me.Text = AppData.AppName & " version:  " & AppData.Version & IIf(AppData.PrintServer, " (Print Server)", "") & ", datebase:  " & AppData.Server & "          " & AppData.TaxYear
 
         mnuOptionsTaxYear2008.Checked = False
         mnuOptionsTaxYear2009.Checked = False

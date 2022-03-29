@@ -146,10 +146,11 @@
         Dim lWidth As Long = 0
 
         Try
-
+            bLoading = True
 
             If m_ListType = enumListType.enumAssets Then
                 LoadAssets()
+                bLoading = False
                 Return True
             ElseIf m_ListType = enumListType.enumQueryResults Then
                 Dim sQueryName As String = ""
@@ -631,7 +632,7 @@
             cmdApply.Enabled = True
             cmdExport.Enabled = True
 
-            Me.Text = "List  " & sText
+            Me.Text = m_TaxYear & " " & "List  " & sText
 
             If lRows = 0 Then
                 txtRowCount.Text = "No records found"
@@ -645,8 +646,10 @@
             End If
 
             bHasLoadedAlready = True
+            bLoading = False
             Return True
         Catch ex As Exception
+            bLoading = False
             MsgBox("Error loading list  " & ex.Message)
             Return False
         End Try
@@ -906,9 +909,13 @@
         If m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions Then
             mnuContextOpenListOfAssets.Visible = True
             mnuContextOpenAssessmentValues.Visible = True
+            mnuContextImportAssets.Visible = True
+            mnuContextDeleteAssets.Visible = True
         Else
             mnuContextOpenListOfAssets.Visible = False
             mnuContextOpenAssessmentValues.Visible = False
+            mnuContextImportAssets.Visible = False
+            mnuContextDeleteAssets.Visible = False
         End If
 
         If m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumAssessmentRE Or m_ListType = enumListType.enumRenditions Then
@@ -936,6 +943,10 @@
             cmdNew.Enabled = True
             cmdNew.Text = "New Asset"
             cmdImport.Visible = False
+            'chkAssetsLoadedFl.Visible = True
+            'chkAssetsVerifiedFl.Visible = True
+            'txtAssetsLoadedDt.Visible = True
+            'txtAssetsVerifiedDt.Visible = True
         Else
             chkShowFactor.Visible = False
             mnuContextFactor.Visible = False
@@ -945,6 +956,10 @@
             mnuContextSetLeaseInfo.Visible = False
             cmdNew.Visible = False
             cmdImport.Visible = False
+            'chkAssetsLoadedFl.Visible = False
+            'chkAssetsVerifiedFl.Visible = False
+            'txtAssetsLoadedDt.Visible = False
+            'txtAssetsVerifiedDt.Visible = False
         End If
 
         If m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions Or
@@ -1044,9 +1059,7 @@
 
         Me.Cursor = Cursors.WaitCursor
         MDIParent1.ShowStatus(m_ListType)
-        bLoading = True
         LoadList()
-        bLoading = False
         MDIParent1.ShowStatus()
         Me.Cursor = Cursors.Default
         _FreezeLeaseInfoSettings = False
@@ -1292,6 +1305,7 @@
         Dim bShowAuditFl As Boolean = False
         Dim dtsource As New DataTable
 
+        'txtAssetsLoadedDt.Text = "" : txtAssetsVerifiedDt.Text = "" : chkAssetsLoadedFl.CheckState = CheckState.Unchecked : chkAssetsVerifiedFl.CheckState = CheckState.Unchecked
         If Not IsNothing(dtList) Then dtList.Rows.Clear()
         Dim ds As DataSet
         ds = GetAssetList(m_ClientId, m_LocationId, m_AssessmentId, AppData.TaxYear, 0, IIf(chkShowFactor.CheckState = CheckState.Checked, True, False), True, False, True, True, False, True)
@@ -1300,7 +1314,6 @@
         dTotal = UnNullToDouble(ds.Tables("ReturnTypeSumOfOriginalCost").Rows(0)("SumOfOriginalCost"))
         dFixed = UnNullToDouble(ds.Tables("ReturnTypeFixedAndInv").Rows(0)("SumOfFixed"))
         dInv = UnNullToDouble(ds.Tables("ReturnTypeFixedAndInv").Rows(0)("SumOfInv"))
-
         Dim dtFactorEntities As DataTable = ds.Tables("ReturnTypeFactoringEntityNames").Copy
 
         lRows = dtList.Rows.Count
@@ -1309,7 +1322,16 @@
                 lRows = 0
                 dtList.Rows.Clear()
             End If
+            'chkAssetsLoadedFl.CheckState = IIf(dtList.Rows(0)("AssetsLoadedFl").ToString.ToUpper = "TRUE", CheckState.Checked, CheckState.Unchecked)
+            'chkAssetsVerifiedFl.CheckState = IIf(dtList.Rows(0)("AssetsVerifiedFl").ToString.ToUpper = "TRUE", CheckState.Checked, CheckState.Unchecked)
+            'If dtList.Rows(0)("AssetsLoadedDt").ToString <> "" Then
+            '    txtAssetsLoadedDt.Text = Convert.ToDateTime(dtList.Rows(0)("AssetsLoadedDt")).ToString(csDateTime)
+            'End If
+            'If dtList.Rows(0)("AssetsVerifiedDt").ToString <> "" Then
+            '    txtAssetsVerifiedDt.Text = Convert.ToDateTime(dtList.Rows(0)("AssetsVerifiedDt")).ToString(csDateTime)
+            'End If
         End If
+
         If dtList.Columns.Contains("LeaseType") = True Then
             bShowLeaseType = dtList.Select("ISNULL(LeaseType,'')<>''").Count > 0
         End If
@@ -1434,7 +1456,7 @@
             " WHERE c.ClientId = l.ClientId AND a.ClientId = l.ClientId and a.LocationId = l.LocationId" &
             " AND a.TaxYear = l.TaxYear AND a.AssessmentId = " & m_AssessmentId & " AND l.TaxYear = " & m_TaxYear
         GetData(sSQL, dt)
-        Me.Text = "List of Assets:  " & Trim(UnNullToString(dt.Rows(0).Item("Name"))) & "   " &
+        Me.Text = m_TaxYear & " " & "List of Assets:  " & Trim(UnNullToString(dt.Rows(0).Item("Name"))) & "   " &
             Trim(UnNullToString(dt.Rows(0).Item("Address"))) & "   " & Trim(UnNullToString(dt.Rows(0).Item("AcctNum"))) &
             "   " & Trim(dt.Rows(0).Item("Assessors_Name")) & IIf(dt.Rows(0)("ClientLocationId").ToString.Trim <> "", "    " & dt.Rows(0)("ClientLocationId").ToString, "")
 
@@ -1691,26 +1713,7 @@
                                     " AND Age = " & row.Cells("Age").Value &
                                     " AND TaxYear = " & m_TaxYear
                             Case enumListType.enumAssets
-                                sSQL = "DELETE FactorCodeOverrides WHERE ClientId = " & row.Cells("ClientId").Value &
-                                    " AND LocationId = " & row.Cells("LocationId").Value &
-                                    " AND AssessmentId = " & row.Cells("AssessmentId").Value &
-                                    " AND AssetId = " & QuoStr(row.Cells("AssetId").Value) &
-                                    " AND TaxYear = " & m_TaxYear
-                                sSQL = sSQL & " DELETE ClientFactorCodeOverrides WHERE ClientId = " & row.Cells("ClientId").Value &
-                                    " AND LocationId = " & row.Cells("LocationId").Value &
-                                    " AND AssessmentId = " & row.Cells("AssessmentId").Value &
-                                    " AND AssetId = " & QuoStr(row.Cells("AssetId").Value) &
-                                    " AND TaxYear = " & m_TaxYear
-                                sSQL = sSQL & " DELETE AssetAllocationPct WHERE ClientId = " & row.Cells("ClientId").Value &
-                                    " AND LocationId = " & row.Cells("LocationId").Value &
-                                    " AND AssessmentId = " & row.Cells("AssessmentId").Value &
-                                    " AND AssetId = " & QuoStr(row.Cells("AssetId").Value) &
-                                    " AND TaxYear = " & m_TaxYear
-                                sSQL = sSQL & " DELETE Assets WHERE ClientId = " & row.Cells("ClientId").Value &
-                                    " AND LocationId = " & row.Cells("LocationId").Value &
-                                    " AND AssessmentId = " & row.Cells("AssessmentId").Value &
-                                    " AND AssetId = " & QuoStr(row.Cells("AssetId").Value) &
-                                    " AND TaxYear = " & m_TaxYear
+                                DeleteAssets(row.Cells("ClientId").Value.ToString, row.Cells("LocationId").Value.ToString, row.Cells("AssessmentId").Value.ToString, row.Cells("AssetId").Value.ToString, m_TaxYear)
                             Case enumListType.enumFactorCodeXRef
                             Case enumListType.enumCollector
                                 sSQL = "DELETE Collectors WHERE CollectorId = " & row.Cells("CollectorId").Value &
@@ -1731,7 +1734,9 @@
                             ExecuteSQL(sSQL)
                         End If
                     Next
-                    If sSQL <> "" Then LoadList()
+                    If sSQL <> "" Or m_ListType = enumListType.enumAssets Then
+                        LoadList()
+                    End If
                 End If
             End If
         Catch ex As Exception
@@ -1741,7 +1746,25 @@
         End Try
 
     End Sub
+    Private Sub DeleteAssets(clientid As String, locationid As String, assessmentid As String, assetid As String, taxyear As String)
+        Dim sql As New StringBuilder
 
+        If clientid = "" Or locationid = "" Or assessmentid = "" Or taxyear = "" Then Exit Sub
+
+        sql.Append("DELETE FactorCodeOverrides WHERE ClientId = ").Append(clientid).Append(" AND LocationId = ").Append(locationid)
+        sql.Append(" AND AssessmentId = ").Append(assessmentid).Append(" AND TaxYear = ").Append(taxyear)
+        If assetid <> "" Then sql.Append(" AND AssetId = ").Append(QuoStr(assetid))
+        sql.Append(" DELETE ClientFactorCodeOverrides WHERE ClientId = ").Append(clientid).Append(" AND LocationId = ").Append(locationid)
+        sql.Append(" AND AssessmentId = ").Append(assessmentid).Append(" AND TaxYear = ").Append(taxyear)
+        If assetid <> "" Then sql.Append(" AND AssetId = ").Append(QuoStr(assetid))
+        sql.Append(" DELETE AssetAllocationPct WHERE ClientId = ").Append(clientid).Append(" AND LocationId = ").Append(locationid)
+        sql.Append(" AND AssessmentId = ").Append(assessmentid).Append(" AND TaxYear = ").Append(taxyear)
+        If assetid <> "" Then sql.Append(" AND AssetId = ").Append(QuoStr(assetid))
+        sql.Append(" DELETE Assets WHERE ClientId = ").Append(clientid).Append(" AND LocationId = ").Append(locationid)
+        sql.Append(" AND AssessmentId = ").Append(assessmentid).Append(" AND TaxYear = ").Append(taxyear)
+        If assetid <> "" Then sql.Append(" AND AssetId = ").Append(QuoStr(assetid))
+        ExecuteSQL(sql.ToString)
+    End Sub
     Private Sub mnuContextPrint_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnuContextPrint.Click
         Try
             If m_ListType <> enumListType.enumAssessmentBPP And m_ListType <> enumListType.enumRenditions And
@@ -2286,6 +2309,27 @@
             End If
         Catch ex As Exception
             MsgBox("Error printing:  " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub mnuContextImportAssets_Click(sender As Object, e As EventArgs) Handles mnuContextImportAssets.Click
+        Try
+            Dim sError As String = ""
+            If dgList.SelectedRows.Count = 0 Then Return
+            Dim row As DataGridViewRow = dgList.SelectedRows(0)
+            Dim lClientId As Long = CLng(row.Cells("ClientId").Value)
+            Dim lLocationId As Long = CLng(row.Cells("LocationId").Value)
+            Dim lAssessmentId As Long = 0
+            If row.Cells("AssessmentId").Value.ToString.Trim = "" Then
+                MsgBox("Assessment does not exist")
+                Exit Sub
+            End If
+            lAssessmentId = CLng(row.Cells("AssessmentId").Value)
+
+            ImportAssets(lClientId, lLocationId, lAssessmentId, AppData.TaxYear)
+
+        Catch ex As Exception
+            MsgBox("Error importing assets:  " & ex.Message)
         End Try
     End Sub
 
@@ -3143,5 +3187,45 @@
         End Try
     End Sub
 
+    Private Sub mnuContextDeleteAssets_Click(sender As Object, e As EventArgs) Handles mnuContextDeleteAssets.Click
+        Try
+            Me.Cursor = Cursors.WaitCursor
+            If iMouseClickColIndex >= 0 Then
+                If dgList.SelectedRows.Count > 0 Then
+                    If MsgBox("Are you sure you want to delete ALL ASSETS for these accounts?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
+                    Dim row As DataGridViewRow
+                    For Each row In dgList.SelectedRows
+                        DeleteAssets(row.Cells("ClientId").Value.ToString, row.Cells("LocationId").Value.ToString, row.Cells("AssessmentId").Value.ToString, "", m_TaxYear)
+                    Next
+                    MsgBox("ALL Assets deleted for selected accounts")
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox("Error deleting:  " & ex.Message)
+        Finally
+            Me.Cursor = Cursors.Default
+        End Try
+    End Sub
 
+    'Private Sub chkAssetsLoadedFl_CheckedChanged(sender As Object, e As EventArgs) Handles chkAssetsLoadedFl.CheckedChanged
+    '    If bLoading Then Exit Sub
+    '    UpdateAssetStatus("AssetsLoadedFl", IIf(chkAssetsLoadedFl.CheckState = CheckState.Checked, "1", "0"))
+    'End Sub
+    'Private Sub chkAssetsVerifiedFl_CheckedChanged(sender As Object, e As EventArgs) Handles chkAssetsVerifiedFl.CheckedChanged
+    '    If bLoading Then Exit Sub
+    '    UpdateAssetStatus("AssetsVerifiedFl", IIf(chkAssetsVerifiedFl.CheckState = CheckState.Checked, "1", "0"))
+    'End Sub
+    'Private Sub UpdateAssetStatus(field As String, value As String)
+    '    Dim serror As String = ""
+
+    '    Dim clsassess As New clsAssessmentBPP
+    '    clsassess.ClientId = m_ClientId
+    '    clsassess.LocationId = m_LocationId
+    '    clsassess.AssessmentId = m_AssessmentId
+    '    clsassess.TaxYear = m_TaxYear
+    '    If Not clsassess.UpdateAssetStatus(field, value, serror) Then
+    '        MsgBox("Unable to save the rendition status:  Error=" & serror)
+    '    End If
+    '    clsassess = Nothing
+    'End Sub
 End Class

@@ -127,6 +127,8 @@
                 " a.ValueProtestMailedDate,a.ValueProtestHearingDate,a.ValueProtestStatus,a.ValueProtestDeadlineDate,a.ValueProtestCMRRR," &
                 " a.FreeportProtestMailedDate,a.FreeportProtestHearingDate,a.FreeportProtestStatus,a.FreeportProtestDeadlineDate,a.FreeportProtestCMRRR," &
                 " a.RenditionCompleteFl, a.RenditionCompleteDate," &
+                " a.AssetsLoadedFl, a.AssetsLoadedDate," &
+                " a.AssetsVerifiedFl, a.AssetsVerifiedDate," &
                 " a.RenditionCMRRR, a.RenditionMailedDate,ISNULL(l.ClientLocationId,'') AS ClientLocationId," &
                 " a.RenditionExtCMRRR, a.RenditionExtMailedDate,a.ClientRenditionValue,ISNULL(a.ParentAssessmentId,0) AS ParentAssessmentId," &
                 " (select (rtrim(Name) + ', ' + StateCd) from Assessors where AssessorId = a.AssessorId and TaxYear = " & m_TaxYear & ") as AssessorName," &
@@ -152,7 +154,7 @@
             If dr("InterstateAllocationFl").ToString = "True" Then chkInterstateAllocationFl.Checked = True
             m_AssessorId = dr("AssessorId")
             lParentAssessmentId = dr("ParentAssessmentId")
-            Me.Text = "BPP Tax List:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " &
+            Me.Text = m_TaxYear & " BPP Tax List:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " &
                 Trim(dr("City")) & " " & Trim(dr("StateCd")) & "   " & Trim(dr("AcctNum"))
 
             RefreshControls(Me, dt, "AssessmentsBPP")
@@ -295,7 +297,7 @@
             Handles txtAcctNum.TextChanged, cboAssessor.TextChanged, txtClientLocationId.TextChanged,
             cboFactorEntity1.TextChanged, cboFactorEntity2.TextChanged, cboFactorEntity3.TextChanged,
             cboFactorEntity4.TextChanged, cboFactorEntity5.TextChanged, txtClientRendition1.TextChanged, chkRenditionCompleteFl.CheckedChanged,
-            cboAccountInvoicedStatus.TextChanged
+            cboAccountInvoicedStatus.TextChanged, chkAssetsLoadedFl.CheckedChanged, chkAssetsVerifiedFl.CheckedChanged
         If bActivated Then bChanged = True
         If bActivated Then
             If sender.name = chkRenditionCompleteFl.Name Then
@@ -305,6 +307,20 @@
                     txtRenditionCompleteDate.Text = ""
                 End If
             End If
+            If sender.name = chkAssetsLoadedFl.Name Then
+                If chkAssetsLoadedFl.CheckState = CheckState.Checked Then
+                    txtAssetsLoadedDate.Text = Format(Now, csDateTime)
+                Else
+                    txtAssetsLoadedDate.Text = ""
+                End If
+            End If
+            If sender.name = chkAssetsVerifiedFl.Name Then
+                If chkAssetsVerifiedFl.CheckState = CheckState.Checked Then
+                    txtAssetsVerifiedDate.Text = Format(Now, csDateTime)
+                Else
+                    txtAssetsVerifiedDate.Text = ""
+                End If
+            End If
         End If
     End Sub
 
@@ -312,7 +328,7 @@
             Handles txtAcctNum.LostFocus, cboAssessor.LostFocus, txtClientLocationId.LostFocus,
             cboFactorEntity1.LostFocus, cboFactorEntity2.LostFocus, cboFactorEntity3.LostFocus,
             cboFactorEntity4.LostFocus, cboFactorEntity5.LostFocus, txtClientRendition1.LostFocus, chkRenditionCompleteFl.LostFocus,
-            cboAccountInvoicedStatus.LostFocus
+            cboAccountInvoicedStatus.LostFocus, chkAssetsLoadedFl.LostFocus, chkAssetsVerifiedFl.LostFocus
         If bChanged Then
             If TypeOf sender Is ComboBox Then
                 If sender.SelectedIndex >= 0 Then

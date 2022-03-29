@@ -110,7 +110,7 @@
             End If
             _ClientName = dr("Name")
 
-            Me.Text = sHeading
+            Me.Text = TaxYear & " " & sHeading
 
             Return True
         Catch ex As Exception
@@ -1113,7 +1113,7 @@
             If lRows > 0 Then
                 sPDFFileName = CleanFileName("BatchAssetImportSummary_" & _ClientName & IIf(_IsSpecificAccount, _AcctNum, "") & ".pdf")
                 OpenReport(enumReport.enumAssetImport,
-                           "Batch Asset Import Summary:  " & _ClientName & IIf(_IsSpecificAccount, _AcctNum, ""), False, sPDFFileName, "")
+                            "Batch Asset Import Summary:  " & _ClientName & IIf(_IsSpecificAccount, _AcctNum, ""), False, sPDFFileName, "")
                 AppData.ReportId = AppData.ReportId + 1
             End If
 

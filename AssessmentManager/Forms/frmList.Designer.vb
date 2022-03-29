@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmList
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,13 +20,14 @@ Partial Class frmList
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.dgList = New System.Windows.Forms.DataGridView()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuContextCopy = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextDeleteAssets = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextFactor = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextPrint = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetECUParent = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,6 +39,7 @@ Partial Class frmList
         Me.mnuContextAddJurisdiction = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextOpenListOfAssets = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextOpenAssessmentValues = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextImportAssets = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuContextLabelEdit = New System.Windows.Forms.ToolStripTextBox()
         Me.mnuContextTextBox = New System.Windows.Forms.ToolStripTextBox()
@@ -220,9 +222,9 @@ Partial Class frmList
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextDeleteAssets, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.mnuContextImportAssets, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 631)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 697)
         '
         'mnuContextCopy
         '
@@ -235,6 +237,13 @@ Partial Class frmList
         Me.mnuContextDelete.Name = "mnuContextDelete"
         Me.mnuContextDelete.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextDelete.Text = "Delete"
+        '
+        'mnuContextDeleteAssets
+        '
+        Me.mnuContextDeleteAssets.Name = "mnuContextDeleteAssets"
+        Me.mnuContextDeleteAssets.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextDeleteAssets.Text = "Delete Assets"
+        Me.mnuContextDeleteAssets.Visible = False
         '
         'mnuContextFactor
         '
@@ -305,6 +314,12 @@ Partial Class frmList
         Me.mnuContextOpenAssessmentValues.Name = "mnuContextOpenAssessmentValues"
         Me.mnuContextOpenAssessmentValues.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextOpenAssessmentValues.Text = "Open Assessment Values"
+        '
+        'mnuContextImportAssets
+        '
+        Me.mnuContextImportAssets.Name = "mnuContextImportAssets"
+        Me.mnuContextImportAssets.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextImportAssets.Text = "Import Assets"
         '
         'ToolStripSeparator1
         '
@@ -588,7 +603,7 @@ Partial Class frmList
         '
         Me.txtRowCount.BackColor = System.Drawing.SystemColors.Control
         Me.txtRowCount.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtRowCount.Location = New System.Drawing.Point(68, 84)
+        Me.txtRowCount.Location = New System.Drawing.Point(48, 84)
         Me.txtRowCount.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRowCount.Name = "txtRowCount"
         Me.txtRowCount.ReadOnly = True
@@ -675,7 +690,7 @@ Partial Class frmList
         '
         'chkShowFactor
         '
-        Me.chkShowFactor.Location = New System.Drawing.Point(84, 4)
+        Me.chkShowFactor.Location = New System.Drawing.Point(64, 4)
         Me.chkShowFactor.Margin = New System.Windows.Forms.Padding(4)
         Me.chkShowFactor.Name = "chkShowFactor"
         Me.chkShowFactor.Size = New System.Drawing.Size(144, 20)
@@ -687,7 +702,7 @@ Partial Class frmList
         '
         Me.txtTotal.BackColor = System.Drawing.SystemColors.Control
         Me.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTotal.Location = New System.Drawing.Point(152, 24)
+        Me.txtTotal.Location = New System.Drawing.Point(132, 24)
         Me.txtTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTotal.Multiline = True
         Me.txtTotal.Name = "txtTotal"
@@ -1262,18 +1277,18 @@ Partial Class frmList
         Me.Panel1.Controls.Add(Me.chkShowFactor)
         Me.Panel1.Controls.Add(Me.txtTotal)
         Me.Panel1.Controls.Add(Me.txtRowCount)
-        Me.Panel1.Location = New System.Drawing.Point(1188, 4)
+        Me.Panel1.Location = New System.Drawing.Point(1208, 4)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(257, 108)
+        Me.Panel1.Size = New System.Drawing.Size(237, 108)
         Me.Panel1.TabIndex = 37
         '
         'lblTotal
         '
-        Me.lblTotal.Location = New System.Drawing.Point(24, 24)
+        Me.lblTotal.Location = New System.Drawing.Point(20, 24)
         Me.lblTotal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(112, 12)
+        Me.lblTotal.Size = New System.Drawing.Size(96, 12)
         Me.lblTotal.TabIndex = 29
         Me.lblTotal.Text = "Total original cost"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1281,7 +1296,7 @@ Partial Class frmList
         '
         'lblFixed
         '
-        Me.lblFixed.Location = New System.Drawing.Point(24, 40)
+        Me.lblFixed.Location = New System.Drawing.Point(4, 40)
         Me.lblFixed.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblFixed.Name = "lblFixed"
         Me.lblFixed.Size = New System.Drawing.Size(112, 12)
@@ -1292,7 +1307,7 @@ Partial Class frmList
         '
         'lblInv
         '
-        Me.lblInv.Location = New System.Drawing.Point(24, 56)
+        Me.lblInv.Location = New System.Drawing.Point(4, 56)
         Me.lblInv.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblInv.Name = "lblInv"
         Me.lblInv.Size = New System.Drawing.Size(112, 12)
@@ -1305,7 +1320,7 @@ Partial Class frmList
         '
         Me.txtInv.BackColor = System.Drawing.SystemColors.Control
         Me.txtInv.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtInv.Location = New System.Drawing.Point(152, 56)
+        Me.txtInv.Location = New System.Drawing.Point(132, 56)
         Me.txtInv.Margin = New System.Windows.Forms.Padding(4)
         Me.txtInv.Multiline = True
         Me.txtInv.Name = "txtInv"
@@ -1320,7 +1335,7 @@ Partial Class frmList
         '
         Me.txtFixed.BackColor = System.Drawing.SystemColors.Control
         Me.txtFixed.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtFixed.Location = New System.Drawing.Point(152, 40)
+        Me.txtFixed.Location = New System.Drawing.Point(132, 40)
         Me.txtFixed.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFixed.Multiline = True
         Me.txtFixed.Name = "txtFixed"
@@ -1895,4 +1910,6 @@ Partial Class frmList
     Friend WithEvents lblTotal As Label
     Friend WithEvents lblFixed As Label
     Friend WithEvents lblInv As Label
+    Friend WithEvents mnuContextImportAssets As ToolStripMenuItem
+    Friend WithEvents mnuContextDeleteAssets As ToolStripMenuItem
 End Class

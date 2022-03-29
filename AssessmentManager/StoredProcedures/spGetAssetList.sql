@@ -1,5 +1,6 @@
 DROP PROCEDURE [dbo].[spGetAssetList] 
 GO
+  
 
 CREATE PROCEDURE spGetAssetList
 	@ClientId bigint,
@@ -60,6 +61,10 @@ AS
 			EquipmentModel varchar(50) null,
 			InterstateAllocationFl bit null,			
 			AuditFl bit null,
+			AssetsLoadedFl bit null,
+			AssetsVerifiedFl bit null,
+			AssetsLoadedDate datetime null,
+			AssetsVerifiedDate datetime null,
 
 			FactorEntityId1 bigint null,
 			FactoringEntityName1 varchar(255) null,
@@ -164,8 +169,9 @@ AS
 			Locations_StateCd, Locations_ClientLocationId, Assessors_Name, Assessments_AcctNum, Clients_ExcludeNotified, Clients_ExcludeAbatements,
 			Clients_ExcludeFreeport, Clients_ExcludeClient, Assessments_SavingsExclusionCd, VIN, Assets_LocationAddress,
 			ClientRenditionValue, BPPRatio, BusinessUnitId,
-			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel, InterstateAllocationFl, AuditFl
-)				
+			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel, InterstateAllocationFl, AuditFl,
+			AssetsLoadedFl, AssetsVerifiedFl, AssetsLoadedDate, AssetsVerifiedDate
+		)				
 		SELECT c.ClientId, l.LocationId, assess.AssessmentId, a.AssetId, a.TaxYear, ISNULL(a.OriginalCost,0),
 			a.PurchaseDate, a.Description,a.GLCode, CASE WHEN @FactorEntityId = 0 THEN assess.FactorEntityId1 ELSE @FactorEntityId END, 
 			assess.FactorEntityId2, assess.FactorEntityId3, 
@@ -174,7 +180,8 @@ AS
 			ISNULL(c.ExcludeFreeport,0), ISNULL(c.ExcludeClient,0), ISNULL(assess.SavingsExclusionCd,0), a.VIN, a.LocationAddress,
 			assess.ClientRenditionValue, ISNULL(assessor.BPPRatio,0),ISNULL(assess.BusinessUnitId,0),
 			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel, 
-			ISNULL(assess.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)), a.AuditFl
+			ISNULL(assess.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)), a.AuditFl,
+			assess.AssetsLoadedFl, assess.AssetsVerifiedFl, assess.AssetsLoadedDate, assess.AssetsVerifiedDate
 
 		FROM AssessmentsBPP AS assess
         INNER JOIN Clients AS c ON assess.ClientId = c.ClientId

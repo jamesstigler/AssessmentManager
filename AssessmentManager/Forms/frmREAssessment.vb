@@ -144,7 +144,7 @@
             txtClientLocationId.Text = dr("ClientLocationId").ToString
             m_AssessorId = dr("AssessorId")
             lParentAssessmentId = dr("ParentAssessmentId")
-            Me.Text = "Real Estate Assessment:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " &
+            Me.Text = m_TaxYear & " " & "Real Estate Assessment:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " &
                 Trim(dr("City")) & " " & Trim(dr("StateCd")) & "   " & Trim(dr("AcctNum"))
 
             RefreshControls(Me, dt, "AssessmentsRE")

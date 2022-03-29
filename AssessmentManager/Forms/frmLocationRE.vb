@@ -76,7 +76,7 @@
             clsLocation.TaxYear = m_TaxYear
             clsLocation.OpenLocation(sError)
 
-            Me.Text = "Real Estate Location:  " & clsLocation.Address & "   " & clsLocation.City & ", " & clsLocation.StateCd
+            Me.Text = m_TaxYear & " " & "Real Estate Location:  " & clsLocation.Address & "   " & clsLocation.City & ", " & clsLocation.StateCd
             RefreshControls(Me, clsLocation.ResultSet, "LocationsRE")
             Return True
 

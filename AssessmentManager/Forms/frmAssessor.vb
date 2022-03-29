@@ -62,7 +62,7 @@
                 " WHERE AssessorId = " & m_AssessorId & _
                 " AND TaxYear = " & m_TaxYear
             If GetData(sSQL, dt) > 0 Then
-                Me.Text = "Assessor:  " & dt.Rows(0)("Name") & ", " & dt.Rows(0)("StateCd")
+                Me.Text = m_TaxYear & " " & "Assessor:  " & dt.Rows(0)("Name") & ", " & dt.Rows(0)("StateCd")
             End If
             RefreshControls(Me, dt, "Assessors")
 

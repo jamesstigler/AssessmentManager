@@ -141,7 +141,7 @@
             txtConsultantName.Text = dr("ConsultantName").ToString.Trim
             txtSICCode.Text = dr("SICCode").ToString.Trim
             m_AssessorId = dr("AssessorId")
-            Me.Text = "BPP Assessment:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " & _
+            Me.Text = m_TaxYear & " BPP Assessment:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " &
                 Trim(dr("City")) & " " & Trim(dr("StateCd")) & "   " & Trim(dr("AcctNum"))
 
             RefreshControls(Me, dt, "AssessmentsBPP")

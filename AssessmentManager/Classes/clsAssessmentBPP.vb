@@ -105,8 +105,8 @@
 
             m_AssessorId = 0 : m_DefaultDeprId = 0
             sError = ""
-            sSQL = "SELECT * FROM AssessmentsBPP WHERE ClientId = " & m_ClientId & _
-                " AND LocationId = " & m_LocationId & " AND AssessmentId = " & m_AssessmentId & _
+            sSQL = "SELECT * FROM AssessmentsBPP WHERE ClientId = " & m_ClientId &
+                " AND LocationId = " & m_LocationId & " AND AssessmentId = " & m_AssessmentId &
                 " AND TaxYear = " & m_TaxYear
             If GetData(sSQL, dt) > 0 Then
                 Dim dr As DataRow = dt.Rows(0)
@@ -151,43 +151,35 @@
                     m_AssessmentId = lAssessmentId
                     Return True
                 End If
-            Else
-                Return True
             End If
+            Return True
         Catch ex As Exception
             sError = ex.Message
             Return False
         End Try
-
     End Function
-    'Private Function LoadAssets() As Boolean
-    '    Dim sSQL As String, xAsset As clsAsset, dr As DataRow
+    '    Public Function UpdateAssetStatus(field As String, value As String, ByRef serror As String)
+    '        Try
+    '            serror = ""
+    '            Dim sql As New StringBuilder()
+    '            Dim dateupdate As String = ""
 
-    '    m_Assets = New Collection
-    '    sSQL = "SELECT AssetId, OriginalCost, PurchaseDate, Description, GLCode" & _
-    '        " FROM Assets WHERE ClientId = " & m_ClientId & " AND LocationId = " & m_LocationId & _
-    '        " AND TaxYear = " & m_TaxYear
-    '    Using dt As New DataTable
-    '        If GetData(sSQL, dt) > 0 Then
-    '            For Each dr In dt.Rows
-    '                xAsset = New clsAsset
-    '                With xAsset
-    '                    .AssetId = UnNullToString(dr("AssetId"))
-    '                    .GLCode = UnNullToString(dr("GLCode"))
-    '                    .OriginalCost = UnNullToDouble(dr("OriginalCost"))
-    '                    .PurchaseDate = dr("PurchaseDate")
-    '                    .TaxYear = m_TaxYear
-    '                End With
-    '                m_Assets.Add(xAsset, xAsset.AssetId)
-    '            Next
+    '            Select Case field
+    '                Case "AssetsLoadedFl"
+    '                    dateupdate = ",AssetsLoadedDt=" & IIf(value = "0", "NULL", "GETDATE()")
+    '                Case "AssetsVerifiedFl"
+    '                    dateupdate = ",AssetsVerifiedDt=" & IIf(value = "0", "NULL", "GETDATE()")
+    '            End Select
+
+    '            sql.Append("UPDATE AssessmentsBPP SET ").Append(field).Append("=").Append(value).Append(dateupdate).Append(",ChangeDate=GETDATE(),ChangeUser=").Append(QuoStr(AppData.UserId))
+    '            sql.Append(",ChangeType=2")
+    '            sql.Append(" WHERE ClientId=").Append(m_ClientId.ToString).Append(" AND LocationId=").Append(m_LocationId.ToString).Append(" AND AssessmentId=").Append(m_AssessmentId)
+    '            sql.Append(" AND TaxYear=").Append(m_TaxYear)
+    '            ExecuteSQL(sql.ToString)
     '            Return True
-    '        Else
+    '        Catch ex As Exception
+    '            serror = ex.Message
     '            Return False
-    '        End If
-    '    End Using
-
-    '    Return True
-    'End Function
-
-
+    '        End Try
+    '    End Function
 End Class

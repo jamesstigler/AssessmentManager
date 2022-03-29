@@ -135,7 +135,7 @@
 
             txtAssetId.Text = m_AssetId
             sStateCd = Trim(CStr(dr("StateCd")))
-            Me.Text = "Asset:  " & m_AssetId & " for client " & UnNullToString((dr("Name"))) & "   " & UnNullToString(dr("Address")) & "   " & _
+            Me.Text = m_TaxYear & " " & "Asset:  " & m_AssetId & " for client " & UnNullToString((dr("Name"))) & "   " & UnNullToString(dr("Address")) & "   " &
                 UnNullToString(dr("City")) & " " & UnNullToString(dr("StateCd")) & " account " & dr("AcctNum")
 
             dt.Dispose()

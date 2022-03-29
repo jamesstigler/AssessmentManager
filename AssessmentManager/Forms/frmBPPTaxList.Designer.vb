@@ -69,11 +69,9 @@ Partial Class frmBPPTaxList
         Me.fraHistory = New System.Windows.Forms.GroupBox()
         Me.cmdViewAssessment = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.txtSICCode = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
-        Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.txtConsultantName = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.grpComments = New System.Windows.Forms.GroupBox()
@@ -85,9 +83,16 @@ Partial Class frmBPPTaxList
         Me.mnuContextDeleteComment = New System.Windows.Forms.ToolStripMenuItem()
         Me.fraECU = New System.Windows.Forms.GroupBox()
         Me.dgECU = New System.Windows.Forms.DataGridView()
+        Me.cmdECU = New System.Windows.Forms.Button()
+        Me.txtAssetsLoadedDate = New System.Windows.Forms.TextBox()
+        Me.chkAssetsLoadedFl = New System.Windows.Forms.CheckBox()
+        Me.txtAssetsVerifiedDate = New System.Windows.Forms.TextBox()
+        Me.chkAssetsVerifiedFl = New System.Windows.Forms.CheckBox()
         Me.txtRenditionCompleteDate = New System.Windows.Forms.TextBox()
         Me.chkRenditionCompleteFl = New System.Windows.Forms.CheckBox()
-        Me.cmdECU = New System.Windows.Forms.Button()
+        Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
         CType(Me.dgJurisdictions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.fraCollectors.SuspendLayout()
@@ -201,9 +206,9 @@ Partial Class frmBPPTaxList
         'fraCollectors
         '
         Me.fraCollectors.Controls.Add(Me.dgCollectors)
-        Me.fraCollectors.Location = New System.Drawing.Point(567, 108)
+        Me.fraCollectors.Location = New System.Drawing.Point(576, 108)
         Me.fraCollectors.Name = "fraCollectors"
-        Me.fraCollectors.Size = New System.Drawing.Size(749, 141)
+        Me.fraCollectors.Size = New System.Drawing.Size(740, 141)
         Me.fraCollectors.TabIndex = 219
         Me.fraCollectors.TabStop = False
         Me.fraCollectors.Visible = False
@@ -224,7 +229,7 @@ Partial Class frmBPPTaxList
         Me.dgCollectors.ShowCellToolTips = False
         Me.dgCollectors.ShowEditingIcon = False
         Me.dgCollectors.ShowRowErrors = False
-        Me.dgCollectors.Size = New System.Drawing.Size(740, 124)
+        Me.dgCollectors.Size = New System.Drawing.Size(736, 124)
         Me.dgCollectors.TabIndex = 212
         '
         'ContextMenuStrip2
@@ -301,7 +306,7 @@ Partial Class frmBPPTaxList
         '
         'Label24
         '
-        Me.Label24.Location = New System.Drawing.Point(456, 91)
+        Me.Label24.Location = New System.Drawing.Point(20, 200)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(98, 19)
         Me.Label24.TabIndex = 246
@@ -380,6 +385,7 @@ Partial Class frmBPPTaxList
         Me.txtClientRendition5.TabStop = False
         Me.txtClientRendition5.Tag = ""
         Me.txtClientRendition5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtClientRendition5.Visible = False
         Me.txtClientRendition5.WordWrap = False
         '
         'txtReclassRendition1
@@ -450,6 +456,7 @@ Partial Class frmBPPTaxList
         Me.txtReclassRendition5.TabStop = False
         Me.txtReclassRendition5.Tag = ""
         Me.txtReclassRendition5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtReclassRendition5.Visible = False
         Me.txtReclassRendition5.WordWrap = False
         '
         'txtClientRendition1
@@ -523,6 +530,7 @@ Partial Class frmBPPTaxList
         Me.cboFactorEntity5.Size = New System.Drawing.Size(221, 21)
         Me.cboFactorEntity5.TabIndex = 232
         Me.cboFactorEntity5.Tag = "@DB=AssessmentsBPP.FactorEntityId5"
+        Me.cboFactorEntity5.Visible = False
         '
         'Label5
         '
@@ -596,16 +604,11 @@ Partial Class frmBPPTaxList
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraCollectors)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label6)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.chkInterstateAllocationFl)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.cboAccountInvoicedStatus)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Label4)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtConsultantName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label3)
         Me.SplitContainer1.Panel1.Controls.Add(Me.grpComments)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraHistory)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraECU)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.txtRenditionCompleteDate)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.chkRenditionCompleteFl)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cmdECU)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cmdRefresh)
@@ -638,6 +641,16 @@ Partial Class frmBPPTaxList
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboFactorEntity2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtClientRendition1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboFactorEntity1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.txtAssetsLoadedDate)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.chkAssetsLoadedFl)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.txtAssetsVerifiedDate)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.chkAssetsVerifiedFl)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.txtRenditionCompleteDate)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.chkRenditionCompleteFl)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.cboAccountInvoicedStatus)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label4)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.chkInterstateAllocationFl)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
         '
         'SplitContainer1.Panel2
         '
@@ -645,6 +658,15 @@ Partial Class frmBPPTaxList
         Me.SplitContainer1.Size = New System.Drawing.Size(1325, 585)
         Me.SplitContainer1.SplitterDistance = 251
         Me.SplitContainer1.TabIndex = 250
+        '
+        'Label7
+        '
+        Me.Label7.Location = New System.Drawing.Point(8, 92)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(12, 19)
+        Me.Label7.TabIndex = 266
+        Me.Label7.Text = "*"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtSICCode
         '
@@ -664,39 +686,6 @@ Partial Class frmBPPTaxList
         Me.Label6.TabIndex = 265
         Me.Label6.Text = "SIC Code"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'chkInterstateAllocationFl
-        '
-        Me.chkInterstateAllocationFl.AutoSize = True
-        Me.chkInterstateAllocationFl.Enabled = False
-        Me.chkInterstateAllocationFl.Location = New System.Drawing.Point(328, 44)
-        Me.chkInterstateAllocationFl.Name = "chkInterstateAllocationFl"
-        Me.chkInterstateAllocationFl.Size = New System.Drawing.Size(148, 17)
-        Me.chkInterstateAllocationFl.TabIndex = 263
-        Me.chkInterstateAllocationFl.Tag = ""
-        Me.chkInterstateAllocationFl.Text = "Apply Interstate Allocation"
-        Me.chkInterstateAllocationFl.UseVisualStyleBackColor = True
-        '
-        'cboAccountInvoicedStatus
-        '
-        Me.cboAccountInvoicedStatus.AllowDrop = True
-        Me.cboAccountInvoicedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboAccountInvoicedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAccountInvoicedStatus.FormattingEnabled = True
-        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(576, 40)
-        Me.cboAccountInvoicedStatus.Name = "cboAccountInvoicedStatus"
-        Me.cboAccountInvoicedStatus.Size = New System.Drawing.Size(108, 21)
-        Me.cboAccountInvoicedStatus.TabIndex = 3
-        Me.cboAccountInvoicedStatus.Tag = "@DB=AssessmentsBPP.AccountInvoicedStatus"
-        '
-        'Label4
-        '
-        Me.Label4.Location = New System.Drawing.Point(480, 40)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(92, 20)
-        Me.Label4.TabIndex = 262
-        Me.Label4.Text = "Account Invoiced"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtConsultantName
         '
@@ -852,30 +841,6 @@ Partial Class frmBPPTaxList
         Me.dgECU.Size = New System.Drawing.Size(252, 209)
         Me.dgECU.TabIndex = 247
         '
-        'txtRenditionCompleteDate
-        '
-        Me.txtRenditionCompleteDate.AllowDrop = True
-        Me.txtRenditionCompleteDate.BackColor = System.Drawing.SystemColors.Window
-        Me.txtRenditionCompleteDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRenditionCompleteDate.Location = New System.Drawing.Point(568, 84)
-        Me.txtRenditionCompleteDate.Name = "txtRenditionCompleteDate"
-        Me.txtRenditionCompleteDate.ReadOnly = True
-        Me.txtRenditionCompleteDate.Size = New System.Drawing.Size(118, 20)
-        Me.txtRenditionCompleteDate.TabIndex = 257
-        Me.txtRenditionCompleteDate.TabStop = False
-        Me.txtRenditionCompleteDate.Tag = "@DB=AssessmentsBPP.RenditionCompleteDate;@fmt=datetime"
-        '
-        'chkRenditionCompleteFl
-        '
-        Me.chkRenditionCompleteFl.AutoSize = True
-        Me.chkRenditionCompleteFl.Location = New System.Drawing.Point(568, 68)
-        Me.chkRenditionCompleteFl.Name = "chkRenditionCompleteFl"
-        Me.chkRenditionCompleteFl.Size = New System.Drawing.Size(118, 17)
-        Me.chkRenditionCompleteFl.TabIndex = 256
-        Me.chkRenditionCompleteFl.Tag = "@DB=AssessmentsBPP.RenditionCompleteFl"
-        Me.chkRenditionCompleteFl.Text = "Rendition Complete"
-        Me.chkRenditionCompleteFl.UseVisualStyleBackColor = True
-        '
         'cmdECU
         '
         Me.cmdECU.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -886,6 +851,111 @@ Partial Class frmBPPTaxList
         Me.cmdECU.Text = "ECU"
         Me.cmdECU.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.cmdECU.UseVisualStyleBackColor = True
+        '
+        'txtAssetsLoadedDate
+        '
+        Me.txtAssetsLoadedDate.AllowDrop = True
+        Me.txtAssetsLoadedDate.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAssetsLoadedDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAssetsLoadedDate.Location = New System.Drawing.Point(456, 88)
+        Me.txtAssetsLoadedDate.Name = "txtAssetsLoadedDate"
+        Me.txtAssetsLoadedDate.ReadOnly = True
+        Me.txtAssetsLoadedDate.Size = New System.Drawing.Size(118, 20)
+        Me.txtAssetsLoadedDate.TabIndex = 272
+        Me.txtAssetsLoadedDate.TabStop = False
+        Me.txtAssetsLoadedDate.Tag = "@DB=AssessmentsBPP.AssetsLoadedDate;@fmt=datetime"
+        '
+        'chkAssetsLoadedFl
+        '
+        Me.chkAssetsLoadedFl.AutoSize = True
+        Me.chkAssetsLoadedFl.Location = New System.Drawing.Point(456, 72)
+        Me.chkAssetsLoadedFl.Name = "chkAssetsLoadedFl"
+        Me.chkAssetsLoadedFl.Size = New System.Drawing.Size(96, 17)
+        Me.chkAssetsLoadedFl.TabIndex = 271
+        Me.chkAssetsLoadedFl.Tag = "@DB=AssessmentsBPP.AssetsLoadedFl"
+        Me.chkAssetsLoadedFl.Text = "Assets Loaded"
+        Me.chkAssetsLoadedFl.UseVisualStyleBackColor = True
+        '
+        'txtAssetsVerifiedDate
+        '
+        Me.txtAssetsVerifiedDate.AllowDrop = True
+        Me.txtAssetsVerifiedDate.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAssetsVerifiedDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAssetsVerifiedDate.Location = New System.Drawing.Point(456, 128)
+        Me.txtAssetsVerifiedDate.Name = "txtAssetsVerifiedDate"
+        Me.txtAssetsVerifiedDate.ReadOnly = True
+        Me.txtAssetsVerifiedDate.Size = New System.Drawing.Size(118, 20)
+        Me.txtAssetsVerifiedDate.TabIndex = 270
+        Me.txtAssetsVerifiedDate.TabStop = False
+        Me.txtAssetsVerifiedDate.Tag = "@DB=AssessmentsBPP.AssetsVerifiedDate;@fmt=datetime"
+        '
+        'chkAssetsVerifiedFl
+        '
+        Me.chkAssetsVerifiedFl.AutoSize = True
+        Me.chkAssetsVerifiedFl.Location = New System.Drawing.Point(456, 112)
+        Me.chkAssetsVerifiedFl.Name = "chkAssetsVerifiedFl"
+        Me.chkAssetsVerifiedFl.Size = New System.Drawing.Size(95, 17)
+        Me.chkAssetsVerifiedFl.TabIndex = 269
+        Me.chkAssetsVerifiedFl.Tag = "@DB=AssessmentsBPP.AssetsVerifiedFl"
+        Me.chkAssetsVerifiedFl.Text = "Assets Verified"
+        Me.chkAssetsVerifiedFl.UseVisualStyleBackColor = True
+        '
+        'txtRenditionCompleteDate
+        '
+        Me.txtRenditionCompleteDate.AllowDrop = True
+        Me.txtRenditionCompleteDate.BackColor = System.Drawing.SystemColors.Window
+        Me.txtRenditionCompleteDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRenditionCompleteDate.Location = New System.Drawing.Point(456, 168)
+        Me.txtRenditionCompleteDate.Name = "txtRenditionCompleteDate"
+        Me.txtRenditionCompleteDate.ReadOnly = True
+        Me.txtRenditionCompleteDate.Size = New System.Drawing.Size(118, 20)
+        Me.txtRenditionCompleteDate.TabIndex = 257
+        Me.txtRenditionCompleteDate.TabStop = False
+        Me.txtRenditionCompleteDate.Tag = "@DB=AssessmentsBPP.RenditionCompleteDate;@fmt=datetime"
+        '
+        'chkRenditionCompleteFl
+        '
+        Me.chkRenditionCompleteFl.AutoSize = True
+        Me.chkRenditionCompleteFl.Location = New System.Drawing.Point(456, 152)
+        Me.chkRenditionCompleteFl.Name = "chkRenditionCompleteFl"
+        Me.chkRenditionCompleteFl.Size = New System.Drawing.Size(118, 17)
+        Me.chkRenditionCompleteFl.TabIndex = 256
+        Me.chkRenditionCompleteFl.Tag = "@DB=AssessmentsBPP.RenditionCompleteFl"
+        Me.chkRenditionCompleteFl.Text = "Rendition Complete"
+        Me.chkRenditionCompleteFl.UseVisualStyleBackColor = True
+        '
+        'cboAccountInvoicedStatus
+        '
+        Me.cboAccountInvoicedStatus.AllowDrop = True
+        Me.cboAccountInvoicedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboAccountInvoicedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboAccountInvoicedStatus.FormattingEnabled = True
+        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(576, 40)
+        Me.cboAccountInvoicedStatus.Name = "cboAccountInvoicedStatus"
+        Me.cboAccountInvoicedStatus.Size = New System.Drawing.Size(108, 21)
+        Me.cboAccountInvoicedStatus.TabIndex = 3
+        Me.cboAccountInvoicedStatus.Tag = "@DB=AssessmentsBPP.AccountInvoicedStatus"
+        '
+        'Label4
+        '
+        Me.Label4.Location = New System.Drawing.Point(480, 40)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(92, 20)
+        Me.Label4.TabIndex = 262
+        Me.Label4.Text = "Account Invoiced"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'chkInterstateAllocationFl
+        '
+        Me.chkInterstateAllocationFl.AutoSize = True
+        Me.chkInterstateAllocationFl.Enabled = False
+        Me.chkInterstateAllocationFl.Location = New System.Drawing.Point(328, 44)
+        Me.chkInterstateAllocationFl.Name = "chkInterstateAllocationFl"
+        Me.chkInterstateAllocationFl.Size = New System.Drawing.Size(148, 17)
+        Me.chkInterstateAllocationFl.TabIndex = 263
+        Me.chkInterstateAllocationFl.Tag = ""
+        Me.chkInterstateAllocationFl.Text = "Apply Interstate Allocation"
+        Me.chkInterstateAllocationFl.UseVisualStyleBackColor = True
         '
         'frmBPPTaxList
         '
@@ -980,4 +1050,9 @@ Partial Class frmBPPTaxList
     Friend WithEvents chkInterstateAllocationFl As CheckBox
     Friend WithEvents txtSICCode As TextBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents txtAssetsLoadedDate As TextBox
+    Friend WithEvents chkAssetsLoadedFl As CheckBox
+    Friend WithEvents txtAssetsVerifiedDate As TextBox
+    Friend WithEvents chkAssetsVerifiedFl As CheckBox
 End Class

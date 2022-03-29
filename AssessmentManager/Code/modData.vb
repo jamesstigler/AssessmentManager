@@ -512,8 +512,16 @@
             ''''            End If
             ''''        End If
             ''''    End If
-            If DBInfo.sTable = "AssessmentsBPP" And DBInfo.sUpdateField = "RenditionCompleteFl" Then
-                DBInfo.sTriggerField = "RenditionCompleteDate"
+            If DBInfo.sTable = "AssessmentsBPP" And
+                    (DBInfo.sUpdateField = "RenditionCompleteFl" Or DBInfo.sUpdateField = "AssetsLoadedFl" Or DBInfo.sUpdateField = "AssetsVerifiedFl") Then
+                Select Case DBInfo.sUpdateField
+                    Case "RenditionCompleteFl"
+                        DBInfo.sTriggerField = "RenditionCompleteDate"
+                    Case "AssetsLoadedFl"
+                        DBInfo.sTriggerField = "AssetsLoadedDate"
+                    Case "AssetsVerifiedFl"
+                        DBInfo.sTriggerField = "AssetsVerifiedDate"
+                End Select
                 DBInfo.sTriggerValue = IIf(sValue = "1", "GETDATE()", "NULL")
             End If
             If DBInfo.sTriggerField <> "" Then
