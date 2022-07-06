@@ -52,7 +52,7 @@
                 " PurchaseDate datetime, Description varchar(255), GLCode varchar(50), VIN varchar(255), LocationAddress varchar(255)," &
                 " AssetId varchar(30)," &
                 " [LessorName] [varchar](50) NULL,[LessorAddress] [varchar](255) NULL,[LeaseTerm] [smallint] NULL,[EquipmentMake] [varchar](50) NULL," &
-                " [EquipmentModel] [varchar](50) NULL,[LeaseType] [varchar](50) NULL, AuditFl bit null)"
+                " [EquipmentModel] [varchar](50) NULL,[LeaseType] [varchar](50) NULL, AuditFl bit null, ActivityQty bigint null)"
             lRows = ExecuteSQL(sSQL)
             sSQL = "INSERT INTO " & sExistingAssetsTableName &
                 " SELECT c.Name, l.Address, l.City, l.StateCd, l.Zip, ISNULL(assess.AcctNum,'') AS AcctNum," &
@@ -61,7 +61,7 @@
                 " ISNULL(a.VIN,'') AS VIN, ISNULL(a.LocationAddress,'') AS LocationAddress," &
                 " a.AssetId," &
                 " ISNULL(a.[LessorName],''),ISNULL(a.[LessorAddress],''),ISNULL(a.[LeaseTerm],0),ISNULL(a.[EquipmentMake],''),ISNULL(a.[EquipmentModel],''),ISNULL(a.[LeaseType],'')" &
-                " ,ISNULL(a.AuditFl,0)" &
+                " ,ISNULL(a.AuditFl,0), ISNULL(a.ActivityQty,0)" &
                 " FROM Clients AS c INNER JOIN" &
                 " LocationsBPP AS l ON c.ClientId = l.ClientId INNER JOIN" &
                 " AssessmentsBPP AS assess ON l.ClientId = assess.ClientId AND l.LocationId = assess.LocationId AND" &
@@ -93,7 +93,7 @@
             sSQL = sSQL & "[AssetId] [varchar](30) NULL,"
             sSQL = sSQL & "[InterstateAllocationPct] [float] NULL,"
             sSQL = sSQL & "[LessorName] [varchar](50) NULL, [LessorAddress] [varchar](255) NULL, [LeaseTerm] [smallint] NULL,"
-            sSQL = sSQL & "[EquipmentMake] [varchar](50) NULL, [EquipmentModel] [varchar](50) NULL, [LeaseType] [varchar](50) NULL, AuditFl bit null,"
+            sSQL = sSQL & "[EquipmentMake] [varchar](50) NULL, [EquipmentModel] [varchar](50) NULL, [LeaseType] [varchar](50) NULL, AuditFl bit null, ActivityQty bigint null,"
             sSQL = sSQL & "[Status] [varchar](50) NULL,"
             sSQL = sSQL & "[ErrorType] [int] NULL)"
             ExecuteSQL(sSQL)
@@ -183,6 +183,8 @@
         cboEquipmentMake.Items.Add("")
         cboEquipmentModel.Items.Clear()
         cboEquipmentModel.Items.Add("")
+        cboActivityQty.Items.Clear()
+        cboActivityQty.Items.Add("")
 
         txtFile.Text = ""
         If Not modMain.ImportFile(vFileContents, sImportFile) Then Exit Function
@@ -223,6 +225,7 @@
             cboLeaseTerm.Items.Add(lColumn)
             cboEquipmentMake.Items.Add(lColumn)
             cboEquipmentModel.Items.Add(lColumn)
+            cboActivityQty.Items.Add(lColumn)
         Next
         Return True
     End Function
@@ -287,6 +290,7 @@
         Dim sVIN As String = "", sLocationAddress As String = "", dInterstateAllocationPct As Double = 0, sTemp As String = ""
         Dim sClientLocationId As String = ""
         Dim sLessorName As String = "", sLessorAddress As String = "", sLeaseTerm As String = "", sEquipmentMake As String = "", sEquipmentModel As String = "", sLeaseType As String = ""
+        Dim sActivityQty As String = ""
         Dim Asset As structAsset
         Dim iProgress As Integer = 0, lTotalRows As Long = 0, assetidaray(0) As String
         Dim bUpdateAsset As Boolean = False
@@ -319,6 +323,7 @@
                     sLessorName = UnNullToString(dgResults.Rows(lRow).Cells("LessorName").Value)
                     sEquipmentMake = UnNullToString(dgResults.Rows(lRow).Cells("EquipmentMake").Value)
                     sEquipmentModel = UnNullToString(dgResults.Rows(lRow).Cells("EquipmentModel").Value)
+                    sActivityQty = UnNullToString(dgResults.Rows(lRow).Cells("ActivityQty").Value)
 
                     Asset.dAllocationPct = dInterstateAllocationPct
                     Asset.iLeaseTerm = IIf(sLeaseTerm = "", 0, Val(sLeaseTerm))
@@ -336,11 +341,12 @@
                     Asset.sLocationAddress = sLocationAddress
                     Asset.sPurchaseDate = sPurchaseDate
                     Asset.sVIN = sVIN
+                    Asset.ActivityQty = IIf(sActivityQty = "", 0, Val(sActivityQty))
 
                     If (sStatus = "Exists" Or sStatus = "Error:  Mismatch") And radioImportComplete.Checked Then
                         sSQL = "UPDATE Assets SET GLCode = " & QuoStr(sGLCode) & "," &
                             " OriginalCost = " & lOriginalCost & "," &
-                            " PurchaseDate = " & QuoStr(sPurchaseDate) & "," & 
+                            " PurchaseDate = " & QuoStr(sPurchaseDate) & "," &
                             " Description = " & QuoStr(sDescription) & "," &
                             " VIN = " & IIf(sVIN = "", "NULL", QuoStr(sVIN)) & "," &
                             " LocationAddress = " & IIf(sLocationAddress = "", "NULL", QuoStr(sLocationAddress)) & "," &
@@ -349,7 +355,8 @@
                             " LeaseTerm = " & IIf(sLeaseTerm = "", "NULL", sLeaseTerm) & "," &
                             " EquipmentMake = " & IIf(sEquipmentMake = "", "NULL", QuoStr(sEquipmentMake)) & "," &
                             " EquipmentModel = " & IIf(sEquipmentModel = "", "NULL", QuoStr(sEquipmentModel)) & "," &
-                            " LeaseType = " & IIf(sLeaseType = "", "NULL", QuoStr(sLeaseType)) & ","
+                            " LeaseType = " & IIf(sLeaseType = "", "NULL", QuoStr(sLeaseType)) & "," &
+                            " ActivityQty = " & IIf(sActivityQty = "", "NULL", sActivityQty) & ","
                         sSQL = sSQL &
                             " ChangeDate = GETDATE(), ChangeUser = " & QuoStr(AppData.UserId)
                         sSQL = sSQL & " FROM AssessmentsBPP AS ass INNER JOIN" &
@@ -580,7 +587,7 @@
             cboDescription.TextChanged, cboCost.TextChanged, cboMonth.TextChanged, cboDay.TextChanged,
             cboYear.TextChanged, cboDisposed.TextChanged, cboAddress.TextChanged, cboVIN.TextChanged,
             cboAllocationPct.TextChanged, cboClientLocationId.TextChanged, cboEquipmentMake.TextChanged, cboEquipmentModel.TextChanged,
-            cboLeaseTerm.TextChanged, cboLeaseType.TextChanged, cboLessorAddress.TextChanged, cboLessorName.TextChanged
+            cboLeaseTerm.TextChanged, cboLeaseType.TextChanged, cboLessorAddress.TextChanged, cboLessorName.TextChanged, cboActivityQty.TextChanged
         If Trim(sender.text) = "" Or (Val(sender.text) >= 1 And Val(sender.text) <= iNumberOfColumns) Then
             RenameColumns()
         End If
@@ -740,6 +747,14 @@
             dgFileContents.Columns.Item(iColumn).HeaderText = "Equipment Model"
         End If
 
+        For i = 0 To dgFileContents.Columns.Count - 1
+            If dgFileContents.Columns(i).HeaderText = "ActivityQty" Then dgFileContents.Columns(i).HeaderText = i + 1
+        Next
+        If Trim(cboActivityQty.Text) <> "" Then
+            iColumn = Val(cboActivityQty.Text) - 1
+            dgFileContents.Columns.Item(iColumn).HeaderText = "Activity Qty"
+        End If
+
     End Sub
     Private Sub optMultiple_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles optMultiple.Click, optSingle.Click
         If optMultiple.Checked Then
@@ -805,6 +820,7 @@
             If cboLeaseTerm.Text <> "" Then sInsertSQL = sInsertSQL & ", LeaseTerm"
             If cboEquipmentMake.Text <> "" Then sInsertSQL = sInsertSQL & ", EquipmentMake"
             If cboEquipmentModel.Text <> "" Then sInsertSQL = sInsertSQL & ", EquipmentModel"
+            If cboActivityQty.Text <> "" Then sInsertSQL = sInsertSQL & ", ActivityQty"
             sInsertSQL = sInsertSQL & ")"
 
             If Not LoadFileIntoDB() Then Return False
@@ -851,6 +867,10 @@
             End If
             If cboEquipmentMake.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.EquipmentMake))"
             If cboEquipmentModel.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.EquipmentModel))"
+            If cboActivityQty.Text <> "" Then
+                sSQL = sSQL & ",CASE WHEN RTRIM(LTRIM(ISNULL(i.ActivityQty,''))) = '' THEN NULL ELSE ROUND(CONVERT(bigint,REPLACE(REPLACE(i.ActivityQty,'%',''),',','')),0) END"
+            End If
+
 
             sSQL = sSQL & " FROM " & sImportedAssetsTableName & " i"
             ExecuteSQL(sSQL)
@@ -967,7 +987,7 @@
 
             dgResults.Columns.Clear()
             sSQL = "SELECT " & IIf(_IsSpecificAccount = False, "ClientLocationId,", "") & "AssetId,GLCode,PurchaseDate,OriginalCost,Description,VIN,LocationAddress,InterstateAllocationPct," &
-                " LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel," &
+                " LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel,ActivityQty," &
                 " Status,ErrorType" &
                 " FROM " & sResultsTableName & " ORDER BY " & IIf(_IsSpecificAccount, "", "ClientLocationId,") & "AssetId"
             Dim bind As New BindingSource
@@ -985,6 +1005,7 @@
             dgResults.Columns("LeaseTerm").Visible = Not (cboLeaseTerm.Text = "")
             dgResults.Columns("EquipmentMake").Visible = Not (cboEquipmentMake.Text = "")
             dgResults.Columns("EquipmentModel").Visible = Not (cboEquipmentModel.Text = "")
+            dgResults.Columns("ActivityQty").Visible = Not (cboActivityQty.Text = "")
 
             Return True
         Catch ex As Exception
@@ -1174,6 +1195,8 @@
                         sField = "EquipmentMake"
                     Case "Equipment Model"
                         sField = "EquipmentModel"
+                    Case "Activity Qty"
+                        sField = "ActivityQty"
                     Case Else
                         sField = "Column" & iCol
                 End Select

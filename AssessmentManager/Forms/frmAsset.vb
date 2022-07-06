@@ -110,7 +110,7 @@
                 " a.AssessmentId, a.AssetId, a.TaxYear, assess.FactorEntityId1, assess.FactorEntityId2," &
                 " assess.FactorEntityId3, assess.FactorEntityId4, assess.FactorEntityId5," &
                 " a.VIN, a.LocationAddress,a.OriginalCost,a.PurchaseDate,a.Description,a.GLCode," &
-                " a.LessorName, a.LessorAddress, a.LeaseTerm, a.EquipmentMake, a.EquipmentModel, a.LeaseType, a.AuditFl" &
+                " a.LessorName, a.LessorAddress, a.LeaseTerm, a.EquipmentMake, a.EquipmentModel, a.LeaseType, a.AuditFl, a.ActivityQty" &
                 " FROM Clients AS c INNER JOIN" &
                 " LocationsBPP AS l ON c.ClientId = l.ClientId INNER JOIN" &
                 " AssessmentsBPP AS assess ON l.ClientId = assess.ClientId" &
@@ -209,7 +209,8 @@
             cboClientFactorOvr4.GotFocus, cboClientFactorOvr5.GotFocus,
             txtPct1.GotFocus, txtPct2.GotFocus, txtPct3.GotFocus, txtPct4.GotFocus, txtPct5.GotFocus,
             txtPct1Interstate.GotFocus, txtPct2Interstate.GotFocus, txtPct3Interstate.GotFocus, txtPct4Interstate.GotFocus, txtPct5Interstate.GotFocus,
-            txtEquipmentMake.GotFocus, txtEquipmentModel.GotFocus, txtLeaseTerm.GotFocus, txtLessorAddress.GotFocus, txtLessorName.GotFocus, cboLeaseType.GotFocus
+            txtEquipmentMake.GotFocus, txtEquipmentModel.GotFocus, txtLeaseTerm.GotFocus, txtLessorAddress.GotFocus, txtLessorName.GotFocus, cboLeaseType.GotFocus,
+            txtActivityQty.GotFocus
 
         sender.selectall()
     End Sub
@@ -224,7 +225,7 @@
             txtPct1.TextChanged, txtPct2.TextChanged, txtPct3.TextChanged, txtPct4.TextChanged, txtPct5.TextChanged,
             txtPct1Interstate.TextChanged, txtPct2Interstate.TextChanged, txtPct3Interstate.TextChanged, txtPct4Interstate.TextChanged, txtPct5Interstate.TextChanged,
             txtEquipmentMake.TextChanged, txtEquipmentModel.TextChanged, txtLeaseTerm.TextChanged, txtLessorAddress.TextChanged, txtLessorName.TextChanged,
-            cboLeaseType.TextChanged, chkAuditFl.CheckedChanged
+            cboLeaseType.TextChanged, chkAuditFl.CheckedChanged, txtActivityQty.TextChanged
         If bActivated Then bChanged = True
     End Sub
     Private Sub ComboBox_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
@@ -237,7 +238,7 @@
             txtPct1.LostFocus, txtPct2.LostFocus, txtPct3.LostFocus, txtPct4.LostFocus, txtPct5.LostFocus,
             txtPct1Interstate.LostFocus, txtPct2Interstate.LostFocus, txtPct3Interstate.LostFocus, txtPct4Interstate.LostFocus, txtPct5Interstate.LostFocus,
             txtEquipmentMake.LostFocus, txtEquipmentModel.LostFocus, txtLeaseTerm.LostFocus, txtLessorAddress.LostFocus, txtLessorName.LostFocus,
-            cboLeaseType.LostFocus, chkAuditFl.LostFocus
+            cboLeaseType.LostFocus, chkAuditFl.LostFocus, txtActivityQty.LostFocus
 
         If bChanged Then
 
@@ -260,10 +261,10 @@
                     End If
                     If IsNumeric(sPct) Then
                         SaveAssetAllocationPct(m_ClientId, m_LocationId, m_AssessmentId, m_TaxYear, sAssetId, lFactorEntityId(CInt(sender.name.ToString.Substring(6, 1))), eType, CDbl(sPct) / 100)
+                        sender.text = Format(CDbl(sPct) / 100, csFactor)
                     Else
                         MsgBox("Must enter number")
                     End If
-                    sender.text = Format(CDbl(sPct) / 100, csFactor)
                 Else
                     UpdateDB(sender, DBUpdate)
                 End If
@@ -317,8 +318,8 @@
         For i = 1 To 5
             If lFactorEntityId(i) > 0 Then
                 If sSQL <> "" Then sSQL = sSQL & " UNION "
-                sSQL = sSQL & "SELECT " & i & " AS Counter, fe.Name, fec.FactorCode FROM FactorEntities fe, FactorEntityCodes fec" & _
-                    " WHERE fe.FactorEntityId = " & lFactorEntityId(i) & " AND fec.TaxYear = " & m_TaxYear & _
+                sSQL = sSQL & "SELECT " & i & " AS Counter, fe.Name, fec.FactorCode FROM FactorEntities fe, FactorEntityCodes fec" &
+                    " WHERE fe.FactorEntityId = " & lFactorEntityId(i) & " AND fec.TaxYear = " & m_TaxYear &
                     " AND fe.FactorEntityId = fec.FactorEntityId"
             End If
         Next
@@ -353,7 +354,4 @@
 
     End Function
 
-    Private Sub cboLeaseType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboLeaseType.SelectedIndexChanged
-
-    End Sub
 End Class

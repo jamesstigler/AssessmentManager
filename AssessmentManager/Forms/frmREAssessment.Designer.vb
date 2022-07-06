@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmREAssessment
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,13 +20,13 @@ Partial Class frmREAssessment
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -63,6 +63,29 @@ Partial Class frmREAssessment
         Me.fraHistory = New System.Windows.Forms.GroupBox()
         Me.dgHistory = New System.Windows.Forms.DataGridView()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.cboConstructionType = New System.Windows.Forms.ComboBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtExcessLandSqFt = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtLandSqFt = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtGrossLeasableSqFt = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtYearBuilt = New System.Windows.Forms.TextBox()
+        Me.txtEffYearBuilt = New System.Windows.Forms.TextBox()
+        Me.txtBuildingSqFt = New System.Windows.Forms.TextBox()
+        Me.txtNetLeasableSqFt = New System.Windows.Forms.TextBox()
+        Me.cboBuildingClass = New System.Windows.Forms.ComboBox()
+        Me.cboBuildingType = New System.Windows.Forms.ComboBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.fraCollectors = New System.Windows.Forms.GroupBox()
+        Me.dgCollectors = New System.Windows.Forms.DataGridView()
         Me.txtSICCode = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
@@ -70,12 +93,10 @@ Partial Class frmREAssessment
         Me.txtConsultantName = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmdECU = New System.Windows.Forms.Button()
-        Me.fraECU = New System.Windows.Forms.GroupBox()
-        Me.dgECU = New System.Windows.Forms.DataGridView()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboOccupiedStatus = New System.Windows.Forms.ComboBox()
-        Me.fraCollectors = New System.Windows.Forms.GroupBox()
-        Me.dgCollectors = New System.Windows.Forms.DataGridView()
+        Me.fraECU = New System.Windows.Forms.GroupBox()
+        Me.dgECU = New System.Windows.Forms.DataGridView()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
@@ -86,10 +107,11 @@ Partial Class frmREAssessment
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
-        Me.fraECU.SuspendLayout()
-        CType(Me.dgECU, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         Me.fraCollectors.SuspendLayout()
         CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.fraECU.SuspendLayout()
+        CType(Me.dgECU, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cboAssessor
@@ -97,7 +119,7 @@ Partial Class frmREAssessment
         Me.cboAssessor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboAssessor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboAssessor.FormattingEnabled = True
-        Me.cboAssessor.Location = New System.Drawing.Point(120, 28)
+        Me.cboAssessor.Location = New System.Drawing.Point(104, 32)
         Me.cboAssessor.Name = "cboAssessor"
         Me.cboAssessor.Size = New System.Drawing.Size(221, 21)
         Me.cboAssessor.TabIndex = 1
@@ -105,16 +127,16 @@ Partial Class frmREAssessment
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(40, 30)
+        Me.Label2.Location = New System.Drawing.Point(32, 32)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 17)
+        Me.Label2.Size = New System.Drawing.Size(72, 18)
         Me.Label2.TabIndex = 132
         Me.Label2.Text = "Assessor"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(20, 6)
+        Me.Label1.Location = New System.Drawing.Point(12, 8)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(92, 18)
         Me.Label1.TabIndex = 130
@@ -123,7 +145,7 @@ Partial Class frmREAssessment
         '
         'txtAcctNum
         '
-        Me.txtAcctNum.Location = New System.Drawing.Point(120, 6)
+        Me.txtAcctNum.Location = New System.Drawing.Point(104, 8)
         Me.txtAcctNum.Name = "txtAcctNum"
         Me.txtAcctNum.Size = New System.Drawing.Size(221, 20)
         Me.txtAcctNum.TabIndex = 0
@@ -171,7 +193,7 @@ Partial Class frmREAssessment
         Me.GroupBox1.Controls.Add(Me.cboValueProtestStatus)
         Me.GroupBox1.Controls.Add(Me.txtValueProtestMailedDate)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(378, 6)
+        Me.GroupBox1.Location = New System.Drawing.Point(328, 8)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(340, 136)
         Me.GroupBox1.TabIndex = 194
@@ -181,7 +203,7 @@ Partial Class frmREAssessment
         'chkValueProtestFl
         '
         Me.chkValueProtestFl.AutoSize = True
-        Me.chkValueProtestFl.Location = New System.Drawing.Point(111, 20)
+        Me.chkValueProtestFl.Location = New System.Drawing.Point(112, 20)
         Me.chkValueProtestFl.Name = "chkValueProtestFl"
         Me.chkValueProtestFl.Size = New System.Drawing.Size(15, 14)
         Me.chkValueProtestFl.TabIndex = 4
@@ -191,9 +213,9 @@ Partial Class frmREAssessment
         'Label17
         '
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(14, 17)
+        Me.Label17.Location = New System.Drawing.Point(16, 20)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(91, 19)
+        Me.Label17.Size = New System.Drawing.Size(91, 16)
         Me.Label17.TabIndex = 205
         Me.Label17.Text = "Protested"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -201,9 +223,9 @@ Partial Class frmREAssessment
         'Label8
         '
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(15, 39)
+        Me.Label8.Location = New System.Drawing.Point(20, 36)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(91, 19)
+        Me.Label8.Size = New System.Drawing.Size(91, 20)
         Me.Label8.TabIndex = 202
         Me.Label8.Text = "Mailed Date"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -211,9 +233,9 @@ Partial Class frmREAssessment
         'Label7
         '
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(15, 62)
+        Me.Label7.Location = New System.Drawing.Point(16, 60)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(91, 19)
+        Me.Label7.Size = New System.Drawing.Size(91, 20)
         Me.Label7.TabIndex = 201
         Me.Label7.Text = "CMRRR"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -221,9 +243,9 @@ Partial Class frmREAssessment
         'Label6
         '
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(6, 110)
+        Me.Label6.Location = New System.Drawing.Point(4, 108)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(102, 19)
+        Me.Label6.Size = New System.Drawing.Size(104, 18)
         Me.Label6.TabIndex = 200
         Me.Label6.Text = "Hearing Date/Time"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -231,9 +253,9 @@ Partial Class frmREAssessment
         'Label4
         '
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(15, 84)
+        Me.Label4.Location = New System.Drawing.Point(16, 84)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(91, 19)
+        Me.Label4.Size = New System.Drawing.Size(91, 20)
         Me.Label4.TabIndex = 199
         Me.Label4.Text = "Status"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -260,7 +282,7 @@ Partial Class frmREAssessment
         'txtValueProtestHearingDate
         '
         Me.txtValueProtestHearingDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtValueProtestHearingDate.Location = New System.Drawing.Point(111, 110)
+        Me.txtValueProtestHearingDate.Location = New System.Drawing.Point(112, 108)
         Me.txtValueProtestHearingDate.Name = "txtValueProtestHearingDate"
         Me.txtValueProtestHearingDate.Size = New System.Drawing.Size(118, 20)
         Me.txtValueProtestHearingDate.TabIndex = 11
@@ -269,7 +291,7 @@ Partial Class frmREAssessment
         'txtValueProtestCMRRR
         '
         Me.txtValueProtestCMRRR.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtValueProtestCMRRR.Location = New System.Drawing.Point(111, 62)
+        Me.txtValueProtestCMRRR.Location = New System.Drawing.Point(112, 60)
         Me.txtValueProtestCMRRR.Name = "txtValueProtestCMRRR"
         Me.txtValueProtestCMRRR.Size = New System.Drawing.Size(221, 20)
         Me.txtValueProtestCMRRR.TabIndex = 7
@@ -281,7 +303,7 @@ Partial Class frmREAssessment
         Me.cboValueProtestStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboValueProtestStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboValueProtestStatus.FormattingEnabled = True
-        Me.cboValueProtestStatus.Location = New System.Drawing.Point(111, 84)
+        Me.cboValueProtestStatus.Location = New System.Drawing.Point(112, 84)
         Me.cboValueProtestStatus.Name = "cboValueProtestStatus"
         Me.cboValueProtestStatus.Size = New System.Drawing.Size(221, 21)
         Me.cboValueProtestStatus.TabIndex = 8
@@ -290,7 +312,7 @@ Partial Class frmREAssessment
         'txtValueProtestMailedDate
         '
         Me.txtValueProtestMailedDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtValueProtestMailedDate.Location = New System.Drawing.Point(111, 39)
+        Me.txtValueProtestMailedDate.Location = New System.Drawing.Point(112, 36)
         Me.txtValueProtestMailedDate.Name = "txtValueProtestMailedDate"
         Me.txtValueProtestMailedDate.Size = New System.Drawing.Size(72, 20)
         Me.txtValueProtestMailedDate.TabIndex = 6
@@ -336,12 +358,12 @@ Partial Class frmREAssessment
         Me.dgJurisdictions.ShowCellToolTips = False
         Me.dgJurisdictions.ShowEditingIcon = False
         Me.dgJurisdictions.ShowRowErrors = False
-        Me.dgJurisdictions.Size = New System.Drawing.Size(1197, 344)
+        Me.dgJurisdictions.Size = New System.Drawing.Size(1327, 344)
         Me.dgJurisdictions.TabIndex = 133
         '
         'Label11
         '
-        Me.Label11.Location = New System.Drawing.Point(8, 122)
+        Me.Label11.Location = New System.Drawing.Point(4, 128)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 19)
         Me.Label11.TabIndex = 209
@@ -351,7 +373,7 @@ Partial Class frmREAssessment
         'txtComment
         '
         Me.txtComment.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtComment.Location = New System.Drawing.Point(8, 144)
+        Me.txtComment.Location = New System.Drawing.Point(4, 148)
         Me.txtComment.Multiline = True
         Me.txtComment.Name = "txtComment"
         Me.txtComment.Size = New System.Drawing.Size(366, 62)
@@ -403,7 +425,7 @@ Partial Class frmREAssessment
         '
         'Label21
         '
-        Me.Label21.Location = New System.Drawing.Point(48, 54)
+        Me.Label21.Location = New System.Drawing.Point(40, 56)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(64, 16)
         Me.Label21.TabIndex = 223
@@ -412,7 +434,7 @@ Partial Class frmREAssessment
         '
         'txtClientLocationId
         '
-        Me.txtClientLocationId.Location = New System.Drawing.Point(120, 52)
+        Me.txtClientLocationId.Location = New System.Drawing.Point(104, 56)
         Me.txtClientLocationId.Name = "txtClientLocationId"
         Me.txtClientLocationId.Size = New System.Drawing.Size(154, 20)
         Me.txtClientLocationId.TabIndex = 2
@@ -423,9 +445,9 @@ Partial Class frmREAssessment
         Me.fraHistory.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.fraHistory.Controls.Add(Me.dgHistory)
         Me.fraHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.fraHistory.Location = New System.Drawing.Point(982, 6)
+        Me.fraHistory.Location = New System.Drawing.Point(1111, 8)
         Me.fraHistory.Name = "fraHistory"
-        Me.fraHistory.Size = New System.Drawing.Size(210, 130)
+        Me.fraHistory.Size = New System.Drawing.Size(209, 130)
         Me.fraHistory.TabIndex = 249
         Me.fraHistory.TabStop = False
         Me.fraHistory.Text = "History"
@@ -437,29 +459,29 @@ Partial Class frmREAssessment
         Me.dgHistory.AllowUserToDeleteRows = False
         Me.dgHistory.AllowUserToOrderColumns = True
         Me.dgHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.Format = "N0"
-        DataGridViewCellStyle9.NullValue = Nothing
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.Format = "N0"
+        DataGridViewCellStyle1.NullValue = Nothing
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgHistory.Location = New System.Drawing.Point(3, 16)
         Me.dgHistory.Name = "dgHistory"
         Me.dgHistory.ReadOnly = True
         Me.dgHistory.RowHeadersVisible = False
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgHistory.ShowCellErrors = False
         Me.dgHistory.ShowCellToolTips = False
         Me.dgHistory.ShowEditingIcon = False
         Me.dgHistory.ShowRowErrors = False
-        Me.dgHistory.Size = New System.Drawing.Size(204, 111)
+        Me.dgHistory.Size = New System.Drawing.Size(203, 111)
         Me.dgHistory.TabIndex = 247
         '
         'SplitContainer1
@@ -473,6 +495,7 @@ Partial Class frmREAssessment
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraCollectors)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
@@ -481,7 +504,6 @@ Partial Class frmREAssessment
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtConsultantName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label9)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cmdECU)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.fraECU)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label5)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboOccupiedStatus)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label1)
@@ -500,150 +522,258 @@ Partial Class frmREAssessment
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label11)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtTaxBillTotal)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cmdTaxBillDetail)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.fraECU)
         '
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgJurisdictions)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1197, 618)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1327, 618)
         Me.SplitContainer1.SplitterDistance = 271
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 250
         '
-        'txtSICCode
+        'GroupBox2
         '
-        Me.txtSICCode.AllowDrop = True
-        Me.txtSICCode.Enabled = False
-        Me.txtSICCode.Location = New System.Drawing.Point(356, 216)
-        Me.txtSICCode.Name = "txtSICCode"
-        Me.txtSICCode.Size = New System.Drawing.Size(160, 20)
-        Me.txtSICCode.TabIndex = 265
-        Me.txtSICCode.Tag = ""
+        Me.GroupBox2.Controls.Add(Me.cboConstructionType)
+        Me.GroupBox2.Controls.Add(Me.Label24)
+        Me.GroupBox2.Controls.Add(Me.txtExcessLandSqFt)
+        Me.GroupBox2.Controls.Add(Me.Label23)
+        Me.GroupBox2.Controls.Add(Me.txtLandSqFt)
+        Me.GroupBox2.Controls.Add(Me.Label22)
+        Me.GroupBox2.Controls.Add(Me.txtGrossLeasableSqFt)
+        Me.GroupBox2.Controls.Add(Me.Label20)
+        Me.GroupBox2.Controls.Add(Me.txtYearBuilt)
+        Me.GroupBox2.Controls.Add(Me.txtEffYearBuilt)
+        Me.GroupBox2.Controls.Add(Me.txtBuildingSqFt)
+        Me.GroupBox2.Controls.Add(Me.txtNetLeasableSqFt)
+        Me.GroupBox2.Controls.Add(Me.cboBuildingClass)
+        Me.GroupBox2.Controls.Add(Me.cboBuildingType)
+        Me.GroupBox2.Controls.Add(Me.Label19)
+        Me.GroupBox2.Controls.Add(Me.Label18)
+        Me.GroupBox2.Controls.Add(Me.Label16)
+        Me.GroupBox2.Controls.Add(Me.Label15)
+        Me.GroupBox2.Controls.Add(Me.Label14)
+        Me.GroupBox2.Controls.Add(Me.Label13)
+        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(716, 8)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(392, 140)
+        Me.GroupBox2.TabIndex = 206
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Property Details"
         '
-        'Label12
+        'cboConstructionType
         '
-        Me.Label12.Location = New System.Drawing.Point(300, 216)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(54, 20)
-        Me.Label12.TabIndex = 266
-        Me.Label12.Text = "SIC Code"
-        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cboConstructionType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboConstructionType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboConstructionType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboConstructionType.FormattingEnabled = True
+        Me.cboConstructionType.Location = New System.Drawing.Point(88, 64)
+        Me.cboConstructionType.Name = "cboConstructionType"
+        Me.cboConstructionType.Size = New System.Drawing.Size(160, 21)
+        Me.cboConstructionType.TabIndex = 150
+        Me.cboConstructionType.Tag = "@DB=AssessmentsRE.ConstructionType"
         '
-        'cboAccountInvoicedStatus
+        'Label24
         '
-        Me.cboAccountInvoicedStatus.AllowDrop = True
-        Me.cboAccountInvoicedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboAccountInvoicedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAccountInvoicedStatus.FormattingEnabled = True
-        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(120, 96)
-        Me.cboAccountInvoicedStatus.Name = "cboAccountInvoicedStatus"
-        Me.cboAccountInvoicedStatus.Size = New System.Drawing.Size(108, 21)
-        Me.cboAccountInvoicedStatus.TabIndex = 4
-        Me.cboAccountInvoicedStatus.Tag = "@DB=AssessmentsRE.AccountInvoicedStatus"
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(16, 68)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(70, 16)
+        Me.Label24.TabIndex = 149
+        Me.Label24.Text = "Const Type"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label10
+        'txtExcessLandSqFt
         '
-        Me.Label10.Location = New System.Drawing.Point(8, 96)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(104, 20)
-        Me.Label10.TabIndex = 264
-        Me.Label10.Text = "Account Invoiced"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.txtExcessLandSqFt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtExcessLandSqFt.Location = New System.Drawing.Point(324, 112)
+        Me.txtExcessLandSqFt.Name = "txtExcessLandSqFt"
+        Me.txtExcessLandSqFt.Size = New System.Drawing.Size(64, 20)
+        Me.txtExcessLandSqFt.TabIndex = 148
+        Me.txtExcessLandSqFt.Tag = "@DB=AssessmentsRE.ExcessLandSqFt;@fmt=int"
+        Me.txtExcessLandSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtExcessLandSqFt.WordWrap = False
         '
-        'txtConsultantName
+        'Label23
         '
-        Me.txtConsultantName.AllowDrop = True
-        Me.txtConsultantName.Enabled = False
-        Me.txtConsultantName.Location = New System.Drawing.Point(144, 216)
-        Me.txtConsultantName.Name = "txtConsultantName"
-        Me.txtConsultantName.Size = New System.Drawing.Size(154, 20)
-        Me.txtConsultantName.TabIndex = 261
-        Me.txtConsultantName.Tag = ""
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(224, 116)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(100, 16)
+        Me.Label23.TabIndex = 147
+        Me.Label23.Text = "Excess Land Sq Ft"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label9
+        'txtLandSqFt
         '
-        Me.Label9.Location = New System.Drawing.Point(80, 216)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(62, 20)
-        Me.Label9.TabIndex = 262
-        Me.Label9.Text = "Consultant"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.txtLandSqFt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLandSqFt.Location = New System.Drawing.Point(324, 88)
+        Me.txtLandSqFt.Name = "txtLandSqFt"
+        Me.txtLandSqFt.Size = New System.Drawing.Size(64, 20)
+        Me.txtLandSqFt.TabIndex = 146
+        Me.txtLandSqFt.Tag = "@DB=AssessmentsRE.LandSqFt;@fmt=int"
+        Me.txtLandSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtLandSqFt.WordWrap = False
         '
-        'cmdECU
+        'Label22
         '
-        Me.cmdECU.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdECU.Location = New System.Drawing.Point(734, 6)
-        Me.cmdECU.Name = "cmdECU"
-        Me.cmdECU.Size = New System.Drawing.Size(68, 20)
-        Me.cmdECU.TabIndex = 253
-        Me.cmdECU.Text = "ECU"
-        Me.cmdECU.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.cmdECU.UseVisualStyleBackColor = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(244, 92)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(80, 16)
+        Me.Label22.TabIndex = 145
+        Me.Label22.Text = "Land Sq Ft"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'fraECU
+        'txtGrossLeasableSqFt
         '
-        Me.fraECU.Controls.Add(Me.dgECU)
-        Me.fraECU.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.fraECU.Location = New System.Drawing.Point(804, 8)
-        Me.fraECU.Name = "fraECU"
-        Me.fraECU.Size = New System.Drawing.Size(388, 256)
-        Me.fraECU.TabIndex = 252
-        Me.fraECU.TabStop = False
-        Me.fraECU.Text = "ECU"
-        Me.fraECU.Visible = False
+        Me.txtGrossLeasableSqFt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtGrossLeasableSqFt.Location = New System.Drawing.Point(88, 112)
+        Me.txtGrossLeasableSqFt.Name = "txtGrossLeasableSqFt"
+        Me.txtGrossLeasableSqFt.Size = New System.Drawing.Size(60, 20)
+        Me.txtGrossLeasableSqFt.TabIndex = 144
+        Me.txtGrossLeasableSqFt.Tag = "@DB=AssessmentsRE.GrossLeasableSqFt;@fmt=int"
+        Me.txtGrossLeasableSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtGrossLeasableSqFt.WordWrap = False
         '
-        'dgECU
+        'Label20
         '
-        Me.dgECU.AllowDrop = True
-        Me.dgECU.AllowUserToAddRows = False
-        Me.dgECU.AllowUserToDeleteRows = False
-        Me.dgECU.AllowUserToOrderColumns = True
-        Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle11.Format = "N0"
-        DataGridViewCellStyle11.NullValue = Nothing
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
-        Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgECU.Location = New System.Drawing.Point(3, 16)
-        Me.dgECU.Name = "dgECU"
-        Me.dgECU.ReadOnly = True
-        Me.dgECU.RowHeadersVisible = False
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle12
-        Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgECU.ShowCellErrors = False
-        Me.dgECU.ShowCellToolTips = False
-        Me.dgECU.ShowEditingIcon = False
-        Me.dgECU.ShowRowErrors = False
-        Me.dgECU.Size = New System.Drawing.Size(382, 237)
-        Me.dgECU.TabIndex = 247
+        Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(6, 116)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(80, 16)
+        Me.Label20.TabIndex = 143
+        Me.Label20.Text = "Gross Leasable"
+        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label5
+        'txtYearBuilt
         '
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(4, 74)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(107, 15)
-        Me.Label5.TabIndex = 251
-        Me.Label5.Text = "Occupied/Leased"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.txtYearBuilt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtYearBuilt.Location = New System.Drawing.Point(324, 16)
+        Me.txtYearBuilt.Name = "txtYearBuilt"
+        Me.txtYearBuilt.Size = New System.Drawing.Size(32, 20)
+        Me.txtYearBuilt.TabIndex = 142
+        Me.txtYearBuilt.Tag = "@DB=AssessmentsRE.YearBuilt;@fmt=year"
+        Me.txtYearBuilt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtYearBuilt.WordWrap = False
         '
-        'cboOccupiedStatus
+        'txtEffYearBuilt
         '
-        Me.cboOccupiedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboOccupiedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboOccupiedStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboOccupiedStatus.FormattingEnabled = True
-        Me.cboOccupiedStatus.Location = New System.Drawing.Point(120, 72)
-        Me.cboOccupiedStatus.Name = "cboOccupiedStatus"
-        Me.cboOccupiedStatus.Size = New System.Drawing.Size(136, 21)
-        Me.cboOccupiedStatus.TabIndex = 3
-        Me.cboOccupiedStatus.Tag = "@DB=AssessmentsRE.OccupiedStatus"
+        Me.txtEffYearBuilt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEffYearBuilt.Location = New System.Drawing.Point(324, 40)
+        Me.txtEffYearBuilt.Name = "txtEffYearBuilt"
+        Me.txtEffYearBuilt.Size = New System.Drawing.Size(32, 20)
+        Me.txtEffYearBuilt.TabIndex = 141
+        Me.txtEffYearBuilt.Tag = "@DB=AssessmentsRE.EffYearBuilt;@fmt=year"
+        Me.txtEffYearBuilt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtEffYearBuilt.WordWrap = False
+        '
+        'txtBuildingSqFt
+        '
+        Me.txtBuildingSqFt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBuildingSqFt.Location = New System.Drawing.Point(324, 64)
+        Me.txtBuildingSqFt.Name = "txtBuildingSqFt"
+        Me.txtBuildingSqFt.Size = New System.Drawing.Size(60, 20)
+        Me.txtBuildingSqFt.TabIndex = 140
+        Me.txtBuildingSqFt.Tag = "@DB=AssessmentsRE.BuildingSqFt;@fmt=int"
+        Me.txtBuildingSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtBuildingSqFt.WordWrap = False
+        '
+        'txtNetLeasableSqFt
+        '
+        Me.txtNetLeasableSqFt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtNetLeasableSqFt.Location = New System.Drawing.Point(88, 88)
+        Me.txtNetLeasableSqFt.Name = "txtNetLeasableSqFt"
+        Me.txtNetLeasableSqFt.Size = New System.Drawing.Size(60, 20)
+        Me.txtNetLeasableSqFt.TabIndex = 139
+        Me.txtNetLeasableSqFt.Tag = "@DB=AssessmentsRE.NetLeasableSqFt;@fmt=int"
+        Me.txtNetLeasableSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtNetLeasableSqFt.WordWrap = False
+        '
+        'cboBuildingClass
+        '
+        Me.cboBuildingClass.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboBuildingClass.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboBuildingClass.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboBuildingClass.FormattingEnabled = True
+        Me.cboBuildingClass.Location = New System.Drawing.Point(88, 40)
+        Me.cboBuildingClass.Name = "cboBuildingClass"
+        Me.cboBuildingClass.Size = New System.Drawing.Size(56, 21)
+        Me.cboBuildingClass.TabIndex = 138
+        Me.cboBuildingClass.Tag = "@DB=AssessmentsRE.BuildingClass"
+        '
+        'cboBuildingType
+        '
+        Me.cboBuildingType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboBuildingType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboBuildingType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboBuildingType.FormattingEnabled = True
+        Me.cboBuildingType.Location = New System.Drawing.Point(88, 16)
+        Me.cboBuildingType.Name = "cboBuildingType"
+        Me.cboBuildingType.Size = New System.Drawing.Size(160, 21)
+        Me.cboBuildingType.TabIndex = 137
+        Me.cboBuildingType.Tag = "@DB=AssessmentsRE.BuildingType"
+        '
+        'Label19
+        '
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(16, 20)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(70, 16)
+        Me.Label19.TabIndex = 136
+        Me.Label19.Text = "Bldg Type"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label18
+        '
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(260, 68)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(62, 16)
+        Me.Label18.TabIndex = 135
+        Me.Label18.Text = "Bldg Sq Ft"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label16
+        '
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(4, 92)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(82, 16)
+        Me.Label16.TabIndex = 134
+        Me.Label16.Text = "Net Leasable"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label15
+        '
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(28, 44)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(58, 16)
+        Me.Label15.TabIndex = 133
+        Me.Label15.Text = "Bldg Class"
+        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label14
+        '
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(268, 20)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(54, 16)
+        Me.Label14.TabIndex = 132
+        Me.Label14.Text = "Year Built"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label13
+        '
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(264, 44)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(58, 16)
+        Me.Label13.TabIndex = 131
+        Me.Label13.Text = "Eff Yr Built"
+        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'fraCollectors
         '
@@ -674,11 +804,147 @@ Partial Class frmREAssessment
         Me.dgCollectors.Size = New System.Drawing.Size(672, 116)
         Me.dgCollectors.TabIndex = 212
         '
+        'txtSICCode
+        '
+        Me.txtSICCode.AllowDrop = True
+        Me.txtSICCode.Enabled = False
+        Me.txtSICCode.Location = New System.Drawing.Point(356, 216)
+        Me.txtSICCode.Name = "txtSICCode"
+        Me.txtSICCode.Size = New System.Drawing.Size(160, 20)
+        Me.txtSICCode.TabIndex = 265
+        Me.txtSICCode.Tag = ""
+        '
+        'Label12
+        '
+        Me.Label12.Location = New System.Drawing.Point(300, 216)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(54, 20)
+        Me.Label12.TabIndex = 266
+        Me.Label12.Text = "SIC Code"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cboAccountInvoicedStatus
+        '
+        Me.cboAccountInvoicedStatus.AllowDrop = True
+        Me.cboAccountInvoicedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboAccountInvoicedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboAccountInvoicedStatus.FormattingEnabled = True
+        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(104, 104)
+        Me.cboAccountInvoicedStatus.Name = "cboAccountInvoicedStatus"
+        Me.cboAccountInvoicedStatus.Size = New System.Drawing.Size(108, 21)
+        Me.cboAccountInvoicedStatus.TabIndex = 4
+        Me.cboAccountInvoicedStatus.Tag = "@DB=AssessmentsRE.AccountInvoicedStatus"
+        '
+        'Label10
+        '
+        Me.Label10.Location = New System.Drawing.Point(12, 104)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(92, 20)
+        Me.Label10.TabIndex = 264
+        Me.Label10.Text = "Account Invoiced"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtConsultantName
+        '
+        Me.txtConsultantName.AllowDrop = True
+        Me.txtConsultantName.Enabled = False
+        Me.txtConsultantName.Location = New System.Drawing.Point(144, 216)
+        Me.txtConsultantName.Name = "txtConsultantName"
+        Me.txtConsultantName.Size = New System.Drawing.Size(154, 20)
+        Me.txtConsultantName.TabIndex = 261
+        Me.txtConsultantName.Tag = ""
+        '
+        'Label9
+        '
+        Me.Label9.Location = New System.Drawing.Point(80, 216)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(62, 20)
+        Me.Label9.TabIndex = 262
+        Me.Label9.Text = "Consultant"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmdECU
+        '
+        Me.cmdECU.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdECU.Location = New System.Drawing.Point(672, 8)
+        Me.cmdECU.Name = "cmdECU"
+        Me.cmdECU.Size = New System.Drawing.Size(42, 20)
+        Me.cmdECU.TabIndex = 253
+        Me.cmdECU.Text = "ECU"
+        Me.cmdECU.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.cmdECU.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(8, 80)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(96, 18)
+        Me.Label5.TabIndex = 251
+        Me.Label5.Text = "Occupied/Leased"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cboOccupiedStatus
+        '
+        Me.cboOccupiedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboOccupiedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboOccupiedStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboOccupiedStatus.FormattingEnabled = True
+        Me.cboOccupiedStatus.Location = New System.Drawing.Point(104, 80)
+        Me.cboOccupiedStatus.Name = "cboOccupiedStatus"
+        Me.cboOccupiedStatus.Size = New System.Drawing.Size(136, 21)
+        Me.cboOccupiedStatus.TabIndex = 3
+        Me.cboOccupiedStatus.Tag = "@DB=AssessmentsRE.OccupiedStatus"
+        '
+        'fraECU
+        '
+        Me.fraECU.Controls.Add(Me.dgECU)
+        Me.fraECU.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fraECU.Location = New System.Drawing.Point(672, 32)
+        Me.fraECU.Name = "fraECU"
+        Me.fraECU.Size = New System.Drawing.Size(388, 232)
+        Me.fraECU.TabIndex = 252
+        Me.fraECU.TabStop = False
+        Me.fraECU.Text = "ECU"
+        Me.fraECU.Visible = False
+        '
+        'dgECU
+        '
+        Me.dgECU.AllowDrop = True
+        Me.dgECU.AllowUserToAddRows = False
+        Me.dgECU.AllowUserToDeleteRows = False
+        Me.dgECU.AllowUserToOrderColumns = True
+        Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.Format = "N0"
+        DataGridViewCellStyle3.NullValue = Nothing
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgECU.Location = New System.Drawing.Point(3, 16)
+        Me.dgECU.Name = "dgECU"
+        Me.dgECU.ReadOnly = True
+        Me.dgECU.RowHeadersVisible = False
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgECU.ShowCellErrors = False
+        Me.dgECU.ShowCellToolTips = False
+        Me.dgECU.ShowEditingIcon = False
+        Me.dgECU.ShowRowErrors = False
+        Me.dgECU.Size = New System.Drawing.Size(382, 213)
+        Me.dgECU.TabIndex = 247
+        '
         'frmREAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1197, 618)
+        Me.ClientSize = New System.Drawing.Size(1327, 618)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Name = "frmREAssessment"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -695,10 +961,12 @@ Partial Class frmREAssessment
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        Me.fraECU.ResumeLayout(False)
-        CType(Me.dgECU, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.fraCollectors.ResumeLayout(False)
         CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.fraECU.ResumeLayout(False)
+        CType(Me.dgECU, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -751,4 +1019,25 @@ Partial Class frmREAssessment
     Friend WithEvents Label12 As Label
     Friend WithEvents fraCollectors As GroupBox
     Friend WithEvents dgCollectors As DataGridView
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents cboBuildingClass As ComboBox
+    Friend WithEvents cboBuildingType As ComboBox
+    Friend WithEvents Label19 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents txtYearBuilt As TextBox
+    Friend WithEvents txtEffYearBuilt As TextBox
+    Friend WithEvents txtBuildingSqFt As TextBox
+    Friend WithEvents txtNetLeasableSqFt As TextBox
+    Friend WithEvents txtGrossLeasableSqFt As TextBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents txtExcessLandSqFt As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents txtLandSqFt As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents cboConstructionType As ComboBox
+    Friend WithEvents Label24 As Label
 End Class

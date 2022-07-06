@@ -177,7 +177,7 @@
                     " FROM UserQuery ORDER BY QueryName"
                 sText = "User Queries"
             ElseIf m_ListType = enumListType.enumTaskAssignments Then
-                sSQL = BuildTaskAssignmentQuery()
+                'sSQL = BuildTaskAssignmentQuery()
                 sText = "Task Assignments"
             ElseIf m_ListType = enumListType.enumClient Then
                 sSQL = "SELECT ClientId AS Clients_ClientId, Name AS Clients_Name, Address AS Clients_Address, City AS Clients_City," &
@@ -549,7 +549,7 @@
                 sSQL = sSQL & " ORDER BY Clients_Name, Locations_Address, Locations_City, Locations_StateCd, AcctNum, Jurisdictions_Name"
                 sText = "Tax Savings"
             ElseIf m_ListType = enumListType.enumTaskMasterList Then
-                sSQL = "SELECT TaskId, Name, Description, TaskDate, ReminderDate, Recurrence, EntitySpecific FROM TaskMasterList ORDER BY Name, Description, TaskDate"
+                sSQL = "SELECT TaskId, Name, Description FROM TaskMasterList ORDER BY Name"
                 sText = "Task Master List"
             ElseIf m_ListType = enumListType.enumFixedAssetReconciliation Then
                 sSQL = BuildAssetReconciliationQuery(m_ClientId, 0, 0, m_TaxYear, False, "")
@@ -1303,6 +1303,7 @@
         Dim bReturn As Boolean = False, lWidth As Long = 0
         Dim bShowLeaseType As Boolean = False
         Dim bShowAuditFl As Boolean = False
+        Dim bShowActivityQty As Boolean = False
         Dim dtsource As New DataTable
 
         'txtAssetsLoadedDt.Text = "" : txtAssetsVerifiedDt.Text = "" : chkAssetsLoadedFl.CheckState = CheckState.Unchecked : chkAssetsVerifiedFl.CheckState = CheckState.Unchecked
@@ -1338,6 +1339,9 @@
         If dtList.Columns.Contains("AuditFl") = True Then
             bShowAuditFl = dtList.Select("ISNULL(AuditFl,0)<>0").Count > 0
         End If
+        If dtList.Columns.Contains("ActivityQty") = True Then
+            bShowActivityQty = dtList.Select("ISNULL(ActivityQty,0)<>0").Count > 0
+        End If
 
         'MUST ADD FIELDS TO THIS SELECT IF NEW COLUMNS ADDED
         dtsource = New DataTable
@@ -1362,6 +1366,8 @@
                     If bShowLeaseType Then baddcolumn = True
                 Case "AuditFl"
                     If bShowAuditFl Then baddcolumn = True
+                Case "ActivityQty"
+                    If bShowActivityQty Then baddcolumn = True
             End Select
             If baddcolumn Then dtsource.Columns.Add(col.ColumnName, col.DataType)
         Next
@@ -1432,6 +1438,10 @@
                     column.HeaderText = "Equipment Make"
                 Case "EquipmentModel"
                     column.HeaderText = "Equipment Model"
+                Case "ActivityQty"
+                    column.HeaderText = "Engine Hours/Mileage"
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    column.DefaultCellStyle.Format = csInt
                 Case "AuditFl"
                     column.HeaderText = "Audited"
                 Case "EntityFactorCode1" To "EntityFactorCode5", "ClientFactorCode1" To "ClientFactorCode5",
@@ -1720,10 +1730,7 @@
                                     " AND TaxYear = " & m_TaxYear
                             Case enumListType.enumTaskMasterList
                                 Dim lId As Long = row.Cells("TaskId").Value
-                                sSQL = "DELETE TaskAssignments WHERE TaskId = " & lId & " DELETE TaskAssignmentsBPP WHERE TaskId = " & lId &
-                                    " DELETE TaskAssignmentsRE WHERE TaskId = " & lId & " DELETE TaskEvents WHERE TaskId = " & lId &
-                                    " DELETE TaskEventsBPP WHERE TaskId = " & lId & " DELETE TaskEventsRE WHERE TaskId = " & lId &
-                                    " DELETE TaskMasterList WHERE TaskId = " & lId
+                                sSQL = "DELETE TaskAssignments WHERE TaskId = " & lId & " DELETE TaskMasterList WHERE TaskId = " & lId
                             Case enumListType.enumQueryList
                                 Dim lId As Long = row.Cells("QueryId").Value
                                 sSQL = "DELETE UserQuerySelect WHERE QueryId = " & lId &
@@ -2783,10 +2790,6 @@
 
             If Not IsNumeric(sPct) Or Trim(sPct) = "" Then
                 MsgBox("Not a valid amount")
-                Exit Sub
-            End If
-            If Val(sPct) < 0 Or Val(sPct) > 100 Then
-                MsgBox("Enter a value between 0 and 100")
                 Exit Sub
             End If
 

@@ -128,6 +128,8 @@
                 " assrs.REProtestDeadlineDate, ISNULL(assrs.Name,'') AS AssessorName,a.OccupiedStatus, ISNULL(a.ParentAssessmentId,0) AS ParentAssessmentId," &
                 " ISNULL(l.ConsultantName,ISNULL(c.REConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus," &
                 " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode"
+            sSQL = sSQL & ",a.BuildingType,a.BuildingClass,a.BuildingSqFt,a.NetLeasableSqFt,a.GrossLeasableSqFt,a.YearBuilt,a.EffYearBuilt,a.LandSqFt,a.ExcessLandSqFt"
+            sSQL = sSQL & ",a.ConstructionType"
             sSQL = sSQL &
                 " FROM Clients AS c INNER JOIN" &
                 " AssessmentsRE AS a ON c.ClientId = a.ClientId INNER JOIN" &
@@ -164,11 +166,14 @@
         End Try
     End Function
 
+#Region "Common Control Events"
+
     Private Sub ComboBox_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
             Handles txtAcctNum.GotFocus, cboAssessor.GotFocus, txtValueProtestCMRRR.GotFocus,
             txtValueProtestDeadlineDate.GotFocus, txtValueProtestHearingDate.GotFocus,
             txtValueProtestMailedDate.GotFocus, cboValueProtestStatus.GotFocus, txtComment.GotFocus, txtClientLocationId.GotFocus, cboOccupiedStatus.GotFocus,
-            cboAccountInvoicedStatus.GotFocus
+            cboAccountInvoicedStatus.GotFocus, cboBuildingType.GotFocus, cboBuildingClass.GotFocus, txtBuildingSqFt.GotFocus, txtNetLeasableSqFt.GotFocus, txtGrossLeasableSqFt.GotFocus,
+            txtYearBuilt.GotFocus, txtEffYearBuilt.GotFocus, txtLandSqFt.GotFocus, txtExcessLandSqFt.GotFocus, cboConstructionType.GotFocus
         sender.selectall()
     End Sub
 
@@ -177,7 +182,9 @@
             txtValueProtestDeadlineDate.TextChanged, txtValueProtestHearingDate.TextChanged,
             txtValueProtestMailedDate.TextChanged, cboValueProtestStatus.TextChanged,
             chkValueProtestFl.CheckedChanged, txtComment.TextChanged, chkInactiveFl.CheckedChanged, txtClientLocationId.TextChanged, cboOccupiedStatus.TextChanged,
-            cboAccountInvoicedStatus.TextChanged
+            cboAccountInvoicedStatus.TextChanged, cboBuildingType.TextChanged, cboBuildingClass.TextChanged, txtBuildingSqFt.TextChanged, txtNetLeasableSqFt.TextChanged,
+            txtGrossLeasableSqFt.TextChanged,
+            txtYearBuilt.TextChanged, txtEffYearBuilt.TextChanged, txtLandSqFt.TextChanged, txtExcessLandSqFt.TextChanged, cboConstructionType.TextChanged
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
                 If sender.checkstate = CheckState.Checked Then
@@ -198,7 +205,9 @@
             txtValueProtestDeadlineDate.LostFocus, txtValueProtestHearingDate.LostFocus,
             txtValueProtestMailedDate.LostFocus, cboValueProtestStatus.LostFocus, chkValueProtestFl.LostFocus,
             txtComment.LostFocus, chkInactiveFl.LostFocus, txtClientLocationId.LostFocus, cboOccupiedStatus.LostFocus,
-            cboAccountInvoicedStatus.LostFocus
+            cboAccountInvoicedStatus.LostFocus, cboBuildingType.LostFocus, cboBuildingClass.LostFocus, txtBuildingSqFt.LostFocus, txtNetLeasableSqFt.LostFocus,
+            txtGrossLeasableSqFt.LostFocus,
+            txtYearBuilt.LostFocus, txtEffYearBuilt.LostFocus, txtLandSqFt.LostFocus, txtExcessLandSqFt.LostFocus, cboConstructionType.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -213,6 +222,7 @@
 
     End Sub
 
+#End Region
 
     Private Function LoadDropDowns(ByVal sAssessorName As String) As Boolean
         Dim sSQL As String, dt As New DataTable, dr As DataRow
@@ -858,7 +868,4 @@
         End If
     End Sub
 
-    Private Sub frmREAssessment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

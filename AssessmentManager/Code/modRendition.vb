@@ -18,6 +18,7 @@
         Friend iLeaseTerm As Integer
         Friend sEquipmentMake As String
         Friend sEquipmentModel As String
+        Friend ActivityQty As String
         Friend sStatus As String
         Friend iErrorType As Integer
     End Structure
@@ -383,6 +384,7 @@
             Dim iLeaseTerm = Asset.iLeaseTerm
             Dim sEquipmentMake = Trim(Asset.sEquipmentMake)
             Dim sEquipmentModel = Trim(Asset.sEquipmentModel)
+            Dim sActivityQty = Trim(Asset.ActivityQty)
 
             If Asset.lClientId = 0 Or Asset.lLocationId = 0 Or Asset.lAssessmentId = 0 Or Asset.iTaxYear = 0 Or sAssetId = "" Or sGLCode = "" Or Not IsDate(sDate) Then
                 sError = "Asset info missing"
@@ -410,6 +412,7 @@
                 If iLeaseTerm <> 0 Then sql.Append(",LeaseTerm")
                 If sEquipmentMake <> "" Then sql.Append(",EquipmentMake")
                 If sEquipmentModel <> "" Then sql.Append(",EquipmentModel")
+                If sactivityqty <> "" Then sql.Append(",ActivityQty")
                 sql.Append(",AddUser)")
                 sql.Append(" SELECT ").Append(Asset.lClientId).Append(",").Append(Asset.lLocationId).Append(",").Append(Asset.lAssessmentId).Append(",")
                 sql.Append(Asset.iTaxYear).Append(",").Append(QuoStr(sAssetId)).Append(",").Append(Asset.lOriginalCost).Append(",")
@@ -423,6 +426,7 @@
                 If iLeaseTerm <> 0 Then sql.Append(",").Append(iLeaseTerm)
                 If sEquipmentMake <> "" Then sql.Append(",").Append(QuoStr(sEquipmentMake))
                 If sEquipmentModel <> "" Then sql.Append(", ").Append(QuoStr(sEquipmentModel))
+                If sActivityQty <> "" Then sql.Append(", ").Append(sActivityQty)
                 sql.Append(",").Append(QuoStr(AppData.UserId))
 
                 If ExecuteSQL(sql.ToString) = 1 Then
@@ -499,7 +503,7 @@
             sql.Append(" FROM Clients AS c")
             sql.Append(" INNER JOIN LocationsBPP AS l ON c.ClientId = l.ClientId")
             sql.Append(" INNER JOIN AssessmentsBPP AS a ON l.ClientId = a.ClientId And l.LocationId = a.LocationId And l.TaxYear = a.TaxYear")
-            sql.Append(" RIGHT OUTER JOIN AssessmentDetailBPP AS ad ON ad.ClientId = a.ClientId AND ad.LocationId = a.LocationId AND ad.AssessmentId = a.AssessmentId")
+            sql.Append(" LEFT OUTER JOIN AssessmentDetailBPP AS ad ON ad.ClientId = a.ClientId AND ad.LocationId = a.LocationId AND ad.AssessmentId = a.AssessmentId")
             sql.Append(" AND ad.TaxYear = a.TaxYear - 1")
             sql.Append(" LEFT OUTER JOIN BusinessUnits AS bu ON a.ClientId = bu.ClientId AND a.BusinessUnitId = bu.BusinessUnitId")
             sql.Append(" LEFT OUTER JOIN Assessors AS assessor ON a.AssessorId = assessor.AssessorId AND a.TaxYear = assessor.TaxYear")
@@ -508,7 +512,8 @@
             End If
             sql.Append(" GROUP BY c.Name, ISNULL(l.Address, ''), ISNULL(l.City, ''), l.StateCd, LTRIM(RTRIM(ISNULL(l.ClientLocationId, ''))), ISNULL(a.AcctNum, ''), ISNULL(assessor.Name, ''), ISNULL(bu.Name, ''),")
             sql.Append(" a.ClientId, a.LocationId, a.AssessmentId, l.TaxYear, a.BusinessUnitId, a.AssessorId")
-            sql.Append(" HAVING l.TaxYear = ").Append(iTaxYear).Append(" AND a.ClientId = ").Append(lClientId)
+            sql.Append(" HAVING l.TaxYear = ").Append(iTaxYear)
+            If lClientId > 0 Then sql.Append(" AND a.ClientId = ").Append(lClientId)
             If lBusinessUnitId > 0 Then sql.Append(" AND a.BusinessUnitId = ").Append(lBusinessUnitId)
             If lAssessorId > 0 Then sql.Append(" AND a.AssessorId = ").Append(lAssessorId)
             If sStateCd <> "" Then sql.Append(" AND l.StateCd = '").Append(sStateCd).Append("'")
@@ -533,7 +538,8 @@
             End If
             sql.Append(" GROUP BY c.Name, ISNULL(l.Address, ''), ISNULL(l.City, ''), l.StateCd, LTRIM(RTRIM(ISNULL(l.ClientLocationId, ''))), ISNULL(a.AcctNum, ''), ISNULL(assessor.Name, ''), ISNULL(bu.Name, ''),")
             sql.Append(" a.ClientId, a.LocationId, a.AssessmentId, l.TaxYear, a.BusinessUnitId, a.AssessorId")
-            sql.Append(" HAVING l.TaxYear = ").Append(iTaxYear).Append(" AND a.ClientId = ").Append(lClientId)
+            sql.Append(" HAVING l.TaxYear = ").Append(iTaxYear)
+            If lClientId > 0 Then sql.Append(" AND a.ClientId = ").Append(lClientId)
             If lBusinessUnitId > 0 Then sql.Append(" AND a.BusinessUnitId = ").Append(lBusinessUnitId)
             If lAssessorId > 0 Then sql.Append(" AND a.AssessorId = ").Append(lAssessorId)
             If sStateCd <> "" Then sql.Append(" AND l.StateCd = '").Append(sStateCd).Append("'")

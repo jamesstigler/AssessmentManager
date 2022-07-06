@@ -8,8 +8,7 @@
     Public Const csFactor = "0.00000000%" 'factor codes
     Public Const csShortDate = "M/d"
     Public Const csTaxRate = "0.00000000"
-
-    'Private cnLocal As OleDbConnection
+    Public Const csYear = "####"
 
     Private Const CheckBox = 13
     Private Const TextBox = 14
@@ -26,9 +25,7 @@
     Public colSICCodes As Collection
     Public dicColumnWidths As Dictionary(Of String, Long)
 
-    'Private colValueProtestStatus As Collection
     Private colConsultants As Collection
-
 
     Public Structure typeDBUpdateInfo
         Public Structure typeDBPrimaryKeys
@@ -217,7 +214,6 @@
 
             sTag = Trim(ctl.Tag)
             If sTag = "" Then Exit Sub
-            'MsgBar("Saving changes", 1)
             With ctl
                 sFormat = ""
                 If Left(sTag, 4) = "@DB=" Then
@@ -254,10 +250,8 @@
                                                 sFormat = csTaxRate
                                             Case "DATETIME"
                                                 sFormat = csDateTime
-                                                'Case Else
-                                                '    If IsNumeric(vWrkVar) Then
-                                                '        sFormat = "#,##0." &  String(vWrkVar, Asc("0"))
-                                                '    End If
+                                            Case "YEAR"
+                                                sFormat = csYear
                                         End Select
                                     Case "IDX"
                                         lIndex = CLng(GetTagItem(sTag, iStart, iEnd))
@@ -265,20 +259,10 @@
                             End If
                         End If
                     End While
-                    'For l = 0 To UBound(DBInfo)
-
-                    'If DBInfo(l).sUpdateField = sField And DBInfo(l).sTable = sTable Then
                     GetDataDefinition(sTable, sField, eDataType, bAllowNull, lFieldLength, "")
                     SaveOneControl(DBInfo(lIndex), ctl, eDataType, sFormat, bAllowNull, NullObject, lFieldLength, colDropDownCollection, "")
-                    '    Exit For
-                    'End If
-                    'Next
                 End If
             End With
-            'MsgBar("", 1)
-
-
-
         Catch ex As Exception
             MsgBox("Error in UpdateDB:  " & ex.Message)
 
@@ -864,10 +848,8 @@
                                                         sFormat = csShortDate
                                                     Case "DATETIME"
                                                         sFormat = csDateTime
-                                                        'Case Else
-                                                        '    If IsNumeric(vWrkVar) Then
-                                                        '        sFormat = "#,##0." & String$(vWrkVar, Asc("0"))
-                                                        '    End If
+                                                    Case "YEAR"
+                                                        sFormat = csYear
                                                 End Select
                                             Case Else
                                                 GetTagItem(sTag, iStart, iEnd)

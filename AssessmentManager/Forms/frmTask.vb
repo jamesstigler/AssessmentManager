@@ -60,9 +60,8 @@
 
 
     Private Sub txtName_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
-            Handles txtName.LostFocus, _
-            txtDescription.LostFocus, _
-              txtTaskDate.LostFocus, txtReminderDate.LostFocus, chkEntitySpecific.LostFocus
+            Handles txtName.LostFocus,
+            txtDescription.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -78,15 +77,13 @@
     End Sub
 
     Private Sub txtAddress_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
-            Handles txtDescription.GotFocus, _
-            txtName.GotFocus, _
-             txtTaskDate.GotFocus, txtReminderDate.GotFocus
+            Handles txtDescription.GotFocus,
+            txtName.GotFocus
         sender.selectall()
     End Sub
 
     Private Sub txtName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-            Handles txtName.TextChanged, txtDescription.TextChanged, _
-             txtTaskDate.TextChanged, txtReminderDate.TextChanged, chkEntitySpecific.Click
+            Handles txtName.TextChanged, txtDescription.TextChanged
         If bActivated Then bChanged = True
     End Sub
 

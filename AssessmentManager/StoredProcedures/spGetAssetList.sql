@@ -60,6 +60,7 @@ AS
 			EquipmentMake varchar(50) null,
 			EquipmentModel varchar(50) null,
 			InterstateAllocationFl bit null,			
+			ActivityQty bigint null,
 			AuditFl bit null,
 			AssetsLoadedFl bit null,
 			AssetsVerifiedFl bit null,
@@ -169,7 +170,7 @@ AS
 			Locations_StateCd, Locations_ClientLocationId, Assessors_Name, Assessments_AcctNum, Clients_ExcludeNotified, Clients_ExcludeAbatements,
 			Clients_ExcludeFreeport, Clients_ExcludeClient, Assessments_SavingsExclusionCd, VIN, Assets_LocationAddress,
 			ClientRenditionValue, BPPRatio, BusinessUnitId,
-			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel, InterstateAllocationFl, AuditFl,
+			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel, InterstateAllocationFl, ActivityQty, AuditFl,
 			AssetsLoadedFl, AssetsVerifiedFl, AssetsLoadedDate, AssetsVerifiedDate
 		)				
 		SELECT c.ClientId, l.LocationId, assess.AssessmentId, a.AssetId, a.TaxYear, ISNULL(a.OriginalCost,0),
@@ -180,7 +181,7 @@ AS
 			ISNULL(c.ExcludeFreeport,0), ISNULL(c.ExcludeClient,0), ISNULL(assess.SavingsExclusionCd,0), a.VIN, a.LocationAddress,
 			assess.ClientRenditionValue, ISNULL(assessor.BPPRatio,0),ISNULL(assess.BusinessUnitId,0),
 			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel, 
-			ISNULL(assess.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)), a.AuditFl,
+			ISNULL(assess.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)), a.ActivityQty, a.AuditFl,
 			assess.AssetsLoadedFl, assess.AssetsVerifiedFl, assess.AssetsLoadedDate, assess.AssetsVerifiedDate
 
 		FROM AssessmentsBPP AS assess
@@ -800,6 +801,10 @@ AS
 		IF ISNULL((SELECT COUNT(*) FROM #temptbl WHERE ISNULL(AuditFl,0) <> 0),0) = 0
 			BEGIN
 				ALTER TABLE #temptbl DROP COLUMN AuditFl
+			END
+		IF ISNULL((SELECT COUNT(*) FROM #temptbl WHERE ISNULL(ActivityQty,0) <> 0),0) = 0
+			BEGIN
+				ALTER TABLE #temptbl DROP COLUMN ActivityQty
 			END
 		
 		IF @NeedTotalOriginalCost = 1

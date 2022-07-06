@@ -24,6 +24,10 @@ Partial Class frmBatchImportAssets
     Private Sub InitializeComponent()
         Me.fraFile = New System.Windows.Forms.GroupBox()
         Me.cmdBrowse = New System.Windows.Forms.Button()
+        Me.txtFile = New System.Windows.Forms.TextBox()
+        Me.radioImportDeletions = New System.Windows.Forms.RadioButton()
+        Me.radioImportAdditions = New System.Windows.Forms.RadioButton()
+        Me.radioImportComplete = New System.Windows.Forms.RadioButton()
         Me.fraColumns = New System.Windows.Forms.GroupBox()
         Me.cboLessorName = New System.Windows.Forms.ComboBox()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -69,10 +73,6 @@ Partial Class frmBatchImportAssets
         Me.cboGLCode = New System.Windows.Forms.ComboBox()
         Me.cboAssetId = New System.Windows.Forms.ComboBox()
         Me.cboCost = New System.Windows.Forms.ComboBox()
-        Me.txtFile = New System.Windows.Forms.TextBox()
-        Me.radioImportDeletions = New System.Windows.Forms.RadioButton()
-        Me.radioImportAdditions = New System.Windows.Forms.RadioButton()
-        Me.radioImportComplete = New System.Windows.Forms.RadioButton()
         Me.cmdNext = New System.Windows.Forms.Button()
         Me.cmdFinish = New System.Windows.Forms.Button()
         Me.cmdCancel = New System.Windows.Forms.Button()
@@ -81,6 +81,8 @@ Partial Class frmBatchImportAssets
         Me.lblTotals = New System.Windows.Forms.Label()
         Me.dgResults = New System.Windows.Forms.DataGridView()
         Me.cmdPrint = New System.Windows.Forms.Button()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.cboActivityQty = New System.Windows.Forms.ComboBox()
         Me.fraFile.SuspendLayout()
         Me.fraColumns.SuspendLayout()
         CType(Me.dgFileContents, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -111,8 +113,49 @@ Partial Class frmBatchImportAssets
         Me.cmdBrowse.Text = "Browse"
         Me.cmdBrowse.UseVisualStyleBackColor = True
         '
+        'txtFile
+        '
+        Me.txtFile.Location = New System.Drawing.Point(91, 133)
+        Me.txtFile.Name = "txtFile"
+        Me.txtFile.Size = New System.Drawing.Size(488, 20)
+        Me.txtFile.TabIndex = 8
+        '
+        'radioImportDeletions
+        '
+        Me.radioImportDeletions.AutoSize = True
+        Me.radioImportDeletions.Location = New System.Drawing.Point(10, 62)
+        Me.radioImportDeletions.Name = "radioImportDeletions"
+        Me.radioImportDeletions.Size = New System.Drawing.Size(99, 17)
+        Me.radioImportDeletions.TabIndex = 2
+        Me.radioImportDeletions.Text = "Import deletions"
+        Me.radioImportDeletions.UseVisualStyleBackColor = True
+        '
+        'radioImportAdditions
+        '
+        Me.radioImportAdditions.AutoSize = True
+        Me.radioImportAdditions.Location = New System.Drawing.Point(10, 39)
+        Me.radioImportAdditions.Name = "radioImportAdditions"
+        Me.radioImportAdditions.Size = New System.Drawing.Size(99, 17)
+        Me.radioImportAdditions.TabIndex = 1
+        Me.radioImportAdditions.Text = "Import additions"
+        Me.radioImportAdditions.UseVisualStyleBackColor = True
+        '
+        'radioImportComplete
+        '
+        Me.radioImportComplete.AutoSize = True
+        Me.radioImportComplete.Checked = True
+        Me.radioImportComplete.Location = New System.Drawing.Point(10, 16)
+        Me.radioImportComplete.Name = "radioImportComplete"
+        Me.radioImportComplete.Size = New System.Drawing.Size(160, 17)
+        Me.radioImportComplete.TabIndex = 0
+        Me.radioImportComplete.TabStop = True
+        Me.radioImportComplete.Text = "Import complete list of assets"
+        Me.radioImportComplete.UseVisualStyleBackColor = True
+        '
         'fraColumns
         '
+        Me.fraColumns.Controls.Add(Me.Label22)
+        Me.fraColumns.Controls.Add(Me.cboActivityQty)
         Me.fraColumns.Controls.Add(Me.cboLessorName)
         Me.fraColumns.Controls.Add(Me.Label21)
         Me.fraColumns.Controls.Add(Me.cboEquipmentModel)
@@ -172,7 +215,7 @@ Partial Class frmBatchImportAssets
         Me.cboLessorName.Location = New System.Drawing.Point(540, 104)
         Me.cboLessorName.Name = "cboLessorName"
         Me.cboLessorName.Size = New System.Drawing.Size(60, 21)
-        Me.cboLessorName.TabIndex = 17
+        Me.cboLessorName.TabIndex = 18
         '
         'Label21
         '
@@ -190,7 +233,7 @@ Partial Class frmBatchImportAssets
         Me.cboEquipmentModel.Location = New System.Drawing.Point(892, 104)
         Me.cboEquipmentModel.Name = "cboEquipmentModel"
         Me.cboEquipmentModel.Size = New System.Drawing.Size(60, 21)
-        Me.cboEquipmentModel.TabIndex = 21
+        Me.cboEquipmentModel.TabIndex = 22
         '
         'Label16
         '
@@ -208,7 +251,7 @@ Partial Class frmBatchImportAssets
         Me.cboEquipmentMake.Location = New System.Drawing.Point(804, 104)
         Me.cboEquipmentMake.Name = "cboEquipmentMake"
         Me.cboEquipmentMake.Size = New System.Drawing.Size(60, 21)
-        Me.cboEquipmentMake.TabIndex = 20
+        Me.cboEquipmentMake.TabIndex = 21
         '
         'Label17
         '
@@ -235,7 +278,7 @@ Partial Class frmBatchImportAssets
         Me.cboLeaseTerm.Location = New System.Drawing.Point(716, 104)
         Me.cboLeaseTerm.Name = "cboLeaseTerm"
         Me.cboLeaseTerm.Size = New System.Drawing.Size(60, 21)
-        Me.cboLeaseTerm.TabIndex = 19
+        Me.cboLeaseTerm.TabIndex = 20
         '
         'cboLessorAddress
         '
@@ -244,7 +287,7 @@ Partial Class frmBatchImportAssets
         Me.cboLessorAddress.Location = New System.Drawing.Point(628, 104)
         Me.cboLessorAddress.Name = "cboLessorAddress"
         Me.cboLessorAddress.Size = New System.Drawing.Size(60, 21)
-        Me.cboLessorAddress.TabIndex = 18
+        Me.cboLessorAddress.TabIndex = 19
         '
         'Label19
         '
@@ -272,7 +315,7 @@ Partial Class frmBatchImportAssets
         Me.cboLeaseType.Location = New System.Drawing.Point(452, 104)
         Me.cboLeaseType.Name = "cboLeaseType"
         Me.cboLeaseType.Size = New System.Drawing.Size(60, 21)
-        Me.cboLeaseType.TabIndex = 16
+        Me.cboLeaseType.TabIndex = 17
         '
         'Label15
         '
@@ -306,9 +349,9 @@ Partial Class frmBatchImportAssets
         '
         'Label14
         '
-        Me.Label14.Location = New System.Drawing.Point(336, 88)
+        Me.Label14.Location = New System.Drawing.Point(268, 88)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(120, 16)
+        Me.Label14.Size = New System.Drawing.Size(100, 16)
         Me.Label14.TabIndex = 70
         Me.Label14.Text = "Interstate Alloc Pct"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -317,14 +360,14 @@ Partial Class frmBatchImportAssets
         '
         Me.cboAllocationPct.FormattingEnabled = True
         Me.cboAllocationPct.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboAllocationPct.Location = New System.Drawing.Point(364, 104)
+        Me.cboAllocationPct.Location = New System.Drawing.Point(284, 104)
         Me.cboAllocationPct.Name = "cboAllocationPct"
         Me.cboAllocationPct.Size = New System.Drawing.Size(60, 21)
         Me.cboAllocationPct.TabIndex = 15
         '
         'Label12
         '
-        Me.Label12.Location = New System.Drawing.Point(292, 88)
+        Me.Label12.Location = New System.Drawing.Point(232, 88)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(29, 16)
         Me.Label12.TabIndex = 69
@@ -333,7 +376,7 @@ Partial Class frmBatchImportAssets
         '
         'Label13
         '
-        Me.Label13.Location = New System.Drawing.Point(188, 88)
+        Me.Label13.Location = New System.Drawing.Point(148, 88)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(60, 16)
         Me.Label13.TabIndex = 68
@@ -344,7 +387,7 @@ Partial Class frmBatchImportAssets
         '
         Me.cboVIN.FormattingEnabled = True
         Me.cboVIN.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboVIN.Location = New System.Drawing.Point(276, 104)
+        Me.cboVIN.Location = New System.Drawing.Point(216, 104)
         Me.cboVIN.Name = "cboVIN"
         Me.cboVIN.Size = New System.Drawing.Size(60, 21)
         Me.cboVIN.TabIndex = 14
@@ -353,7 +396,7 @@ Partial Class frmBatchImportAssets
         '
         Me.cboAddress.FormattingEnabled = True
         Me.cboAddress.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboAddress.Location = New System.Drawing.Point(188, 104)
+        Me.cboAddress.Location = New System.Drawing.Point(148, 104)
         Me.cboAddress.Name = "cboAddress"
         Me.cboAddress.Size = New System.Drawing.Size(60, 21)
         Me.cboAddress.TabIndex = 13
@@ -570,45 +613,6 @@ Partial Class frmBatchImportAssets
         Me.cboCost.Size = New System.Drawing.Size(60, 21)
         Me.cboCost.TabIndex = 5
         '
-        'txtFile
-        '
-        Me.txtFile.Location = New System.Drawing.Point(91, 133)
-        Me.txtFile.Name = "txtFile"
-        Me.txtFile.Size = New System.Drawing.Size(488, 20)
-        Me.txtFile.TabIndex = 8
-        '
-        'radioImportDeletions
-        '
-        Me.radioImportDeletions.AutoSize = True
-        Me.radioImportDeletions.Location = New System.Drawing.Point(10, 62)
-        Me.radioImportDeletions.Name = "radioImportDeletions"
-        Me.radioImportDeletions.Size = New System.Drawing.Size(99, 17)
-        Me.radioImportDeletions.TabIndex = 2
-        Me.radioImportDeletions.Text = "Import deletions"
-        Me.radioImportDeletions.UseVisualStyleBackColor = True
-        '
-        'radioImportAdditions
-        '
-        Me.radioImportAdditions.AutoSize = True
-        Me.radioImportAdditions.Location = New System.Drawing.Point(10, 39)
-        Me.radioImportAdditions.Name = "radioImportAdditions"
-        Me.radioImportAdditions.Size = New System.Drawing.Size(99, 17)
-        Me.radioImportAdditions.TabIndex = 1
-        Me.radioImportAdditions.Text = "Import additions"
-        Me.radioImportAdditions.UseVisualStyleBackColor = True
-        '
-        'radioImportComplete
-        '
-        Me.radioImportComplete.AutoSize = True
-        Me.radioImportComplete.Checked = True
-        Me.radioImportComplete.Location = New System.Drawing.Point(10, 16)
-        Me.radioImportComplete.Name = "radioImportComplete"
-        Me.radioImportComplete.Size = New System.Drawing.Size(160, 17)
-        Me.radioImportComplete.TabIndex = 0
-        Me.radioImportComplete.TabStop = True
-        Me.radioImportComplete.Text = "Import complete list of assets"
-        Me.radioImportComplete.UseVisualStyleBackColor = True
-        '
         'cmdNext
         '
         Me.cmdNext.Enabled = False
@@ -689,6 +693,25 @@ Partial Class frmBatchImportAssets
         Me.cmdPrint.TabIndex = 2
         Me.cmdPrint.Text = "Print"
         Me.cmdPrint.UseVisualStyleBackColor = True
+        '
+        'Label22
+        '
+        Me.Label22.Location = New System.Drawing.Point(368, 88)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(64, 16)
+        Me.Label22.TabIndex = 87
+        Me.Label22.Text = "Activity Qty"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cboActivityQty
+        '
+        Me.cboActivityQty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboActivityQty.FormattingEnabled = True
+        Me.cboActivityQty.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboActivityQty.Location = New System.Drawing.Point(372, 104)
+        Me.cboActivityQty.Name = "cboActivityQty"
+        Me.cboActivityQty.Size = New System.Drawing.Size(60, 21)
+        Me.cboActivityQty.TabIndex = 16
         '
         'frmBatchImportAssets
         '
@@ -778,4 +801,6 @@ Partial Class frmBatchImportAssets
     Friend WithEvents Label20 As Label
     Friend WithEvents cboLeaseType As ComboBox
     Friend WithEvents cboLessorName As ComboBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents cboActivityQty As ComboBox
 End Class

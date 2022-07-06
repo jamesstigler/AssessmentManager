@@ -82,11 +82,14 @@
         End Try
     End Sub
 
+#Region "CommonControlEvents"
+
     Private Sub txtName_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
-            Handles txtName.LostFocus, txtAddress.LostFocus, txtCity.LostFocus, txtZip.LostFocus, _
-            txtComment.LostFocus, cboStateCd.LostFocus, TextBox1.LostFocus, TextBox3.LostFocus, txtPhone.LostFocus, _
-            txtFax.LostFocus, TextBox4.LostFocus, txtPercentage.LostFocus, TextBox2.LostFocus, TextBox5.LostFocus, _
-            TextBox6.LostFocus, TextBox7.LostFocus, TextBox8.LostFocus, TextBox9.LostFocus
+            Handles txtName.LostFocus, txtAddress.LostFocus, txtCity.LostFocus, txtZip.LostFocus,
+            txtComment.LostFocus, cboStateCd.LostFocus, TextBox1.LostFocus, TextBox3.LostFocus, txtPhone.LostFocus,
+            txtFax.LostFocus, TextBox4.LostFocus, txtPercentage.LostFocus, TextBox2.LostFocus, TextBox5.LostFocus,
+            TextBox6.LostFocus, TextBox7.LostFocus, TextBox8.LostFocus, TextBox9.LostFocus,
+            txtValueProtestAddress.LostFocus, txtValueProtestCity.LostFocus, txtValueProtestZip.LostFocus, cboValueProtestStateCd.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -102,21 +105,24 @@
     End Sub
 
     Private Sub txtAddress_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
-            Handles txtAddress.GotFocus, txtCity.GotFocus, txtZip.GotFocus, txtComment.GotFocus, _
-            txtName.GotFocus, txtZip.GotFocus, TextBox1.GotFocus, TextBox4.GotFocus, TextBox3.GotFocus, _
-            txtFax.GotFocus, txtPercentage.GotFocus, txtPhone.GotFocus, TextBox2.GotFocus, TextBox5.GotFocus, _
-            TextBox6.GotFocus, TextBox7.GotFocus, TextBox8.GotFocus, TextBox9.GotFocus
+            Handles txtAddress.GotFocus, txtCity.GotFocus, txtZip.GotFocus, txtComment.GotFocus,
+            txtName.GotFocus, txtZip.GotFocus, TextBox1.GotFocus, TextBox4.GotFocus, TextBox3.GotFocus,
+            txtFax.GotFocus, txtPercentage.GotFocus, txtPhone.GotFocus, TextBox2.GotFocus, TextBox5.GotFocus,
+            TextBox6.GotFocus, TextBox7.GotFocus, TextBox8.GotFocus, TextBox9.GotFocus,
+            txtValueProtestAddress.GotFocus, txtValueProtestCity.GotFocus, txtValueProtestZip.GotFocus, cboValueProtestStateCd.GotFocus
         sender.selectall()
     End Sub
 
     Private Sub txtName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-            Handles txtName.TextChanged, txtAddress.TextChanged, txtCity.TextChanged, txtComment.TextChanged, _
-            txtZip.TextChanged, cboStateCd.TextChanged, TextBox1.TextChanged, TextBox4.TextChanged, TextBox3.TextChanged, _
-            txtFax.TextChanged, txtPercentage.TextChanged, txtPhone.TextChanged, TextBox2.TextChanged, TextBox5.TextChanged, _
-            TextBox6.TextChanged, TextBox7.TextChanged, TextBox8.TextChanged, TextBox9.TextChanged
+            Handles txtName.TextChanged, txtAddress.TextChanged, txtCity.TextChanged, txtComment.TextChanged,
+            txtZip.TextChanged, cboStateCd.TextChanged, TextBox1.TextChanged, TextBox4.TextChanged, TextBox3.TextChanged,
+            txtFax.TextChanged, txtPercentage.TextChanged, txtPhone.TextChanged, TextBox2.TextChanged, TextBox5.TextChanged,
+            TextBox6.TextChanged, TextBox7.TextChanged, TextBox8.TextChanged, TextBox9.TextChanged,
+            txtValueProtestAddress.TextChanged, txtValueProtestCity.TextChanged, txtValueProtestZip.TextChanged, cboValueProtestStateCd.TextChanged
         If bActivated Then bChanged = True
     End Sub
 
+#End Region
 
     Public Sub New()
 
@@ -132,10 +138,17 @@
         bChanged = False
     End Sub
 
-
     Private Sub cmdEnvelope_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEnvelope.Click
         Dim lList As New List(Of Long)
-        RunReport(enumReport.enumAssessorEnvelope, 0, 0, 0, lList, AppData.TaxYear, enumTable.enumLocationBPP, m_AssessorId, 0, True, m_AssessorId, "")
+        'Dim sinput = Trim(InputBox("1)  Main Address" & vbCrLf & "2)  Value Protest Address", "Assessor Address"))
+        'If sinput <> "1" And sinput <> "2" Then Exit Sub
+        Dim etype As enumReport
+        'If sinput = "1" Then
+        etype = enumReport.enumAssessorEnvelope
+        'ElseIf sinput = "2" Then
+        'etype = enumReport.enumAssessorValueProtestEnvelope
+        'End If
+        RunReport(etype, 0, 0, 0, lList, AppData.TaxYear, enumTable.enumLocationBPP, m_AssessorId, 0, True, m_AssessorId, "")
     End Sub
 
 End Class

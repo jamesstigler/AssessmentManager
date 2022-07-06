@@ -78,6 +78,8 @@ Partial Class frmAsset
         Me.txtEquipmentModel = New System.Windows.Forms.TextBox()
         Me.cboLeaseType = New System.Windows.Forms.ComboBox()
         Me.chkAuditFl = New System.Windows.Forms.CheckBox()
+        Me.txtActivityQty = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cboFactorOvr1
@@ -626,7 +628,7 @@ Partial Class frmAsset
         'chkAuditFl
         '
         Me.chkAuditFl.AutoSize = True
-        Me.chkAuditFl.Location = New System.Drawing.Point(20, 392)
+        Me.chkAuditFl.Location = New System.Drawing.Point(16, 420)
         Me.chkAuditFl.Name = "chkAuditFl"
         Me.chkAuditFl.Size = New System.Drawing.Size(62, 17)
         Me.chkAuditFl.TabIndex = 27
@@ -634,12 +636,33 @@ Partial Class frmAsset
         Me.chkAuditFl.Text = "Audited"
         Me.chkAuditFl.UseVisualStyleBackColor = True
         '
+        'txtActivityQty
+        '
+        Me.txtActivityQty.AllowDrop = True
+        Me.txtActivityQty.Location = New System.Drawing.Point(196, 388)
+        Me.txtActivityQty.Name = "txtActivityQty"
+        Me.txtActivityQty.Size = New System.Drawing.Size(80, 20)
+        Me.txtActivityQty.TabIndex = 212
+        Me.txtActivityQty.Tag = "@DB=Assets.ActivityQty;@FMT=int"
+        Me.txtActivityQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(16, 392)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(120, 13)
+        Me.Label17.TabIndex = 213
+        Me.Label17.Text = "Engine hours/Odometer"
+        '
         'frmAsset
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(973, 419)
+        Me.ClientSize = New System.Drawing.Size(973, 451)
+        Me.Controls.Add(Me.txtActivityQty)
+        Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.chkAuditFl)
         Me.Controls.Add(Me.cboLeaseType)
         Me.Controls.Add(Me.txtLessorName)
@@ -761,4 +784,6 @@ Partial Class frmAsset
     Friend WithEvents txtEquipmentModel As TextBox
     Friend WithEvents cboLeaseType As ComboBox
     Friend WithEvents chkAuditFl As CheckBox
+    Friend WithEvents txtActivityQty As TextBox
+    Friend WithEvents Label17 As Label
 End Class

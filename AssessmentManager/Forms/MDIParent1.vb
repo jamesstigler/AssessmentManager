@@ -828,10 +828,9 @@ Public Class MDIParent1
         Try
             Dim sName As String = Trim(InputBox("Enter task name"))
             If sName = "" Then Exit Sub
-            Dim sDate As String = Trim(InputBox("Enter date (mm/dd/yyyy hh:mm AM/PM)"))
-            If Not IsDate(sDate) Then Exit Sub
+            Dim sDesc As String = Trim(InputBox("Description"))
             Dim sError As String = ""
-            If Not AddTask(sName, sDate, sError) Then MsgBox("Error creating task:  " & sError)
+            If Not AddTask(sName, sDesc, sError) Then MsgBox("Error creating task:  " & sError)
         Catch ex As Exception
 
         End Try

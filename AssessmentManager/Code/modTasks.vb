@@ -86,42 +86,39 @@
 
     End Function
 
-    Public Function BuildTaskAssignmentQuery() As String
-        Dim sSQL As String = "", dt As New DataTable, lRows As Long = 0, sReturnSQL As String = ""
+    Public Function BuildTaskAssignmentQuery(proptype As enumPropType, clientid As Long, locationid As Long, assessmentid As Long, taxyear As Integer) As String
+        'Dim sql As New StringBuilder
 
-        sSQL = "SELECT ta.TaskAssignmentId,ta.TaskId," & _
-            " ISNULL(ta.ClientId,0) AS ClientId, ISNULL(ta.LocationId,0) AS LocationId, ISNULL(ta.AssessmentId,0) AS AssessmentId," & _
-            " ISNULL(ta.AssessorId,0) AS AssessorId, ISNULL(ta.JurisdictionId,0) AS JurisdictionId," & _
-            " ISNULL(ta.CollectorId,0) AS CollectorId,ISNULL(ta.StateCd,'') AS StateCd,ISNULL(ta.AllClients,0) AS AllClients," & _
-            " ISNULL(ta.AllLocations,0) AS AllLocations, ISNULL(ta.AllAssessments,0) AS AllAssessments,ISNULL(ta.AllAssessors,0) AS AllAssessors," & _
-            " ISNULL(ta.AllJurisdictions,0) AS AllJurisdictions,ISNULL(ta.AllCollectors,0) AS AllCollectors,ISNULL(ta.AllStates,0) AS AllStates," & _
-             "tm.TaskDate,ISNULL(tm.Name,'') AS TaskMasterList_Name,ISNULL(tm.Description,'') AS TaskMasterList_Description" & _
-            " FROM TaskAssignments ta, TaskMasterList tm" & _
-            " WHERE ta.TaskId = tm.TaskId"
-        If GetData(sSQL, dt) = 0 Then Return ""
-        sReturnSQL = ""
-        For Each dr As DataRow In dt.Rows
-            sSQL = ""
-            If dr("AllClients") Then
-                sSQL = "'Client Task' AS TaskType, c.ClientId, c.Name AS Clients_Name, te2.TaskDate AS TaskEvents_TaskDate," & _
-                    " te2.Comment AS TaskEvents_Comment" & _
-                    " FROM Clients AS c LEFT OUTER JOIN (SELECT TaskId, TaskDate, Comment, ClientId" & _
-                    " FROM TaskEvents AS te WHERE TaskId = " & dr("TaskId") & ") AS te2 ON c.ClientId = te2.ClientId"
-                sSQL = sSQL & " WHERE ISNULL(c.ProspectFl,0) = 0"
+        'sql.Append("SELECT ta.TaskId, tm.Name, tm.Description, ta.TaskDate, ta.Notes, ta.Email, ta.Website, ta.CompletedFl, ta.CompletedDate, ta.Priority, ta.ContactInfo")
+        'sql.Append(",ISNULL(ta.ClientId,0) AS ClientId, ISNULL(ta.LocationId,0) AS LocationId, ISNULL(ta.AssessmentId,0) AS AssessmentId,ta.TaxYear, ta.PropType")
+        'sql.Append(" FROM TaskAssignments ta, TaskMasterList tm WHERE ta.TaskId = tm.TaskId")
+        'If proptype = enumPropType.BPP Then sql.Append(" AND ta.PropType='P' AND ta.ClientId= )
 
-            ElseIf dr("ClientId") > 0 And dr("LocationId") = 0 Then
+        ''If GetData(sSQL, dt) = 0 Then Return ""
+        Dim sReturnSQL as string = ""
 
-            End If
+        ''''''''For Each dr As DataRow In dt.Rows
+        ''''''''    sSQL = ""
+        ''''''''    If dr("AllClients") Then
+        ''''''''        sSQL = "'Client Task' AS TaskType, c.ClientId, c.Name AS Clients_Name, te2.TaskDate AS TaskEvents_TaskDate," &
+        ''''''''            " te2.Comment AS TaskEvents_Comment" &
+        ''''''''            " FROM Clients AS c LEFT OUTER JOIN (SELECT TaskId, TaskDate, Comment, ClientId" &
+        ''''''''            " FROM TaskEvents AS te WHERE TaskId = " & dr("TaskId") & ") AS te2 ON c.ClientId = te2.ClientId"
+        ''''''''        sSQL = sSQL & " WHERE ISNULL(c.ProspectFl,0) = 0"
+
+        ''''''''ElseIf dr("ClientId") > 0 And dr("LocationId") = 0 Then
+
+        ''''''''End If
 
 
-            If sSQL <> "" Then
-                sSQL = " SELECT " & dr("TaskAssignmentId") & " AS TaskAssignmentId " & "," & dr("TaskId") & " AS TaskId," & _
-                    QuoStr(dr("TaskMasterList_Name")) & " AS TaskName, " & QuoStr(dr("TaskDate")) & " AS TaskDate," & _
-                    QuoStr(dr("TaskMasterList_Description")) & " AS TaskDescription," & sSQL
-                If sReturnSQL <> "" Then sReturnSQL = sReturnSQL & " UNION "
-                sReturnSQL = sReturnSQL & sSQL
-            End If
-        Next
+        ''''''''If sSQL <> "" Then
+        ''''''''    sSQL = " SELECT " & dr("TaskAssignmentId") & " AS TaskAssignmentId " & "," & dr("TaskId") & " AS TaskId," &
+        ''''''''        QuoStr(dr("TaskMasterList_Name")) & " AS TaskName, " & QuoStr(dr("TaskDate")) & " AS TaskDate," &
+        ''''''''        QuoStr(dr("TaskMasterList_Description")) & " AS TaskDescription," & sSQL
+        ''''''''    If sReturnSQL <> "" Then sReturnSQL = sReturnSQL & " UNION "
+        ''''''''    sReturnSQL = sReturnSQL & sSQL
+        ''''''''End If
+        ''''''''Next
 
         Return sReturnSQL
     End Function

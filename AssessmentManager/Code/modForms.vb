@@ -522,6 +522,7 @@ Module modForms
             dr = dtFormData.Rows(0)
             Dim sFile As New StringBuilder
             sFile.Append(sFileNamePrefix)
+            If Not sFileNamePrefix.EndsWith("_") Then sFile.Append("_")
             If eType = enumReport.enumAppointmentOfAgentForm Then
                 sFile.Append(dr("Clients_Name") & "_" & dr("Assessors_Name"))
                 If lLocationId <> 0 And lAssessmentId <> 0 Then

@@ -766,8 +766,8 @@
 
             colAssessors = New Collection
             LoadComboBox(" select tbl1.AssessorId, tbl1.Name from (" &
-                            "select a.AssessorId, a.Name from Assessors a, AssessmentsBPP assess where assess.assessorid=a.assessorid and assess.clientid = " & lClientId &
-                            " union select a.AssessorId, a.Name from Assessors a, AssessmentsRE assess where assess.assessorid=a.assessorid and assess.clientid = " & lClientId &
+                            "select a.AssessorId, a.Name + ', ' + a.StateCd AS Name from Assessors a, AssessmentsBPP assess where assess.taxyear = " & AppData.TaxYear & " AND assess.assessorid=a.assessorid and assess.taxyear=a.taxyear and assess.clientid = " & lClientId &
+                            " union select a.AssessorId, a.Name + ', ' + a.StateCd AS Name from Assessors a, AssessmentsRE assess where assess.taxyear=" & AppData.TaxYear & " AND assess.taxyear=a.taxyear and assess.assessorid=a.assessorid and assess.clientid = " & lClientId &
                             " ) tbl1 group by tbl1.AssessorId, tbl1.Name order by tbl1.Name", cboAssessor, colAssessors)
         Catch ex As Exception
             bRefreshing = False
@@ -1240,7 +1240,11 @@
                 End If
 
                 If m_TypeOfReport = enumReport.enumValueComparison Then
-                    RunReport(m_TypeOfReport, colClients(cboClient.Text), AppData.TaxYear, eproptype,
+                    Dim clientid As Long = 0
+                    'need to rewrite report to show clients in a column, not in title.  grouping also affected
+                    'If cboClient.Text <> "" Then clientid = colClients(cboClient.Text)
+                    clientid = colClients(cboClient.Text)
+                    RunReport(m_TypeOfReport, clientid, AppData.TaxYear, eproptype,
                         lAssessorId, lBusinessUnitId, statecd, m_SendToPrinter, sPDFFileName, m_ExportFolder)
                 Else
                     RunReport(m_TypeOfReport, colClients(cboClient.Text), lLocationId, lAssessmentId, New List(Of Long), AppData.TaxYear, enumTable.enumLocationBPP, 0, 0, m_SendToPrinter, sPDFFileName, m_ExportFolder)

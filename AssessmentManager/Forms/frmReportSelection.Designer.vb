@@ -117,7 +117,7 @@ Partial Class frmReportSelection
         'cmdRun
         '
         Me.cmdRun.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.cmdRun.Location = New System.Drawing.Point(396, 541)
+        Me.cmdRun.Location = New System.Drawing.Point(473, 541)
         Me.cmdRun.Name = "cmdRun"
         Me.cmdRun.Size = New System.Drawing.Size(75, 23)
         Me.cmdRun.TabIndex = 37
@@ -468,8 +468,8 @@ Partial Class frmReportSelection
         Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionAssessor)
         Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionRendition)
         Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionAssetSummary)
-        Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionAssetDetail)
         Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionBarCode)
+        Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionAssetDetail)
         Me.grpBatchRendition.Location = New System.Drawing.Point(591, 15)
         Me.grpBatchRendition.Name = "grpBatchRendition"
         Me.grpBatchRendition.Size = New System.Drawing.Size(273, 148)
@@ -480,7 +480,7 @@ Partial Class frmReportSelection
         'chkIncludeZeroBatch
         '
         Me.chkIncludeZeroBatch.AutoSize = True
-        Me.chkIncludeZeroBatch.Location = New System.Drawing.Point(108, 100)
+        Me.chkIncludeZeroBatch.Location = New System.Drawing.Point(108, 60)
         Me.chkIncludeZeroBatch.Name = "chkIncludeZeroBatch"
         Me.chkIncludeZeroBatch.Size = New System.Drawing.Size(154, 17)
         Me.chkIncludeZeroBatch.TabIndex = 7
@@ -490,7 +490,7 @@ Partial Class frmReportSelection
         'chkShowCostBatch
         '
         Me.chkShowCostBatch.AutoSize = True
-        Me.chkShowCostBatch.Location = New System.Drawing.Point(108, 120)
+        Me.chkShowCostBatch.Location = New System.Drawing.Point(108, 40)
         Me.chkShowCostBatch.Name = "chkShowCostBatch"
         Me.chkShowCostBatch.Size = New System.Drawing.Size(115, 17)
         Me.chkShowCostBatch.TabIndex = 6
@@ -502,7 +502,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionCert.AutoSize = True
         Me.chkBatchRenditionCert.Checked = True
         Me.chkBatchRenditionCert.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionCert.Location = New System.Drawing.Point(8, 60)
+        Me.chkBatchRenditionCert.Location = New System.Drawing.Point(8, 100)
         Me.chkBatchRenditionCert.Name = "chkBatchRenditionCert"
         Me.chkBatchRenditionCert.Size = New System.Drawing.Size(120, 17)
         Me.chkBatchRenditionCert.TabIndex = 2
@@ -514,7 +514,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionAssessor.AutoSize = True
         Me.chkBatchRenditionAssessor.Checked = True
         Me.chkBatchRenditionAssessor.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionAssessor.Location = New System.Drawing.Point(8, 40)
+        Me.chkBatchRenditionAssessor.Location = New System.Drawing.Point(8, 80)
         Me.chkBatchRenditionAssessor.Name = "chkBatchRenditionAssessor"
         Me.chkBatchRenditionAssessor.Size = New System.Drawing.Size(98, 17)
         Me.chkBatchRenditionAssessor.TabIndex = 1
@@ -526,7 +526,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionRendition.AutoSize = True
         Me.chkBatchRenditionRendition.Checked = True
         Me.chkBatchRenditionRendition.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionRendition.Location = New System.Drawing.Point(8, 80)
+        Me.chkBatchRenditionRendition.Location = New System.Drawing.Point(8, 20)
         Me.chkBatchRenditionRendition.Name = "chkBatchRenditionRendition"
         Me.chkBatchRenditionRendition.Size = New System.Drawing.Size(94, 17)
         Me.chkBatchRenditionRendition.TabIndex = 3
@@ -538,7 +538,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionAssetSummary.AutoSize = True
         Me.chkBatchRenditionAssetSummary.Checked = True
         Me.chkBatchRenditionAssetSummary.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionAssetSummary.Location = New System.Drawing.Point(8, 120)
+        Me.chkBatchRenditionAssetSummary.Location = New System.Drawing.Point(8, 40)
         Me.chkBatchRenditionAssetSummary.Name = "chkBatchRenditionAssetSummary"
         Me.chkBatchRenditionAssetSummary.Size = New System.Drawing.Size(96, 17)
         Me.chkBatchRenditionAssetSummary.TabIndex = 5
@@ -550,7 +550,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionAssetDetail.AutoSize = True
         Me.chkBatchRenditionAssetDetail.Checked = True
         Me.chkBatchRenditionAssetDetail.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionAssetDetail.Location = New System.Drawing.Point(8, 100)
+        Me.chkBatchRenditionAssetDetail.Location = New System.Drawing.Point(8, 60)
         Me.chkBatchRenditionAssetDetail.Name = "chkBatchRenditionAssetDetail"
         Me.chkBatchRenditionAssetDetail.Size = New System.Drawing.Size(80, 17)
         Me.chkBatchRenditionAssetDetail.TabIndex = 4
@@ -562,7 +562,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionBarCode.AutoSize = True
         Me.chkBatchRenditionBarCode.Checked = True
         Me.chkBatchRenditionBarCode.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionBarCode.Location = New System.Drawing.Point(8, 20)
+        Me.chkBatchRenditionBarCode.Location = New System.Drawing.Point(8, 120)
         Me.chkBatchRenditionBarCode.Name = "chkBatchRenditionBarCode"
         Me.chkBatchRenditionBarCode.Size = New System.Drawing.Size(99, 17)
         Me.chkBatchRenditionBarCode.TabIndex = 0
@@ -918,7 +918,7 @@ Partial Class frmReportSelection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(869, 572)
+        Me.ClientSize = New System.Drawing.Size(1022, 572)
         Me.Controls.Add(Me.radioTaxAccrualSummary)
         Me.Controls.Add(Me.chkIdentifyFields)
         Me.Controls.Add(Me.chkShowCostAndFactors)

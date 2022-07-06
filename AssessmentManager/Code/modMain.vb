@@ -115,6 +115,7 @@ Module modMain
         enumAssetDetailLeaseholdImprovements
         enumAssetDetailLeasesAll
         enumTaxAccrualSummary
+        enumAssessorValueProtestEnvelope
     End Enum
     Public Enum enumContactTypes
         enumTax
@@ -209,6 +210,11 @@ Module modMain
         Extension = 16
         V1AGR = 17
         V1Lawsuit = 18
+    End Enum
+    Public Enum enumPropType
+        Both
+        BPP
+        Real
     End Enum
 
     Public Function StartApp() As Boolean
@@ -1096,13 +1102,13 @@ Module modMain
             Return False
         End Try
     End Function
-    Public Function AddTask(ByVal sName As String, ByVal sDate As String, ByRef sError As String) As Boolean
+    Public Function AddTask(ByVal sName As String, ByVal sDesc As String, ByRef sError As String) As Boolean
         Dim sSQL As String
 
         Try
-            sSQL = "insert TaskMasterList (TaskId,Name,TaskDate,AddUser,EntitySpecific)" & _
-                " select " & CreateID(enumTable.enumTaskMasterList) & "," & QuoStr(sName) & "," & _
-                QuoStr(sDate) & "," & QuoStr(AppData.UserId) & ",1"
+            sSQL = "insert TaskMasterList (TaskId,Name,Description,AddUser)" &
+                " select " & CreateID(enumTable.enumTaskMasterList) & "," & QuoStr(sName) & "," &
+                QuoStr(sDesc) & "," & QuoStr(AppData.UserId)
             If ExecuteSQL(sSQL) = 1 Then Return True
         Catch ex As Exception
             sError = ex.Message
@@ -1122,6 +1128,7 @@ Module modMain
         Dim sDescription As String = Trim(InputBox("Enter description"))
         Dim sVIN As String = Trim(InputBox("Enter VIN"))
         Dim sAddress As String = Trim(InputBox("Enter location address"))
+        Dim sActivityQty As String = Trim(InputBox("Enter activity quantity (mileage/hours)"))
         Dim sError As String = ""
         Dim Asset As structAsset
 
@@ -1136,6 +1143,7 @@ Module modMain
         Asset.sDescription = sDescription
         Asset.sVIN = sVIN
         Asset.sLocationAddress = sAddress
+        Asset.ActivityQty = sActivityQty
 
         If Not CreateAsset(Asset, True, sError) Then
             MsgBox("Error creating asset:  " & sError)
@@ -2047,6 +2055,15 @@ Module modMain
             If lAssessmentId > 0 Then sSQL = sSQL & " AND t1.AssessmentId = " & lAssessmentId
             lRows = ExecuteSQL(sSQL)
 
+            sSQL = "INSERT AssessmentsBPPComments (ClientId,LocationId,AssessmentId,TaxYear,CommentType,Comment,AddUser,AddDate,ChangeDate,ChangeUser,ChangeType)" &
+                " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId," & iToYear & "," &
+                " t1.CommentType,t1.Comment,t1.AddUser,t1.AddDate,t1.ChangeDate,t1.ChangeUser,t1.ChangeType" &
+                " FROM AssessmentsBPPComments t1 WHERE t1.TaxYear = " & iFromYear
+            If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
+            If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId
+            If lAssessmentId > 0 Then sSQL = sSQL & " AND t1.AssessmentId = " & lAssessmentId
+            lRows = ExecuteSQL(sSQL)
+
             sSQL = "INSERT AssessmentDetailBPP (ClientId,LocationId,AssessmentId,JurisdictionId,TaxYear,AddUser)" & _
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId,t1.JurisdictionId," & iToYear & "," & QuoStr(AppData.UserId) & _
                 " FROM AssessmentDetailBPP t1 WHERE t1.TaxYear = " & iFromYear & _
@@ -2071,10 +2088,12 @@ Module modMain
 
 
             sSQL = "INSERT AssessmentsRE (ClientId,LocationId,AssessmentId,TaxYear,AssessorId,AcctNum,Comment,InactiveFl," &
-                " AddUser,SavingsExclusionCd,OccupiedStatus,ParentAssessmentId,BusinessUnitId)" &
+                " AddUser,SavingsExclusionCd,OccupiedStatus,ParentAssessmentId,BusinessUnitId," &
+                " BuildingType,BuildingClass,BuildingSqFt,NetLeasableSqFt,GrossLeasableSqFt,YearBuilt,EffYearBuilt,LandSqFt,ExcessLandSqFt,ConstructionType)" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId," & iToYear & "," &
                 " t1.AssessorId,t1.AcctNum,t1.Comment,t1.InactiveFl," &
-                QuoStr(AppData.UserId) & ",t1.SavingsExclusionCd,t1.OccupiedStatus,t1.ParentAssessmentId,t1.BusinessUnitId" &
+                QuoStr(AppData.UserId) & ",t1.SavingsExclusionCd,t1.OccupiedStatus,t1.ParentAssessmentId,t1.BusinessUnitId," &
+                " t1.BuildingType,t1.BuildingClass,t1.BuildingSqFt,t1.NetLeasableSqFt,t1.GrossLeasableSqFt,t1.YearBuilt,t1.EffYearBuilt,t1.LandSqFt,t1.ExcessLandSqFt,t1.ConstructionType" &
                 " FROM AssessmentsRE t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM AssessmentsRE t2" &
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
@@ -2097,11 +2116,11 @@ Module modMain
             lRows = ExecuteSQL(sSQL)
 
             sSQL = "INSERT Assets (ClientId,LocationId,AssessmentId,AssetId,TaxYear,OriginalCost,PurchaseDate,Description," &
-                " GLCode,AddUser,VIN,LocationAddress,AllocationPct,LessorName,LessorAddress,LeaseTerm,EquipmentMake,EquipmentModel,LeaseType)" &
+                " GLCode,AddUser,VIN,LocationAddress,AllocationPct,LessorName,LessorAddress,LeaseTerm,EquipmentMake,EquipmentModel,LeaseType,AuditFl,ActivityQty)" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId,t1.AssetId," & iToYear & "," &
                 " t1.OriginalCost,t1.PurchaseDate,t1.Description,t1.GLCode," &
                 QuoStr(AppData.UserId) & ",t1.VIN, t1.LocationAddress,t1.AllocationPct," &
-                " t1.LessorName,t1.LessorAddress,t1.LeaseTerm,t1.EquipmentMake,t1.EquipmentModel,t1.LeaseType" &
+                " t1.LessorName,t1.LessorAddress,t1.LeaseTerm,t1.EquipmentMake,t1.EquipmentModel,t1.LeaseType,t1.AuditFl,t1.ActivityQty" &
                 " FROM Assets t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM Assets t2" &
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId AND t2.AssessmentId = t1.AssessmentId" &

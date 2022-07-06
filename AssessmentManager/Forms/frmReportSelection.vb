@@ -213,27 +213,26 @@
                                 sTempFolder = AppData.TempPath & "\batchprintrendition_" & structAssess.AssessmentId & "_" & DateTime.Now.Ticks
                                 If IO.Directory.Exists(sTempFolder) Then IO.Directory.Delete(sTempFolder, True)
                                 IO.Directory.CreateDirectory(sTempFolder)
-                                If chkBatchRenditionBarCode.Checked Then _
-                                        PrintAccount(enumReport.enumBarCode, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
-                                        iSuppress, sTempFolder, eContactType, enumBarCodeTypes.Rendition, False, False, True, "1", identifyfields)
-                                If chkBatchRenditionAssessor.Checked Then _
-                                        PrintAccount(enumReport.enumAssessorCover, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
-                                        iSuppress, sTempFolder, eContactType, eBarCodeType, False, False, True, "2", False, False, identifyfields)
-                                If chkBatchRenditionCert.Checked Then _
-                                        OpenForm(enumReport.enumCertificateOfMailing, structAssess.ClientId, structAssess.LocationId,
-                                            structAssess.AssessmentId, structAssess.TaxYear, structAssess.AssessorId, structAssess.StateCd, "", False,
-                                            enumTable.enumLocationBPP, sTempFolder, "3", True, identifyfields, "")
                                 If chkBatchRenditionRendition.Checked Then _
                                         OpenForm(enumReport.enumRenditionForm, structAssess.ClientId, structAssess.LocationId,
                                             structAssess.AssessmentId, structAssess.TaxYear, structAssess.AssessorId, structAssess.StateCd, "", False,
-                                            enumTable.enumLocationBPP, sTempFolder, "4", True, identifyfields, "")
-                                If chkBatchRenditionAssetDetail.Checked Then _
-                                        PrintAccount(enumReport.enumAssetDetail, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
-                                        iSuppress, sTempFolder, eContactType, eBarCodeType, False, False, True, "5", chkIncludeZeroBatch.Checked, False, identifyfields)
+                                            enumTable.enumLocationBPP, sTempFolder, "1", True, identifyfields, "")
                                 If chkBatchRenditionAssetSummary.Checked Then _
                                         PrintAccount(enumReport.enumAssetSummary, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
-                                        iSuppress, sTempFolder, eContactType, eBarCodeType, False, False, True, "6", False, chkShowCostBatch.Checked, identifyfields)
-
+                                        iSuppress, sTempFolder, eContactType, eBarCodeType, False, False, True, "2", False, chkShowCostBatch.Checked, identifyfields)
+                                If chkBatchRenditionAssetDetail.Checked Then _
+                                        PrintAccount(enumReport.enumAssetDetail, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
+                                        iSuppress, sTempFolder, eContactType, eBarCodeType, False, False, True, "3", chkIncludeZeroBatch.Checked, False, identifyfields)
+                                If chkBatchRenditionAssessor.Checked Then _
+                                        PrintAccount(enumReport.enumAssessorCover, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
+                                        iSuppress, sTempFolder, eContactType, eBarCodeType, False, False, True, "4", False, False, identifyfields)
+                                If chkBatchRenditionCert.Checked Then _
+                                        OpenForm(enumReport.enumCertificateOfMailing, structAssess.ClientId, structAssess.LocationId,
+                                            structAssess.AssessmentId, structAssess.TaxYear, structAssess.AssessorId, structAssess.StateCd, "", False,
+                                            enumTable.enumLocationBPP, sTempFolder, "5", True, identifyfields, "")
+                                If chkBatchRenditionBarCode.Checked Then _
+                                        PrintAccount(enumReport.enumBarCode, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
+                                        iSuppress, sTempFolder, eContactType, enumBarCodeTypes.Rendition, False, False, True, "6", identifyfields)
                                 Dim sCombinedFile As String = sTempFolder & "\" & CleanFileName(structAssess.Description & "_RenditionBatch.pdf")
                                 Dim listFiles As List(Of String) = IO.Directory.GetFiles(sTempFolder, "*.pdf", IO.SearchOption.TopDirectoryOnly).ToList
                                 If ConcatPages(listFiles, sCombinedFile) Then
@@ -289,7 +288,7 @@
             eContactType As enumContactTypes, eBarCodeType As enumBarCodeTypes, bPrintCoverPage As Boolean, bSendToPrinter As Boolean,
             bJustCreatePDF As Boolean, sFileNamePrefix As String, identifyfields As Boolean)
         PrintAccount(eReportType, structAssess, lFactorEntityId, bPrintClientScheduleOnly, iSuppress, sExportFolder,
-            eContactType, eBarCodeType, bPrintCoverPage, bSendToPrinter, bJustCreatePDF, sFileNamePrefix, False, identifyfields)
+            eContactType, eBarCodeType, bPrintCoverPage, bSendToPrinter, bJustCreatePDF, sFileNamePrefix, False, False, identifyfields)
     End Sub
     Private Sub PrintAccount(eReportType As enumReport, structAssess As structAssessment, lFactorEntityId As Long,
             bPrintClientScheduleOnly As Boolean, iSuppress As Integer, sExportFolder As String,
