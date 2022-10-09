@@ -163,15 +163,15 @@
         bAllStates = chkStates.Checked
 
 
-        If SaveTaskAssignment(lTaskId, lClientId, lBPPLocationId, lRELocationId, lAssessmentId, lAssessorId, lJurisdictionId, _
-                lCollectorId, sStateCd, bAllClients, _
-                bBPPLocations, bRELocations, bAllLocations, bAllAssessments, bAllAssessors, _
-                bAllJurisdictions, bAllCollectors, bAllStates, sMsg) Then
-            MsgBox("Task assignment saved")
-            ClearAssignments()
-        Else
-            MsgBox(sMsg)
-        End If
+        'If SaveTaskAssignment(lTaskId, lClientId, lBPPLocationId, lRELocationId, lAssessmentId, lAssessorId, lJurisdictionId, _
+        '        lCollectorId, sStateCd, bAllClients, _
+        '        bBPPLocations, bRELocations, bAllLocations, bAllAssessments, bAllAssessors, _
+        '        bAllJurisdictions, bAllCollectors, bAllStates, sMsg) Then
+        '    MsgBox("Task assignment saved")
+        '    ClearAssignments()
+        'Else
+        '    MsgBox(sMsg)
+        'End If
 
 
     End Sub

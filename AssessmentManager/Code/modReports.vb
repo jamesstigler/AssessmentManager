@@ -1535,70 +1535,45 @@
 
                 ElseIf eType = enumReport.enumREComp Then
                     clsReport = New clsReportData
-                    For Each row In dt.Rows
-                        clsReport.Title01 = AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")
-                        clsReport.Text01 = row("AcctNum")
-                        clsReport.Text02 = row("StreetName")
-                        clsReport.Text03 = row("BusinessName")
-                        clsReport.Text04 = row("BuildingClass")
-                        clsReport.Text05 = row("Mapsco")
-                        clsReport.Text06 = row("NeighborhoodGroup")
-                        clsReport.Text07 = row("EconomicArea")
-                        clsReport.Text08 = row("ComparabilityCode")
-                        clsReport.Text09 = IIf(row("DateSwitch") = 1, "Date:  " & Now.ToString("M/d/yyyy"), "")
-                        clsReport.Text10 = IIf(row("SortField") = 1, "", "Comparison Account")
-                        clsReport.Text11 = row("AppraisalMethod")
-                        clsReport.Text12 = row("PricingMethod")
-                        clsReport.Text13 = row("EffectiveYear")
-                        clsReport.Text14 = row("ConstructionType")
-                        clsReport.Number01 = row("BuildingSqFt")
-                        clsReport.Number02 = row("LandSqFt")
-                        clsReport.Number03 = row("YearBuilt")
-                        clsReport.Number04 = row("LandValue")
-                        clsReport.Number05 = row("ImprovementValue")
-                        clsReport.Number06 = row("TotalValue")
-                        clsReport.Number07 = row("LandValuePerSqFt")
-                        clsReport.Number08 = row("ImprovementValuePerSqFt")
-                        clsReport.Number09 = row("TotalValuePerSqFt")
-                        clsReport.Number10 = row("LandBuildingRatio")
-                        clsReport.Number11 = row("NumberOfUnits")
-                        clsReport.Number12 = row("TotalValuePerUnit")
-                        clsReport.Number13 = row("AVGLandValueSqFt")
-                        clsReport.Number14 = row("AVGImproveValSqFt")
-                        clsReport.Number15 = row("AVGTotalValueSqFt")
-                        clsReport.Number16 = row("AVGTotalValueUnit")
-                        clsReport.Number17 = IIf(row("SortField") = 0, 1, 0)
-                        clsReport.Number18 = dt.Rows.Count - 1
-                        clsReport.Number19 = row("AVGLandBldgRatio")
+                For Each row In dt.Rows
+                    clsReport.Title01 = AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")
+                    clsReport.Text01 = row("AcctNum")
+                    clsReport.Text02 = row("StreetName")
+                    clsReport.Text03 = row("BusinessName")
+                    clsReport.Text04 = row("BuildingClass")
+                    clsReport.Text05 = row("Mapsco")
+                    clsReport.Text06 = row("NeighborhoodGroup")
+                    clsReport.Text07 = row("EconomicArea")
+                    clsReport.Text08 = row("ComparabilityCode")
+                    clsReport.Text09 = IIf(row("DateSwitch") = 1, "Date:  " & Now.ToString("M/d/yyyy"), "")
+                    clsReport.Text10 = IIf(row("SortField") = 1, "", "Comparison Account")
+                    clsReport.Text11 = row("AppraisalMethod")
+                    clsReport.Text12 = row("PricingMethod")
+                    clsReport.Text13 = row("EffectiveYear")
+                    clsReport.Text14 = row("ConstructionType")
+                    clsReport.Number01 = row("BuildingSqFt")
+                    clsReport.Number02 = row("LandSqFt")
+                    clsReport.Number03 = row("YearBuilt")
+                    clsReport.Number04 = row("LandValue")
+                    clsReport.Number05 = row("ImprovementValue")
+                    clsReport.Number06 = row("TotalValue")
+                    clsReport.Number07 = row("LandValuePerSqFt")
+                    clsReport.Number08 = row("ImprovementValuePerSqFt")
+                    clsReport.Number09 = row("TotalValuePerSqFt")
+                    clsReport.Number10 = row("LandBuildingRatio")
+                    clsReport.Number11 = row("NumberOfUnits")
+                    clsReport.Number12 = row("TotalValuePerUnit")
+                    clsReport.Number13 = row("AVGLandValueSqFt")
+                    clsReport.Number14 = row("AVGImproveValSqFt")
+                    clsReport.Number15 = row("AVGTotalValueSqFt")
+                    clsReport.Number16 = row("AVGTotalValueUnit")
+                    clsReport.Number17 = IIf(row("SortField") = 0, 1, 0)
+                    clsReport.Number18 = dt.Rows.Count - 1
+                    clsReport.Number19 = row("AVGLandBldgRatio")
 
-                        clsReport.WriteReportData()
-                    Next
-
-
-
-
-
-                    'For Each row In dt.Rows
-                    '    sSQL = "INSERT INTO ReportData (UserName,ReportId,Title01,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10," &
-                    '        "Text11,Text12,Text13,Text14," &
-                    '        "Number01,Number02,Number03,Number04,Number05,Number06,Number07,Number08,Number09,Number10,Number11,Number12,Number13,Number14," &
-                    '        "Number15,Number16,Number17,Number18,Number19)"
-                    '    sSQL = sSQL & " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                    '        QuoStr(AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")) & "," &
-                    '        QuoStr(row("AcctNum")) & "," & QuoStr(row("StreetName")) & "," & QuoStr(row("BusinessName")) & "," &
-                    '        QuoStr(row("BuildingClass")) & "," & QuoStr(row("Mapsco")) & "," & QuoStr(row("NeighborhoodGroup")) & "," &
-                    '        QuoStr(row("EconomicArea")) & "," & QuoStr(row("ComparabilityCode")) & "," &
-
-                    '        QuoStr(IIf(row("DateSwitch") = 1, "Date:  " & Now.ToString("M/d/yyyy"), "")) & "," &
-                    '        QuoStr(IIf(row("SortField") = 1, "", "Comparison Account")) & ","
-                    '    sSQL = sSQL & row("BuildingSqFt") & "," & row("LandSqFt") & "," & row("YearBuilt") & "," & row("LandValue") & "," & row("ImprovementValue") & "," &
-                    '        row("TotalValue") & "," & row("LandValuePerSqFt") & "," & row("ImprovementValuePerSqFt") & "," & row("TotalValuePerSqFt") & "," &
-                    '        row("LandBuildingRatio") & "," & row("NumberOfUnits") & "," & row("TotalValuePerUnit") & "," & row("AVGLandValueSqFt") & "," &
-                    '        row("AVGImproveValSqFt") & "," & row("AVGTotalValueSqFt") & "," & row("AVGTotalValueUnit") & "," & IIf(row("SortField") = 0, 1, 0) & "," &
-                    '        dt.Rows.Count - 1 & "," & row("AVGLandBldgRatio")
-                    '    ExecuteSQL(sSQL)
-                    'Next
-                ElseIf eType = enumReport.enumBPPCompBarCode Then
+                    clsReport.WriteReportData()
+                Next
+            ElseIf eType = enumReport.enumBPPCompBarCode Then
                     clsReport = New clsReportData
                     For Each row In dt.Rows
                         clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.BPPComps, row("CompID"))

@@ -1,125 +1,68 @@
 ﻿Module modTasks
-    Public Function SaveTaskAssignment(ByVal lTaskId As Long, ByVal lClientId As Long, _
-            ByVal lBPPLocationId As Long, ByVal lRELocationId As Long, _
-            ByVal lAssessmentId As Long, ByVal lAssessorId As Long, ByVal lJurisdictionId As Long, _
-            ByVal lCollectorId As Long, ByVal sStateCd As String, ByVal bAllClients As Boolean, _
-            ByVal bBPPLocations As Boolean, ByVal bRELocations As Boolean, ByVal bAllLocations As Boolean, _
-            ByVal bAllAssessments As Boolean, ByVal bAllAssessors As Boolean, _
-            ByVal bAllJurisdictions As Boolean, ByVal bAllCollectors As Boolean, ByVal bAllStates As Boolean, _
-            ByRef sMsg As String) As Boolean
-
-        Dim sSQL As String = "", lId As Long = 0
-        Dim sAuditField As String = ", AddUser)"
-        Dim sAuditValue As String = "," & QuoStr(AppData.UserId)
-
+    Public Function SaveTaskAssignment(ByVal taxyear As Integer, ByVal taskid As String, proptype As String, taskdate As String, ByVal clientid As String,
+            ByVal locationid As String, ByVal assessmentid As String, ByRef msg As String) As Boolean
+        Dim sql As New StringBuilder
         Try
-            If lTaskId = 0 Then
-                sMsg = "No task to assign"
-                Return False
-            End If
-            lId = CreateID(enumTable.enumTaskAssignment)
-            If bAllClients Then                             'all clients
-                sSQL = "INSERT TaskAssignments (TaskAssignmentId,TaskId,AllClients" & sAuditField & _
-                    " SELECT " & lId & "," & lTaskId & ", 1" & sAuditValue
-            ElseIf lClientId > 0 And lBPPLocationId = 0 And lRELocationId = 0 Then
-                If bBPPLocations Then                       'single client, all bpp locations
-
-                ElseIf bRELocations Then                    'single client, all re locations
-
-                ElseIf bAllLocations Then                   'single client, all locations
-
-                ElseIf bAllAssessments Then                 'single client
-
-                Else                                        'single client
-                    sSQL = "INSERT TaskAssignments (TaskAssignmentId,TaskId, ClientId" & sAuditField & _
-                        " SELECT " & lId & "," & lTaskId & "," & lClientId & sAuditValue
-                End If
-
-            ElseIf lBPPLocationId > 0 And lAssessmentId = 0 Then
-                If lClientId = 0 Then
-                    sMsg = "No client specified"
-                    Return False
-                End If
-
-            ElseIf lRELocationId > 0 And lAssessmentId = 0 Then
-                If lClientId = 0 Then
-                    sMsg = "No client specified"
-                    Return False
-                End If
-
-            ElseIf lAssessmentId > 0 Then
-                If lClientId = 0 Or (lBPPLocationId = 0 And lRELocationId = 0) Then
-                    sMsg = "No client or location specified"
-                    Return False
-                End If
-                sSQL = "INSERT TaskAssignments" & IIf(lBPPLocationId > 0, "BPP", "RE") & _
-                    " (TaskAssignmentId,TaskId,ClientId,LocationId,AssessmentId,AddUser)" & _
-                    " SELECT " & lId & "," & lTaskId & "," & lClientId & "," & _
-                    IIf(lBPPLocationId > 0, lBPPLocationId, lRELocationId) & "," & _
-                    lAssessmentId & "," & QuoStr(AppData.UserId)
-            ElseIf lAssessorId > 0 Then
-                sSQL = "INSERT TaskAssignments (TaskAssignmentId,TaskId, AssessorId" & sAuditField & _
-                    " SELECT " & lId & "," & lTaskId & "," & lAssessorId & sAuditValue
-            ElseIf lJurisdictionId > 0 Then
-                sSQL = "INSERT TaskAssignments (TaskAssignmentId,TaskId, JurisdictionId" & sAuditField & _
-                    " SELECT " & lId & "," & lTaskId & "," & lJurisdictionId & sAuditValue
-            ElseIf lCollectorId > 0 Then
-                sSQL = "INSERT TaskAssignments (TaskAssignmentId,TaskId, CollectorId" & sAuditField & _
-                    " SELECT " & lId & "," & lTaskId & "," & lCollectorId & sAuditValue
-            ElseIf sStateCd <> "" Then
-                sSQL = "INSERT TaskAssignments (TaskAssignmentId,TaskId, StateCd" & sAuditField & _
-                    " SELECT " & lId & "," & lTaskId & "," & QuoStr(sStateCd) & sAuditValue
-            End If
-
-            If sSQL = "" Then
-                sMsg = "Task could not be saved"
-                Return False
-            Else
-                ExecuteSQL(sSQL)
-                Return True
-            End If
-
+            sql.Append(" INSERT TaskAssignments (TaskId,PropType,ClientId,LocationId,AssessmentId,TaxYear,TaskDate,AddUser)")
+            sql.Append(" SELECT ").Append(taskid).Append(",").Append(QuoStr(proptype)).Append(",").Append(clientid)
+            sql.Append(",").Append(locationid).Append(",").Append(assessmentid).Append(",").Append(taxyear)
+            sql.Append(",").Append(QuoStr(taskdate))
+            sql.Append(",").Append(QuoStr(AppData.UserId))
+            sql.Append(" WHERE NOT EXISTS (SELECT ta2.TaskId FROM TaskAssignments ta2 WHERE ta2.TaskId = ").Append(taskid)
+            sql.Append(" AND ta2.PropType = ").Append(QuoStr(proptype))
+            sql.Append(" AND ta2.TaxYear = ").Append(taxyear)
+            sql.Append(" AND ta2.ClientId = ").Append(clientid)
+            sql.Append(" AND ta2.LocationId = ").Append(locationid)
+            sql.Append(" AND ta2.AssessmentId = ").Append(assessmentid).Append(")")
+            ExecuteSQL(sql.ToString)
+            Return True
         Catch ex As Exception
             MsgBox("Error assigning task:  " & ex.Message)
             Return False
         End Try
-
     End Function
 
+    Public Function BuildTaskAssignmentQuery()
+        Return BuildTaskAssignmentQuery(enumPropType.Both, 0, 0, 0, 0)
+    End Function
     Public Function BuildTaskAssignmentQuery(proptype As enumPropType, clientid As Long, locationid As Long, assessmentid As Long, taxyear As Integer) As String
-        'Dim sql As New StringBuilder
+        Dim sql As New StringBuilder
 
-        'sql.Append("SELECT ta.TaskId, tm.Name, tm.Description, ta.TaskDate, ta.Notes, ta.Email, ta.Website, ta.CompletedFl, ta.CompletedDate, ta.Priority, ta.ContactInfo")
-        'sql.Append(",ISNULL(ta.ClientId,0) AS ClientId, ISNULL(ta.LocationId,0) AS LocationId, ISNULL(ta.AssessmentId,0) AS AssessmentId,ta.TaxYear, ta.PropType")
-        'sql.Append(" FROM TaskAssignments ta, TaskMasterList tm WHERE ta.TaskId = tm.TaskId")
-        'If proptype = enumPropType.BPP Then sql.Append(" AND ta.PropType='P' AND ta.ClientId= )
+        sql.Append("SELECT tm.TaskId, tm.Name AS TaskName, tm.Description AS TaskDescription, ta.PropType, ta.ClientId, ta.LocationId, ta.AssessmentId, ta.TaxYear,")
+        sql.Append(" ta.TaskDate, ta.Notes AS TaskNotes, ta.Email AS TaskEmail, ta.Website AS TaskWebsite, ta.CompletedFl AS TaskCompletedFl, ta.CompletedDate AS TaskCompletedDate,")
+        sql.Append(" ta.Priority AS TaskPriority, ta.ContactInfo AS TaskContactInfo, c.Name As ClientName, l.Address, l.City, l.StateCd, l.ClientLocationId, l.ConsultantName,")
+        sql.Append(" c.ClientCoordinatorName, c.BPPConsultantName AS ConsultantName, a.AcctNum, 'BPP' AS PropertyType")
+        sql.Append(" FROM LocationsBPP AS l")
+        sql.Append(" INNER JOIN Clients AS c ON l.ClientId = c.ClientId")
+        sql.Append(" INNER JOIN AssessmentsBPP AS a ON l.ClientId = a.ClientId And l.LocationId = a.LocationId And l.TaxYear = a.TaxYear")
+        sql.Append(" INNER JOIN TaskMasterList AS tm")
+        sql.Append(" INNER JOIN TaskAssignments AS ta ON tm.TaskId = ta.TaskId ON a.ClientId = ta.ClientId And a.LocationId = ta.LocationId")
+        sql.Append(" And a.AssessmentId = ta.AssessmentId And a.TaxYear = ta.TaxYear")
+        sql.Append(" WHERE ta.PropType = 'P'")
+        If proptype = enumPropType.BPP Then
+            If clientid <> 0 Then sql.Append(" AND a.ClientId = ").Append(clientid.ToString)
+            If locationid <> 0 Then sql.Append(" AND a.LocationId = ").Append(locationid.ToString)
+            If assessmentid <> 0 Then sql.Append(" AND a.AssessmentId = ").Append(assessmentid.ToString)
+        End If
 
-        ''If GetData(sSQL, dt) = 0 Then Return ""
-        Dim sReturnSQL as string = ""
+        sql.Append(" UNION SELECT tm.TaskId, tm.Name AS TaskName, tm.Description AS TaskDescription, ta.PropType, ta.ClientId, ta.LocationId, ta.AssessmentId, ta.TaxYear,")
+        sql.Append(" ta.TaskDate, ta.Notes AS TaskNotes, ta.Email AS TaskEmail, ta.Website AS TaskWebsite, ta.CompletedFl AS TaskCompletedFl, ta.CompletedDate AS TaskCompletedDate,")
+        sql.Append(" ta.Priority AS TaskPriority, ta.ContactInfo AS TaskContactInfo, c.Name As ClientName, l.Address, l.City, l.StateCd, l.ClientLocationId, l.ConsultantName,")
+        sql.Append(" c.ClientCoordinatorName, c.REConsultantName AS ConsultantName, a.AcctNum, 'Real' AS PropertyType")
+        sql.Append(" FROM LocationsRE AS l")
+        sql.Append(" INNER JOIN Clients AS c ON l.ClientId = c.ClientId")
+        sql.Append(" INNER JOIN AssessmentsRE AS a ON l.ClientId = a.ClientId And l.LocationId = a.LocationId And l.TaxYear = a.TaxYear")
+        sql.Append(" INNER JOIN TaskMasterList AS tm")
+        sql.Append(" INNER JOIN TaskAssignments AS ta ON tm.TaskId = ta.TaskId ON a.ClientId = ta.ClientId And a.LocationId = ta.LocationId")
+        sql.Append(" And a.AssessmentId = ta.AssessmentId And a.TaxYear = ta.TaxYear")
+        sql.Append(" WHERE ta.PropType = 'R'")
+        If proptype = enumPropType.Real Then
+            If clientid <> 0 Then sql.Append(" AND a.ClientId = ").Append(clientid.ToString)
+            If locationid <> 0 Then sql.Append(" AND a.LocationId = ").Append(locationid.ToString)
+            If assessmentid <> 0 Then sql.Append(" AND a.AssessmentId = ").Append(assessmentid.ToString)
+        End If
 
-        ''''''''For Each dr As DataRow In dt.Rows
-        ''''''''    sSQL = ""
-        ''''''''    If dr("AllClients") Then
-        ''''''''        sSQL = "'Client Task' AS TaskType, c.ClientId, c.Name AS Clients_Name, te2.TaskDate AS TaskEvents_TaskDate," &
-        ''''''''            " te2.Comment AS TaskEvents_Comment" &
-        ''''''''            " FROM Clients AS c LEFT OUTER JOIN (SELECT TaskId, TaskDate, Comment, ClientId" &
-        ''''''''            " FROM TaskEvents AS te WHERE TaskId = " & dr("TaskId") & ") AS te2 ON c.ClientId = te2.ClientId"
-        ''''''''        sSQL = sSQL & " WHERE ISNULL(c.ProspectFl,0) = 0"
+        Return sql.ToString
 
-        ''''''''ElseIf dr("ClientId") > 0 And dr("LocationId") = 0 Then
-
-        ''''''''End If
-
-
-        ''''''''If sSQL <> "" Then
-        ''''''''    sSQL = " SELECT " & dr("TaskAssignmentId") & " AS TaskAssignmentId " & "," & dr("TaskId") & " AS TaskId," &
-        ''''''''        QuoStr(dr("TaskMasterList_Name")) & " AS TaskName, " & QuoStr(dr("TaskDate")) & " AS TaskDate," &
-        ''''''''        QuoStr(dr("TaskMasterList_Description")) & " AS TaskDescription," & sSQL
-        ''''''''    If sReturnSQL <> "" Then sReturnSQL = sReturnSQL & " UNION "
-        ''''''''    sReturnSQL = sReturnSQL & sSQL
-        ''''''''End If
-        ''''''''Next
-
-        Return sReturnSQL
     End Function
 End Module

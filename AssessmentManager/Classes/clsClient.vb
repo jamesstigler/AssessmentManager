@@ -117,7 +117,7 @@ Public Class clsClient
         Try
             m_Address = "" : m_City = "" : m_Fax = "" : m_Name = "" : m_Phone = "" : m_StateCd = "" : m_Zip = ""
             sError = ""
-            sSQL = "SELECT * FROM Clients WHERE ClientId = " & m_ClientId
+            sSQL = "SELECT c.*, (select a.AgencyName FROM Agencies a WHERE a.AgencyId = c.AgencyId) AS AgencyName FROM Clients c WHERE c.ClientId = " & m_ClientId
             If GetData(sSQL, m_ResultSet) > 0 Then
                 Dim dr As DataRow = m_ResultSet.Rows(0)
                 m_Address = UnNullToString(dr("Address"))

@@ -184,6 +184,8 @@
                     sSQL = "SELECT QueryId FROM UserQuery WHERE QueryId = " & lID
                 ElseIf eTable = enumTable.enumBusinessUnits Then
                     sSQL = "SELECT BusinessUnitId FROM BusinessUnits WHERE BusinessUnitId = " & lID
+                ElseIf eTable = enumTable.enumAgency Then
+                    sSQL = "SELECT AgencyId FROM Agencies WHERE AgencyId = " & lID
                 End If
                 If GetData(sSQL, dt) = 0 Then Exit Do
             End If

@@ -196,6 +196,7 @@ Partial Class MDIParent1
         Me.ToolStripSeparator20 = New System.Windows.Forms.ToolStripSeparator()
         Me.buttonImportAssets = New System.Windows.Forms.ToolStripButton()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.mnuOptionsAgencies = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
@@ -945,7 +946,7 @@ Partial Class MDIParent1
         '
         'mnuOptions
         '
-        Me.mnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOptionsTaxYear, Me.mnuOptionsDB, Me.mnuOptionsIncludeInactive, Me.mnuOptionsAgency, Me.mnuOptionsConsultants})
+        Me.mnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOptionsTaxYear, Me.mnuOptionsDB, Me.mnuOptionsIncludeInactive, Me.mnuOptionsAgency, Me.mnuOptionsConsultants, Me.mnuOptionsAgencies})
         Me.mnuOptions.Name = "mnuOptions"
         Me.mnuOptions.Size = New System.Drawing.Size(61, 20)
         Me.mnuOptions.Text = "Options"
@@ -1326,6 +1327,12 @@ Partial Class MDIParent1
         '
         Me.Timer1.Interval = 5000
         '
+        'mnuOptionsAgencies
+        '
+        Me.mnuOptionsAgencies.Name = "mnuOptionsAgencies"
+        Me.mnuOptionsAgencies.Size = New System.Drawing.Size(204, 22)
+        Me.mnuOptionsAgencies.Text = "Manage Agencies"
+        '
         'MDIParent1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1521,4 +1528,5 @@ Partial Class MDIParent1
     Friend WithEvents mnuRECompsImportCounty As ToolStripMenuItem
     Friend WithEvents mnuOptionsTaxYear2021 As ToolStripMenuItem
     Friend WithEvents mnuOptionsTaxYear2022 As ToolStripMenuItem
+    Friend WithEvents mnuOptionsAgencies As ToolStripMenuItem
 End Class

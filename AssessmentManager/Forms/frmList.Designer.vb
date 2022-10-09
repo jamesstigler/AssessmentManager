@@ -33,6 +33,7 @@ Partial Class frmList
         Me.mnuContextSetECUParent = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetBusinessUnit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetConsultantName = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextAssignTask = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextImportTaxBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextViewTaxBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextModifyQuery = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,6 +57,7 @@ Partial Class frmList
         Me.mnuContextSetRenditionServiceLevel = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetRenditionInterstateAllocation = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetLeaseInfo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextSetAgency = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetRenditionAuditFl = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.cboSortType3 = New System.Windows.Forms.ComboBox()
@@ -137,6 +139,16 @@ Partial Class frmList
         Me.lblInv = New System.Windows.Forms.Label()
         Me.txtInv = New System.Windows.Forms.TextBox()
         Me.txtFixed = New System.Windows.Forms.TextBox()
+        Me.pnlAgency = New System.Windows.Forms.Panel()
+        Me.cmdAgencyCancel = New System.Windows.Forms.Button()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.cmdAgencyOK = New System.Windows.Forms.Button()
+        Me.cboAgency = New System.Windows.Forms.ComboBox()
+        Me.pnlTask = New System.Windows.Forms.Panel()
+        Me.cmdTaskCancel = New System.Windows.Forms.Button()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.cmdTaskOK = New System.Windows.Forms.Button()
+        Me.cboTask = New System.Windows.Forms.ComboBox()
         Me.pnlAuditFl = New System.Windows.Forms.Panel()
         Me.cmdAuditFlCancel = New System.Windows.Forms.Button()
         Me.chkAuditFl = New System.Windows.Forms.CheckBox()
@@ -190,6 +202,8 @@ Partial Class frmList
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.pnlAgency.SuspendLayout()
+        Me.pnlTask.SuspendLayout()
         Me.pnlAuditFl.SuspendLayout()
         Me.pnlLeaseInfo.SuspendLayout()
         Me.pnlConsultantName.SuspendLayout()
@@ -222,9 +236,9 @@ Partial Class frmList
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextDeleteAssets, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.mnuContextImportAssets, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextDeleteAssets, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetAgency, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextAssignTask, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.mnuContextImportAssets, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 697)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 741)
         '
         'mnuContextCopy
         '
@@ -276,6 +290,13 @@ Partial Class frmList
         Me.mnuContextSetConsultantName.Name = "mnuContextSetConsultantName"
         Me.mnuContextSetConsultantName.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetConsultantName.Text = "Set Consultant Name"
+        '
+        'mnuContextAssignTask
+        '
+        Me.mnuContextAssignTask.Name = "mnuContextAssignTask"
+        Me.mnuContextAssignTask.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextAssignTask.Text = "Assign Task"
+        Me.mnuContextAssignTask.Visible = False
         '
         'mnuContextImportTaxBill
         '
@@ -426,6 +447,12 @@ Partial Class frmList
         Me.mnuContextSetLeaseInfo.Name = "mnuContextSetLeaseInfo"
         Me.mnuContextSetLeaseInfo.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeaseInfo.Text = "Set Lease Information"
+        '
+        'mnuContextSetAgency
+        '
+        Me.mnuContextSetAgency.Name = "mnuContextSetAgency"
+        Me.mnuContextSetAgency.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextSetAgency.Text = "Set Agency"
         '
         'mnuContextSetRenditionAuditFl
         '
@@ -1246,6 +1273,8 @@ Partial Class frmList
         '
         'SplitContainer1.Panel2
         '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlAgency)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlTask)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlAuditFl)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlLeaseInfo)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlSolicitType)
@@ -1345,6 +1374,112 @@ Partial Class frmList
         Me.txtFixed.TabStop = False
         Me.txtFixed.Text = "txtFixed"
         Me.txtFixed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'pnlAgency
+        '
+        Me.pnlAgency.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlAgency.Controls.Add(Me.cmdAgencyCancel)
+        Me.pnlAgency.Controls.Add(Me.Label20)
+        Me.pnlAgency.Controls.Add(Me.cmdAgencyOK)
+        Me.pnlAgency.Controls.Add(Me.cboAgency)
+        Me.pnlAgency.Location = New System.Drawing.Point(1001, 409)
+        Me.pnlAgency.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlAgency.Name = "pnlAgency"
+        Me.pnlAgency.Size = New System.Drawing.Size(340, 84)
+        Me.pnlAgency.TabIndex = 37
+        Me.pnlAgency.Visible = False
+        '
+        'cmdAgencyCancel
+        '
+        Me.cmdAgencyCancel.Location = New System.Drawing.Point(175, 40)
+        Me.cmdAgencyCancel.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdAgencyCancel.Name = "cmdAgencyCancel"
+        Me.cmdAgencyCancel.Size = New System.Drawing.Size(99, 28)
+        Me.cmdAgencyCancel.TabIndex = 23
+        Me.cmdAgencyCancel.Text = "Cancel"
+        Me.cmdAgencyCancel.UseVisualStyleBackColor = True
+        '
+        'Label20
+        '
+        Me.Label20.Location = New System.Drawing.Point(4, 10)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(71, 22)
+        Me.Label20.TabIndex = 22
+        Me.Label20.Text = "Agency"
+        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmdAgencyOK
+        '
+        Me.cmdAgencyOK.Location = New System.Drawing.Point(68, 40)
+        Me.cmdAgencyOK.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdAgencyOK.Name = "cmdAgencyOK"
+        Me.cmdAgencyOK.Size = New System.Drawing.Size(99, 28)
+        Me.cmdAgencyOK.TabIndex = 19
+        Me.cmdAgencyOK.Text = "OK"
+        Me.cmdAgencyOK.UseVisualStyleBackColor = True
+        '
+        'cboAgency
+        '
+        Me.cboAgency.FormattingEnabled = True
+        Me.cboAgency.Location = New System.Drawing.Point(83, 11)
+        Me.cboAgency.Margin = New System.Windows.Forms.Padding(4)
+        Me.cboAgency.Name = "cboAgency"
+        Me.cboAgency.Size = New System.Drawing.Size(246, 21)
+        Me.cboAgency.TabIndex = 4
+        '
+        'pnlTask
+        '
+        Me.pnlTask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTask.Controls.Add(Me.cmdTaskCancel)
+        Me.pnlTask.Controls.Add(Me.Label19)
+        Me.pnlTask.Controls.Add(Me.cmdTaskOK)
+        Me.pnlTask.Controls.Add(Me.cboTask)
+        Me.pnlTask.Location = New System.Drawing.Point(945, 309)
+        Me.pnlTask.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlTask.Name = "pnlTask"
+        Me.pnlTask.Size = New System.Drawing.Size(340, 84)
+        Me.pnlTask.TabIndex = 36
+        Me.pnlTask.Visible = False
+        '
+        'cmdTaskCancel
+        '
+        Me.cmdTaskCancel.Location = New System.Drawing.Point(175, 40)
+        Me.cmdTaskCancel.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdTaskCancel.Name = "cmdTaskCancel"
+        Me.cmdTaskCancel.Size = New System.Drawing.Size(99, 28)
+        Me.cmdTaskCancel.TabIndex = 23
+        Me.cmdTaskCancel.Text = "Cancel"
+        Me.cmdTaskCancel.UseVisualStyleBackColor = True
+        '
+        'Label19
+        '
+        Me.Label19.Location = New System.Drawing.Point(20, 10)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(55, 22)
+        Me.Label19.TabIndex = 22
+        Me.Label19.Text = "Task"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmdTaskOK
+        '
+        Me.cmdTaskOK.Location = New System.Drawing.Point(68, 40)
+        Me.cmdTaskOK.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdTaskOK.Name = "cmdTaskOK"
+        Me.cmdTaskOK.Size = New System.Drawing.Size(99, 28)
+        Me.cmdTaskOK.TabIndex = 19
+        Me.cmdTaskOK.Text = "OK"
+        Me.cmdTaskOK.UseVisualStyleBackColor = True
+        '
+        'cboTask
+        '
+        Me.cboTask.FormattingEnabled = True
+        Me.cboTask.Location = New System.Drawing.Point(83, 11)
+        Me.cboTask.Margin = New System.Windows.Forms.Padding(4)
+        Me.cboTask.Name = "cboTask"
+        Me.cboTask.Size = New System.Drawing.Size(246, 21)
+        Me.cboTask.TabIndex = 4
         '
         'pnlAuditFl
         '
@@ -1754,6 +1889,8 @@ Partial Class frmList
         Me.SplitContainer1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.pnlAgency.ResumeLayout(False)
+        Me.pnlTask.ResumeLayout(False)
         Me.pnlAuditFl.ResumeLayout(False)
         Me.pnlAuditFl.PerformLayout()
         Me.pnlLeaseInfo.ResumeLayout(False)
@@ -1912,4 +2049,16 @@ Partial Class frmList
     Friend WithEvents lblInv As Label
     Friend WithEvents mnuContextImportAssets As ToolStripMenuItem
     Friend WithEvents mnuContextDeleteAssets As ToolStripMenuItem
+    Friend WithEvents pnlTask As Panel
+    Friend WithEvents cmdTaskCancel As Button
+    Friend WithEvents Label19 As Label
+    Friend WithEvents cmdTaskOK As Button
+    Friend WithEvents cboTask As ComboBox
+    Friend WithEvents mnuContextAssignTask As ToolStripMenuItem
+    Friend WithEvents pnlAgency As Panel
+    Friend WithEvents cmdAgencyCancel As Button
+    Friend WithEvents Label20 As Label
+    Friend WithEvents cmdAgencyOK As Button
+    Friend WithEvents cboAgency As ComboBox
+    Friend WithEvents mnuContextSetAgency As ToolStripMenuItem
 End Class

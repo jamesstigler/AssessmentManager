@@ -6,6 +6,7 @@
     Private bChanged As Boolean
     Private colLeadStatus As New Collection
     Private colSolicitType As New Collection
+    Private colAgencies As New Collection
     Private iMouseClickColIndex As Integer
     Private bContractExists As Boolean
     Private bProposalExists As Boolean
@@ -35,9 +36,9 @@
         colLeadStatus = New Collection
         colLeadStatus.Add("", "")
         cboLeadStatus.Items.Add("")
-        sSQL = "SELECT FieldValue FROM FieldDataDefinition" & _
-            " WHERE TableName = 'Clients'" & _
-            " AND FieldName = 'LeadStatus'" & _
+        sSQL = "SELECT FieldValue FROM FieldDataDefinition" &
+            " WHERE TableName = 'Clients'" &
+            " AND FieldName = 'LeadStatus'" &
             " ORDER BY FieldValue"
         GetData(sSQL, dt)
         For Each dr In dt.Rows
@@ -48,9 +49,9 @@
         colSolicitType = New Collection
         colSolicitType.Add("", "")
         cboSolicitType.Items.Add("")
-        sSQL = "SELECT FieldValue FROM FieldDataDefinition" & _
-            " WHERE TableName = 'Clients'" & _
-            " AND FieldName = 'SolicitType'" & _
+        sSQL = "SELECT FieldValue FROM FieldDataDefinition" &
+            " WHERE TableName = 'Clients'" &
+            " AND FieldName = 'SolicitType'" &
             " ORDER BY FieldValue"
         GetData(sSQL, dt)
         For Each dr In dt.Rows
@@ -58,23 +59,30 @@
             colsolicittype.Add(dr("FieldValue"), dr("FieldValue"))
         Next
 
+        colAgencies = New Collection
+        colAgencies.Add("", "")
+        cboAgency.Items.Add("")
+        sSQL = "SELECT AgencyId, AgencyName FROM Agencies" &
+            " ORDER BY AgencyName"
+        GetData(sSQL, dt)
+        For Each dr In dt.Rows
+            cboAgency.Items.Add(dr("AgencyName"))
+            colAgencies.Add(dr("AgencyId").ToString, dr("AgencyName").ToString)
+        Next
+
     End Sub
 
 
     Private Sub frmClient_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         If bActivated Then Exit Sub
-
         InitInfo()
-        OpenClient()
-
-
-
+        RefreshData()
         bActivated = True
     End Sub
 
 
 
-    Private Function OpenClient() As Boolean
+    Private Function RefreshData() As Boolean
         Dim sError As String = "", dr As DataRow
 
         Try
@@ -84,6 +92,8 @@
 
             RefreshControls(Me, clsClient.ResultSet, "Clients")
             dr = clsClient.ResultSet.Rows(0)
+            cboAgency.Text = dr("AgencyName").ToString
+
             If IsDBNull(dr("ContractImage")) Then
                 bContractExists = False
             Else
@@ -132,8 +142,8 @@
                 If sender.name = "chkBxExcludeNotified" And chkBxExcludeClient.Checked Then chkBxExcludeClient.Checked = False
                 If sender.name = "chkBxExcludeClient" And chkBxExcludeNotified.Checked Then chkBxExcludeNotified.Checked = False
             End If
-            Dim sSQL As String = "UPDATE Clients Set ExcludeNotified = " & IIf(chkBxExcludeNotified.Checked, "1", "NULL") & _
-                ", ExcludeClient = " & IIf(chkBxExcludeClient.Checked, "1", "NULL") & _
+            Dim sSQL As String = "UPDATE Clients Set ExcludeNotified = " & IIf(chkBxExcludeNotified.Checked, "1", "NULL") &
+                ", ExcludeClient = " & IIf(chkBxExcludeClient.Checked, "1", "NULL") &
                 ", ChangeDate = GETDATE(), ChangeUser = " & QuoStr(AppData.UserId) & " WHERE ClientId = " & m_ClientId
             ExecuteSQL(sSQL)
         Catch ex As Exception
@@ -162,17 +172,29 @@
             chkContractFeeContingencyCapFl.LostFocus, chkContractFeeOtherFl.LostFocus,
             txtAofAEffectiveDate.LostFocus, txtAofAExpireDate.LostFocus, cboAccountRep.LostFocus,
             chkBxExcludeAbatements.LostFocus, chkBxExcludeFreeport.LostFocus, txtRecordRetentionYears.LostFocus,
-            cboBPPConsultant.LostFocus, cboREConsultant.LostFocus, chkInterstateAllocationFl.LostFocus, cboSICCode.LostFocus
+            cboBPPConsultant.LostFocus, cboREConsultant.LostFocus, chkInterstateAllocationFl.LostFocus, cboSICCode.LostFocus, cboAgency.LostFocus,
+            TextBox42.LostFocus, TextBox37.LostFocus, TextBox36.LostFocus, ComboBox6.LostFocus, TextBox41.LostFocus, TextBox40.LostFocus,
+            TextBox39.LostFocus, TextBox38.LostFocus, TextBox49.LostFocus, TextBox46.LostFocus, TextBox45.LostFocus, TextBox44.LostFocus,
+            TextBox43.LostFocus, ComboBox7.LostFocus, TextBox56.LostFocus, TextBox55.LostFocus, TextBox54.LostFocus, TextBox53.LostFocus,
+            TextBox52.LostFocus, TextBox51.LostFocus, TextBox50.LostFocus, TextBox48.LostFocus, TextBox47.LostFocus, ComboBox8.LostFocus,
+            TextBox84.LostFocus, TextBox83.LostFocus, TextBox82.LostFocus, TextBox81.LostFocus, TextBox80.LostFocus, TextBox79.LostFocus,
+            TextBox78.LostFocus, TextBox77.LostFocus, TextBox76.LostFocus, TextBox75.LostFocus, TextBox74.LostFocus, TextBox73.LostFocus,
+            TextBox72.LostFocus, TextBox71.LostFocus, TextBox70.LostFocus, TextBox69.LostFocus, TextBox68.LostFocus, TextBox67.LostFocus,
+            TextBox66.LostFocus, TextBox65.LostFocus, TextBox64.LostFocus, TextBox63.LostFocus, TextBox62.LostFocus, TextBox61.LostFocus,
+            TextBox60.LostFocus, TextBox59.LostFocus, TextBox58.LostFocus, TextBox57.LostFocus, ComboBox9.LostFocus, ComboBox12.LostFocus,
+            ComboBox11.LostFocus, ComboBox10.LostFocus
 
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
-                If sender.name = cboLeadStatus.Name Or sender.name = cboSolicitType.Name Then
+                If sender.name = cboLeadStatus.Name Or sender.name = cboSolicitType.Name Or sender.name = cboAgency.Name Then
                     If sender.SelectedIndex >= 0 Then
                         If sender.name = cboLeadStatus.Name Then
                             UpdateDB(sender, DBUpdate, colLeadStatus)
-                        Else
+                        ElseIf sender.name = cboSolicitType.Name Then
                             UpdateDB(sender, DBUpdate, colSolicitType)
+                        ElseIf sender.name = cboAgency.Name Then
+                            UpdateDB(sender, DBUpdate, colAgencies)
                         End If
                     End If
                 Else
@@ -202,10 +224,20 @@
             txtContractFeeFlatAmt.GotFocus, txtContractFeeFlatPerLocAmt.GotFocus, txtContractFeeContingencyPct.GotFocus,
             txtContractFeeContingencyCapPct.GotFocus, txtContractFeeContingencyCapAmt.GotFocus, txtContractFeeOther.GotFocus,
             txtAofAEffectiveDate.GotFocus, txtAofAExpireDate.GotFocus, txtRecordRetentionYears.GotFocus,
-            cboBPPConsultant.GotFocus, cboREConsultant.GotFocus, cboClientCoordinatorName.GotFocus, cboSICCode.GotFocus
+            cboBPPConsultant.GotFocus, cboREConsultant.GotFocus, cboClientCoordinatorName.GotFocus, cboSICCode.GotFocus, cboAgency.GotFocus,
+            TextBox42.GotFocus, TextBox37.GotFocus, TextBox36.GotFocus, ComboBox6.GotFocus, TextBox41.GotFocus, TextBox40.GotFocus,
+            TextBox39.GotFocus, TextBox38.GotFocus, TextBox49.GotFocus, TextBox46.GotFocus, TextBox45.GotFocus, TextBox44.GotFocus,
+            TextBox43.GotFocus, ComboBox7.GotFocus, TextBox56.GotFocus, TextBox55.GotFocus, TextBox54.GotFocus, TextBox53.GotFocus,
+            TextBox52.GotFocus, TextBox51.GotFocus, TextBox50.GotFocus, TextBox48.GotFocus, TextBox47.GotFocus, ComboBox8.GotFocus,
+            TextBox84.GotFocus, TextBox83.GotFocus, TextBox82.GotFocus, TextBox81.GotFocus, TextBox80.GotFocus, TextBox79.GotFocus,
+            TextBox78.GotFocus, TextBox77.GotFocus, TextBox76.GotFocus, TextBox75.GotFocus, TextBox74.GotFocus, TextBox73.GotFocus,
+            TextBox72.GotFocus, TextBox71.GotFocus, TextBox70.GotFocus, TextBox69.GotFocus, TextBox68.GotFocus, TextBox67.GotFocus,
+            TextBox66.GotFocus, TextBox65.GotFocus, TextBox64.GotFocus, TextBox63.GotFocus, TextBox62.GotFocus, TextBox61.GotFocus,
+            TextBox60.GotFocus, TextBox59.GotFocus, TextBox58.GotFocus, TextBox57.GotFocus, ComboBox9.GotFocus, ComboBox12.GotFocus,
+            ComboBox11.GotFocus, ComboBox10.GotFocus
+
         sender.selectall()
     End Sub
-
 
     Private Sub txtName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtName.TextChanged,
             txtAddress.TextChanged, txtCity.TextChanged, txtComment.TextChanged, txtFax.TextChanged, txtPhone.TextChanged,
@@ -229,7 +261,17 @@
             chkContractFeeContingencyCapFl.CheckedChanged, chkContractFeeOtherFl.CheckedChanged,
             txtAofAEffectiveDate.TextChanged, txtAofAExpireDate.TextChanged, cboAccountRep.TextChanged,
             chkBxExcludeAbatements.CheckedChanged, chkBxExcludeFreeport.CheckedChanged, txtRecordRetentionYears.TextChanged,
-            cboBPPConsultant.TextChanged, cboREConsultant.TextChanged, chkInterstateAllocationFl.CheckedChanged, cboSICCode.TextChanged
+            cboBPPConsultant.TextChanged, cboREConsultant.TextChanged, chkInterstateAllocationFl.CheckedChanged, cboSICCode.TextChanged, cboAgency.TextChanged,
+            TextBox42.TextChanged, TextBox37.TextChanged, TextBox36.TextChanged, ComboBox6.TextChanged, TextBox41.TextChanged, TextBox40.TextChanged,
+            TextBox39.TextChanged, TextBox38.TextChanged, TextBox49.TextChanged, TextBox46.TextChanged, TextBox45.TextChanged, TextBox44.TextChanged,
+            TextBox43.TextChanged, ComboBox7.TextChanged, TextBox56.TextChanged, TextBox55.TextChanged, TextBox54.TextChanged, TextBox53.TextChanged,
+            TextBox52.TextChanged, TextBox51.TextChanged, TextBox50.TextChanged, TextBox48.TextChanged, TextBox47.TextChanged, ComboBox8.TextChanged,
+            TextBox84.TextChanged, TextBox83.TextChanged, TextBox82.TextChanged, TextBox81.TextChanged, TextBox80.TextChanged, TextBox79.TextChanged,
+            TextBox78.TextChanged, TextBox77.TextChanged, TextBox76.TextChanged, TextBox75.TextChanged, TextBox74.TextChanged, TextBox73.TextChanged,
+            TextBox72.TextChanged, TextBox71.TextChanged, TextBox70.TextChanged, TextBox69.TextChanged, TextBox68.TextChanged, TextBox67.TextChanged,
+            TextBox66.TextChanged, TextBox65.TextChanged, TextBox64.TextChanged, TextBox63.TextChanged, TextBox62.TextChanged, TextBox61.TextChanged,
+            TextBox60.TextChanged, TextBox59.TextChanged, TextBox58.TextChanged, TextBox57.TextChanged, ComboBox9.TextChanged, ComboBox12.TextChanged,
+            ComboBox11.TextChanged, ComboBox10.TextChanged
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
                 If sender.checkstate = CheckState.Checked Then
@@ -247,23 +289,23 @@
     Private Function LoadExclusions() As Boolean
         Try
             lvSpecialExclusions.Items.Clear()
-            Dim sSQL As String = "SELECT 'P' AS PropType, c.Name as Name, ISNULL(l.Address,'') AS Address," & _
-                " ISNULL(a.AcctNum,'') AS AcctNum, a.ClientId, a.LocationId, a.AssessmentId, ISNULL(a.SavingsExclusionCd,0) AS SavingsExclusionCd" & _
-                " FROM AssessmentsBPP a" & _
-                " INNER JOIN LocationsBPP l ON l.ClientId = a.ClientId AND l.LocationId = a.LocationId" & _
-                " AND l.TaxYear = a.TaxYear" & _
-                " INNER JOIN Clients c ON c.ClientId = l.ClientId" & _
-                " WHERE l.ClientId = " & m_ClientId & _
-                " AND l.TaxYear = " & AppData.TaxYear & _
+            Dim sSQL As String = "SELECT 'P' AS PropType, c.Name as Name, ISNULL(l.Address,'') AS Address," &
+                " ISNULL(a.AcctNum,'') AS AcctNum, a.ClientId, a.LocationId, a.AssessmentId, ISNULL(a.SavingsExclusionCd,0) AS SavingsExclusionCd" &
+                " FROM AssessmentsBPP a" &
+                " INNER JOIN LocationsBPP l ON l.ClientId = a.ClientId AND l.LocationId = a.LocationId" &
+                " AND l.TaxYear = a.TaxYear" &
+                " INNER JOIN Clients c ON c.ClientId = l.ClientId" &
+                " WHERE l.ClientId = " & m_ClientId &
+                " AND l.TaxYear = " & AppData.TaxYear &
                 " AND ISNULL(a.SavingsExclusionCd,0) <> 0"
-            sSQL = sSQL & " UNION SELECT 'R' AS PropType, c.Name as Name, ISNULL(l.Address,'') AS Address," & _
-                " ISNULL(a.AcctNum,'') AS AcctNum, a.ClientId, a.LOcationId, a.AssessmentId, ISNULL(a.SavingsExclusionCd,0) AS SavingsExclusionCd" & _
-                " FROM AssessmentsRE a" & _
-                " INNER JOIN LocationsRE l ON l.ClientId = a.ClientId AND l.LocationId = a.LocationId" & _
-                " AND l.TaxYear = a.TaxYear" & _
-                " INNER JOIN Clients c ON c.ClientId = l.ClientId" & _
-                " WHERE l.ClientId = " & m_ClientId & _
-                " AND l.TaxYear = " & AppData.TaxYear & _
+            sSQL = sSQL & " UNION SELECT 'R' AS PropType, c.Name as Name, ISNULL(l.Address,'') AS Address," &
+                " ISNULL(a.AcctNum,'') AS AcctNum, a.ClientId, a.LOcationId, a.AssessmentId, ISNULL(a.SavingsExclusionCd,0) AS SavingsExclusionCd" &
+                " FROM AssessmentsRE a" &
+                " INNER JOIN LocationsRE l ON l.ClientId = a.ClientId AND l.LocationId = a.LocationId" &
+                " AND l.TaxYear = a.TaxYear" &
+                " INNER JOIN Clients c ON c.ClientId = l.ClientId" &
+                " WHERE l.ClientId = " & m_ClientId &
+                " AND l.TaxYear = " & AppData.TaxYear &
                 " AND ISNULL(a.SavingsExclusionCd,0) <> 0"
             sSQL = sSQL & " ORDER BY 1, 3, 4"
             Dim dt As New DataTable
@@ -312,7 +354,7 @@
         Dim dtList As New DataTable, bind As New BindingSource
 
         Try
-            sSQL = "SELECT ID, ISNULL(ChangeDate,AddDate) AS ChangeDate, Comment FROM ClientComments" & _
+            sSQL = "SELECT ID, ISNULL(ChangeDate,AddDate) AS ChangeDate, Comment FROM ClientComments" &
                 " WHERE ClientId = " & m_ClientId & " ORDER BY ID DESC"
             lRows = GetData(sSQL, dtList)
 
@@ -356,12 +398,12 @@
             sError = "" : sID = Trim(sID) : sComment = Trim(sComment)
             Dim sSQL As String = ""
             If sID = "" Then
-                sSQL = "INSERT ClientComments (ClientId, Comment, AddUser)" & _
-                    " SELECT " & m_ClientId & "," & _
+                sSQL = "INSERT ClientComments (ClientId, Comment, AddUser)" &
+                    " SELECT " & m_ClientId & "," &
                     QuoStr(sComment) & "," & QuoStr(AppData.UserId)
             Else
-                sSQL = "UPDATE ClientComments SET Comment = " & QuoStr(sComment) & "," & _
-                    " ChangeType = 2, ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeDate = GETDATE()" & _
+                sSQL = "UPDATE ClientComments SET Comment = " & QuoStr(sComment) & "," &
+                    " ChangeType = 2, ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeDate = GETDATE()" &
                     " WHERE ID = " & sID
             End If
             If ExecuteSQL(sSQL) <> 1 Then
@@ -497,14 +539,116 @@
         frmExcl.TaxYear = AppData.TaxYear
         frmExcl.ShowDialog()
         LoadExclusions()
-
     End Sub
-
     Private Sub cmdBusinessUnits_Click(sender As Object, e As EventArgs) Handles cmdBusinessUnits.Click
         Dim frmbus = New frmBusinessUnits
         frmbus.ClientId = m_ClientId
         frmbus.ShowDialog()
     End Sub
+    Private Sub DuplicateTaxContactInfo()
+        Try
+            Dim sql As New StringBuilder
+            sql.Append("UPDATE Clients SET ChangeDate = GETDATE(), ChangeType = 2, ChangeUser = ").Append(QuoStr(AppData.UserId)).Append(",")
+            sql.Append("ContactAofAAuthorizationAddress = ContactTaxAddress,")
+            sql.Append("ContactAofAAuthorizationCity = ContactTaxCity,")
+            sql.Append("ContactAofAAuthorizationEMail = ContactTaxEMail,")
+            sql.Append("ContactAofAAuthorizationFax = ContactTaxFax,")
+            sql.Append("ContactAofAAuthorizationName = ContactTaxName,")
+            sql.Append("ContactAofAAuthorizationPhone = ContactTaxPhone,")
+            sql.Append("ContactAofAAuthorizationStateCd = ContactTaxStateCd,")
+            sql.Append("ContactAofAAuthorizationZip = ContactTaxZip,")
+            sql.Append("ContactAppealApprovalAddress = ContactTaxAddress,")
+            sql.Append("ContactAppealApprovalCity = ContactTaxCity,")
+            sql.Append("ContactAppealApprovalEMail = ContactTaxEMail,")
+            sql.Append("ContactAppealApprovalFax = ContactTaxFax,")
+            sql.Append("ContactAppealApprovalName = ContactTaxName,")
+            sql.Append("ContactAppealApprovalPhone = ContactTaxPhone,")
+            sql.Append("ContactAppealApprovalStateCd = ContactTaxStateCd,")
+            sql.Append("ContactAppealApprovalZip = ContactTaxZip,")
+            sql.Append("ContactBPPInfoAddress = ContactTaxAddress,")
+            sql.Append("ContactBPPInfoCity = ContactTaxCity,")
+            sql.Append("ContactBPPInfoEMail = ContactTaxEMail,")
+            sql.Append("ContactBPPInfoFax = ContactTaxFax,")
+            sql.Append("ContactBPPInfoName = ContactTaxName,")
+            sql.Append("ContactBPPInfoPhone = ContactTaxPhone,")
+            sql.Append("ContactBPPInfoStateCd = ContactTaxStateCd,")
+            sql.Append("ContactBPPInfoZip = ContactTaxZip,")
+            sql.Append("ContactContractAddress = ContactTaxAddress,")
+            sql.Append("ContactContractCity = ContactTaxCity,")
+            sql.Append("ContactContractEMail = ContactTaxEMail,")
+            sql.Append("ContactContractFax = ContactTaxFax,")
+            sql.Append("ContactContractName = ContactTaxName,")
+            sql.Append("ContactContractPhone = ContactTaxPhone,")
+            sql.Append("ContactContractStateCd = ContactTaxStateCd,")
+            sql.Append("ContactContractZip = ContactTaxZip,")
+            sql.Append("ContactInvoiceAddress = ContactTaxAddress,")
+            sql.Append("ContactInvoiceCity = ContactTaxCity,")
+            sql.Append("ContactInvoiceEMail = ContactTaxEMail,")
+            sql.Append("ContactInvoiceFax = ContactTaxFax,")
+            sql.Append("ContactInvoiceName = ContactTaxName,")
+            sql.Append("ContactInvoicePhone = ContactTaxPhone,")
+            sql.Append("ContactInvoiceStateCd = ContactTaxStateCd,")
+            sql.Append("ContactInvoiceZip = ContactTaxZip,")
+            sql.Append("ContactMiscAddress = ContactTaxAddress,")
+            sql.Append("ContactMiscCity = ContactTaxCity,")
+            sql.Append("ContactMiscEMail = ContactTaxEMail,")
+            sql.Append("ContactMiscFax = ContactTaxFax,")
+            sql.Append("ContactMiscName = ContactTaxName,")
+            sql.Append("ContactMiscPhone = ContactTaxPhone,")
+            sql.Append("ContactMiscStateCd = ContactTaxStateCd,")
+            sql.Append("ContactMiscZip = ContactTaxZip,")
+            sql.Append("ContactREInfoAddress = ContactTaxAddress,")
+            sql.Append("ContactREInfoCity = ContactTaxCity,")
+            sql.Append("ContactREInfoEMail = ContactTaxEMail,")
+            sql.Append("ContactREInfoFax = ContactTaxFax,")
+            sql.Append("ContactREInfoName = ContactTaxName,")
+            sql.Append("ContactREInfoPhone = ContactTaxPhone,")
+            sql.Append("ContactREInfoStateCd = ContactTaxStateCd,")
+            sql.Append("ContactREInfoZip = ContactTaxZip,")
+            sql.Append("ContactRenditionSignatureAddress = ContactTaxAddress,")
+            sql.Append("ContactRenditionSignatureCity = ContactTaxCity,")
+            sql.Append("ContactRenditionSignatureEMail = ContactTaxEMail,")
+            sql.Append("ContactRenditionSignatureFax = ContactTaxFax,")
+            sql.Append("ContactRenditionSignatureName = ContactTaxName,")
+            sql.Append("ContactRenditionSignaturePhone = ContactTaxPhone,")
+            sql.Append("ContactRenditionSignatureStateCd = ContactTaxStateCd,")
+            sql.Append("ContactRenditionSignatureZip = ContactTaxZip,")
+            sql.Append("ContactReportsAddress = ContactTaxAddress,")
+            sql.Append("ContactReportsCity = ContactTaxCity,")
+            sql.Append("ContactReportsEMail = ContactTaxEMail,")
+            sql.Append("ContactReportsFax = ContactTaxFax,")
+            sql.Append("ContactReportsName = ContactTaxName,")
+            sql.Append("ContactReportsPhone = ContactTaxPhone,")
+            sql.Append("ContactReportsStateCd = ContactTaxStateCd,")
+            sql.Append("ContactReportsZip = ContactTaxZip,")
+            sql.Append("ContactTaxBillPaymentAddress = ContactTaxAddress,")
+            sql.Append("ContactTaxBillPaymentCity = ContactTaxCity,")
+            sql.Append("ContactTaxBillPaymentEMail = ContactTaxEMail,")
+            sql.Append("ContactTaxBillPaymentFax = ContactTaxFax,")
+            sql.Append("ContactTaxBillPaymentName = ContactTaxName,")
+            sql.Append("ContactTaxBillPaymentPhone = ContactTaxPhone,")
+            sql.Append("ContactTaxBillPaymentStateCd = ContactTaxStateCd,")
+            sql.Append("ContactTaxBillPaymentZip = ContactTaxZip,")
+            sql.Append("ContactTaxBillTransmittalAddress = ContactTaxAddress,")
+            sql.Append("ContactTaxBillTransmittalCity = ContactTaxCity,")
+            sql.Append("ContactTaxBillTransmittalEMail = ContactTaxEMail,")
+            sql.Append("ContactTaxBillTransmittalFax = ContactTaxFax,")
+            sql.Append("ContactTaxBillTransmittalName = ContactTaxName,")
+            sql.Append("ContactTaxBillTransmittalPhone = ContactTaxPhone,")
+            sql.Append("ContactTaxBillTransmittalStateCd = ContactTaxStateCd,")
+            sql.Append("ContactTaxBillTransmittalZip = ContactTaxZip")
+            sql.Append(" WHERE ClientId=").Append(m_ClientId.ToString)
+            ExecuteSQL(sql.ToString)
+            RefreshData()
 
+        Catch ex As Exception
+            MsgBox("Error duplicating contacts:  " & ex.Message)
+        End Try
+    End Sub
 
+    Private Sub cmdDupe_Click(sender As Object, e As EventArgs) Handles cmdDupe.Click
+        If MsgBox("Do you wish to duplicate all tax contact information?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            DuplicateTaxContactInfo()
+        End If
+    End Sub
 End Class

@@ -154,6 +154,7 @@ Module modMain
         enumREComps
         enumRECompsCounty
         enumBusinessUnits
+        enumAgency
     End Enum
     Public Enum enumListType
         enumUnknown

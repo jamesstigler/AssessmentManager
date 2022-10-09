@@ -172,6 +172,18 @@
     <Compile Include="Forms\frmAddJurisdictions.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmAgencies.Designer.vb">
+      <DependentUpon>frmAgencies.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAgencies.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAgencyContacts.Designer.vb">
+      <DependentUpon>frmAgencyContacts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAgencyContacts.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmAssessor.Designer.vb">
       <DependentUpon>frmAssessor.vb</DependentUpon>
     </Compile>
@@ -596,6 +608,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddJurisdictions.resx">
       <DependentUpon>frmAddJurisdictions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAgencies.resx">
+      <DependentUpon>frmAgencies.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAgencyContacts.resx">
+      <DependentUpon>frmAgencyContacts.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAssessor.resx">
       <DependentUpon>frmAssessor.vb</DependentUpon>

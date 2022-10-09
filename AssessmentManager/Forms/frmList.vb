@@ -22,6 +22,8 @@
     Private colClientID As Collection
     Private colECUParentAccounts As Collection
     Private colBusinessUnits As Collection
+    Private colAgencies As Collection
+    Private colTasks As Collection
     Private lLastGridRow As Long = 0
     Private bHasLoadedAlready As Boolean
     Private eAllocationPctType As enumAllocationPctType
@@ -177,7 +179,7 @@
                     " FROM UserQuery ORDER BY QueryName"
                 sText = "User Queries"
             ElseIf m_ListType = enumListType.enumTaskAssignments Then
-                'sSQL = BuildTaskAssignmentQuery()
+                sSQL = BuildTaskAssignmentQuery()
                 sText = "Task Assignments"
             ElseIf m_ListType = enumListType.enumClient Then
                 sSQL = "SELECT ClientId AS Clients_ClientId, Name AS Clients_Name, Address AS Clients_Address, City AS Clients_City," &
@@ -188,8 +190,7 @@
                     "ContactTaxEMail,ContactInvoiceName,ContactInvoiceAddress,ContactInvoiceCity,ContactInvoiceStateCd," &
                     "ContactInvoiceZip,ContactInvoicePhone,ContactInvoiceFax,ContactInvoiceEMail,ContactContractName," &
                     "ContactContractAddress,ContactContractCity,ContactContractStateCd,ContactContractZip,ContactContractPhone," &
-                    "ContactContractFax,ContactContractEMail,ContactInformationName,ContactInformationAddress,ContactInformationCity," &
-                    "ContactInformationStateCd,ContactInformationZip,ContactInformationPhone,ContactInformationFax,ContactInformationEMail," &
+                    "ContactContractFax,ContactContractEMail," &
                     "ContactMiscName,ContactMiscAddress,ContactMiscCity,ContactMiscStateCd,ContactMiscZip,ContactMiscPhone,ContactMiscFax," &
                     "ContactMiscEMail" &
                     " FROM Clients WHERE ISNULL(ProspectFl,0) = 0"
@@ -265,6 +266,7 @@
                 sSQL = "SELECT Clients_Name, ClientId, LocationId, TaxYear, Address, Name, City, StateCd, AcctNum,"
                 sSQL = sSQL & " (SELECT ap.AcctNum FROM AssessmentsBPP ap WHERE ap.AssessmentId = tbl1.ParentAssessmentId AND ap.TaxYear = tbl1.TaxYear) AS ECUParentAcctNum,"
                 sSQL = sSQL & " BusinessUnits_Name, BusinessUnitId,"
+                sSQL = sSQL & " (SELECT agcy.AgencyName FROM Agencies agcy WHERE agcy.AgencyId = tbl1.AgencyId) AS AgencyName,"
                 sSQL = sSQL &
                     " ClientLocationId, LegalOwner, AssessmentId, Assessors_Name," &
                     " BPPConsultantName AS ConsultantName, ClientCoordinatorName," &
@@ -275,7 +277,7 @@
                     " OtherProtest1Status, OtherProtest1HearingDate, AssessorId, FactorEntityId1, FactorEntityId2," &
                     " FactorEntityId3, FactorEntityId4, FactorEntityId5, CurrentFinalValue, PreviousFinalValue FROM ("
                 sSQL = sSQL & "SELECT c.Name AS Clients_Name, l.ClientId, l.LocationId, l.TaxYear, l.Address, l.Name, l.City," &
-                    " l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name AS BusinessUnits_Name, a.BusinessUnitId,"
+                    " l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name AS BusinessUnits_Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId) AS AgencyId,"
                 sSQL = sSQL &
                     " l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name AS Assessors_Name," &
                     " a.RenditionExtDeadlineDate, a.RenditionExtMailedDate, a.RenditionExtCMRRR," &
@@ -312,7 +314,7 @@
                 End If
                 sSQL = sSQL &
                     " GROUP BY c.Name, l.ClientId, l.LocationId, l.TaxYear, l.Address, l.Name, l.City, l.StateCd," &
-                    " a.AcctNum, a.ParentAssessmentId, bu.Name, a.BusinessUnitId, l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name," &
+                    " a.AcctNum, a.ParentAssessmentId, bu.Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId), l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name," &
                     " a.RenditionExtDeadlineDate, a.RenditionExtMailedDate, a.RenditionExtCMRRR," &
                     " ISNULL(a.RenditionDeadlineDate,asr.RenditionDueDate), a.RenditionMailedDate, a.RenditionCMRRR," &
                     " a.FreeportProtestDeadlineDate," &
@@ -366,6 +368,7 @@
                     " City, StateCd, AcctNum,"
                 sSQL = sSQL & " (SELECT ap.AcctNum FROM AssessmentsRE ap WHERE ap.AssessmentId = tbl1.ParentAssessmentId And ap.TaxYear = tbl1.TaxYear) AS ECUParentAcctNum,"
                 sSQL = sSQL & " BusinessUnits_Name, BusinessUnitId,"
+                sSQL = sSQL & " (SELECT agcy.AgencyName FROM Agencies agcy WHERE agcy.AgencyId = tbl1.AgencyId) AS AgencyName,"
                 sSQL = sSQL & " OccupiedStatus, ClientLocationId," &
                     " LegalOwner, AssessmentId, Assessors_Name, AssessorId," &
                     " REConsultantName AS ConsultantName, ClientCoordinatorName," &
@@ -374,7 +377,8 @@
                     " ValueProtestHearingDate, ValueProtestStatus," &
                     " CurrentFinalValue, PreviousFinalValue FROM ("
                 sSQL = sSQL & "SELECT c.Name AS Clients_Name, l.ClientId, l.LocationId, l.TaxYear, l.Address, l.Name," &
-                    " l.City, l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name AS BusinessUnits_Name, a.BusinessUnitId, ISNULL(a.OccupiedStatus,'') AS OccupiedStatus,l.ClientLocationId," &
+                    " l.City, l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name AS BusinessUnits_Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId) AS AgencyId," &
+                    " ISNULL(a.OccupiedStatus,'') AS OccupiedStatus,l.ClientLocationId," &
                     " l.LegalOwner, a.AssessmentId, asr.Name AS Assessors_Name, ISNULL(a.AssessorId, 0) AS AssessorId," &
                     " a.ValueProtestFl, ISNULL(a.ValueProtestDeadlineDate, asr.REProtestDeadlineDate) AS ValueProtestDeadlineDate," &
                     " a.ValueProtestMailedDate, ISNULL(a.ValueProtestCMRRR, '') AS ValueProtestCMRRR," &
@@ -400,7 +404,8 @@
                     sSQL = sSQL & " AND ISNULL(c.InactiveFl,0) = 0 AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(a.InactiveFl,0) = 0"
                 End If
                 sSQL = sSQL & " GROUP BY c.Name, l.ClientId, l.LocationId, l.TaxYear, l.Address, l.Name, l.City," &
-                    " l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name, a.BusinessUnitId, a.OccupiedStatus, l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name," &
+                    " l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId)," &
+                    " a.OccupiedStatus, l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name," &
                     " ISNULL(a.AssessorId, 0), ISNULL(a.ValueProtestDeadlineDate, asr.REProtestDeadlineDate)," &
                     " a.ValueProtestMailedDate, ISNULL(a.ValueProtestCMRRR, '')," &
                     " a.ValueProtestHearingDate, ISNULL(a.ValueProtestStatus, ''), a.ValueProtestFl," &
@@ -921,8 +926,13 @@
         If m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumAssessmentRE Or m_ListType = enumListType.enumRenditions Then
             mnuContextSetECUParent.Visible = True
             mnuContextSetBusinessUnit.Visible = True
+            ''mnuContextAssignTask.Visible = True
+            mnuContextSetAgency.Visible = True
         Else
             mnuContextSetECUParent.Visible = False
+            mnuContextSetBusinessUnit.Visible = False
+            mnuContextAssignTask.Visible = False
+            mnuContextSetAgency.Visible = False
         End If
 
         If m_ListType = enumListType.enumQueryList Then
@@ -1053,6 +1063,7 @@
             pnlConsultantName.Location = New Point(iX - (pnlConsultantName.Width / 2), iY - (pnlConsultantName.Height / 2))
             pnlLeaseInfo.Location = New Point(iX - (pnlLeaseInfo.Width / 2), iY - (pnlLeaseInfo.Height / 2))
             pnlAuditFl.Location = New Point(iX - (pnlAuditFl.Width / 2), iY - (pnlAuditFl.Height / 2))
+            pnlAgency.Location = New Point(iX - (pnlAgency.Width / 2), iY - (pnlAgency.Height / 2))
         Catch ex As Exception
 
         End Try
@@ -1667,6 +1678,7 @@
 
     Private Sub mnuContextDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnuContextDelete.Click
         Try
+            Dim sql As New StringBuilder
             Me.Cursor = Cursors.WaitCursor
             If iMouseClickColIndex >= 0 Then
                 If dgList.SelectedRows.Count > 0 Then
@@ -1731,6 +1743,22 @@
                             Case enumListType.enumTaskMasterList
                                 Dim lId As Long = row.Cells("TaskId").Value
                                 sSQL = "DELETE TaskAssignments WHERE TaskId = " & lId & " DELETE TaskMasterList WHERE TaskId = " & lId
+                            Case enumListType.enumTaskAssignments
+                                Dim taskid As String, proptype As String, clientid As String, locationid As String, assessmentid As String, taxyear As String
+                                taskid = row.Cells("TaskId").Value.ToString
+                                proptype = row.Cells("PropType").Value.ToString
+                                clientid = row.Cells("ClientId").Value.ToString
+                                locationid = row.Cells("LocationId").Value.ToString
+                                assessmentid = row.Cells("AssessmentId").Value.ToString
+                                taxyear = row.Cells("TaxYear").Value.ToString
+                                sql.Clear()
+                                sql.Append("DELETE TaskAssignments WHERE TaskId = ").Append(taskid)
+                                sql.Append(" AND PropType = ").Append(QuoStr(proptype))
+                                sql.Append(" AND TaxYear = ").Append(taxyear)
+                                sql.Append(" AND ClientId = ").Append(clientid)
+                                sql.Append(" AND LocationId = ").Append(locationid)
+                                sql.Append(" AND AssessmentId = ").Append(assessmentid)
+                                sSQL = sql.ToString
                             Case enumListType.enumQueryList
                                 Dim lId As Long = row.Cells("QueryId").Value
                                 sSQL = "DELETE UserQuerySelect WHERE QueryId = " & lId &
@@ -3200,7 +3228,7 @@
                     For Each row In dgList.SelectedRows
                         DeleteAssets(row.Cells("ClientId").Value.ToString, row.Cells("LocationId").Value.ToString, row.Cells("AssessmentId").Value.ToString, "", m_TaxYear)
                     Next
-                    MsgBox("ALL Assets deleted for selected accounts")
+                    MsgBox("ALL assets deleted for selected accounts")
                 End If
             End If
         Catch ex As Exception
@@ -3209,6 +3237,139 @@
             Me.Cursor = Cursors.Default
         End Try
     End Sub
+
+    Private Sub mnuContextAssignTask_Click(sender As Object, e As EventArgs) Handles mnuContextAssignTask.Click
+        Try
+            If dgList.SelectedRows.Count = 0 Then Exit Sub
+
+            Dim proptype As String = IIf(m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions, "P", "R")
+            cboTask.Items.Clear()
+            cboTask.Text = ""
+            Dim sql As New StringBuilder
+            sql.Append(" SELECT 0 AS TaskId, '' AS Name")
+            sql.Append(" UNION SELECT TaskId, RTRIM(LTRIM(Name)) AS Name")
+            sql.Append(" FROM TaskMasterList ORDER BY Name")
+            colTasks = New Collection
+            LoadComboBox(sql.ToString, cboTask, colTasks)
+            dgList.Enabled = False
+            pnlTask.Visible = True
+            pnlTask.BringToFront()
+        Catch ex As Exception
+            MsgBox("Error assigning task:  " & ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub cmdTaskOK_Click(sender As Object, e As EventArgs) Handles cmdTaskOK.Click
+        Try
+            Dim lId As Long = 0, row As DataGridViewRow
+            Dim proptype As String
+            Select Case m_ListType
+                Case enumListType.enumAssessmentBPP, enumListType.enumRenditions
+                    proptype = "P"
+                Case enumListType.enumAssessmentRE
+                    proptype = "R"
+                Case Else
+                    proptype = ""
+            End Select
+            If proptype = "" Then
+                MsgBox("Must assign tasks from and assessment list")
+                Exit Sub
+            End If
+            Dim taskdate As String = InputBox("Enter Task Date/Time (i.e. 12/31/2022 14:30)")
+            If IsDate(taskdate) = False Then
+                MsgBox("Enter valid date/time")
+                Exit Sub
+            End If
+            If colTasks.Contains(cboTask.Text) Then
+                lId = colTasks(cboTask.Text)
+            Else
+                MsgBox("Not a valid task")
+                Exit Sub
+            End If
+
+            Dim clientid As String, locationid As String, assessmentid As String, msg As String
+            For Each row In dgList.SelectedRows
+                If row.Cells("AssessmentId").Value.ToString.Trim <> "" Then
+                    clientid = row.Cells("ClientId").Value.ToString.Trim
+                    locationid = row.Cells("LocationId").Value.ToString.Trim
+                    assessmentid = row.Cells("AssessmentId").Value.ToString.Trim
+                    msg = ""
+                    If Not SaveTaskAssignment(m_TaxYear, lId.ToString, proptype, taskdate, clientid, locationid, assessmentid, msg) Then Exit For
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox("Error assigning tasks:  " & ex.Message)
+        Finally
+            pnlTask.Visible = False
+            dgList.Enabled = True
+        End Try
+    End Sub
+
+    Private Sub cmdTaskCancel_Click(sender As Object, e As EventArgs) Handles cmdTaskCancel.Click
+        pnlTask.Visible = False
+        dgList.Enabled = True
+    End Sub
+
+    Private Sub mnuContextSetAgency_Click(sender As Object, e As EventArgs) Handles mnuContextSetAgency.Click
+        Try
+            If dgList.SelectedRows.Count = 0 Then Exit Sub
+            Dim sProp As String = IIf(m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions, "BPP", "RE")
+            cboAgency.Items.Clear()
+            cboAgency.Text = ""
+            Dim sSQL As New StringBuilder
+            sSQL.Append(" SELECT 0 AS AgencyId, '' AS AgencyName")
+            sSQL.Append(" UNION SELECT AgencyId, RTRIM(LTRIM(AgencyName)) AS AgencyName")
+            sSQL.Append(" FROM Agencies ORDER BY AgencyName")
+            colagencies = New Collection
+            LoadComboBox(sSQL.ToString, cboAgency, colagencies)
+            dgList.Enabled = False
+            pnlAgency.Visible = True
+            pnlAgency.BringToFront()
+        Catch ex As Exception
+            MsgBox("Error setting agency:  " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub cmdAgencyOK_Click(sender As Object, e As EventArgs) Handles cmdAgencyOK.Click
+        Try
+            Dim lId As Long = 0, sSQL As New StringBuilder, i As Integer, row As DataGridViewRow
+
+            If colAgencies.Contains(cboAgency.Text) Then
+                lId = colAgencies(cboAgency.Text)
+            End If
+            sSQL.Clear()
+            i = 0
+            For Each row In dgList.SelectedRows
+                If row.Cells("AssessmentId").Value.ToString.Trim <> "" Then
+                    sSQL.Append(" UPDATE Assessments").Append(IIf(m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions, "BPP", "RE"))
+                    sSQL.Append(" SET AgencyId = ").Append(IIf(lId = 0, "NULL", lId.ToString)).Append(", ChangeDate = GETDATE(), ChangeUser = ").Append(QuoStr(AppData.UserId))
+                    sSQL.Append(", ChangeType = 2")
+                    sSQL.Append(" WHERE AssessmentId = ").Append(row.Cells("AssessmentId").Value).Append(" AND TaxYear = ").Append(m_TaxYear)
+                End If
+                i = i + 1
+                If i > 10 And sSQL.Length > 0 Then
+                    ExecuteSQL(sSQL.ToString)
+                    sSQL.Clear()
+                    i = 0
+                End If
+            Next
+            If sSQL.Length > 0 Then
+                ExecuteSQL(sSQL.ToString)
+            End If
+        Catch ex As Exception
+            MsgBox("Error setting agency:  " & ex.Message)
+        Finally
+            pnlAgency.Visible = False
+            dgList.Enabled = True
+        End Try
+    End Sub
+
+    Private Sub cmdAgencyCancel_Click(sender As Object, e As EventArgs) Handles cmdAgencyCancel.Click
+        pnlAgency.Visible = False
+        dgList.Enabled = True
+    End Sub
+
 
     'Private Sub chkAssetsLoadedFl_CheckedChanged(sender As Object, e As EventArgs) Handles chkAssetsLoadedFl.CheckedChanged
     '    If bLoading Then Exit Sub

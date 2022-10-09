@@ -54,21 +54,6 @@ Partial Class frmClient
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.pageInvoice = New System.Windows.Forms.TabPage()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.TextBox12 = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.TextBox13 = New System.Windows.Forms.TextBox()
-        Me.TextBox14 = New System.Windows.Forms.TextBox()
         Me.pageContract = New System.Windows.Forms.TabPage()
         Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -84,7 +69,37 @@ Partial Class frmClient
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TextBox20 = New System.Windows.Forms.TextBox()
         Me.TextBox21 = New System.Windows.Forms.TextBox()
-        Me.pageInformation = New System.Windows.Forms.TabPage()
+        Me.pageInvoice = New System.Windows.Forms.TabPage()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TextBox13 = New System.Windows.Forms.TextBox()
+        Me.TextBox14 = New System.Windows.Forms.TextBox()
+        Me.pageAofAAuthorization = New System.Windows.Forms.TabPage()
+        Me.ComboBox8 = New System.Windows.Forms.ComboBox()
+        Me.Label72 = New System.Windows.Forms.Label()
+        Me.TextBox50 = New System.Windows.Forms.TextBox()
+        Me.Label73 = New System.Windows.Forms.Label()
+        Me.TextBox51 = New System.Windows.Forms.TextBox()
+        Me.Label74 = New System.Windows.Forms.Label()
+        Me.TextBox52 = New System.Windows.Forms.TextBox()
+        Me.Label75 = New System.Windows.Forms.Label()
+        Me.TextBox53 = New System.Windows.Forms.TextBox()
+        Me.Label76 = New System.Windows.Forms.Label()
+        Me.TextBox54 = New System.Windows.Forms.TextBox()
+        Me.Label77 = New System.Windows.Forms.Label()
+        Me.TextBox55 = New System.Windows.Forms.TextBox()
+        Me.TextBox56 = New System.Windows.Forms.TextBox()
+        Me.pageBPPInfo = New System.Windows.Forms.TabPage()
         Me.ComboBox4 = New System.Windows.Forms.ComboBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TextBox22 = New System.Windows.Forms.TextBox()
@@ -99,6 +114,96 @@ Partial Class frmClient
         Me.Label30 = New System.Windows.Forms.Label()
         Me.TextBox27 = New System.Windows.Forms.TextBox()
         Me.TextBox28 = New System.Windows.Forms.TextBox()
+        Me.pageRenditionSignature = New System.Windows.Forms.TabPage()
+        Me.ComboBox9 = New System.Windows.Forms.ComboBox()
+        Me.Label78 = New System.Windows.Forms.Label()
+        Me.TextBox57 = New System.Windows.Forms.TextBox()
+        Me.Label79 = New System.Windows.Forms.Label()
+        Me.TextBox58 = New System.Windows.Forms.TextBox()
+        Me.Label80 = New System.Windows.Forms.Label()
+        Me.TextBox59 = New System.Windows.Forms.TextBox()
+        Me.Label81 = New System.Windows.Forms.Label()
+        Me.TextBox60 = New System.Windows.Forms.TextBox()
+        Me.Label82 = New System.Windows.Forms.Label()
+        Me.TextBox61 = New System.Windows.Forms.TextBox()
+        Me.Label83 = New System.Windows.Forms.Label()
+        Me.TextBox62 = New System.Windows.Forms.TextBox()
+        Me.TextBox63 = New System.Windows.Forms.TextBox()
+        Me.pageREInfo = New System.Windows.Forms.TabPage()
+        Me.ComboBox10 = New System.Windows.Forms.ComboBox()
+        Me.Label84 = New System.Windows.Forms.Label()
+        Me.TextBox64 = New System.Windows.Forms.TextBox()
+        Me.Label85 = New System.Windows.Forms.Label()
+        Me.TextBox65 = New System.Windows.Forms.TextBox()
+        Me.Label86 = New System.Windows.Forms.Label()
+        Me.TextBox66 = New System.Windows.Forms.TextBox()
+        Me.Label87 = New System.Windows.Forms.Label()
+        Me.TextBox67 = New System.Windows.Forms.TextBox()
+        Me.Label88 = New System.Windows.Forms.Label()
+        Me.TextBox68 = New System.Windows.Forms.TextBox()
+        Me.Label89 = New System.Windows.Forms.Label()
+        Me.TextBox69 = New System.Windows.Forms.TextBox()
+        Me.TextBox70 = New System.Windows.Forms.TextBox()
+        Me.pageTaxBillPay = New System.Windows.Forms.TabPage()
+        Me.ComboBox11 = New System.Windows.Forms.ComboBox()
+        Me.Label90 = New System.Windows.Forms.Label()
+        Me.TextBox71 = New System.Windows.Forms.TextBox()
+        Me.Label91 = New System.Windows.Forms.Label()
+        Me.TextBox72 = New System.Windows.Forms.TextBox()
+        Me.Label92 = New System.Windows.Forms.Label()
+        Me.TextBox73 = New System.Windows.Forms.TextBox()
+        Me.Label93 = New System.Windows.Forms.Label()
+        Me.TextBox74 = New System.Windows.Forms.TextBox()
+        Me.Label94 = New System.Windows.Forms.Label()
+        Me.TextBox75 = New System.Windows.Forms.TextBox()
+        Me.Label95 = New System.Windows.Forms.Label()
+        Me.TextBox76 = New System.Windows.Forms.TextBox()
+        Me.TextBox77 = New System.Windows.Forms.TextBox()
+        Me.pageTaxBillTrans = New System.Windows.Forms.TabPage()
+        Me.ComboBox12 = New System.Windows.Forms.ComboBox()
+        Me.Label96 = New System.Windows.Forms.Label()
+        Me.TextBox78 = New System.Windows.Forms.TextBox()
+        Me.Label97 = New System.Windows.Forms.Label()
+        Me.TextBox79 = New System.Windows.Forms.TextBox()
+        Me.Label98 = New System.Windows.Forms.Label()
+        Me.TextBox80 = New System.Windows.Forms.TextBox()
+        Me.Label99 = New System.Windows.Forms.Label()
+        Me.TextBox81 = New System.Windows.Forms.TextBox()
+        Me.Label100 = New System.Windows.Forms.Label()
+        Me.TextBox82 = New System.Windows.Forms.TextBox()
+        Me.Label101 = New System.Windows.Forms.Label()
+        Me.TextBox83 = New System.Windows.Forms.TextBox()
+        Me.TextBox84 = New System.Windows.Forms.TextBox()
+        Me.pageAppeal = New System.Windows.Forms.TabPage()
+        Me.ComboBox6 = New System.Windows.Forms.ComboBox()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.TextBox36 = New System.Windows.Forms.TextBox()
+        Me.Label61 = New System.Windows.Forms.Label()
+        Me.TextBox37 = New System.Windows.Forms.TextBox()
+        Me.Label62 = New System.Windows.Forms.Label()
+        Me.TextBox38 = New System.Windows.Forms.TextBox()
+        Me.Label63 = New System.Windows.Forms.Label()
+        Me.TextBox39 = New System.Windows.Forms.TextBox()
+        Me.Label64 = New System.Windows.Forms.Label()
+        Me.TextBox40 = New System.Windows.Forms.TextBox()
+        Me.Label65 = New System.Windows.Forms.Label()
+        Me.TextBox41 = New System.Windows.Forms.TextBox()
+        Me.TextBox42 = New System.Windows.Forms.TextBox()
+        Me.pageReports = New System.Windows.Forms.TabPage()
+        Me.ComboBox7 = New System.Windows.Forms.ComboBox()
+        Me.Label66 = New System.Windows.Forms.Label()
+        Me.TextBox43 = New System.Windows.Forms.TextBox()
+        Me.Label67 = New System.Windows.Forms.Label()
+        Me.TextBox44 = New System.Windows.Forms.TextBox()
+        Me.Label68 = New System.Windows.Forms.Label()
+        Me.TextBox45 = New System.Windows.Forms.TextBox()
+        Me.Label69 = New System.Windows.Forms.Label()
+        Me.TextBox46 = New System.Windows.Forms.TextBox()
+        Me.Label70 = New System.Windows.Forms.Label()
+        Me.TextBox47 = New System.Windows.Forms.TextBox()
+        Me.Label71 = New System.Windows.Forms.Label()
+        Me.TextBox48 = New System.Windows.Forms.TextBox()
+        Me.TextBox49 = New System.Windows.Forms.TextBox()
         Me.pageMisc = New System.Windows.Forms.TabPage()
         Me.ComboBox5 = New System.Windows.Forms.ComboBox()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -202,11 +307,21 @@ Partial Class frmClient
         Me.Label55 = New System.Windows.Forms.Label()
         Me.cboREConsultant = New System.Windows.Forms.ComboBox()
         Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.cboAgency = New System.Windows.Forms.ComboBox()
+        Me.cmdDupe = New System.Windows.Forms.Button()
         Me.tabContacts.SuspendLayout()
         Me.pageTax.SuspendLayout()
-        Me.pageInvoice.SuspendLayout()
         Me.pageContract.SuspendLayout()
-        Me.pageInformation.SuspendLayout()
+        Me.pageInvoice.SuspendLayout()
+        Me.pageAofAAuthorization.SuspendLayout()
+        Me.pageBPPInfo.SuspendLayout()
+        Me.pageRenditionSignature.SuspendLayout()
+        Me.pageREInfo.SuspendLayout()
+        Me.pageTaxBillPay.SuspendLayout()
+        Me.pageTaxBillTrans.SuspendLayout()
+        Me.pageAppeal.SuspendLayout()
+        Me.pageReports.SuspendLayout()
         Me.pageMisc.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.grpProspectInfo.SuspendLayout()
@@ -345,18 +460,27 @@ Partial Class frmClient
         'tabContacts
         '
         Me.tabContacts.Controls.Add(Me.pageTax)
-        Me.tabContacts.Controls.Add(Me.pageInvoice)
         Me.tabContacts.Controls.Add(Me.pageContract)
-        Me.tabContacts.Controls.Add(Me.pageInformation)
+        Me.tabContacts.Controls.Add(Me.pageInvoice)
+        Me.tabContacts.Controls.Add(Me.pageAofAAuthorization)
+        Me.tabContacts.Controls.Add(Me.pageBPPInfo)
+        Me.tabContacts.Controls.Add(Me.pageRenditionSignature)
+        Me.tabContacts.Controls.Add(Me.pageREInfo)
+        Me.tabContacts.Controls.Add(Me.pageTaxBillPay)
+        Me.tabContacts.Controls.Add(Me.pageTaxBillTrans)
+        Me.tabContacts.Controls.Add(Me.pageAppeal)
+        Me.tabContacts.Controls.Add(Me.pageReports)
         Me.tabContacts.Controls.Add(Me.pageMisc)
-        Me.tabContacts.Location = New System.Drawing.Point(16, 288)
+        Me.tabContacts.Location = New System.Drawing.Point(12, 316)
+        Me.tabContacts.Multiline = True
         Me.tabContacts.Name = "tabContacts"
         Me.tabContacts.SelectedIndex = 0
-        Me.tabContacts.Size = New System.Drawing.Size(510, 171)
+        Me.tabContacts.Size = New System.Drawing.Size(510, 188)
         Me.tabContacts.TabIndex = 112
         '
         'pageTax
         '
+        Me.pageTax.Controls.Add(Me.cmdDupe)
         Me.pageTax.Controls.Add(Me.ComboBox1)
         Me.pageTax.Controls.Add(Me.Label17)
         Me.pageTax.Controls.Add(Me.TextBox11)
@@ -371,12 +495,12 @@ Partial Class frmClient
         Me.pageTax.Controls.Add(Me.Label12)
         Me.pageTax.Controls.Add(Me.TextBox6)
         Me.pageTax.Controls.Add(Me.TextBox1)
-        Me.pageTax.Location = New System.Drawing.Point(4, 22)
+        Me.pageTax.Location = New System.Drawing.Point(4, 40)
         Me.pageTax.Name = "pageTax"
         Me.pageTax.Padding = New System.Windows.Forms.Padding(3)
-        Me.pageTax.Size = New System.Drawing.Size(502, 145)
+        Me.pageTax.Size = New System.Drawing.Size(502, 144)
         Me.pageTax.TabIndex = 0
-        Me.pageTax.Text = "Client"
+        Me.pageTax.Text = "Tax"
         Me.pageTax.UseVisualStyleBackColor = True
         '
         'ComboBox1
@@ -410,7 +534,7 @@ Partial Class frmClient
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(14, 13)
+        Me.Label16.Location = New System.Drawing.Point(16, 12)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(35, 13)
         Me.Label16.TabIndex = 136
@@ -496,154 +620,9 @@ Partial Class frmClient
         '
         Me.TextBox1.Location = New System.Drawing.Point(94, 10)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox1.Size = New System.Drawing.Size(346, 20)
         Me.TextBox1.TabIndex = 126
         Me.TextBox1.Tag = "@DB=Clients.ContactTaxName"
-        '
-        'pageInvoice
-        '
-        Me.pageInvoice.Controls.Add(Me.ComboBox2)
-        Me.pageInvoice.Controls.Add(Me.Label2)
-        Me.pageInvoice.Controls.Add(Me.TextBox2)
-        Me.pageInvoice.Controls.Add(Me.Label3)
-        Me.pageInvoice.Controls.Add(Me.TextBox3)
-        Me.pageInvoice.Controls.Add(Me.Label9)
-        Me.pageInvoice.Controls.Add(Me.TextBox4)
-        Me.pageInvoice.Controls.Add(Me.Label10)
-        Me.pageInvoice.Controls.Add(Me.TextBox5)
-        Me.pageInvoice.Controls.Add(Me.Label11)
-        Me.pageInvoice.Controls.Add(Me.TextBox12)
-        Me.pageInvoice.Controls.Add(Me.Label18)
-        Me.pageInvoice.Controls.Add(Me.TextBox13)
-        Me.pageInvoice.Controls.Add(Me.TextBox14)
-        Me.pageInvoice.Location = New System.Drawing.Point(4, 22)
-        Me.pageInvoice.Name = "pageInvoice"
-        Me.pageInvoice.Padding = New System.Windows.Forms.Padding(3)
-        Me.pageInvoice.Size = New System.Drawing.Size(502, 145)
-        Me.pageInvoice.TabIndex = 1
-        Me.pageInvoice.Text = "Invoice"
-        Me.pageInvoice.UseVisualStyleBackColor = True
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(266, 62)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(145, 21)
-        Me.ComboBox2.TabIndex = 139
-        Me.ComboBox2.Tag = "@DB=Clients.ContactInvoiceStateCd"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(14, 39)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(45, 13)
-        Me.Label2.TabIndex = 138
-        Me.Label2.Text = "Address"
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(94, 36)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(394, 20)
-        Me.TextBox2.TabIndex = 137
-        Me.TextBox2.Tag = "@DB=Clients.ContactInvoiceAddress"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(14, 13)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(35, 13)
-        Me.Label3.TabIndex = 136
-        Me.Label3.Text = "Name"
-        '
-        'TextBox3
-        '
-        Me.TextBox3.Location = New System.Drawing.Point(94, 62)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(166, 20)
-        Me.TextBox3.TabIndex = 135
-        Me.TextBox3.Tag = "@DB=Clients.ContactInvoiceCity"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(14, 91)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(38, 13)
-        Me.Label9.TabIndex = 134
-        Me.Label9.Text = "Phone"
-        '
-        'TextBox4
-        '
-        Me.TextBox4.Location = New System.Drawing.Point(94, 88)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(166, 20)
-        Me.TextBox4.TabIndex = 133
-        Me.TextBox4.Tag = "@DB=Clients.ContactInvoicePhone"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(14, 65)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(76, 13)
-        Me.Label10.TabIndex = 132
-        Me.Label10.Text = "City, State  Zip"
-        '
-        'TextBox5
-        '
-        Me.TextBox5.Location = New System.Drawing.Point(417, 62)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(71, 20)
-        Me.TextBox5.TabIndex = 131
-        Me.TextBox5.Tag = "@DB=Clients.ContactInvoiceZip"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(14, 117)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(36, 13)
-        Me.Label11.TabIndex = 130
-        Me.Label11.Text = "E-Mail"
-        '
-        'TextBox12
-        '
-        Me.TextBox12.Location = New System.Drawing.Point(94, 114)
-        Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.Size = New System.Drawing.Size(394, 20)
-        Me.TextBox12.TabIndex = 129
-        Me.TextBox12.Tag = "@DB=Clients.ContactInvoiceEMail"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(292, 91)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(24, 13)
-        Me.Label18.TabIndex = 128
-        Me.Label18.Text = "Fax"
-        '
-        'TextBox13
-        '
-        Me.TextBox13.Location = New System.Drawing.Point(322, 88)
-        Me.TextBox13.Name = "TextBox13"
-        Me.TextBox13.Size = New System.Drawing.Size(166, 20)
-        Me.TextBox13.TabIndex = 127
-        Me.TextBox13.Tag = "@DB=Clients.ContactInvoiceFax"
-        '
-        'TextBox14
-        '
-        Me.TextBox14.Location = New System.Drawing.Point(94, 10)
-        Me.TextBox14.Name = "TextBox14"
-        Me.TextBox14.Size = New System.Drawing.Size(394, 20)
-        Me.TextBox14.TabIndex = 126
-        Me.TextBox14.Tag = "@DB=Clients.ContactInvoiceName"
         '
         'pageContract
         '
@@ -661,9 +640,9 @@ Partial Class frmClient
         Me.pageContract.Controls.Add(Me.Label24)
         Me.pageContract.Controls.Add(Me.TextBox20)
         Me.pageContract.Controls.Add(Me.TextBox21)
-        Me.pageContract.Location = New System.Drawing.Point(4, 22)
+        Me.pageContract.Location = New System.Drawing.Point(4, 40)
         Me.pageContract.Name = "pageContract"
-        Me.pageContract.Size = New System.Drawing.Size(502, 145)
+        Me.pageContract.Size = New System.Drawing.Size(502, 144)
         Me.pageContract.TabIndex = 2
         Me.pageContract.Text = "Contract"
         Me.pageContract.UseVisualStyleBackColor = True
@@ -789,28 +768,317 @@ Partial Class frmClient
         Me.TextBox21.TabIndex = 126
         Me.TextBox21.Tag = "@DB=Clients.ContactContractName"
         '
-        'pageInformation
+        'pageInvoice
         '
-        Me.pageInformation.Controls.Add(Me.ComboBox4)
-        Me.pageInformation.Controls.Add(Me.Label25)
-        Me.pageInformation.Controls.Add(Me.TextBox22)
-        Me.pageInformation.Controls.Add(Me.Label26)
-        Me.pageInformation.Controls.Add(Me.TextBox23)
-        Me.pageInformation.Controls.Add(Me.Label27)
-        Me.pageInformation.Controls.Add(Me.TextBox24)
-        Me.pageInformation.Controls.Add(Me.Label28)
-        Me.pageInformation.Controls.Add(Me.TextBox25)
-        Me.pageInformation.Controls.Add(Me.Label29)
-        Me.pageInformation.Controls.Add(Me.TextBox26)
-        Me.pageInformation.Controls.Add(Me.Label30)
-        Me.pageInformation.Controls.Add(Me.TextBox27)
-        Me.pageInformation.Controls.Add(Me.TextBox28)
-        Me.pageInformation.Location = New System.Drawing.Point(4, 22)
-        Me.pageInformation.Name = "pageInformation"
-        Me.pageInformation.Size = New System.Drawing.Size(502, 145)
-        Me.pageInformation.TabIndex = 3
-        Me.pageInformation.Text = "Information"
-        Me.pageInformation.UseVisualStyleBackColor = True
+        Me.pageInvoice.Controls.Add(Me.ComboBox2)
+        Me.pageInvoice.Controls.Add(Me.Label2)
+        Me.pageInvoice.Controls.Add(Me.TextBox2)
+        Me.pageInvoice.Controls.Add(Me.Label3)
+        Me.pageInvoice.Controls.Add(Me.TextBox3)
+        Me.pageInvoice.Controls.Add(Me.Label9)
+        Me.pageInvoice.Controls.Add(Me.TextBox4)
+        Me.pageInvoice.Controls.Add(Me.Label10)
+        Me.pageInvoice.Controls.Add(Me.TextBox5)
+        Me.pageInvoice.Controls.Add(Me.Label11)
+        Me.pageInvoice.Controls.Add(Me.TextBox12)
+        Me.pageInvoice.Controls.Add(Me.Label18)
+        Me.pageInvoice.Controls.Add(Me.TextBox13)
+        Me.pageInvoice.Controls.Add(Me.TextBox14)
+        Me.pageInvoice.Location = New System.Drawing.Point(4, 40)
+        Me.pageInvoice.Name = "pageInvoice"
+        Me.pageInvoice.Padding = New System.Windows.Forms.Padding(3)
+        Me.pageInvoice.Size = New System.Drawing.Size(502, 144)
+        Me.pageInvoice.TabIndex = 1
+        Me.pageInvoice.Text = "Invoice"
+        Me.pageInvoice.UseVisualStyleBackColor = True
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox2.TabIndex = 139
+        Me.ComboBox2.Tag = "@DB=Clients.ContactInvoiceStateCd"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(14, 39)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(45, 13)
+        Me.Label2.TabIndex = 138
+        Me.Label2.Text = "Address"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox2.TabIndex = 137
+        Me.TextBox2.Tag = "@DB=Clients.ContactInvoiceAddress"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(14, 13)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(35, 13)
+        Me.Label3.TabIndex = 136
+        Me.Label3.Text = "Name"
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox3.TabIndex = 135
+        Me.TextBox3.Tag = "@DB=Clients.ContactInvoiceCity"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(14, 91)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(38, 13)
+        Me.Label9.TabIndex = 134
+        Me.Label9.Text = "Phone"
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox4.TabIndex = 133
+        Me.TextBox4.Tag = "@DB=Clients.ContactInvoicePhone"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(14, 65)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(76, 13)
+        Me.Label10.TabIndex = 132
+        Me.Label10.Text = "City, State  Zip"
+        '
+        'TextBox5
+        '
+        Me.TextBox5.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox5.TabIndex = 131
+        Me.TextBox5.Tag = "@DB=Clients.ContactInvoiceZip"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(14, 117)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(36, 13)
+        Me.Label11.TabIndex = 130
+        Me.Label11.Text = "E-Mail"
+        '
+        'TextBox12
+        '
+        Me.TextBox12.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox12.Name = "TextBox12"
+        Me.TextBox12.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox12.TabIndex = 129
+        Me.TextBox12.Tag = "@DB=Clients.ContactInvoiceEMail"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(292, 91)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(24, 13)
+        Me.Label18.TabIndex = 128
+        Me.Label18.Text = "Fax"
+        '
+        'TextBox13
+        '
+        Me.TextBox13.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox13.Name = "TextBox13"
+        Me.TextBox13.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox13.TabIndex = 127
+        Me.TextBox13.Tag = "@DB=Clients.ContactInvoiceFax"
+        '
+        'TextBox14
+        '
+        Me.TextBox14.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox14.Name = "TextBox14"
+        Me.TextBox14.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox14.TabIndex = 126
+        Me.TextBox14.Tag = "@DB=Clients.ContactInvoiceName"
+        '
+        'pageAofAAuthorization
+        '
+        Me.pageAofAAuthorization.Controls.Add(Me.ComboBox8)
+        Me.pageAofAAuthorization.Controls.Add(Me.Label72)
+        Me.pageAofAAuthorization.Controls.Add(Me.TextBox50)
+        Me.pageAofAAuthorization.Controls.Add(Me.Label73)
+        Me.pageAofAAuthorization.Controls.Add(Me.TextBox51)
+        Me.pageAofAAuthorization.Controls.Add(Me.Label74)
+        Me.pageAofAAuthorization.Controls.Add(Me.TextBox52)
+        Me.pageAofAAuthorization.Controls.Add(Me.Label75)
+        Me.pageAofAAuthorization.Controls.Add(Me.TextBox53)
+        Me.pageAofAAuthorization.Controls.Add(Me.Label76)
+        Me.pageAofAAuthorization.Controls.Add(Me.TextBox54)
+        Me.pageAofAAuthorization.Controls.Add(Me.Label77)
+        Me.pageAofAAuthorization.Controls.Add(Me.TextBox55)
+        Me.pageAofAAuthorization.Controls.Add(Me.TextBox56)
+        Me.pageAofAAuthorization.Location = New System.Drawing.Point(4, 40)
+        Me.pageAofAAuthorization.Name = "pageAofAAuthorization"
+        Me.pageAofAAuthorization.Size = New System.Drawing.Size(502, 144)
+        Me.pageAofAAuthorization.TabIndex = 7
+        Me.pageAofAAuthorization.Text = "AofA Auth"
+        Me.pageAofAAuthorization.UseVisualStyleBackColor = True
+        '
+        'ComboBox8
+        '
+        Me.ComboBox8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox8.FormattingEnabled = True
+        Me.ComboBox8.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox8.Name = "ComboBox8"
+        Me.ComboBox8.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox8.TabIndex = 153
+        Me.ComboBox8.Tag = "@DB=Clients.ContactAofAAuthorizationStateCd"
+        '
+        'Label72
+        '
+        Me.Label72.AutoSize = True
+        Me.Label72.Location = New System.Drawing.Point(14, 39)
+        Me.Label72.Name = "Label72"
+        Me.Label72.Size = New System.Drawing.Size(45, 13)
+        Me.Label72.TabIndex = 152
+        Me.Label72.Text = "Address"
+        '
+        'TextBox50
+        '
+        Me.TextBox50.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox50.Name = "TextBox50"
+        Me.TextBox50.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox50.TabIndex = 151
+        Me.TextBox50.Tag = "@DB=Clients.ContactAofAAuthorizationAddress"
+        '
+        'Label73
+        '
+        Me.Label73.AutoSize = True
+        Me.Label73.Location = New System.Drawing.Point(14, 13)
+        Me.Label73.Name = "Label73"
+        Me.Label73.Size = New System.Drawing.Size(35, 13)
+        Me.Label73.TabIndex = 150
+        Me.Label73.Text = "Name"
+        '
+        'TextBox51
+        '
+        Me.TextBox51.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox51.Name = "TextBox51"
+        Me.TextBox51.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox51.TabIndex = 149
+        Me.TextBox51.Tag = "@DB=Clients.ContactAofAAuthorizationCity"
+        '
+        'Label74
+        '
+        Me.Label74.AutoSize = True
+        Me.Label74.Location = New System.Drawing.Point(14, 91)
+        Me.Label74.Name = "Label74"
+        Me.Label74.Size = New System.Drawing.Size(38, 13)
+        Me.Label74.TabIndex = 148
+        Me.Label74.Text = "Phone"
+        '
+        'TextBox52
+        '
+        Me.TextBox52.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox52.Name = "TextBox52"
+        Me.TextBox52.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox52.TabIndex = 147
+        Me.TextBox52.Tag = "@DB=Clients.ContactAofAAuthorizationPhone"
+        '
+        'Label75
+        '
+        Me.Label75.AutoSize = True
+        Me.Label75.Location = New System.Drawing.Point(14, 65)
+        Me.Label75.Name = "Label75"
+        Me.Label75.Size = New System.Drawing.Size(76, 13)
+        Me.Label75.TabIndex = 146
+        Me.Label75.Text = "City, State  Zip"
+        '
+        'TextBox53
+        '
+        Me.TextBox53.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox53.Name = "TextBox53"
+        Me.TextBox53.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox53.TabIndex = 145
+        Me.TextBox53.Tag = "@DB=Clients.ContactAofAAuthorizationZip"
+        '
+        'Label76
+        '
+        Me.Label76.AutoSize = True
+        Me.Label76.Location = New System.Drawing.Point(14, 117)
+        Me.Label76.Name = "Label76"
+        Me.Label76.Size = New System.Drawing.Size(36, 13)
+        Me.Label76.TabIndex = 144
+        Me.Label76.Text = "E-Mail"
+        '
+        'TextBox54
+        '
+        Me.TextBox54.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox54.Name = "TextBox54"
+        Me.TextBox54.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox54.TabIndex = 143
+        Me.TextBox54.Tag = "@DB=Clients.ContactAofAAuthorizationEMail"
+        '
+        'Label77
+        '
+        Me.Label77.AutoSize = True
+        Me.Label77.Location = New System.Drawing.Point(292, 91)
+        Me.Label77.Name = "Label77"
+        Me.Label77.Size = New System.Drawing.Size(24, 13)
+        Me.Label77.TabIndex = 142
+        Me.Label77.Text = "Fax"
+        '
+        'TextBox55
+        '
+        Me.TextBox55.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox55.Name = "TextBox55"
+        Me.TextBox55.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox55.TabIndex = 141
+        Me.TextBox55.Tag = "@DB=Clients.ContactAofAAuthorizationFax"
+        '
+        'TextBox56
+        '
+        Me.TextBox56.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox56.Name = "TextBox56"
+        Me.TextBox56.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox56.TabIndex = 140
+        Me.TextBox56.Tag = "@DB=Clients.ContactAofAAuthorizationName"
+        '
+        'pageBPPInfo
+        '
+        Me.pageBPPInfo.Controls.Add(Me.ComboBox4)
+        Me.pageBPPInfo.Controls.Add(Me.Label25)
+        Me.pageBPPInfo.Controls.Add(Me.TextBox22)
+        Me.pageBPPInfo.Controls.Add(Me.Label26)
+        Me.pageBPPInfo.Controls.Add(Me.TextBox23)
+        Me.pageBPPInfo.Controls.Add(Me.Label27)
+        Me.pageBPPInfo.Controls.Add(Me.TextBox24)
+        Me.pageBPPInfo.Controls.Add(Me.Label28)
+        Me.pageBPPInfo.Controls.Add(Me.TextBox25)
+        Me.pageBPPInfo.Controls.Add(Me.Label29)
+        Me.pageBPPInfo.Controls.Add(Me.TextBox26)
+        Me.pageBPPInfo.Controls.Add(Me.Label30)
+        Me.pageBPPInfo.Controls.Add(Me.TextBox27)
+        Me.pageBPPInfo.Controls.Add(Me.TextBox28)
+        Me.pageBPPInfo.Location = New System.Drawing.Point(4, 40)
+        Me.pageBPPInfo.Name = "pageBPPInfo"
+        Me.pageBPPInfo.Size = New System.Drawing.Size(502, 144)
+        Me.pageBPPInfo.TabIndex = 3
+        Me.pageBPPInfo.Text = "BPP Info"
+        Me.pageBPPInfo.UseVisualStyleBackColor = True
         '
         'ComboBox4
         '
@@ -821,7 +1089,7 @@ Partial Class frmClient
         Me.ComboBox4.Name = "ComboBox4"
         Me.ComboBox4.Size = New System.Drawing.Size(145, 21)
         Me.ComboBox4.TabIndex = 139
-        Me.ComboBox4.Tag = "@DB=Clients.ContactInformationStateCd"
+        Me.ComboBox4.Tag = "@DB=Clients.ContactBPPInfoStateCd"
         '
         'Label25
         '
@@ -838,7 +1106,7 @@ Partial Class frmClient
         Me.TextBox22.Name = "TextBox22"
         Me.TextBox22.Size = New System.Drawing.Size(394, 20)
         Me.TextBox22.TabIndex = 137
-        Me.TextBox22.Tag = "@DB=Clients.ContactInformationAddress"
+        Me.TextBox22.Tag = "@DB=Clients.ContactBPPInfoAddress"
         '
         'Label26
         '
@@ -855,7 +1123,7 @@ Partial Class frmClient
         Me.TextBox23.Name = "TextBox23"
         Me.TextBox23.Size = New System.Drawing.Size(166, 20)
         Me.TextBox23.TabIndex = 135
-        Me.TextBox23.Tag = "@DB=Clients.ContactInformationCity"
+        Me.TextBox23.Tag = "@DB=Clients.ContactBPPInfoCity"
         '
         'Label27
         '
@@ -872,7 +1140,7 @@ Partial Class frmClient
         Me.TextBox24.Name = "TextBox24"
         Me.TextBox24.Size = New System.Drawing.Size(166, 20)
         Me.TextBox24.TabIndex = 133
-        Me.TextBox24.Tag = "@DB=Clients.ContactInformationPhone"
+        Me.TextBox24.Tag = "@DB=Clients.ContactBPPInfoPhone"
         '
         'Label28
         '
@@ -889,7 +1157,7 @@ Partial Class frmClient
         Me.TextBox25.Name = "TextBox25"
         Me.TextBox25.Size = New System.Drawing.Size(71, 20)
         Me.TextBox25.TabIndex = 131
-        Me.TextBox25.Tag = "@DB=Clients.ContactInformationZip"
+        Me.TextBox25.Tag = "@DB=Clients.ContactBPPInfoZip"
         '
         'Label29
         '
@@ -906,7 +1174,7 @@ Partial Class frmClient
         Me.TextBox26.Name = "TextBox26"
         Me.TextBox26.Size = New System.Drawing.Size(394, 20)
         Me.TextBox26.TabIndex = 129
-        Me.TextBox26.Tag = "@DB=Clients.ContactInformationEMail"
+        Me.TextBox26.Tag = "@DB=Clients.ContactBPPInfoEMail"
         '
         'Label30
         '
@@ -923,7 +1191,7 @@ Partial Class frmClient
         Me.TextBox27.Name = "TextBox27"
         Me.TextBox27.Size = New System.Drawing.Size(166, 20)
         Me.TextBox27.TabIndex = 127
-        Me.TextBox27.Tag = "@DB=Clients.ContactInformationFax"
+        Me.TextBox27.Tag = "@DB=Clients.ContactBPPInfoFax"
         '
         'TextBox28
         '
@@ -931,7 +1199,871 @@ Partial Class frmClient
         Me.TextBox28.Name = "TextBox28"
         Me.TextBox28.Size = New System.Drawing.Size(394, 20)
         Me.TextBox28.TabIndex = 126
-        Me.TextBox28.Tag = "@DB=Clients.ContactInformationName"
+        Me.TextBox28.Tag = "@DB=Clients.ContactBPPInfoName"
+        '
+        'pageRenditionSignature
+        '
+        Me.pageRenditionSignature.Controls.Add(Me.ComboBox9)
+        Me.pageRenditionSignature.Controls.Add(Me.Label78)
+        Me.pageRenditionSignature.Controls.Add(Me.TextBox57)
+        Me.pageRenditionSignature.Controls.Add(Me.Label79)
+        Me.pageRenditionSignature.Controls.Add(Me.TextBox58)
+        Me.pageRenditionSignature.Controls.Add(Me.Label80)
+        Me.pageRenditionSignature.Controls.Add(Me.TextBox59)
+        Me.pageRenditionSignature.Controls.Add(Me.Label81)
+        Me.pageRenditionSignature.Controls.Add(Me.TextBox60)
+        Me.pageRenditionSignature.Controls.Add(Me.Label82)
+        Me.pageRenditionSignature.Controls.Add(Me.TextBox61)
+        Me.pageRenditionSignature.Controls.Add(Me.Label83)
+        Me.pageRenditionSignature.Controls.Add(Me.TextBox62)
+        Me.pageRenditionSignature.Controls.Add(Me.TextBox63)
+        Me.pageRenditionSignature.Location = New System.Drawing.Point(4, 40)
+        Me.pageRenditionSignature.Name = "pageRenditionSignature"
+        Me.pageRenditionSignature.Size = New System.Drawing.Size(502, 144)
+        Me.pageRenditionSignature.TabIndex = 6
+        Me.pageRenditionSignature.Text = "Rend Sig"
+        Me.pageRenditionSignature.UseVisualStyleBackColor = True
+        '
+        'ComboBox9
+        '
+        Me.ComboBox9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox9.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox9.FormattingEnabled = True
+        Me.ComboBox9.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox9.Name = "ComboBox9"
+        Me.ComboBox9.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox9.TabIndex = 153
+        Me.ComboBox9.Tag = "@DB=Clients.ContactRenditionSignatureStateCd"
+        '
+        'Label78
+        '
+        Me.Label78.AutoSize = True
+        Me.Label78.Location = New System.Drawing.Point(14, 39)
+        Me.Label78.Name = "Label78"
+        Me.Label78.Size = New System.Drawing.Size(45, 13)
+        Me.Label78.TabIndex = 152
+        Me.Label78.Text = "Address"
+        '
+        'TextBox57
+        '
+        Me.TextBox57.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox57.Name = "TextBox57"
+        Me.TextBox57.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox57.TabIndex = 151
+        Me.TextBox57.Tag = "@DB=Clients.ContactRenditionSignatureAddress"
+        '
+        'Label79
+        '
+        Me.Label79.AutoSize = True
+        Me.Label79.Location = New System.Drawing.Point(14, 13)
+        Me.Label79.Name = "Label79"
+        Me.Label79.Size = New System.Drawing.Size(35, 13)
+        Me.Label79.TabIndex = 150
+        Me.Label79.Text = "Name"
+        '
+        'TextBox58
+        '
+        Me.TextBox58.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox58.Name = "TextBox58"
+        Me.TextBox58.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox58.TabIndex = 149
+        Me.TextBox58.Tag = "@DB=Clients.ContactRenditionSignatureCity"
+        '
+        'Label80
+        '
+        Me.Label80.AutoSize = True
+        Me.Label80.Location = New System.Drawing.Point(14, 91)
+        Me.Label80.Name = "Label80"
+        Me.Label80.Size = New System.Drawing.Size(38, 13)
+        Me.Label80.TabIndex = 148
+        Me.Label80.Text = "Phone"
+        '
+        'TextBox59
+        '
+        Me.TextBox59.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox59.Name = "TextBox59"
+        Me.TextBox59.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox59.TabIndex = 147
+        Me.TextBox59.Tag = "@DB=Clients.ContactRenditionSignaturePhone"
+        '
+        'Label81
+        '
+        Me.Label81.AutoSize = True
+        Me.Label81.Location = New System.Drawing.Point(14, 65)
+        Me.Label81.Name = "Label81"
+        Me.Label81.Size = New System.Drawing.Size(76, 13)
+        Me.Label81.TabIndex = 146
+        Me.Label81.Text = "City, State  Zip"
+        '
+        'TextBox60
+        '
+        Me.TextBox60.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox60.Name = "TextBox60"
+        Me.TextBox60.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox60.TabIndex = 145
+        Me.TextBox60.Tag = "@DB=Clients.ContactRenditionSignatureZip"
+        '
+        'Label82
+        '
+        Me.Label82.AutoSize = True
+        Me.Label82.Location = New System.Drawing.Point(14, 117)
+        Me.Label82.Name = "Label82"
+        Me.Label82.Size = New System.Drawing.Size(36, 13)
+        Me.Label82.TabIndex = 144
+        Me.Label82.Text = "E-Mail"
+        '
+        'TextBox61
+        '
+        Me.TextBox61.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox61.Name = "TextBox61"
+        Me.TextBox61.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox61.TabIndex = 143
+        Me.TextBox61.Tag = "@DB=Clients.ContactRenditionSignatureEMail"
+        '
+        'Label83
+        '
+        Me.Label83.AutoSize = True
+        Me.Label83.Location = New System.Drawing.Point(292, 91)
+        Me.Label83.Name = "Label83"
+        Me.Label83.Size = New System.Drawing.Size(24, 13)
+        Me.Label83.TabIndex = 142
+        Me.Label83.Text = "Fax"
+        '
+        'TextBox62
+        '
+        Me.TextBox62.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox62.Name = "TextBox62"
+        Me.TextBox62.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox62.TabIndex = 141
+        Me.TextBox62.Tag = "@DB=Clients.ContactRenditionSignatureFax"
+        '
+        'TextBox63
+        '
+        Me.TextBox63.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox63.Name = "TextBox63"
+        Me.TextBox63.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox63.TabIndex = 140
+        Me.TextBox63.Tag = "@DB=Clients.ContactRenditionSignatureName"
+        '
+        'pageREInfo
+        '
+        Me.pageREInfo.Controls.Add(Me.ComboBox10)
+        Me.pageREInfo.Controls.Add(Me.Label84)
+        Me.pageREInfo.Controls.Add(Me.TextBox64)
+        Me.pageREInfo.Controls.Add(Me.Label85)
+        Me.pageREInfo.Controls.Add(Me.TextBox65)
+        Me.pageREInfo.Controls.Add(Me.Label86)
+        Me.pageREInfo.Controls.Add(Me.TextBox66)
+        Me.pageREInfo.Controls.Add(Me.Label87)
+        Me.pageREInfo.Controls.Add(Me.TextBox67)
+        Me.pageREInfo.Controls.Add(Me.Label88)
+        Me.pageREInfo.Controls.Add(Me.TextBox68)
+        Me.pageREInfo.Controls.Add(Me.Label89)
+        Me.pageREInfo.Controls.Add(Me.TextBox69)
+        Me.pageREInfo.Controls.Add(Me.TextBox70)
+        Me.pageREInfo.Location = New System.Drawing.Point(4, 40)
+        Me.pageREInfo.Name = "pageREInfo"
+        Me.pageREInfo.Size = New System.Drawing.Size(502, 144)
+        Me.pageREInfo.TabIndex = 5
+        Me.pageREInfo.Text = "RE Info"
+        Me.pageREInfo.UseVisualStyleBackColor = True
+        '
+        'ComboBox10
+        '
+        Me.ComboBox10.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox10.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox10.FormattingEnabled = True
+        Me.ComboBox10.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox10.Name = "ComboBox10"
+        Me.ComboBox10.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox10.TabIndex = 153
+        Me.ComboBox10.Tag = "@DB=Clients.ContactREInfoStateCd"
+        '
+        'Label84
+        '
+        Me.Label84.AutoSize = True
+        Me.Label84.Location = New System.Drawing.Point(14, 39)
+        Me.Label84.Name = "Label84"
+        Me.Label84.Size = New System.Drawing.Size(45, 13)
+        Me.Label84.TabIndex = 152
+        Me.Label84.Text = "Address"
+        '
+        'TextBox64
+        '
+        Me.TextBox64.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox64.Name = "TextBox64"
+        Me.TextBox64.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox64.TabIndex = 151
+        Me.TextBox64.Tag = "@DB=Clients.ContactREInfoAddress"
+        '
+        'Label85
+        '
+        Me.Label85.AutoSize = True
+        Me.Label85.Location = New System.Drawing.Point(14, 13)
+        Me.Label85.Name = "Label85"
+        Me.Label85.Size = New System.Drawing.Size(35, 13)
+        Me.Label85.TabIndex = 150
+        Me.Label85.Text = "Name"
+        '
+        'TextBox65
+        '
+        Me.TextBox65.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox65.Name = "TextBox65"
+        Me.TextBox65.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox65.TabIndex = 149
+        Me.TextBox65.Tag = "@DB=Clients.ContactREInfoCity"
+        '
+        'Label86
+        '
+        Me.Label86.AutoSize = True
+        Me.Label86.Location = New System.Drawing.Point(14, 91)
+        Me.Label86.Name = "Label86"
+        Me.Label86.Size = New System.Drawing.Size(38, 13)
+        Me.Label86.TabIndex = 148
+        Me.Label86.Text = "Phone"
+        '
+        'TextBox66
+        '
+        Me.TextBox66.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox66.Name = "TextBox66"
+        Me.TextBox66.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox66.TabIndex = 147
+        Me.TextBox66.Tag = "@DB=Clients.ContactREInfoPhone"
+        '
+        'Label87
+        '
+        Me.Label87.AutoSize = True
+        Me.Label87.Location = New System.Drawing.Point(14, 65)
+        Me.Label87.Name = "Label87"
+        Me.Label87.Size = New System.Drawing.Size(76, 13)
+        Me.Label87.TabIndex = 146
+        Me.Label87.Text = "City, State  Zip"
+        '
+        'TextBox67
+        '
+        Me.TextBox67.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox67.Name = "TextBox67"
+        Me.TextBox67.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox67.TabIndex = 145
+        Me.TextBox67.Tag = "@DB=Clients.ContactREInfoZip"
+        '
+        'Label88
+        '
+        Me.Label88.AutoSize = True
+        Me.Label88.Location = New System.Drawing.Point(14, 117)
+        Me.Label88.Name = "Label88"
+        Me.Label88.Size = New System.Drawing.Size(36, 13)
+        Me.Label88.TabIndex = 144
+        Me.Label88.Text = "E-Mail"
+        '
+        'TextBox68
+        '
+        Me.TextBox68.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox68.Name = "TextBox68"
+        Me.TextBox68.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox68.TabIndex = 143
+        Me.TextBox68.Tag = "@DB=Clients.ContactREInfoEMail"
+        '
+        'Label89
+        '
+        Me.Label89.AutoSize = True
+        Me.Label89.Location = New System.Drawing.Point(292, 91)
+        Me.Label89.Name = "Label89"
+        Me.Label89.Size = New System.Drawing.Size(24, 13)
+        Me.Label89.TabIndex = 142
+        Me.Label89.Text = "Fax"
+        '
+        'TextBox69
+        '
+        Me.TextBox69.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox69.Name = "TextBox69"
+        Me.TextBox69.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox69.TabIndex = 141
+        Me.TextBox69.Tag = "@DB=Clients.ContactREInfoFax"
+        '
+        'TextBox70
+        '
+        Me.TextBox70.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox70.Name = "TextBox70"
+        Me.TextBox70.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox70.TabIndex = 140
+        Me.TextBox70.Tag = "@DB=Clients.ContactREInfoName"
+        '
+        'pageTaxBillPay
+        '
+        Me.pageTaxBillPay.Controls.Add(Me.ComboBox11)
+        Me.pageTaxBillPay.Controls.Add(Me.Label90)
+        Me.pageTaxBillPay.Controls.Add(Me.TextBox71)
+        Me.pageTaxBillPay.Controls.Add(Me.Label91)
+        Me.pageTaxBillPay.Controls.Add(Me.TextBox72)
+        Me.pageTaxBillPay.Controls.Add(Me.Label92)
+        Me.pageTaxBillPay.Controls.Add(Me.TextBox73)
+        Me.pageTaxBillPay.Controls.Add(Me.Label93)
+        Me.pageTaxBillPay.Controls.Add(Me.TextBox74)
+        Me.pageTaxBillPay.Controls.Add(Me.Label94)
+        Me.pageTaxBillPay.Controls.Add(Me.TextBox75)
+        Me.pageTaxBillPay.Controls.Add(Me.Label95)
+        Me.pageTaxBillPay.Controls.Add(Me.TextBox76)
+        Me.pageTaxBillPay.Controls.Add(Me.TextBox77)
+        Me.pageTaxBillPay.Location = New System.Drawing.Point(4, 40)
+        Me.pageTaxBillPay.Name = "pageTaxBillPay"
+        Me.pageTaxBillPay.Size = New System.Drawing.Size(502, 144)
+        Me.pageTaxBillPay.TabIndex = 9
+        Me.pageTaxBillPay.Text = "Tax Bill Pay"
+        Me.pageTaxBillPay.UseVisualStyleBackColor = True
+        '
+        'ComboBox11
+        '
+        Me.ComboBox11.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox11.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox11.FormattingEnabled = True
+        Me.ComboBox11.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox11.Name = "ComboBox11"
+        Me.ComboBox11.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox11.TabIndex = 153
+        Me.ComboBox11.Tag = "@DB=Clients.ContactTaxBillPaymentStateCd"
+        '
+        'Label90
+        '
+        Me.Label90.AutoSize = True
+        Me.Label90.Location = New System.Drawing.Point(14, 39)
+        Me.Label90.Name = "Label90"
+        Me.Label90.Size = New System.Drawing.Size(45, 13)
+        Me.Label90.TabIndex = 152
+        Me.Label90.Text = "Address"
+        '
+        'TextBox71
+        '
+        Me.TextBox71.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox71.Name = "TextBox71"
+        Me.TextBox71.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox71.TabIndex = 151
+        Me.TextBox71.Tag = "@DB=Clients.ContactTaxBillPaymentAddress"
+        '
+        'Label91
+        '
+        Me.Label91.AutoSize = True
+        Me.Label91.Location = New System.Drawing.Point(14, 13)
+        Me.Label91.Name = "Label91"
+        Me.Label91.Size = New System.Drawing.Size(35, 13)
+        Me.Label91.TabIndex = 150
+        Me.Label91.Text = "Name"
+        '
+        'TextBox72
+        '
+        Me.TextBox72.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox72.Name = "TextBox72"
+        Me.TextBox72.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox72.TabIndex = 149
+        Me.TextBox72.Tag = "@DB=Clients.ContactTaxBillPaymentCity"
+        '
+        'Label92
+        '
+        Me.Label92.AutoSize = True
+        Me.Label92.Location = New System.Drawing.Point(14, 91)
+        Me.Label92.Name = "Label92"
+        Me.Label92.Size = New System.Drawing.Size(38, 13)
+        Me.Label92.TabIndex = 148
+        Me.Label92.Text = "Phone"
+        '
+        'TextBox73
+        '
+        Me.TextBox73.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox73.Name = "TextBox73"
+        Me.TextBox73.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox73.TabIndex = 147
+        Me.TextBox73.Tag = "@DB=Clients.ContactTaxBillPaymentPhone"
+        '
+        'Label93
+        '
+        Me.Label93.AutoSize = True
+        Me.Label93.Location = New System.Drawing.Point(14, 65)
+        Me.Label93.Name = "Label93"
+        Me.Label93.Size = New System.Drawing.Size(76, 13)
+        Me.Label93.TabIndex = 146
+        Me.Label93.Text = "City, State  Zip"
+        '
+        'TextBox74
+        '
+        Me.TextBox74.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox74.Name = "TextBox74"
+        Me.TextBox74.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox74.TabIndex = 145
+        Me.TextBox74.Tag = "@DB=Clients.ContactTaxBillPaymentZip"
+        '
+        'Label94
+        '
+        Me.Label94.AutoSize = True
+        Me.Label94.Location = New System.Drawing.Point(14, 117)
+        Me.Label94.Name = "Label94"
+        Me.Label94.Size = New System.Drawing.Size(36, 13)
+        Me.Label94.TabIndex = 144
+        Me.Label94.Text = "E-Mail"
+        '
+        'TextBox75
+        '
+        Me.TextBox75.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox75.Name = "TextBox75"
+        Me.TextBox75.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox75.TabIndex = 143
+        Me.TextBox75.Tag = "@DB=Clients.ContactTaxBillPaymentEMail"
+        '
+        'Label95
+        '
+        Me.Label95.AutoSize = True
+        Me.Label95.Location = New System.Drawing.Point(292, 91)
+        Me.Label95.Name = "Label95"
+        Me.Label95.Size = New System.Drawing.Size(24, 13)
+        Me.Label95.TabIndex = 142
+        Me.Label95.Text = "Fax"
+        '
+        'TextBox76
+        '
+        Me.TextBox76.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox76.Name = "TextBox76"
+        Me.TextBox76.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox76.TabIndex = 141
+        Me.TextBox76.Tag = "@DB=Clients.ContactTaxBillPaymentFax"
+        '
+        'TextBox77
+        '
+        Me.TextBox77.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox77.Name = "TextBox77"
+        Me.TextBox77.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox77.TabIndex = 140
+        Me.TextBox77.Tag = "@DB=Clients.ContactTaxBillPaymentName"
+        '
+        'pageTaxBillTrans
+        '
+        Me.pageTaxBillTrans.Controls.Add(Me.ComboBox12)
+        Me.pageTaxBillTrans.Controls.Add(Me.Label96)
+        Me.pageTaxBillTrans.Controls.Add(Me.TextBox78)
+        Me.pageTaxBillTrans.Controls.Add(Me.Label97)
+        Me.pageTaxBillTrans.Controls.Add(Me.TextBox79)
+        Me.pageTaxBillTrans.Controls.Add(Me.Label98)
+        Me.pageTaxBillTrans.Controls.Add(Me.TextBox80)
+        Me.pageTaxBillTrans.Controls.Add(Me.Label99)
+        Me.pageTaxBillTrans.Controls.Add(Me.TextBox81)
+        Me.pageTaxBillTrans.Controls.Add(Me.Label100)
+        Me.pageTaxBillTrans.Controls.Add(Me.TextBox82)
+        Me.pageTaxBillTrans.Controls.Add(Me.Label101)
+        Me.pageTaxBillTrans.Controls.Add(Me.TextBox83)
+        Me.pageTaxBillTrans.Controls.Add(Me.TextBox84)
+        Me.pageTaxBillTrans.Location = New System.Drawing.Point(4, 40)
+        Me.pageTaxBillTrans.Name = "pageTaxBillTrans"
+        Me.pageTaxBillTrans.Size = New System.Drawing.Size(502, 144)
+        Me.pageTaxBillTrans.TabIndex = 10
+        Me.pageTaxBillTrans.Text = "Tax Bill Trans"
+        Me.pageTaxBillTrans.UseVisualStyleBackColor = True
+        '
+        'ComboBox12
+        '
+        Me.ComboBox12.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox12.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox12.FormattingEnabled = True
+        Me.ComboBox12.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox12.Name = "ComboBox12"
+        Me.ComboBox12.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox12.TabIndex = 153
+        Me.ComboBox12.Tag = "@DB=Clients.ContactTaxBillTransmittalStateCd"
+        '
+        'Label96
+        '
+        Me.Label96.AutoSize = True
+        Me.Label96.Location = New System.Drawing.Point(14, 39)
+        Me.Label96.Name = "Label96"
+        Me.Label96.Size = New System.Drawing.Size(45, 13)
+        Me.Label96.TabIndex = 152
+        Me.Label96.Text = "Address"
+        '
+        'TextBox78
+        '
+        Me.TextBox78.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox78.Name = "TextBox78"
+        Me.TextBox78.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox78.TabIndex = 151
+        Me.TextBox78.Tag = "@DB=Clients.ContactTaxBillTransmittalAddress"
+        '
+        'Label97
+        '
+        Me.Label97.AutoSize = True
+        Me.Label97.Location = New System.Drawing.Point(14, 13)
+        Me.Label97.Name = "Label97"
+        Me.Label97.Size = New System.Drawing.Size(35, 13)
+        Me.Label97.TabIndex = 150
+        Me.Label97.Text = "Name"
+        '
+        'TextBox79
+        '
+        Me.TextBox79.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox79.Name = "TextBox79"
+        Me.TextBox79.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox79.TabIndex = 149
+        Me.TextBox79.Tag = "@DB=Clients.ContactTaxBillTransmittalCity"
+        '
+        'Label98
+        '
+        Me.Label98.AutoSize = True
+        Me.Label98.Location = New System.Drawing.Point(14, 91)
+        Me.Label98.Name = "Label98"
+        Me.Label98.Size = New System.Drawing.Size(38, 13)
+        Me.Label98.TabIndex = 148
+        Me.Label98.Text = "Phone"
+        '
+        'TextBox80
+        '
+        Me.TextBox80.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox80.Name = "TextBox80"
+        Me.TextBox80.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox80.TabIndex = 147
+        Me.TextBox80.Tag = "@DB=Clients.ContactTaxBillTransmittalPhone"
+        '
+        'Label99
+        '
+        Me.Label99.AutoSize = True
+        Me.Label99.Location = New System.Drawing.Point(14, 65)
+        Me.Label99.Name = "Label99"
+        Me.Label99.Size = New System.Drawing.Size(76, 13)
+        Me.Label99.TabIndex = 146
+        Me.Label99.Text = "City, State  Zip"
+        '
+        'TextBox81
+        '
+        Me.TextBox81.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox81.Name = "TextBox81"
+        Me.TextBox81.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox81.TabIndex = 145
+        Me.TextBox81.Tag = "@DB=Clients.ContactTaxBillTransmittalZip"
+        '
+        'Label100
+        '
+        Me.Label100.AutoSize = True
+        Me.Label100.Location = New System.Drawing.Point(14, 117)
+        Me.Label100.Name = "Label100"
+        Me.Label100.Size = New System.Drawing.Size(36, 13)
+        Me.Label100.TabIndex = 144
+        Me.Label100.Text = "E-Mail"
+        '
+        'TextBox82
+        '
+        Me.TextBox82.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox82.Name = "TextBox82"
+        Me.TextBox82.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox82.TabIndex = 143
+        Me.TextBox82.Tag = "@DB=Clients.ContactTaxBillTransmittalEMail"
+        '
+        'Label101
+        '
+        Me.Label101.AutoSize = True
+        Me.Label101.Location = New System.Drawing.Point(292, 91)
+        Me.Label101.Name = "Label101"
+        Me.Label101.Size = New System.Drawing.Size(24, 13)
+        Me.Label101.TabIndex = 142
+        Me.Label101.Text = "Fax"
+        '
+        'TextBox83
+        '
+        Me.TextBox83.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox83.Name = "TextBox83"
+        Me.TextBox83.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox83.TabIndex = 141
+        Me.TextBox83.Tag = "@DB=Clients.ContactTaxBillTransmittalFax"
+        '
+        'TextBox84
+        '
+        Me.TextBox84.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox84.Name = "TextBox84"
+        Me.TextBox84.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox84.TabIndex = 140
+        Me.TextBox84.Tag = "@DB=Clients.ContactTaxBillTransmittalName"
+        '
+        'pageAppeal
+        '
+        Me.pageAppeal.Controls.Add(Me.ComboBox6)
+        Me.pageAppeal.Controls.Add(Me.Label60)
+        Me.pageAppeal.Controls.Add(Me.TextBox36)
+        Me.pageAppeal.Controls.Add(Me.Label61)
+        Me.pageAppeal.Controls.Add(Me.TextBox37)
+        Me.pageAppeal.Controls.Add(Me.Label62)
+        Me.pageAppeal.Controls.Add(Me.TextBox38)
+        Me.pageAppeal.Controls.Add(Me.Label63)
+        Me.pageAppeal.Controls.Add(Me.TextBox39)
+        Me.pageAppeal.Controls.Add(Me.Label64)
+        Me.pageAppeal.Controls.Add(Me.TextBox40)
+        Me.pageAppeal.Controls.Add(Me.Label65)
+        Me.pageAppeal.Controls.Add(Me.TextBox41)
+        Me.pageAppeal.Controls.Add(Me.TextBox42)
+        Me.pageAppeal.Location = New System.Drawing.Point(4, 40)
+        Me.pageAppeal.Name = "pageAppeal"
+        Me.pageAppeal.Size = New System.Drawing.Size(502, 144)
+        Me.pageAppeal.TabIndex = 11
+        Me.pageAppeal.Text = "Appeal"
+        Me.pageAppeal.UseVisualStyleBackColor = True
+        '
+        'ComboBox6
+        '
+        Me.ComboBox6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox6.FormattingEnabled = True
+        Me.ComboBox6.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox6.Name = "ComboBox6"
+        Me.ComboBox6.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox6.TabIndex = 153
+        Me.ComboBox6.Tag = "@DB=Clients.ContactAppealApprovalStateCd"
+        '
+        'Label60
+        '
+        Me.Label60.AutoSize = True
+        Me.Label60.Location = New System.Drawing.Point(14, 39)
+        Me.Label60.Name = "Label60"
+        Me.Label60.Size = New System.Drawing.Size(45, 13)
+        Me.Label60.TabIndex = 152
+        Me.Label60.Text = "Address"
+        '
+        'TextBox36
+        '
+        Me.TextBox36.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox36.Name = "TextBox36"
+        Me.TextBox36.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox36.TabIndex = 151
+        Me.TextBox36.Tag = "@DB=Clients.ContactAppealApprovalAddress"
+        '
+        'Label61
+        '
+        Me.Label61.AutoSize = True
+        Me.Label61.Location = New System.Drawing.Point(14, 13)
+        Me.Label61.Name = "Label61"
+        Me.Label61.Size = New System.Drawing.Size(35, 13)
+        Me.Label61.TabIndex = 150
+        Me.Label61.Text = "Name"
+        '
+        'TextBox37
+        '
+        Me.TextBox37.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox37.Name = "TextBox37"
+        Me.TextBox37.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox37.TabIndex = 149
+        Me.TextBox37.Tag = "@DB=Clients.ContactAppealApprovalCity"
+        '
+        'Label62
+        '
+        Me.Label62.AutoSize = True
+        Me.Label62.Location = New System.Drawing.Point(14, 91)
+        Me.Label62.Name = "Label62"
+        Me.Label62.Size = New System.Drawing.Size(38, 13)
+        Me.Label62.TabIndex = 148
+        Me.Label62.Text = "Phone"
+        '
+        'TextBox38
+        '
+        Me.TextBox38.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox38.Name = "TextBox38"
+        Me.TextBox38.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox38.TabIndex = 147
+        Me.TextBox38.Tag = "@DB=Clients.ContactAppealApprovalPhone"
+        '
+        'Label63
+        '
+        Me.Label63.AutoSize = True
+        Me.Label63.Location = New System.Drawing.Point(14, 65)
+        Me.Label63.Name = "Label63"
+        Me.Label63.Size = New System.Drawing.Size(76, 13)
+        Me.Label63.TabIndex = 146
+        Me.Label63.Text = "City, State  Zip"
+        '
+        'TextBox39
+        '
+        Me.TextBox39.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox39.Name = "TextBox39"
+        Me.TextBox39.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox39.TabIndex = 145
+        Me.TextBox39.Tag = "@DB=Clients.ContactAppealApprovalZip"
+        '
+        'Label64
+        '
+        Me.Label64.AutoSize = True
+        Me.Label64.Location = New System.Drawing.Point(14, 117)
+        Me.Label64.Name = "Label64"
+        Me.Label64.Size = New System.Drawing.Size(36, 13)
+        Me.Label64.TabIndex = 144
+        Me.Label64.Text = "E-Mail"
+        '
+        'TextBox40
+        '
+        Me.TextBox40.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox40.Name = "TextBox40"
+        Me.TextBox40.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox40.TabIndex = 143
+        Me.TextBox40.Tag = "@DB=Clients.ContactAppealApprovalEMail"
+        '
+        'Label65
+        '
+        Me.Label65.AutoSize = True
+        Me.Label65.Location = New System.Drawing.Point(292, 91)
+        Me.Label65.Name = "Label65"
+        Me.Label65.Size = New System.Drawing.Size(24, 13)
+        Me.Label65.TabIndex = 142
+        Me.Label65.Text = "Fax"
+        '
+        'TextBox41
+        '
+        Me.TextBox41.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox41.Name = "TextBox41"
+        Me.TextBox41.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox41.TabIndex = 141
+        Me.TextBox41.Tag = "@DB=Clients.ContactAppealApprovalFax"
+        '
+        'TextBox42
+        '
+        Me.TextBox42.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox42.Name = "TextBox42"
+        Me.TextBox42.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox42.TabIndex = 140
+        Me.TextBox42.Tag = "@DB=Clients.ContactAppealApprovalName"
+        '
+        'pageReports
+        '
+        Me.pageReports.Controls.Add(Me.ComboBox7)
+        Me.pageReports.Controls.Add(Me.Label66)
+        Me.pageReports.Controls.Add(Me.TextBox43)
+        Me.pageReports.Controls.Add(Me.Label67)
+        Me.pageReports.Controls.Add(Me.TextBox44)
+        Me.pageReports.Controls.Add(Me.Label68)
+        Me.pageReports.Controls.Add(Me.TextBox45)
+        Me.pageReports.Controls.Add(Me.Label69)
+        Me.pageReports.Controls.Add(Me.TextBox46)
+        Me.pageReports.Controls.Add(Me.Label70)
+        Me.pageReports.Controls.Add(Me.TextBox47)
+        Me.pageReports.Controls.Add(Me.Label71)
+        Me.pageReports.Controls.Add(Me.TextBox48)
+        Me.pageReports.Controls.Add(Me.TextBox49)
+        Me.pageReports.Location = New System.Drawing.Point(4, 40)
+        Me.pageReports.Name = "pageReports"
+        Me.pageReports.Size = New System.Drawing.Size(502, 144)
+        Me.pageReports.TabIndex = 8
+        Me.pageReports.Text = "Reports"
+        Me.pageReports.UseVisualStyleBackColor = True
+        '
+        'ComboBox7
+        '
+        Me.ComboBox7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox7.FormattingEnabled = True
+        Me.ComboBox7.Location = New System.Drawing.Point(266, 62)
+        Me.ComboBox7.Name = "ComboBox7"
+        Me.ComboBox7.Size = New System.Drawing.Size(145, 21)
+        Me.ComboBox7.TabIndex = 153
+        Me.ComboBox7.Tag = "@DB=Clients.ContactReportsStateCd"
+        '
+        'Label66
+        '
+        Me.Label66.AutoSize = True
+        Me.Label66.Location = New System.Drawing.Point(14, 39)
+        Me.Label66.Name = "Label66"
+        Me.Label66.Size = New System.Drawing.Size(45, 13)
+        Me.Label66.TabIndex = 152
+        Me.Label66.Text = "Address"
+        '
+        'TextBox43
+        '
+        Me.TextBox43.Location = New System.Drawing.Point(94, 36)
+        Me.TextBox43.Name = "TextBox43"
+        Me.TextBox43.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox43.TabIndex = 151
+        Me.TextBox43.Tag = "@DB=Clients.ContactReportsAddress"
+        '
+        'Label67
+        '
+        Me.Label67.AutoSize = True
+        Me.Label67.Location = New System.Drawing.Point(14, 13)
+        Me.Label67.Name = "Label67"
+        Me.Label67.Size = New System.Drawing.Size(35, 13)
+        Me.Label67.TabIndex = 150
+        Me.Label67.Text = "Name"
+        '
+        'TextBox44
+        '
+        Me.TextBox44.Location = New System.Drawing.Point(94, 62)
+        Me.TextBox44.Name = "TextBox44"
+        Me.TextBox44.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox44.TabIndex = 149
+        Me.TextBox44.Tag = "@DB=Clients.ContactReportsCity"
+        '
+        'Label68
+        '
+        Me.Label68.AutoSize = True
+        Me.Label68.Location = New System.Drawing.Point(14, 91)
+        Me.Label68.Name = "Label68"
+        Me.Label68.Size = New System.Drawing.Size(38, 13)
+        Me.Label68.TabIndex = 148
+        Me.Label68.Text = "Phone"
+        '
+        'TextBox45
+        '
+        Me.TextBox45.Location = New System.Drawing.Point(94, 88)
+        Me.TextBox45.Name = "TextBox45"
+        Me.TextBox45.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox45.TabIndex = 147
+        Me.TextBox45.Tag = "@DB=Clients.ContactReportsPhone"
+        '
+        'Label69
+        '
+        Me.Label69.AutoSize = True
+        Me.Label69.Location = New System.Drawing.Point(14, 65)
+        Me.Label69.Name = "Label69"
+        Me.Label69.Size = New System.Drawing.Size(76, 13)
+        Me.Label69.TabIndex = 146
+        Me.Label69.Text = "City, State  Zip"
+        '
+        'TextBox46
+        '
+        Me.TextBox46.Location = New System.Drawing.Point(417, 62)
+        Me.TextBox46.Name = "TextBox46"
+        Me.TextBox46.Size = New System.Drawing.Size(71, 20)
+        Me.TextBox46.TabIndex = 145
+        Me.TextBox46.Tag = "@DB=Clients.ContactReportsZip"
+        '
+        'Label70
+        '
+        Me.Label70.AutoSize = True
+        Me.Label70.Location = New System.Drawing.Point(14, 117)
+        Me.Label70.Name = "Label70"
+        Me.Label70.Size = New System.Drawing.Size(36, 13)
+        Me.Label70.TabIndex = 144
+        Me.Label70.Text = "E-Mail"
+        '
+        'TextBox47
+        '
+        Me.TextBox47.Location = New System.Drawing.Point(94, 114)
+        Me.TextBox47.Name = "TextBox47"
+        Me.TextBox47.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox47.TabIndex = 143
+        Me.TextBox47.Tag = "@DB=Clients.ContactReportsEMail"
+        '
+        'Label71
+        '
+        Me.Label71.AutoSize = True
+        Me.Label71.Location = New System.Drawing.Point(292, 91)
+        Me.Label71.Name = "Label71"
+        Me.Label71.Size = New System.Drawing.Size(24, 13)
+        Me.Label71.TabIndex = 142
+        Me.Label71.Text = "Fax"
+        '
+        'TextBox48
+        '
+        Me.TextBox48.Location = New System.Drawing.Point(322, 88)
+        Me.TextBox48.Name = "TextBox48"
+        Me.TextBox48.Size = New System.Drawing.Size(166, 20)
+        Me.TextBox48.TabIndex = 141
+        Me.TextBox48.Tag = "@DB=Clients.ContactReportsFax"
+        '
+        'TextBox49
+        '
+        Me.TextBox49.Location = New System.Drawing.Point(94, 10)
+        Me.TextBox49.Name = "TextBox49"
+        Me.TextBox49.Size = New System.Drawing.Size(394, 20)
+        Me.TextBox49.TabIndex = 140
+        Me.TextBox49.Tag = "@DB=Clients.ContactReportsName"
         '
         'pageMisc
         '
@@ -949,9 +2081,9 @@ Partial Class frmClient
         Me.pageMisc.Controls.Add(Me.Label36)
         Me.pageMisc.Controls.Add(Me.TextBox34)
         Me.pageMisc.Controls.Add(Me.TextBox35)
-        Me.pageMisc.Location = New System.Drawing.Point(4, 22)
+        Me.pageMisc.Location = New System.Drawing.Point(4, 40)
         Me.pageMisc.Name = "pageMisc"
-        Me.pageMisc.Size = New System.Drawing.Size(502, 145)
+        Me.pageMisc.Size = New System.Drawing.Size(502, 144)
         Me.pageMisc.TabIndex = 4
         Me.pageMisc.Text = "Miscellaneous"
         Me.pageMisc.UseVisualStyleBackColor = True
@@ -1759,7 +2891,7 @@ Partial Class frmClient
         Me.grpComments.Controls.Add(Me.cmdExpandComments)
         Me.grpComments.Controls.Add(Me.cmdNewComment)
         Me.grpComments.Controls.Add(Me.dgComments)
-        Me.grpComments.Location = New System.Drawing.Point(16, 468)
+        Me.grpComments.Location = New System.Drawing.Point(12, 512)
         Me.grpComments.Name = "grpComments"
         Me.grpComments.Size = New System.Drawing.Size(949, 141)
         Me.grpComments.TabIndex = 238
@@ -1977,7 +3109,7 @@ Partial Class frmClient
         'chkInterstateAllocationFl
         '
         Me.chkInterstateAllocationFl.AutoSize = True
-        Me.chkInterstateAllocationFl.Location = New System.Drawing.Point(16, 264)
+        Me.chkInterstateAllocationFl.Location = New System.Drawing.Point(12, 292)
         Me.chkInterstateAllocationFl.Name = "chkInterstateAllocationFl"
         Me.chkInterstateAllocationFl.Size = New System.Drawing.Size(148, 17)
         Me.chkInterstateAllocationFl.TabIndex = 11
@@ -1985,11 +3117,42 @@ Partial Class frmClient
         Me.chkInterstateAllocationFl.Text = "Apply Interstate Allocation"
         Me.chkInterstateAllocationFl.UseVisualStyleBackColor = True
         '
+        'Label59
+        '
+        Me.Label59.AutoSize = True
+        Me.Label59.Location = New System.Drawing.Point(12, 268)
+        Me.Label59.Name = "Label59"
+        Me.Label59.Size = New System.Drawing.Size(43, 13)
+        Me.Label59.TabIndex = 248
+        Me.Label59.Text = "Agency"
+        '
+        'cboAgency
+        '
+        Me.cboAgency.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboAgency.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboAgency.FormattingEnabled = True
+        Me.cboAgency.Location = New System.Drawing.Point(108, 264)
+        Me.cboAgency.Name = "cboAgency"
+        Me.cboAgency.Size = New System.Drawing.Size(145, 21)
+        Me.cboAgency.TabIndex = 247
+        Me.cboAgency.Tag = "@DB=Clients.AgencyId"
+        '
+        'cmdDupe
+        '
+        Me.cmdDupe.Location = New System.Drawing.Point(444, 8)
+        Me.cmdDupe.Name = "cmdDupe"
+        Me.cmdDupe.Size = New System.Drawing.Size(45, 23)
+        Me.cmdDupe.TabIndex = 243
+        Me.cmdDupe.Text = "Dupe"
+        Me.cmdDupe.UseVisualStyleBackColor = True
+        '
         'frmClient
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(988, 620)
+        Me.ClientSize = New System.Drawing.Size(988, 657)
+        Me.Controls.Add(Me.Label59)
+        Me.Controls.Add(Me.cboAgency)
         Me.Controls.Add(Me.chkInterstateAllocationFl)
         Me.Controls.Add(Me.Label55)
         Me.Controls.Add(Me.cboREConsultant)
@@ -2033,12 +3196,26 @@ Partial Class frmClient
         Me.tabContacts.ResumeLayout(False)
         Me.pageTax.ResumeLayout(False)
         Me.pageTax.PerformLayout()
-        Me.pageInvoice.ResumeLayout(False)
-        Me.pageInvoice.PerformLayout()
         Me.pageContract.ResumeLayout(False)
         Me.pageContract.PerformLayout()
-        Me.pageInformation.ResumeLayout(False)
-        Me.pageInformation.PerformLayout()
+        Me.pageInvoice.ResumeLayout(False)
+        Me.pageInvoice.PerformLayout()
+        Me.pageAofAAuthorization.ResumeLayout(False)
+        Me.pageAofAAuthorization.PerformLayout()
+        Me.pageBPPInfo.ResumeLayout(False)
+        Me.pageBPPInfo.PerformLayout()
+        Me.pageRenditionSignature.ResumeLayout(False)
+        Me.pageRenditionSignature.PerformLayout()
+        Me.pageREInfo.ResumeLayout(False)
+        Me.pageREInfo.PerformLayout()
+        Me.pageTaxBillPay.ResumeLayout(False)
+        Me.pageTaxBillPay.PerformLayout()
+        Me.pageTaxBillTrans.ResumeLayout(False)
+        Me.pageTaxBillTrans.PerformLayout()
+        Me.pageAppeal.ResumeLayout(False)
+        Me.pageAppeal.PerformLayout()
+        Me.pageReports.ResumeLayout(False)
+        Me.pageReports.PerformLayout()
         Me.pageMisc.ResumeLayout(False)
         Me.pageMisc.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)
@@ -2078,7 +3255,7 @@ Partial Class frmClient
     Friend WithEvents pageTax As System.Windows.Forms.TabPage
     Friend WithEvents pageInvoice As System.Windows.Forms.TabPage
     Friend WithEvents pageContract As System.Windows.Forms.TabPage
-    Friend WithEvents pageInformation As System.Windows.Forms.TabPage
+    Friend WithEvents pageBPPInfo As System.Windows.Forms.TabPage
     Friend WithEvents pageMisc As System.Windows.Forms.TabPage
     Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
     Friend WithEvents Label17 As System.Windows.Forms.Label
@@ -2238,4 +3415,113 @@ Partial Class frmClient
     Friend WithEvents cboREConsultant As ComboBox
     Friend WithEvents chkInterstateAllocationFl As CheckBox
     Friend WithEvents cboSICCode As ComboBox
+    Friend WithEvents Label59 As Label
+    Friend WithEvents cboAgency As ComboBox
+    Friend WithEvents pageREInfo As TabPage
+    Friend WithEvents pageRenditionSignature As TabPage
+    Friend WithEvents pageAofAAuthorization As TabPage
+    Friend WithEvents pageReports As TabPage
+    Friend WithEvents pageTaxBillPay As TabPage
+    Friend WithEvents pageTaxBillTrans As TabPage
+    Friend WithEvents pageAppeal As TabPage
+    Friend WithEvents ComboBox8 As ComboBox
+    Friend WithEvents Label72 As Label
+    Friend WithEvents TextBox50 As TextBox
+    Friend WithEvents Label73 As Label
+    Friend WithEvents TextBox51 As TextBox
+    Friend WithEvents Label74 As Label
+    Friend WithEvents TextBox52 As TextBox
+    Friend WithEvents Label75 As Label
+    Friend WithEvents TextBox53 As TextBox
+    Friend WithEvents Label76 As Label
+    Friend WithEvents TextBox54 As TextBox
+    Friend WithEvents Label77 As Label
+    Friend WithEvents TextBox55 As TextBox
+    Friend WithEvents TextBox56 As TextBox
+    Friend WithEvents ComboBox9 As ComboBox
+    Friend WithEvents Label78 As Label
+    Friend WithEvents TextBox57 As TextBox
+    Friend WithEvents Label79 As Label
+    Friend WithEvents TextBox58 As TextBox
+    Friend WithEvents Label80 As Label
+    Friend WithEvents TextBox59 As TextBox
+    Friend WithEvents Label81 As Label
+    Friend WithEvents TextBox60 As TextBox
+    Friend WithEvents Label82 As Label
+    Friend WithEvents TextBox61 As TextBox
+    Friend WithEvents Label83 As Label
+    Friend WithEvents TextBox62 As TextBox
+    Friend WithEvents TextBox63 As TextBox
+    Friend WithEvents ComboBox10 As ComboBox
+    Friend WithEvents Label84 As Label
+    Friend WithEvents TextBox64 As TextBox
+    Friend WithEvents Label85 As Label
+    Friend WithEvents TextBox65 As TextBox
+    Friend WithEvents Label86 As Label
+    Friend WithEvents TextBox66 As TextBox
+    Friend WithEvents Label87 As Label
+    Friend WithEvents TextBox67 As TextBox
+    Friend WithEvents Label88 As Label
+    Friend WithEvents TextBox68 As TextBox
+    Friend WithEvents Label89 As Label
+    Friend WithEvents TextBox69 As TextBox
+    Friend WithEvents TextBox70 As TextBox
+    Friend WithEvents ComboBox11 As ComboBox
+    Friend WithEvents Label90 As Label
+    Friend WithEvents TextBox71 As TextBox
+    Friend WithEvents Label91 As Label
+    Friend WithEvents TextBox72 As TextBox
+    Friend WithEvents Label92 As Label
+    Friend WithEvents TextBox73 As TextBox
+    Friend WithEvents Label93 As Label
+    Friend WithEvents TextBox74 As TextBox
+    Friend WithEvents Label94 As Label
+    Friend WithEvents TextBox75 As TextBox
+    Friend WithEvents Label95 As Label
+    Friend WithEvents TextBox76 As TextBox
+    Friend WithEvents TextBox77 As TextBox
+    Friend WithEvents ComboBox12 As ComboBox
+    Friend WithEvents Label96 As Label
+    Friend WithEvents TextBox78 As TextBox
+    Friend WithEvents Label97 As Label
+    Friend WithEvents TextBox79 As TextBox
+    Friend WithEvents Label98 As Label
+    Friend WithEvents TextBox80 As TextBox
+    Friend WithEvents Label99 As Label
+    Friend WithEvents TextBox81 As TextBox
+    Friend WithEvents Label100 As Label
+    Friend WithEvents TextBox82 As TextBox
+    Friend WithEvents Label101 As Label
+    Friend WithEvents TextBox83 As TextBox
+    Friend WithEvents TextBox84 As TextBox
+    Friend WithEvents ComboBox6 As ComboBox
+    Friend WithEvents Label60 As Label
+    Friend WithEvents TextBox36 As TextBox
+    Friend WithEvents Label61 As Label
+    Friend WithEvents TextBox37 As TextBox
+    Friend WithEvents Label62 As Label
+    Friend WithEvents TextBox38 As TextBox
+    Friend WithEvents Label63 As Label
+    Friend WithEvents TextBox39 As TextBox
+    Friend WithEvents Label64 As Label
+    Friend WithEvents TextBox40 As TextBox
+    Friend WithEvents Label65 As Label
+    Friend WithEvents TextBox41 As TextBox
+    Friend WithEvents TextBox42 As TextBox
+    Friend WithEvents ComboBox7 As ComboBox
+    Friend WithEvents Label66 As Label
+    Friend WithEvents TextBox43 As TextBox
+    Friend WithEvents Label67 As Label
+    Friend WithEvents TextBox44 As TextBox
+    Friend WithEvents Label68 As Label
+    Friend WithEvents TextBox45 As TextBox
+    Friend WithEvents Label69 As Label
+    Friend WithEvents TextBox46 As TextBox
+    Friend WithEvents Label70 As Label
+    Friend WithEvents TextBox47 As TextBox
+    Friend WithEvents Label71 As Label
+    Friend WithEvents TextBox48 As TextBox
+    Friend WithEvents TextBox49 As TextBox
+    Friend WithEvents chkDupeContacts As CheckBox
+    Friend WithEvents cmdDupe As Button
 End Class

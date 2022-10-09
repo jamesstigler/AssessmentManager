@@ -1371,6 +1371,24 @@ Public Class MDIParent1
         End Try
 
     End Sub
+
+    Private Sub mnuOptionsAgencies_Click(sender As Object, e As EventArgs) Handles mnuOptionsAgencies.Click
+        Try
+            Dim frmS As frmAgencies
+            For Each frm As Form In Me.MdiChildren
+                If frm.Name = "frmAgencies" Then
+                    frmS = frm
+                    frm.Focus()
+                    Exit Sub
+                End If
+            Next
+            frmS = New frmAgencies
+            frmS.MdiParent = Me
+            frmS.Show()
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class
 
 
