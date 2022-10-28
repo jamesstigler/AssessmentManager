@@ -3,13 +3,10 @@ Imports System.IO
 Imports System.Text
 Imports System.ServiceProcess
 Imports System.Threading
-
 Public Class clsData
     Private m_Server As String
     Private m_LocalServer As String
     Private cn As SqlConnection
-    Private localcn As SqlConnection
-
     Public Property Server() As String
         Get
             Return m_Server
@@ -18,15 +15,6 @@ Public Class clsData
             m_Server = value
         End Set
     End Property
-    Public Property LocalServer As String
-        Get
-            Return m_LocalServer
-        End Get
-        Set(value As String)
-            m_LocalServer = value
-        End Set
-    End Property
-
     Public Function MakeConnection(ByRef sError As String) As Boolean
         sError = ""
         Try
@@ -43,23 +31,10 @@ Public Class clsData
             Return False
         End Try
     End Function
-    Public Function MakeLocalConnection(ByRef sError As String) As Boolean
-        sError = ""
-        Try
-            localcn = New SqlConnection
-            localcn.ConnectionString = "data source=" & m_LocalServer & ";initial catalog=AssessmentManagerLocalData;Integrated Security=SSPI;connect timeout=15"
-            localcn.Open()
-            Return True
-        Catch ex As Exception
-            sError = "Error logging in:  Error = " & ex.Message
-            Return False
-        End Try
-    End Function
 
     Public Sub CloseConnection()
         Try
             cn.Close()
-            localcn.Close()
             'BackupDatabase()
         Catch ex As Exception
         End Try
@@ -90,33 +65,6 @@ Public Class clsData
         Next
         Return lRows
     End Function
-    Public Function GetLocalData(ByVal sSQL As String, ByRef dt As DataTable) As Long
-        Dim lRows As Long = -1
-        dt = New DataTable
-        If localcn.State = ConnectionState.Open Then
-        Else
-            MakeLocalConnection("")
-        End If
-        Dim i As Integer = 0
-        'retry once
-        For i = 0 To 1
-            Try
-                Using adapter As New SqlDataAdapter()
-                    Dim ds As New DataSet
-                    adapter.SelectCommand = New SqlCommand(sSQL, localcn)
-                    adapter.SelectCommand.CommandTimeout = 300
-                    adapter.Fill(ds)
-                    dt = ds.Tables(0)
-                    lRows = dt.Rows.Count
-                End Using
-            Catch ex As Exception
-                MakeLocalConnection("")
-            End Try
-            If lRows > -1 Then Exit For
-        Next
-        Return lRows
-    End Function
-
     Public Function GetDataset(ByVal sSQL As String) As DataSet
         If cn.State = ConnectionState.Open Then
         Else
@@ -129,7 +77,6 @@ Public Class clsData
             Return ds
         End Using
     End Function
-
     Public Function ExecuteSQL(ByVal sSQL As String) As Long
         If cn.State = ConnectionState.Open Then
         Else
@@ -139,20 +86,9 @@ Public Class clsData
         command.CommandTimeout = 300
         Return command.ExecuteNonQuery()
     End Function
-    Public Function ExecuteLocalSQL(ByVal sSQL As String) As Long
-        If localcn.State = ConnectionState.Open Then
-        Else
-            MakeLocalConnection("")
-        End If
-        Dim command As SqlCommand = New SqlCommand(sSQL, localcn)
-        command.CommandTimeout = 300
-        Return command.ExecuteNonQuery()
-    End Function
-
     Public Function QuoStr(ByVal sIn As String, Optional ByVal lLength As Long = 0) As String
         Return Chr(39) & IIf(lLength > 0, Microsoft.VisualBasic.Left(Trim(Replace(sIn, Chr(39), Chr(39) & Chr(39))), lLength), Trim(Replace(sIn, Chr(39), Chr(39) & Chr(39)))) & Chr(39)
     End Function
-
     Public Function GetAssetList(ByVal lClientId As Long, ByVal lLocationId As Long, ByVal lAssessmentId As Long, ByVal iTaxYear As Integer, ByVal lFactoringEntityId As Long,
             ByVal bNeedFactoredAmounts As Boolean, ByVal bNeedFactoringEntityNames As Boolean, ByVal bNeedTotalValues As Boolean, ByVal bNeedTotalOriginalCost As Boolean,
             ByVal bNeedDetail As Boolean, ByVal bAccrual As Boolean, ByVal bNeedFixedAndInv As Boolean) As DataSet
@@ -568,10 +504,6 @@ Public Class clsData
         Dim sSQLService As String = "SQL Server (SQLEXPRESS)", sStatus As String = "", svcctlSQL As New ServiceController
 
         Try
-
-
-
-
             'CloseConnection()
             svcctlSQL = New ServiceController(sSQLService)
             sStatus = svcctlSQL.Status.ToString

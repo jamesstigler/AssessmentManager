@@ -2042,11 +2042,12 @@ Module modMain
             lRows = ExecuteSQL(sSQL)
 
             sSQL = "INSERT AssessmentsBPP (ClientId,LocationId,AssessmentId,TaxYear,AssessorId,AcctNum,Comment," &
-                " FactorEntityId1,FactorEntityId2,FactorEntityId3,FactorEntityId4,FactorEntityId5,InactiveFl,AddUser,SavingsExclusionCd,ParentAssessmentId,BusinessUnitId,InterstateAllocationFl)" &
+                " FactorEntityId1,FactorEntityId2,FactorEntityId3,FactorEntityId4,FactorEntityId5,InactiveFl,AddUser,SavingsExclusionCd," &
+                " ParentAssessmentId,BusinessUnitId,InterstateAllocationFl,AgencyId)" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId," & iToYear & "," &
                 " t1.AssessorId,t1.AcctNum,t1.Comment," &
                 " t1.FactorEntityId1,t1.FactorEntityId2,t1.FactorEntityId3,t1.FactorEntityId4,t1.FactorEntityId5,t1.InactiveFl," &
-                QuoStr(AppData.UserId) & ",t1.SavingsExclusionCd,t1.ParentAssessmentId,t1.BusinessUnitId,t1.InterstateAllocationFl" &
+                QuoStr(AppData.UserId) & ",t1.SavingsExclusionCd,t1.ParentAssessmentId,t1.BusinessUnitId,t1.InterstateAllocationFl,t1.AgencyId" &
                 " FROM AssessmentsBPP t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM AssessmentsBPP t2" &
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
@@ -2090,11 +2091,11 @@ Module modMain
 
             sSQL = "INSERT AssessmentsRE (ClientId,LocationId,AssessmentId,TaxYear,AssessorId,AcctNum,Comment,InactiveFl," &
                 " AddUser,SavingsExclusionCd,OccupiedStatus,ParentAssessmentId,BusinessUnitId," &
-                " BuildingType,BuildingClass,BuildingSqFt,NetLeasableSqFt,GrossLeasableSqFt,YearBuilt,EffYearBuilt,LandSqFt,ExcessLandSqFt,ConstructionType)" &
+                " BuildingType,BuildingClass,BuildingSqFt,NetLeasableSqFt,GrossLeasableSqFt,YearBuilt,EffYearBuilt,LandSqFt,ExcessLandSqFt,ConstructionType,AgencyId)" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId," & iToYear & "," &
                 " t1.AssessorId,t1.AcctNum,t1.Comment,t1.InactiveFl," &
                 QuoStr(AppData.UserId) & ",t1.SavingsExclusionCd,t1.OccupiedStatus,t1.ParentAssessmentId,t1.BusinessUnitId," &
-                " t1.BuildingType,t1.BuildingClass,t1.BuildingSqFt,t1.NetLeasableSqFt,t1.GrossLeasableSqFt,t1.YearBuilt,t1.EffYearBuilt,t1.LandSqFt,t1.ExcessLandSqFt,t1.ConstructionType" &
+                " t1.BuildingType,t1.BuildingClass,t1.BuildingSqFt,t1.NetLeasableSqFt,t1.GrossLeasableSqFt,t1.YearBuilt,t1.EffYearBuilt,t1.LandSqFt,t1.ExcessLandSqFt,t1.ConstructionType,t1.AgencyId" &
                 " FROM AssessmentsRE t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM AssessmentsRE t2" &
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
