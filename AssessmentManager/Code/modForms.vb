@@ -139,16 +139,16 @@ Module modForms
                     " AND abpp.AssessmentId = " & lAssessmentId & " AND l.TaxYear = " & iTaxYear
             ElseIf eType = enumReport.enumRenditionForm Then
                 ReDim structFields(12)
-                structFields(0).sPDFField = "3" : structFields(0).sTable = "Assessments" : structFields(0).sField = "AcctNum"
-                structFields(1).sPDFField = "2" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Name"
+                structFields(0).sPDFField = "ADAN" : structFields(0).sTable = "Assessments" : structFields(0).sField = "AcctNum"
+                structFields(1).sPDFField = "Name" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Name"
                 structFields(2).sPDFField = "" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Phone"
                 structFields(3).sPDFField = "" : structFields(3).sTable = "Assessors" : structFields(3).sField = "Address"
-                structFields(4).sPDFField = "1" : structFields(4).sTable = "Assessments" : structFields(4).sField = "TaxYear"
-                structFields(5).sPDFField = "11" : structFields(5).sTable = "Locations" : structFields(5).sField = "Name"
-                structFields(6).sPDFField = "12" : structFields(6).sTable = "Locations" : structFields(6).sField = "OwnerName"
+                structFields(4).sPDFField = "TY" : structFields(4).sTable = "Assessments" : structFields(4).sField = "TaxYear"
+                structFields(5).sPDFField = "BName" : structFields(5).sTable = "Locations" : structFields(5).sField = "Name"
+                structFields(6).sPDFField = "BOwner" : structFields(6).sTable = "Locations" : structFields(6).sField = "OwnerName"
                 structFields(7).sPDFField = "" : structFields(7).sTable = "Clients" : structFields(7).sField = "Address"
-                structFields(8).sPDFField = "15" : structFields(8).sTable = "Clients" : structFields(8).sField = "Phone"
-                structFields(9).sPDFField = "13" : structFields(9).sTable = "Locations" : structFields(9).sField = "Address"
+                structFields(8).sPDFField = "Phone" : structFields(8).sTable = "Clients" : structFields(8).sField = "Phone"
+                structFields(9).sPDFField = "PLAddy" : structFields(9).sTable = "Locations" : structFields(9).sField = "Address"
                 structFields(10).sPDFField = "22" : structFields(10).sTable = "FirmInfo" : structFields(10).sField = "Name"
                 structFields(11).sPDFField = "23" : structFields(11).sTable = "FirmInfo" : structFields(11).sField = "Address"
                 structFields(12).sPDFField = "24" : structFields(12).sTable = "FirmInfo" : structFields(12).sField = "Phone"
@@ -331,13 +331,13 @@ Module modForms
                         structFields(5).sValue = Format(Now, "MMMM")
                         structFields(6).sPDFField = "9" : structFields(11).sTable = "Calculated" : structFields(6).sField = "Year"
                         structFields(6).sValue = CStr(Now.Year)
-                        structFields(7).sPDFField = "19" : structFields(10).sTable = "Calculated" : structFields(7).sField = "Date"
+                        structFields(7).sPDFField = "20" : structFields(10).sTable = "Calculated" : structFields(7).sField = "Date"
                         structFields(7).sValue = Format(Now, "MM/dd/yyyy")
-                        structFields(8).sPDFField = "20" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Name"
-                        structFields(9).sPDFField = "22" : structFields(9).sTable = "FirmInfo" : structFields(9).sField = "Address"
-                        structFields(10).sPDFField = "23" : structFields(10).sTable = "FirmInfo" : structFields(10).sField = "City"
-                        structFields(11).sPDFField = "21" : structFields(11).sTable = "FirmInfo" : structFields(11).sField = "Phone"
-                        structFields(12).sPDFField = "16" : structFields(12).sTable = "Jurisdictions" : structFields(12).sField = "NameList"
+                        structFields(8).sPDFField = "21" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Name"
+                        structFields(9).sPDFField = "23" : structFields(9).sTable = "FirmInfo" : structFields(9).sField = "Address"
+                        structFields(10).sPDFField = "24" : structFields(10).sTable = "FirmInfo" : structFields(10).sField = "City"
+                        structFields(11).sPDFField = "22" : structFields(11).sTable = "FirmInfo" : structFields(11).sField = "Phone"
+                        structFields(12).sPDFField = "17" : structFields(12).sTable = "Jurisdictions" : structFields(12).sField = "NameList"
                 End Select
 
                 sJurNameList.Clear()

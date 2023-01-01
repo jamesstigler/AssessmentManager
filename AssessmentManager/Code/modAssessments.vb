@@ -463,9 +463,10 @@
                 sIn = sIn & lJurisdictionId
             Next
 
-            Dim sSQL As String = "UPDATE AssessmentDetail" & IIf(eType = enumTable.enumLocationBPP, "BPP", "RE") & _
-                " SET TaxBillPrintedDate = GETDATE(), TaxBillPrintedUser = " & QuoStr(AppData.UserId) & _
-                " WHERE ClientId = " & lClientId & " AND LocationId = " & lLocationId & _
+            Dim sSQL As String = "UPDATE AssessmentDetail" & IIf(eType = enumTable.enumLocationBPP, "BPP", "RE") &
+                " SET TaxBillPrintedDate = GETDATE(), TaxBillPrintedUser = " & QuoStr(AppData.UserId) &
+                " ,TaxBillDownloadDate = NULL, TaxBillDownloadUser = NULL" &
+                " WHERE ClientId = " & lClientId & " AND LocationId = " & lLocationId &
                 " AND AssessmentId = " & lAssessmentId & " AND TaxYear = " & iTaxYear
             If sIn <> "" Then
                 sSQL = sSQL & " AND JurisdictionId IN (" & sIn & ")"

@@ -18,7 +18,10 @@ Public Class clsData
     Public Function MakeConnection(ByRef sError As String) As Boolean
         sError = ""
         Try
-
+            If m_Server = "" Then
+                sError = "Server not defined"
+                Return False
+            End If
             cn = New SqlConnection
             'cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;Integrated Security=SSPI;connect timeout=30"
             cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;connect timeout=30;user id=vantageapp;password=vantage2012"

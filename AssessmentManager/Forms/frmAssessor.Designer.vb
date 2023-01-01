@@ -62,6 +62,8 @@ Partial Class frmAssessor
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txtValueProtestCity = New System.Windows.Forms.TextBox()
         Me.txtValueProtestZip = New System.Windows.Forms.TextBox()
+        Me.txtRenditionExtDate = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label6
@@ -271,7 +273,7 @@ Partial Class frmAssessor
         '
         'Label9
         '
-        Me.Label9.Location = New System.Drawing.Point(16, 500)
+        Me.Label9.Location = New System.Drawing.Point(16, 531)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(109, 19)
         Me.Label9.TabIndex = 149
@@ -280,7 +282,7 @@ Partial Class frmAssessor
         'TextBox2
         '
         Me.TextBox2.AllowDrop = True
-        Me.TextBox2.Location = New System.Drawing.Point(200, 496)
+        Me.TextBox2.Location = New System.Drawing.Point(200, 527)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(69, 20)
         Me.TextBox2.TabIndex = 17
@@ -307,7 +309,7 @@ Partial Class frmAssessor
         'TextBox6
         '
         Me.TextBox6.AllowDrop = True
-        Me.TextBox6.Location = New System.Drawing.Point(200, 392)
+        Me.TextBox6.Location = New System.Drawing.Point(200, 423)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(69, 20)
         Me.TextBox6.TabIndex = 13
@@ -315,7 +317,7 @@ Partial Class frmAssessor
         '
         'Label11
         '
-        Me.Label11.Location = New System.Drawing.Point(16, 397)
+        Me.Label11.Location = New System.Drawing.Point(16, 428)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(124, 19)
         Me.Label11.TabIndex = 239
@@ -324,7 +326,7 @@ Partial Class frmAssessor
         'TextBox7
         '
         Me.TextBox7.AllowDrop = True
-        Me.TextBox7.Location = New System.Drawing.Point(200, 444)
+        Me.TextBox7.Location = New System.Drawing.Point(200, 475)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(69, 20)
         Me.TextBox7.TabIndex = 15
@@ -332,7 +334,7 @@ Partial Class frmAssessor
         '
         'Label13
         '
-        Me.Label13.Location = New System.Drawing.Point(16, 449)
+        Me.Label13.Location = New System.Drawing.Point(16, 480)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(150, 19)
         Me.Label13.TabIndex = 241
@@ -341,7 +343,7 @@ Partial Class frmAssessor
         'TextBox8
         '
         Me.TextBox8.AllowDrop = True
-        Me.TextBox8.Location = New System.Drawing.Point(200, 418)
+        Me.TextBox8.Location = New System.Drawing.Point(200, 449)
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.Size = New System.Drawing.Size(69, 20)
         Me.TextBox8.TabIndex = 14
@@ -349,7 +351,7 @@ Partial Class frmAssessor
         '
         'Label14
         '
-        Me.Label14.Location = New System.Drawing.Point(16, 423)
+        Me.Label14.Location = New System.Drawing.Point(16, 454)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(124, 19)
         Me.Label14.TabIndex = 244
@@ -358,7 +360,7 @@ Partial Class frmAssessor
         'TextBox9
         '
         Me.TextBox9.AllowDrop = True
-        Me.TextBox9.Location = New System.Drawing.Point(200, 470)
+        Me.TextBox9.Location = New System.Drawing.Point(200, 501)
         Me.TextBox9.Name = "TextBox9"
         Me.TextBox9.Size = New System.Drawing.Size(69, 20)
         Me.TextBox9.TabIndex = 16
@@ -366,7 +368,7 @@ Partial Class frmAssessor
         '
         'Label15
         '
-        Me.Label15.Location = New System.Drawing.Point(16, 475)
+        Me.Label15.Location = New System.Drawing.Point(16, 506)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(180, 19)
         Me.Label15.TabIndex = 246
@@ -435,12 +437,31 @@ Partial Class frmAssessor
         Me.txtValueProtestZip.Tag = "@DB=Assessors.ValueProtestZip"
         Me.txtValueProtestZip.Visible = False
         '
+        'txtRenditionExtDate
+        '
+        Me.txtRenditionExtDate.AllowDrop = True
+        Me.txtRenditionExtDate.Location = New System.Drawing.Point(200, 396)
+        Me.txtRenditionExtDate.Name = "txtRenditionExtDate"
+        Me.txtRenditionExtDate.Size = New System.Drawing.Size(69, 20)
+        Me.txtRenditionExtDate.TabIndex = 255
+        Me.txtRenditionExtDate.Tag = "@DB=Assessors.RenditionExtDate;@fmt=DATE"
+        '
+        'Label18
+        '
+        Me.Label18.Location = New System.Drawing.Point(16, 400)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(164, 19)
+        Me.Label18.TabIndex = 256
+        Me.Label18.Text = "Rendition Extension Due Date"
+        '
         'frmAssessor
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(642, 527)
+        Me.ClientSize = New System.Drawing.Size(642, 556)
+        Me.Controls.Add(Me.txtRenditionExtDate)
+        Me.Controls.Add(Me.Label18)
         Me.Controls.Add(Me.cboValueProtestStateCd)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.txtValueProtestAddress)
@@ -532,4 +553,6 @@ Partial Class frmAssessor
     Friend WithEvents Label17 As Label
     Friend WithEvents txtValueProtestCity As TextBox
     Friend WithEvents txtValueProtestZip As TextBox
+    Friend WithEvents txtRenditionExtDate As TextBox
+    Friend WithEvents Label18 As Label
 End Class

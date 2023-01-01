@@ -553,27 +553,6 @@
                 WriteSQLToHistory("RemoveCollectorFromJurisdiction", sSQL)
             End If
 
-            'enforce data integrity between Depreciation codes and tax return groups by using Junction Table TaxReturnGroupJunction
-            If DBInfo.sTable = "DeprCode" And DBInfo.sUpdateField = "TaxReturnGroupId" Then
-                For i = 0 To UBound(DBInfo.PrimaryKeys)
-                    If DBInfo.PrimaryKeys(i).sField = "DeprCodeId" Then
-                        lDeprCodeId = DBInfo.PrimaryKeys(i).vValue
-                    End If
-                Next
-                If DBInfo.vUpdateValue = "0" Then
-                    sSQL = "DELETE TaxReturnGroupJunction WHERE DeprCodeId = " & lDeprCodeId & " AND Year = " & AppData.TaxYear
-                    ExecuteSQL(sSQL)
-                Else
-                    sSQL = "UPDATE TaxReturnGroupJunction SET GroupId = " & DBInfo.vUpdateValue & _
-                        " WHERE DeprCodeId = " & lDeprCodeId & " AND Year = " & AppData.TaxYear
-                    If ExecuteSQL(sSQL) = 0 Then
-                        sSQL = "INSERT TaxReturnGroupJunction (DeprCodeId,GroupId,Year)" & _
-                            " SELECT " & lDeprCodeId & "," & DBInfo.vUpdateValue & "," & AppData.TaxYear
-                        ExecuteSQL(sSQL)
-                    End If
-                End If
-            End If
-
             Return True
         Catch ex As Exception
             sMsg = "Error in SaveData:  " & ex.Message

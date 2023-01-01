@@ -2179,24 +2179,6 @@ Module modMain
                 " AND t2.TaxYear = " & iToYear & ")"
             lRows = ExecuteSQL(sSQL)
 
-            sSQL = "INSERT TaxReturnGroupJunction (DeprCodeId,GroupId,TaxYear)" & _
-                " SELECT t1.DeprCodeId,t1.GroupId," & iToYear & _
-                " FROM TaxReturnGroupJunction t1 WHERE t1.TaxYear = " & iFromYear & _
-                " AND NOT EXISTS(SELECT t2.DeprCodeId FROM TaxReturnGroupJunction t2" & _
-                " WHERE t2.DeprCodeId = t1.DeprCodeId" & _
-                " AND t2.GroupId = t1.GroupId" & _
-                " AND t2.TaxYear = " & iToYear & ")"
-            lRows = ExecuteSQL(sSQL)
-
-            sSQL = "INSERT TaxReturnGroups (GroupId,FormId,GroupName,TaxYear,AddUser)" & _
-                " SELECT t1.GroupId,t1.FormId,t1.GroupName," & iToYear & "," & _
-                QuoStr(AppData.UserId) & _
-                " FROM TaxReturnGroups t1 WHERE t1.TaxYear = " & iFromYear & _
-                " AND NOT EXISTS(SELECT t2.GroupId FROM TaxReturnGroups t2" & _
-                " WHERE t2.GroupId = t1.GroupId" & _
-                " AND t2.TaxYear = " & iToYear & ")"
-            lRows = ExecuteSQL(sSQL)
-
             sSQL = "INSERT StateFormsXRef (FormId,PDFFieldName,TaxYear,TableName,FieldName,AddUser)" & _
                 " SELECT t1.FormId,t1.PDFFieldName," & iToYear & ",t1.TableName," & _
                 " t1.FieldName," & _

@@ -89,7 +89,7 @@
             txtComment.LostFocus, cboStateCd.LostFocus, TextBox1.LostFocus, TextBox3.LostFocus, txtPhone.LostFocus,
             txtFax.LostFocus, TextBox4.LostFocus, txtPercentage.LostFocus, TextBox2.LostFocus, TextBox5.LostFocus,
             TextBox6.LostFocus, TextBox7.LostFocus, TextBox8.LostFocus, TextBox9.LostFocus,
-            txtValueProtestAddress.LostFocus, txtValueProtestCity.LostFocus, txtValueProtestZip.LostFocus, cboValueProtestStateCd.LostFocus
+            txtValueProtestAddress.LostFocus, txtValueProtestCity.LostFocus, txtValueProtestZip.LostFocus, cboValueProtestStateCd.LostFocus, txtRenditionExtDate.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -109,7 +109,7 @@
             txtName.GotFocus, txtZip.GotFocus, TextBox1.GotFocus, TextBox4.GotFocus, TextBox3.GotFocus,
             txtFax.GotFocus, txtPercentage.GotFocus, txtPhone.GotFocus, TextBox2.GotFocus, TextBox5.GotFocus,
             TextBox6.GotFocus, TextBox7.GotFocus, TextBox8.GotFocus, TextBox9.GotFocus,
-            txtValueProtestAddress.GotFocus, txtValueProtestCity.GotFocus, txtValueProtestZip.GotFocus, cboValueProtestStateCd.GotFocus
+            txtValueProtestAddress.GotFocus, txtValueProtestCity.GotFocus, txtValueProtestZip.GotFocus, cboValueProtestStateCd.GotFocus, txtRenditionExtDate.GotFocus
         sender.selectall()
     End Sub
 
@@ -118,7 +118,7 @@
             txtZip.TextChanged, cboStateCd.TextChanged, TextBox1.TextChanged, TextBox4.TextChanged, TextBox3.TextChanged,
             txtFax.TextChanged, txtPercentage.TextChanged, txtPhone.TextChanged, TextBox2.TextChanged, TextBox5.TextChanged,
             TextBox6.TextChanged, TextBox7.TextChanged, TextBox8.TextChanged, TextBox9.TextChanged,
-            txtValueProtestAddress.TextChanged, txtValueProtestCity.TextChanged, txtValueProtestZip.TextChanged, cboValueProtestStateCd.TextChanged
+            txtValueProtestAddress.TextChanged, txtValueProtestCity.TextChanged, txtValueProtestZip.TextChanged, cboValueProtestStateCd.TextChanged, txtRenditionExtDate.TextChanged
         If bActivated Then bChanged = True
     End Sub
 

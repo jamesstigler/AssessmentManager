@@ -519,7 +519,7 @@
                 sSQL = sSQL & " bu.Name AS BusinessUnits_Name, abpp.BusinessUnitId,"
                 sSQL = sSQL &
                     " lbpp.ClientLocationId, lbpp.LegalOwner, a.Name As Assessor_Name, " &
-                    " lbpp.TaxYear, a.RenditionDueDate, " &
+                    " lbpp.TaxYear, a.RenditionDueDate, a.RenditionExtDate, " &
                     " abpp.RenditionMailedDate, abpp.RenditionCMRRR, ISNULL(lbpp.ConsultantName, ISNULL(c.BPPConsultantName,'')) As ConsultantName, " &
                     " c.ClientCoordinatorName," &
                     " c.AddDate As Client_AddDate, lbpp.AddDate As Location_AddDate, abpp.AddDate As Assessment_AddDate" &
@@ -533,7 +533,7 @@
                 If AppData.IncludeInactive = False Then
                     sSQL = sSQL & " And ISNULL(c.InactiveFl,0) = 0 And ISNULL(lbpp.InactiveFl,0) = 0  And ISNULL(abpp.InactiveFl,0) = 0"
                 End If
-                sSQL = sSQL & " ORDER BY ISNULL(lbpp.ConsultantName,ISNULL(c.BPPConsultantName,'')), a.RenditionDueDate, lbpp.StateCd, a.Name, lbpp.Address"
+                sSQL = sSQL & " ORDER BY ISNULL(lbpp.ConsultantName,ISNULL(c.BPPConsultantName,'')), ISNULL(a.RenditionExtDate,a.RenditionDueDate), lbpp.StateCd, a.Name, lbpp.Address"
                 sText = "Rendition Due Dates"
             ElseIf m_ListType = enumListType.enumAssessmentBPPTaxBills Then
                 sSQL = BuildTaxBillQuery(0, 0, 0, New List(Of Long), m_TaxYear, enumTable.enumLocationBPP, False, True, False, False, False, 0)

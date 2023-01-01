@@ -69,7 +69,6 @@ Partial Class frmBPPTaxList
         Me.fraHistory = New System.Windows.Forms.GroupBox()
         Me.cmdViewAssessment = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.txtSICCode = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtConsultantName = New System.Windows.Forms.TextBox()
@@ -93,6 +92,8 @@ Partial Class frmBPPTaxList
         Me.cboAccountInvoicedStatus = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.chkRenditionExtFl = New System.Windows.Forms.CheckBox()
         CType(Me.dgJurisdictions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.fraCollectors.SuspendLayout()
@@ -173,7 +174,7 @@ Partial Class frmBPPTaxList
         Me.dgJurisdictions.ShowCellToolTips = False
         Me.dgJurisdictions.ShowEditingIcon = False
         Me.dgJurisdictions.ShowRowErrors = False
-        Me.dgJurisdictions.Size = New System.Drawing.Size(1325, 330)
+        Me.dgJurisdictions.Size = New System.Drawing.Size(1325, 328)
         Me.dgJurisdictions.TabIndex = 25
         '
         'ContextMenuStrip1
@@ -196,7 +197,7 @@ Partial Class frmBPPTaxList
         '
         'cmdNewJurisdiction
         '
-        Me.cmdNewJurisdiction.Location = New System.Drawing.Point(9, 226)
+        Me.cmdNewJurisdiction.Location = New System.Drawing.Point(12, 228)
         Me.cmdNewJurisdiction.Name = "cmdNewJurisdiction"
         Me.cmdNewJurisdiction.Size = New System.Drawing.Size(99, 23)
         Me.cmdNewJurisdiction.TabIndex = 23
@@ -246,7 +247,7 @@ Partial Class frmBPPTaxList
         '
         'cmdRefresh
         '
-        Me.cmdRefresh.Location = New System.Drawing.Point(114, 226)
+        Me.cmdRefresh.Location = New System.Drawing.Point(117, 228)
         Me.cmdRefresh.Name = "cmdRefresh"
         Me.cmdRefresh.Size = New System.Drawing.Size(99, 23)
         Me.cmdRefresh.TabIndex = 24
@@ -255,7 +256,7 @@ Partial Class frmBPPTaxList
         '
         'cmdTaxBillDetail
         '
-        Me.cmdTaxBillDetail.Location = New System.Drawing.Point(537, 228)
+        Me.cmdTaxBillDetail.Location = New System.Drawing.Point(540, 230)
         Me.cmdTaxBillDetail.Name = "cmdTaxBillDetail"
         Me.cmdTaxBillDetail.Size = New System.Drawing.Size(26, 20)
         Me.cmdTaxBillDetail.TabIndex = 210
@@ -267,7 +268,7 @@ Partial Class frmBPPTaxList
         '
         Me.txtTaxBillTotal.AllowDrop = True
         Me.txtTaxBillTotal.BackColor = System.Drawing.SystemColors.Window
-        Me.txtTaxBillTotal.Location = New System.Drawing.Point(417, 228)
+        Me.txtTaxBillTotal.Location = New System.Drawing.Point(420, 230)
         Me.txtTaxBillTotal.Name = "txtTaxBillTotal"
         Me.txtTaxBillTotal.ReadOnly = True
         Me.txtTaxBillTotal.Size = New System.Drawing.Size(115, 20)
@@ -279,7 +280,7 @@ Partial Class frmBPPTaxList
         '
         'lblTaxBillTotal
         '
-        Me.lblTaxBillTotal.Location = New System.Drawing.Point(325, 227)
+        Me.lblTaxBillTotal.Location = New System.Drawing.Point(328, 229)
         Me.lblTaxBillTotal.Name = "lblTaxBillTotal"
         Me.lblTaxBillTotal.Size = New System.Drawing.Size(86, 20)
         Me.lblTaxBillTotal.TabIndex = 213
@@ -584,7 +585,7 @@ Partial Class frmBPPTaxList
         '
         'cmdViewAssessment
         '
-        Me.cmdViewAssessment.Location = New System.Drawing.Point(219, 226)
+        Me.cmdViewAssessment.Location = New System.Drawing.Point(222, 228)
         Me.cmdViewAssessment.Name = "cmdViewAssessment"
         Me.cmdViewAssessment.Size = New System.Drawing.Size(93, 23)
         Me.cmdViewAssessment.TabIndex = 249
@@ -601,6 +602,7 @@ Partial Class frmBPPTaxList
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.chkRenditionExtFl)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraCollectors)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label6)
@@ -656,17 +658,8 @@ Partial Class frmBPPTaxList
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgJurisdictions)
         Me.SplitContainer1.Size = New System.Drawing.Size(1325, 585)
-        Me.SplitContainer1.SplitterDistance = 251
+        Me.SplitContainer1.SplitterDistance = 253
         Me.SplitContainer1.TabIndex = 250
-        '
-        'Label7
-        '
-        Me.Label7.Location = New System.Drawing.Point(8, 92)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(12, 19)
-        Me.Label7.TabIndex = 266
-        Me.Label7.Text = "*"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtSICCode
         '
@@ -905,7 +898,7 @@ Partial Class frmBPPTaxList
         Me.txtRenditionCompleteDate.AllowDrop = True
         Me.txtRenditionCompleteDate.BackColor = System.Drawing.SystemColors.Window
         Me.txtRenditionCompleteDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRenditionCompleteDate.Location = New System.Drawing.Point(456, 168)
+        Me.txtRenditionCompleteDate.Location = New System.Drawing.Point(456, 192)
         Me.txtRenditionCompleteDate.Name = "txtRenditionCompleteDate"
         Me.txtRenditionCompleteDate.ReadOnly = True
         Me.txtRenditionCompleteDate.Size = New System.Drawing.Size(118, 20)
@@ -916,7 +909,7 @@ Partial Class frmBPPTaxList
         'chkRenditionCompleteFl
         '
         Me.chkRenditionCompleteFl.AutoSize = True
-        Me.chkRenditionCompleteFl.Location = New System.Drawing.Point(456, 152)
+        Me.chkRenditionCompleteFl.Location = New System.Drawing.Point(456, 176)
         Me.chkRenditionCompleteFl.Name = "chkRenditionCompleteFl"
         Me.chkRenditionCompleteFl.Size = New System.Drawing.Size(118, 17)
         Me.chkRenditionCompleteFl.TabIndex = 256
@@ -956,6 +949,26 @@ Partial Class frmBPPTaxList
         Me.chkInterstateAllocationFl.Tag = ""
         Me.chkInterstateAllocationFl.Text = "Apply Interstate Allocation"
         Me.chkInterstateAllocationFl.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.Location = New System.Drawing.Point(8, 92)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(12, 19)
+        Me.Label7.TabIndex = 266
+        Me.Label7.Text = "*"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'chkRenditionExtFl
+        '
+        Me.chkRenditionExtFl.AutoSize = True
+        Me.chkRenditionExtFl.Location = New System.Drawing.Point(456, 152)
+        Me.chkRenditionExtFl.Name = "chkRenditionExtFl"
+        Me.chkRenditionExtFl.Size = New System.Drawing.Size(119, 17)
+        Me.chkRenditionExtFl.TabIndex = 273
+        Me.chkRenditionExtFl.Tag = "@DB=AssessmentsBPP.RenditionExtFl"
+        Me.chkRenditionExtFl.Text = "Rendition Extended"
+        Me.chkRenditionExtFl.UseVisualStyleBackColor = True
         '
         'frmBPPTaxList
         '
@@ -1055,4 +1068,5 @@ Partial Class frmBPPTaxList
     Friend WithEvents chkAssetsLoadedFl As CheckBox
     Friend WithEvents txtAssetsVerifiedDate As TextBox
     Friend WithEvents chkAssetsVerifiedFl As CheckBox
+    Friend WithEvents chkRenditionExtFl As CheckBox
 End Class

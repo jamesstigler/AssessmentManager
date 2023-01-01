@@ -128,7 +128,7 @@
                 " a.FreeportProtestMailedDate,a.FreeportProtestHearingDate,a.FreeportProtestStatus,a.FreeportProtestDeadlineDate,a.FreeportProtestCMRRR," &
                 " a.RenditionCompleteFl, a.RenditionCompleteDate," &
                 " a.AssetsLoadedFl, a.AssetsLoadedDate," &
-                " a.AssetsVerifiedFl, a.AssetsVerifiedDate," &
+                " a.AssetsVerifiedFl, a.AssetsVerifiedDate, a.RenditionExtFl," &
                 " a.RenditionCMRRR, a.RenditionMailedDate,ISNULL(l.ClientLocationId,'') AS ClientLocationId," &
                 " a.RenditionExtCMRRR, a.RenditionExtMailedDate,a.ClientRenditionValue,ISNULL(a.ParentAssessmentId,0) AS ParentAssessmentId," &
                 " (select (rtrim(Name) + ', ' + StateCd) from Assessors where AssessorId = a.AssessorId and TaxYear = " & m_TaxYear & ") as AssessorName," &
@@ -297,7 +297,7 @@
             Handles txtAcctNum.TextChanged, cboAssessor.TextChanged, txtClientLocationId.TextChanged,
             cboFactorEntity1.TextChanged, cboFactorEntity2.TextChanged, cboFactorEntity3.TextChanged,
             cboFactorEntity4.TextChanged, cboFactorEntity5.TextChanged, txtClientRendition1.TextChanged, chkRenditionCompleteFl.CheckedChanged,
-            cboAccountInvoicedStatus.TextChanged, chkAssetsLoadedFl.CheckedChanged, chkAssetsVerifiedFl.CheckedChanged
+            cboAccountInvoicedStatus.TextChanged, chkAssetsLoadedFl.CheckedChanged, chkAssetsVerifiedFl.CheckedChanged, chkRenditionExtFl.CheckedChanged
         If bActivated Then bChanged = True
         If bActivated Then
             If sender.name = chkRenditionCompleteFl.Name Then
@@ -328,7 +328,7 @@
             Handles txtAcctNum.LostFocus, cboAssessor.LostFocus, txtClientLocationId.LostFocus,
             cboFactorEntity1.LostFocus, cboFactorEntity2.LostFocus, cboFactorEntity3.LostFocus,
             cboFactorEntity4.LostFocus, cboFactorEntity5.LostFocus, txtClientRendition1.LostFocus, chkRenditionCompleteFl.LostFocus,
-            cboAccountInvoicedStatus.LostFocus, chkAssetsLoadedFl.LostFocus, chkAssetsVerifiedFl.LostFocus
+            cboAccountInvoicedStatus.LostFocus, chkAssetsLoadedFl.LostFocus, chkAssetsVerifiedFl.LostFocus, chkRenditionExtFl.LostFocus
         If bChanged Then
             If TypeOf sender Is ComboBox Then
                 If sender.SelectedIndex >= 0 Then
