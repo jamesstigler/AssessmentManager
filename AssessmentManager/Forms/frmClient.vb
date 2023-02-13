@@ -355,7 +355,7 @@
 
         Try
             sSQL = "SELECT ID, ISNULL(ChangeDate,AddDate) AS ChangeDate, Comment FROM ClientComments" &
-                " WHERE ClientId = " & m_ClientId & " ORDER BY ID DESC"
+                " WHERE ClientId = " & m_ClientId & " ORDER BY ISNULL(ChangeDate,AddDate) DESC"
             lRows = GetData(sSQL, dtList)
 
             dgComments.Columns.Clear()
@@ -521,7 +521,7 @@
             Else
                 cmdExpandComments.Text = "Expand"
                 grpComments.Left = 15
-                grpComments.Top = 430
+                grpComments.Top = 510
                 grpComments.Width = 949
                 grpComments.Height = 141
                 cmdExpandComments.Left = 882

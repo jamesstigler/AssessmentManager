@@ -133,43 +133,71 @@
         cmdFinish.Enabled = True
     End Sub
     Private Sub CreateFactors(ByVal bHitDB As Boolean)
-        Dim lRow As Long, iCol As Integer, dt As DataTable
-        Dim sFactorCode As String, sDescription As String, iAge As Integer, dPercentage As Double, sError As String, sSQL As String
+        Dim lRow As Long, iCol As Integer
+        Dim sFactorCode As String, sDescription As String, iAge As Integer, dPercentage As Double, sError As String
         Dim bUserHasSelectedRows As Boolean = False, myrow As DataGridViewRow
+        'Gather unique list of factor codes then delete existing Factor records before creating new ones
+        'First, loop through rows to build a list of factor codes, then delete those codes, then loop through grid to insert new ones
+        Dim FactorsToDelete As List(Of String), bAccumFactors As Boolean
+        Dim bBreak As Boolean
 
         Try
+            If bHitDB = False Then bBreak = True Else bBreak = False
+
             If dgImport.SelectedRows.Count > 0 Then
                 bUserHasSelectedRows = True
             End If
 
             dgImport.Columns("Status").Visible = True
-            For lRow = 0 To dgImport.Rows.Count - 1
-                myrow = dgImport.Rows(lRow)
-                If (bUserHasSelectedRows And myrow.Selected) Or bUserHasSelectedRows = False Then
-                    sFactorCode = "" : sDescription = "" : iAge = 0 : dPercentage = 0
-                    For iCol = 0 To dgImport.Columns.Count - 1
-                        If dgImport.Columns(iCol).HeaderText = "Factor Code" Then sFactorCode = UCase(Trim(dgImport.Rows(lRow).Cells(iCol).Value))
-                        If dgImport.Columns(iCol).HeaderText = "Description" Then sDescription = Trim(dgImport.Rows(lRow).Cells(iCol).Value)
-                        If dgImport.Columns(iCol).HeaderText = "Age" Then iAge = Val(Trim(dgImport.Rows(lRow).Cells(iCol).Value))
-                        If dgImport.Columns(iCol).HeaderText = "Percentage" Then dPercentage = Val(Trim(dgImport.Rows(lRow).Cells(iCol).Value))
+            bAccumFactors = True
+            FactorsToDelete = New List(Of String)
+            Do
+                If bAccumFactors = False And bHitDB = True And FactorsToDelete.Count > 0 Then
+                    For Each s As String In FactorsToDelete
+                        Dim sql As New StringBuilder("DELETE Factors WHERE TaxYear = ")
+                        sql.Append(AppData.TaxYear).Append(" AND FactorEntityId = ").Append(m_FactorEntityId)
+                        sql.Append(" AND FactorCode = ").Append(QuoStr(s))
+                        ExecuteSQL(sql.ToString)
                     Next
-                    If sFactorCode = "" Then
-                        dgImport.Rows(lRow).Cells("Status").Value = "Error:  Missing data"
-                    Else
-                        If bHitDB Then
-                            AddFactorCode(m_FactorEntityId, sFactorCode, sDescription, sError)
-                            sError = ""
-                            If AddFactorAge(m_FactorEntityId, sFactorCode, iAge, dPercentage, sError) Then
-                                dgImport.Rows(lRow).Cells("Status").Value = "OK"
-                            Else
-                                dgImport.Rows(lRow).Cells("Status").Value = "Error:  " & sError
-                            End If
+                End If
+                For lRow = 0 To dgImport.Rows.Count - 1
+                    myrow = dgImport.Rows(lRow)
+                    If (bUserHasSelectedRows And myrow.Selected) Or bUserHasSelectedRows = False Then
+                        sFactorCode = "" : sDescription = "" : iAge = 0 : dPercentage = 0
+                        For iCol = 0 To dgImport.Columns.Count - 1
+                            If dgImport.Columns(iCol).HeaderText = "Factor Code" Then sFactorCode = UCase(Trim(dgImport.Rows(lRow).Cells(iCol).Value))
+                            If dgImport.Columns(iCol).HeaderText = "Description" Then sDescription = Trim(dgImport.Rows(lRow).Cells(iCol).Value)
+                            If dgImport.Columns(iCol).HeaderText = "Age" Then iAge = Val(Trim(dgImport.Rows(lRow).Cells(iCol).Value))
+                            If dgImport.Columns(iCol).HeaderText = "Percentage" Then dPercentage = Val(Trim(dgImport.Rows(lRow).Cells(iCol).Value))
+                        Next
+                        If sFactorCode = "" Then
+                            dgImport.Rows(lRow).Cells("Status").Value = "Error:  Missing data"
                         Else
-                            dgImport.Rows(lRow).Cells("Status").Value = "OK"
+                            If bHitDB Then
+                                If bAccumFactors Then
+                                    If FactorsToDelete.Contains(sFactorCode) = False Then
+                                        FactorsToDelete.Add(sFactorCode)
+                                    End If
+                                Else
+                                    AddFactorCode(m_FactorEntityId, sFactorCode, sDescription, sError)
+                                    sError = ""
+                                    If AddFactorAge(m_FactorEntityId, sFactorCode, iAge, dPercentage, sError) Then
+                                        dgImport.Rows(lRow).Cells("Status").Value = "OK"
+                                    Else
+                                        dgImport.Rows(lRow).Cells("Status").Value = "Error:  " & sError
+                                    End If
+                                End If
+                            Else
+                                dgImport.Rows(lRow).Cells("Status").Value = "OK"
+                            End If
                         End If
                     End If
-                End If
-            Next
+                Next
+                If bBreak = True Then Exit Do
+                bAccumFactors = False
+                bBreak = True
+            Loop
+
 
         Catch ex As Exception
             MsgBox("Error importing:  " & ex.Message)

@@ -23,10 +23,10 @@ Partial Class frmREAssessment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -61,7 +61,14 @@ Partial Class frmREAssessment
         Me.Label21 = New System.Windows.Forms.Label()
         Me.txtClientLocationId = New System.Windows.Forms.TextBox()
         Me.fraHistory = New System.Windows.Forms.GroupBox()
+        Me.txtValueMethodMarket = New System.Windows.Forms.TextBox()
         Me.dgHistory = New System.Windows.Forms.DataGridView()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtValueMethodCost = New System.Windows.Forms.TextBox()
+        Me.txtValueMethodIncome = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.cboValueMethod = New System.Windows.Forms.ComboBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.cboConstructionType = New System.Windows.Forms.ComboBox()
@@ -443,14 +450,32 @@ Partial Class frmREAssessment
         'fraHistory
         '
         Me.fraHistory.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.fraHistory.Controls.Add(Me.txtValueMethodMarket)
         Me.fraHistory.Controls.Add(Me.dgHistory)
+        Me.fraHistory.Controls.Add(Me.Label28)
+        Me.fraHistory.Controls.Add(Me.txtValueMethodCost)
+        Me.fraHistory.Controls.Add(Me.txtValueMethodIncome)
+        Me.fraHistory.Controls.Add(Me.Label25)
+        Me.fraHistory.Controls.Add(Me.Label27)
+        Me.fraHistory.Controls.Add(Me.cboValueMethod)
         Me.fraHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.fraHistory.Location = New System.Drawing.Point(1111, 8)
+        Me.fraHistory.Location = New System.Drawing.Point(1112, 8)
         Me.fraHistory.Name = "fraHistory"
-        Me.fraHistory.Size = New System.Drawing.Size(209, 130)
+        Me.fraHistory.Size = New System.Drawing.Size(209, 236)
         Me.fraHistory.TabIndex = 249
         Me.fraHistory.TabStop = False
         Me.fraHistory.Text = "History"
+        '
+        'txtValueMethodMarket
+        '
+        Me.txtValueMethodMarket.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtValueMethodMarket.Location = New System.Drawing.Point(60, 208)
+        Me.txtValueMethodMarket.Name = "txtValueMethodMarket"
+        Me.txtValueMethodMarket.Size = New System.Drawing.Size(92, 20)
+        Me.txtValueMethodMarket.TabIndex = 275
+        Me.txtValueMethodMarket.Tag = "@DB=AssessmentsRE.ValueMethodMarket;@fmt=int"
+        Me.txtValueMethodMarket.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtValueMethodMarket.WordWrap = False
         '
         'dgHistory
         '
@@ -459,30 +484,94 @@ Partial Class frmREAssessment
         Me.dgHistory.AllowUserToDeleteRows = False
         Me.dgHistory.AllowUserToOrderColumns = True
         Me.dgHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.Format = "N0"
+        DataGridViewCellStyle5.NullValue = Nothing
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgHistory.Dock = System.Windows.Forms.DockStyle.Top
         Me.dgHistory.Location = New System.Drawing.Point(3, 16)
         Me.dgHistory.Name = "dgHistory"
         Me.dgHistory.ReadOnly = True
         Me.dgHistory.RowHeadersVisible = False
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.dgHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgHistory.ShowCellErrors = False
         Me.dgHistory.ShowCellToolTips = False
         Me.dgHistory.ShowEditingIcon = False
         Me.dgHistory.ShowRowErrors = False
-        Me.dgHistory.Size = New System.Drawing.Size(203, 111)
+        Me.dgHistory.Size = New System.Drawing.Size(203, 112)
         Me.dgHistory.TabIndex = 247
+        '
+        'Label28
+        '
+        Me.Label28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label28.Location = New System.Drawing.Point(12, 212)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(44, 12)
+        Me.Label28.TabIndex = 275
+        Me.Label28.Text = "Market"
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtValueMethodCost
+        '
+        Me.txtValueMethodCost.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtValueMethodCost.Location = New System.Drawing.Point(60, 160)
+        Me.txtValueMethodCost.Name = "txtValueMethodCost"
+        Me.txtValueMethodCost.Size = New System.Drawing.Size(92, 20)
+        Me.txtValueMethodCost.TabIndex = 273
+        Me.txtValueMethodCost.Tag = "@DB=AssessmentsRE.ValueMethodCost;@fmt=int"
+        Me.txtValueMethodCost.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtValueMethodCost.WordWrap = False
+        '
+        'txtValueMethodIncome
+        '
+        Me.txtValueMethodIncome.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtValueMethodIncome.Location = New System.Drawing.Point(60, 184)
+        Me.txtValueMethodIncome.Name = "txtValueMethodIncome"
+        Me.txtValueMethodIncome.Size = New System.Drawing.Size(92, 20)
+        Me.txtValueMethodIncome.TabIndex = 274
+        Me.txtValueMethodIncome.Tag = "@DB=AssessmentsRE.ValueMethodIncome;@fmt=int"
+        Me.txtValueMethodIncome.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtValueMethodIncome.WordWrap = False
+        '
+        'Label25
+        '
+        Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(12, 164)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(44, 12)
+        Me.Label25.TabIndex = 269
+        Me.Label25.Text = "Cost"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label27
+        '
+        Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(8, 188)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(48, 12)
+        Me.Label27.TabIndex = 273
+        Me.Label27.Text = "Income"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cboValueMethod
+        '
+        Me.cboValueMethod.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboValueMethod.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboValueMethod.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboValueMethod.FormattingEnabled = True
+        Me.cboValueMethod.Location = New System.Drawing.Point(60, 136)
+        Me.cboValueMethod.Name = "cboValueMethod"
+        Me.cboValueMethod.Size = New System.Drawing.Size(92, 21)
+        Me.cboValueMethod.TabIndex = 272
+        Me.cboValueMethod.Tag = "@DB=AssessmentsRE.ValueMethod"
         '
         'SplitContainer1
         '
@@ -495,6 +584,7 @@ Partial Class frmREAssessment
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.fraHistory)
         Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraCollectors)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
@@ -513,7 +603,6 @@ Partial Class frmREAssessment
         Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtClientLocationId)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.fraHistory)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cmdRefresh)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cboAssessor)
         Me.SplitContainer1.Panel1.Controls.Add(Me.chkInactiveFl)
@@ -915,23 +1004,23 @@ Partial Class frmREAssessment
         Me.dgECU.AllowUserToDeleteRows = False
         Me.dgECU.AllowUserToOrderColumns = True
         Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.Format = "N0"
-        DataGridViewCellStyle3.NullValue = Nothing
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.Format = "N0"
+        DataGridViewCellStyle7.NullValue = Nothing
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgECU.Location = New System.Drawing.Point(3, 16)
         Me.dgECU.Name = "dgECU"
         Me.dgECU.ReadOnly = True
         Me.dgECU.RowHeadersVisible = False
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgECU.ShowCellErrors = False
         Me.dgECU.ShowCellToolTips = False
@@ -955,6 +1044,7 @@ Partial Class frmREAssessment
         Me.ContextMenuStrip2.ResumeLayout(False)
         CType(Me.dgJurisdictions, System.ComponentModel.ISupportInitialize).EndInit()
         Me.fraHistory.ResumeLayout(False)
+        Me.fraHistory.PerformLayout()
         CType(Me.dgHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()
@@ -1040,4 +1130,11 @@ Partial Class frmREAssessment
     Friend WithEvents Label22 As Label
     Friend WithEvents cboConstructionType As ComboBox
     Friend WithEvents Label24 As Label
+    Friend WithEvents txtValueMethodMarket As TextBox
+    Friend WithEvents Label28 As Label
+    Friend WithEvents txtValueMethodIncome As TextBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents cboValueMethod As ComboBox
+    Friend WithEvents txtValueMethodCost As TextBox
+    Friend WithEvents Label25 As Label
 End Class

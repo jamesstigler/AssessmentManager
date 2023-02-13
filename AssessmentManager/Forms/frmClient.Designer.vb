@@ -40,6 +40,7 @@ Partial Class frmClient
         Me.Label8 = New System.Windows.Forms.Label()
         Me.tabContacts = New System.Windows.Forms.TabControl()
         Me.pageTax = New System.Windows.Forms.TabPage()
+        Me.cmdDupe = New System.Windows.Forms.Button()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.TextBox11 = New System.Windows.Forms.TextBox()
@@ -309,7 +310,6 @@ Partial Class frmClient
         Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
         Me.Label59 = New System.Windows.Forms.Label()
         Me.cboAgency = New System.Windows.Forms.ComboBox()
-        Me.cmdDupe = New System.Windows.Forms.Button()
         Me.tabContacts.SuspendLayout()
         Me.pageTax.SuspendLayout()
         Me.pageContract.SuspendLayout()
@@ -502,6 +502,15 @@ Partial Class frmClient
         Me.pageTax.TabIndex = 0
         Me.pageTax.Text = "Tax"
         Me.pageTax.UseVisualStyleBackColor = True
+        '
+        'cmdDupe
+        '
+        Me.cmdDupe.Location = New System.Drawing.Point(444, 8)
+        Me.cmdDupe.Name = "cmdDupe"
+        Me.cmdDupe.Size = New System.Drawing.Size(45, 23)
+        Me.cmdDupe.TabIndex = 243
+        Me.cmdDupe.Text = "Dupe"
+        Me.cmdDupe.UseVisualStyleBackColor = True
         '
         'ComboBox1
         '
@@ -2921,6 +2930,7 @@ Partial Class frmClient
         Me.dgComments.AllowUserToAddRows = False
         Me.dgComments.AllowUserToDeleteRows = False
         Me.dgComments.AllowUserToOrderColumns = True
+        Me.dgComments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders
         Me.dgComments.ContextMenuStrip = Me.ContextMenuStrip1
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
@@ -2934,6 +2944,7 @@ Partial Class frmClient
         Me.dgComments.Margin = New System.Windows.Forms.Padding(0)
         Me.dgComments.Name = "dgComments"
         Me.dgComments.RowHeadersVisible = False
+        Me.dgComments.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgComments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgComments.ShowCellErrors = False
         Me.dgComments.ShowCellToolTips = False
@@ -3137,20 +3148,12 @@ Partial Class frmClient
         Me.cboAgency.TabIndex = 247
         Me.cboAgency.Tag = "@DB=Clients.AgencyId"
         '
-        'cmdDupe
-        '
-        Me.cmdDupe.Location = New System.Drawing.Point(444, 8)
-        Me.cmdDupe.Name = "cmdDupe"
-        Me.cmdDupe.Size = New System.Drawing.Size(45, 23)
-        Me.cmdDupe.TabIndex = 243
-        Me.cmdDupe.Text = "Dupe"
-        Me.cmdDupe.UseVisualStyleBackColor = True
-        '
         'frmClient
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(988, 657)
+        Me.Controls.Add(Me.grpComments)
         Me.Controls.Add(Me.Label59)
         Me.Controls.Add(Me.cboAgency)
         Me.Controls.Add(Me.chkInterstateAllocationFl)
@@ -3160,7 +3163,6 @@ Partial Class frmClient
         Me.Controls.Add(Me.cboBPPConsultant)
         Me.Controls.Add(Me.grpContractInfo)
         Me.Controls.Add(Me.cmdBusinessUnits)
-        Me.Controls.Add(Me.grpComments)
         Me.Controls.Add(Me.grpSavingsCalculation)
         Me.Controls.Add(Me.Label39)
         Me.Controls.Add(Me.txtWebSite)

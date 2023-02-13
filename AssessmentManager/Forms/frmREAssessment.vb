@@ -129,7 +129,7 @@
                 " ISNULL(l.ConsultantName,ISNULL(c.REConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus," &
                 " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode"
             sSQL = sSQL & ",a.BuildingType,a.BuildingClass,a.BuildingSqFt,a.NetLeasableSqFt,a.GrossLeasableSqFt,a.YearBuilt,a.EffYearBuilt,a.LandSqFt,a.ExcessLandSqFt"
-            sSQL = sSQL & ",a.ConstructionType"
+            sSQL = sSQL & ",a.ConstructionType,a.ValueMethod,a.ValueMethodCost,a.ValueMethodIncome,a.ValueMethodMarket"
             sSQL = sSQL &
                 " FROM Clients AS c INNER JOIN" &
                 " AssessmentsRE AS a ON c.ClientId = a.ClientId INNER JOIN" &
@@ -173,7 +173,8 @@
             txtValueProtestDeadlineDate.GotFocus, txtValueProtestHearingDate.GotFocus,
             txtValueProtestMailedDate.GotFocus, cboValueProtestStatus.GotFocus, txtComment.GotFocus, txtClientLocationId.GotFocus, cboOccupiedStatus.GotFocus,
             cboAccountInvoicedStatus.GotFocus, cboBuildingType.GotFocus, cboBuildingClass.GotFocus, txtBuildingSqFt.GotFocus, txtNetLeasableSqFt.GotFocus, txtGrossLeasableSqFt.GotFocus,
-            txtYearBuilt.GotFocus, txtEffYearBuilt.GotFocus, txtLandSqFt.GotFocus, txtExcessLandSqFt.GotFocus, cboConstructionType.GotFocus
+            txtYearBuilt.GotFocus, txtEffYearBuilt.GotFocus, txtLandSqFt.GotFocus, txtExcessLandSqFt.GotFocus, cboConstructionType.GotFocus,
+            cboValueMethod.GotFocus, txtValueMethodCost.GotFocus, txtValueMethodIncome.GotFocus, txtValueMethodMarket.GotFocus
         sender.selectall()
     End Sub
 
@@ -184,7 +185,8 @@
             chkValueProtestFl.CheckedChanged, txtComment.TextChanged, chkInactiveFl.CheckedChanged, txtClientLocationId.TextChanged, cboOccupiedStatus.TextChanged,
             cboAccountInvoicedStatus.TextChanged, cboBuildingType.TextChanged, cboBuildingClass.TextChanged, txtBuildingSqFt.TextChanged, txtNetLeasableSqFt.TextChanged,
             txtGrossLeasableSqFt.TextChanged,
-            txtYearBuilt.TextChanged, txtEffYearBuilt.TextChanged, txtLandSqFt.TextChanged, txtExcessLandSqFt.TextChanged, cboConstructionType.TextChanged
+            txtYearBuilt.TextChanged, txtEffYearBuilt.TextChanged, txtLandSqFt.TextChanged, txtExcessLandSqFt.TextChanged, cboConstructionType.TextChanged,
+            cboValueMethod.TextChanged, txtValueMethodCost.TextChanged, txtValueMethodIncome.TextChanged, txtValueMethodMarket.TextChanged
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
                 If sender.checkstate = CheckState.Checked Then
@@ -207,7 +209,8 @@
             txtComment.LostFocus, chkInactiveFl.LostFocus, txtClientLocationId.LostFocus, cboOccupiedStatus.LostFocus,
             cboAccountInvoicedStatus.LostFocus, cboBuildingType.LostFocus, cboBuildingClass.LostFocus, txtBuildingSqFt.LostFocus, txtNetLeasableSqFt.LostFocus,
             txtGrossLeasableSqFt.LostFocus,
-            txtYearBuilt.LostFocus, txtEffYearBuilt.LostFocus, txtLandSqFt.LostFocus, txtExcessLandSqFt.LostFocus, cboConstructionType.LostFocus
+            txtYearBuilt.LostFocus, txtEffYearBuilt.LostFocus, txtLandSqFt.LostFocus, txtExcessLandSqFt.LostFocus, cboConstructionType.LostFocus,
+            cboValueMethod.LostFocus, txtValueMethodCost.LostFocus, txtValueMethodIncome.LostFocus, txtValueMethodMarket.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -606,12 +609,16 @@
             Dim bindHist As New BindingSource
             Dim dtListHist As New DataTable
             dgHistory.Columns.Clear()
-            sSQL = "SELECT TaxYear as [Year], MAX(FinalValue) AS [Value]" &
-                " FROM AssessmentDetailRE" &
-                " WHERE ClientId = " & m_ClientId &
-                " AND LocationId = " & m_LocationId &
-                " AND AssessmentId = " & m_AssessmentId &
-                " GROUP BY TaxYear ORDER BY TaxYear DESC"
+            sSQL = "SELECT d.TaxYear as [Year], MAX(d.FinalValue) AS [Value], ISNULL(a.ValueMethod,'') AS ValueMethod" &
+                " FROM AssessmentDetailRE d, AssessmentsRE a" &
+                " WHERE d.ClientId = " & m_ClientId &
+                " AND d.LocationId = " & m_LocationId &
+                " AND d.AssessmentId = " & m_AssessmentId &
+                " AND d.ClientId = a.ClientId" &
+                " AND d.LocationId = a.LocationId" &
+                " AND d.AssessmentId = a.AssessmentId" &
+                " AND d.TaxYear = a.TaxYear" &
+                " GROUP BY d.TaxYear, ISNULL(a.ValueMethod,'') ORDER BY d.TaxYear DESC"
             lRows = GetData(sSQL, dtListHist)
             bindHist.DataSource = dtListHist
             dgHistory.DataSource = bindHist
@@ -622,12 +629,17 @@
                 If column.Name = "Year" Then
                     column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                    column.Width = 55
+                    column.Width = 40
                 ElseIf column.Name = "Value" Then
                     column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     column.DefaultCellStyle.Format = csInt
-                    column.Width = 120
+                    column.Width = 80
+                ElseIf column.Name = "ValueMethod" Then
+                    column.HeaderText = "Approach"
+                    column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    column.Width = 60
                 End If
             Next
 

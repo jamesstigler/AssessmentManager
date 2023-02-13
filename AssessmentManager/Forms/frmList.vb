@@ -268,7 +268,7 @@
                 sSQL = sSQL & " BusinessUnits_Name, BusinessUnitId,"
                 sSQL = sSQL & " (SELECT agcy.AgencyName FROM Agencies agcy WHERE agcy.AgencyId = tbl1.AgencyId) AS AgencyName,"
                 sSQL = sSQL &
-                    " ClientLocationId, LegalOwner, AssessmentId, Assessors_Name," &
+                    " ClientLocationId, LegalOwner, AssessmentId, Assessors_Name, FactorEntities_Name," &
                     " BPPConsultantName AS ConsultantName, ClientCoordinatorName," &
                     " RenditionExtDeadlineDate, RenditionExtMailedDate, RenditionExtCMRRR," &
                     " RenditionDeadlineDate, RenditionMailedDate, RenditionCMRRR, FreeportProtestDeadlineDate, FreeportProtestMailedDate, FreeportProtestCMRRR," &
@@ -279,7 +279,7 @@
                 sSQL = sSQL & "SELECT c.Name AS Clients_Name, l.ClientId, l.LocationId, l.TaxYear, l.Address, l.Name, l.City," &
                     " l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name AS BusinessUnits_Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId) AS AgencyId,"
                 sSQL = sSQL &
-                    " l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name AS Assessors_Name," &
+                    " l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name AS Assessors_Name, fe.Name AS FactorEntities_Name," &
                     " a.RenditionExtDeadlineDate, a.RenditionExtMailedDate, a.RenditionExtCMRRR," &
                     " ISNULL(a.RenditionDeadlineDate, asr.RenditionDueDate) AS RenditionDeadlineDate, a.RenditionMailedDate," &
                     " a.RenditionCMRRR, a.FreeportProtestDeadlineDate, a.FreeportProtestMailedDate, a.FreeportProtestCMRRR," &
@@ -308,13 +308,15 @@
                     " LEFT OUTER JOIN Assessors AS asr" &
                     " ON a.AssessorId = asr.AssessorId And a.TaxYear = asr.TaxYear" &
                     " LEFT OUTER JOIN BusinessUnits bu ON a.ClientId = bu.ClientId And a.BusinessUnitId = bu.BusinessUnitId" &
+                    " LEFT OUTER JOIN FactorEntities fe ON a.FactorEntityId1 = fe.FactorEntityId" &
                     " WHERE (ISNULL(c.ProspectFl, 0) = 0)"
                 If AppData.IncludeInactive = False Then
                     sSQL = sSQL & " And ISNULL(c.InactiveFl,0) = 0 And ISNULL(l.InactiveFl,0) = 0 And ISNULL(a.InactiveFl,0) = 0"
                 End If
                 sSQL = sSQL &
                     " GROUP BY c.Name, l.ClientId, l.LocationId, l.TaxYear, l.Address, l.Name, l.City, l.StateCd," &
-                    " a.AcctNum, a.ParentAssessmentId, bu.Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId), l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name," &
+                    " a.AcctNum, a.ParentAssessmentId, bu.Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId), l.ClientLocationId," &
+                    " l.LegalOwner, a.AssessmentId, asr.Name, fe.Name," &
                     " a.RenditionExtDeadlineDate, a.RenditionExtMailedDate, a.RenditionExtCMRRR," &
                     " ISNULL(a.RenditionDeadlineDate,asr.RenditionDueDate), a.RenditionMailedDate, a.RenditionCMRRR," &
                     " a.FreeportProtestDeadlineDate," &
@@ -335,7 +337,7 @@
                     " l.City, l.StateCd, a.AcctNum,"
                 sSQL = sSQL & " (SELECT ap.AcctNum FROM AssessmentsBPP ap WHERE ap.AssessmentId = a.ParentAssessmentId And ap.TaxYear = a.TaxYear) AS ECUParentAcctNum,"
                 sSQL = sSQL & " bu.Name AS BusinessUnits_Name, a.BusinessUnitId,"
-                sSQL = sSQL & " l.ClientLocationId, l.LegalOwner, a.AssessmentId, Assessors.Name AS Assessors_Name," &
+                sSQL = sSQL & " l.ClientLocationId, l.LegalOwner, a.AssessmentId, Assessors.Name AS Assessors_Name, fe.Name AS FactorEntities_Name," &
                     " ISNULL(l.ConsultantName,ISNULL(c.BPPConsultantName,'')) AS ConsultantName, c.ClientCoordinatorName," &
                     " a.RenditionExtDeadlineDate,a.RenditionExtMailedDate,a.RenditionExtCMRRR," &
                     " ISNULL(a.RenditionDeadlineDate,Assessors.RenditionDueDate) AS RenditionDeadlineDate," &
@@ -357,6 +359,7 @@
                     " l.TaxYear = a.TaxYear LEFT OUTER JOIN" &
                     " Assessors ON a.AssessorId = Assessors.AssessorId And a.TaxYear = Assessors.TaxYear" &
                     " LEFT OUTER JOIN BusinessUnits bu ON a.ClientId = bu.ClientId And a.BusinessUnitId = bu.BusinessUnitId" &
+                    " LEFT OUTER JOIN FactorEntities fe ON a.FactorEntityId1 = fe.FactorEntityId" &
                     " WHERE l.TaxYear = " & m_TaxYear & " And ISNULL(c.ProspectFl,0) = 0"
                 If AppData.IncludeInactive = False Then
                     sSQL = sSQL & " And ISNULL(c.InactiveFl,0) = 0 And ISNULL(l.InactiveFl,0) = 0 And ISNULL(a.InactiveFl,0) = 0"
