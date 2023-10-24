@@ -317,9 +317,13 @@
 
         sSQL = sSQL & "ad.PenaltyAmt1, ad.TaxBillPrintedDate,"
 
-        sSQL = sSQL & "j.JurisdictionId,asr.AssessorId,ISNULL(collect.CollectorId,0) AS CollectorId," &
-            " collect.DueDate AS Collectors_DueDate,collect.DueDate2 AS Collectors_DueDate2,collect.DueDate3 AS Collectors_DueDate3,collect.DueDate4 AS Collectors_DueDate4," &
-            " collect.DiscountDate AS Collectors_DiscountDate,collect.DiscountDate2 AS Collectors_DiscountDate2,collect.DiscountDate3 AS Collectors_DiscountDate3,collect.DiscountDate4 AS Collectors_DiscountDate4," &
+        sSQL = sSQL & "j.JurisdictionId,asr.AssessorId,ISNULL(collect.CollectorId,0) AS CollectorId,"
+        If ePropType = enumTable.enumLocationBPP Then
+            sSQL = sSQL & " collect.BPPDueDate1 AS Collectors_DueDate,"
+        Else
+            sSQL = sSQL & " collect.REDueDate1 AS Collectors_DueDate,"
+        End If
+        sSQL = sSQL & " collect.DiscountDate AS Collectors_DiscountDate,collect.DiscountDate2 AS Collectors_DiscountDate2,collect.DiscountDate3 AS Collectors_DiscountDate3,collect.DiscountDate4 AS Collectors_DiscountDate4," &
             " collect.DiscountFl as Collectors_DiscountFl,ISNULL(collect.Phone,'') as Collectors_Phone"
 
         sSQL = sSQL & ",consult.ConsultantName AS Consultants_ConsultantName, consult.EMail AS Consultants_EMail, consult.Phone AS Consultants_Phone,consult.FullName AS Consultants_FullName"

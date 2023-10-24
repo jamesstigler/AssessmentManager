@@ -469,7 +469,7 @@
             ElseIf m_ListType = enumListType.enumCollector Then
                 sSQL = "select CollectorId, Name, Payee, Address1, Address2, City, StateCd, PayeeStateCd, Zip," &
                     " DiscountDate, DiscountDate2, DiscountDate3, DiscountDate4," &
-                    " DueDate, DueDate2, DueDate3, DueDate4, DiscountFl, AddressCorrectFl, TaxYear FROM Collectors" &
+                    " BPPDueDate1, BPPDueDate2, REDueDate1, REDueDate2, DiscountFl, AddressCorrectFl, TaxYear FROM Collectors" &
                     " WHERE TaxYear = " & m_TaxYear &
                     " ORDER BY Name"
                 sText = "Collectors"
@@ -489,8 +489,7 @@
                     " c.DiscountDate AS Collectors_DiscountDate, c.DiscountDate2 AS Collectors_DiscountDate2," &
                     " c.DiscountDate3 AS Collectors_DiscountDate3, c.DiscountDate4 AS Collectors_DiscountDate4," &
                     " j.TaxRate, j.TaxYear, c.CollectorId, c.Name AS Collectors_Name, c.Payee as Collectors_Payee," &
-                    " c.DueDate as Collectors_DueDate,c.DueDate2 as Collectors_DueDate2,c.DueDate3 as Collectors_DueDate3," &
-                    " c.DueDate4 as Collectors_DueDate4," &
+                    " c.BPPDueDate1, c.BPPDueDate2,c.REDueDate1,c.REDueDate2," &
                     " c.DiscountFl as Collectors_DiscountFl,c.AddressCorrectFl as Collectors_AddressCorrectFl" &
                     " FROM Collectors AS c RIGHT OUTER JOIN" &
                     " Jurisdictions AS j ON c.CollectorId = j.CollectorId AND c.TaxYear = j.TaxYear" &

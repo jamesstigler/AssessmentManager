@@ -1043,11 +1043,11 @@
                 If column.Name = "ChangeDate" Then
                     column.HeaderText = "Date/Time"
                     column.ReadOnly = True
-                    column.Width = 120
+                    column.Width = 140
                     column.DefaultCellStyle.Format = csDateTime
                 End If
                 If column.Name = "Comment" Then
-                    column.Width = dgComments.Width - 120 - 20
+                    column.Width = dgComments.Width - 140 - 20
                     column.DefaultCellStyle.WrapMode = DataGridViewTriState.True
                     column.MaxInputLength = 1000
                 End If
@@ -1067,6 +1067,7 @@
                 cmdExpandComments.Text = "Shrink"
                 grpComments.Left = 5
                 grpComments.Top = 5
+                grpComments.BringToFront()
                 grpComments.Width = SplitContainer1.Panel1.Width - 5
                 grpComments.Height = SplitContainer1.Panel1.Height
             Else

@@ -150,8 +150,8 @@
             dgInstallments.DataSource = bind
 
             For Each column As DataGridViewColumn In dgInstallments.Columns
-                If column.Name = "PayFromDt" Or column.Name = "PayToDt" Or _
-                        column.Name = "PayAmt" Or column.Name = "PaidFl" Or _
+                If column.Name = "PayFromDt" Or column.Name = "PayToDt" Or
+                        column.Name = "PayAmt" Or column.Name = "PaidFl" Or
                         column.Name = "PaidDt" Or column.Name = "DueDate" Or column.Name = "DueDateDropDown" Then
                     column.Visible = True
                 Else
@@ -190,47 +190,6 @@
                         column.Width = 50
                 End Select
             Next
-
-            'Dim dtCollector As DataTable
-            'Dim sDate1 As String = "", sDate2 As String = "", sDate3 As String = "", sDate4 As String = ""
-            'sSQL = "SELECT DueDate,DueDate2,DueDate3,DueDate4 FROM Collectors WHERE CollectorId = " & m_CollectorId & _
-            '    " AND TaxYear = " & m_TaxYear
-            'GetData(sSQL, dtCollector)
-            'Dim row As DataRow = dtCollector.Rows(0)
-            'If Not IsDBNull(row("DueDate")) Then
-            '    sDate1 = Format(row("DueDate"), csDate)
-            'End If
-            'If Not IsDBNull(row("DueDate2")) Then
-            '    sDate2 = Format(row("DueDate2"), csDate)
-            'End If
-            'If Not IsDBNull(row("DueDate3")) Then
-            '    sDate3 = Format(row("DueDate3"), csDate)
-            'End If
-            'If Not IsDBNull(row("DueDate4")) Then
-            '    sDate4 = Format(row("DueDate4"), csDate)
-            'End If
-
-            'If sDate1 <> "" Or sDate2 <> "" Or sDate3 <> "" Or sDate4 <> "" Then
-            '    Dim ddcolumn As New DataGridViewComboBoxColumn
-            '    With ddcolumn
-            '        .Name = "DueDateDropDown"
-            '        .HeaderText = "Due Date"
-            '        .DropDownWidth = 100
-            '        .Width = 100
-            '        .MaxDropDownItems = 8
-            '        .FlatStyle = FlatStyle.Flat
-            '        .Items.AddRange(sDate1, sDate2, sDate3, sDate4)
-            '    End With
-            '    dgInstallments.Columns.Add(ddcolumn)
-            '    dgInstallments.Columns("DueDate").Visible = False
-            '    dgInstallments.Columns("DueDateDropDown").DisplayIndex = 3
-            '    For Each gridrow As DataGridViewRow In dgInstallments.Rows
-            '        gridrow.Cells("DueDateDropDown").t = gridrow.Cells("DueDate").Value
-            '
-            '    Next
-            'End If
-
-
 
             Return True
         Catch ex As Exception

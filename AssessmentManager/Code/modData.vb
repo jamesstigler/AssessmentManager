@@ -619,33 +619,220 @@
 
     Public Sub InitControls(ByRef frm As Form, ByRef DBInfo() As typeDBUpdateInfo, ByVal DBPrimary() As typeDBUpdateInfo)
         Dim l As Long, sTag As String, iLen As Integer, iStart As Integer, sKeyword As String, sTable As String
-        Dim sField As String, eDataType As enumDataTypes, lTranslateCode As Long, iCtlType As Integer
-        Dim lTransCounter As Long, iEnd As Integer, bAllowNull As Boolean, sAddStr As String
-        Dim vTranslateList() As Object, lFieldLength As Long, i1 As Integer, i2 As Integer
-        Dim sTriggerField As String, sFieldDescription As String, ctl As Object
-        Dim ctlFormControl As Object
-        Dim colControls As New Collection, page As Object
+        Dim sField As String, eDataType As enumDataTypes, iCtlType As Integer
+        Dim iEnd As Integer, bAllowNull As Boolean
+        Dim lFieldLength As Long, i1 As Integer, i2 As Integer
+        Dim sFieldDescription As String
+        Dim colControls As New Collection
 
         ReDim DBInfo(0)
         ReDim DBInfo(0).PrimaryKeys(UBound(DBPrimary(i1).PrimaryKeys))
+        colControls = GetFormControls(frm)
 
-        For Each ctlFormControl In frm.Controls             '1st level of collection of controls
-            colControls = New Collection
-            If TypeOf ctlFormControl Is TabControl Then     'tab control contains it's own collection of pages
-                For Each page In ctlFormControl.controls    'page contains controls
-                    For Each ctl In page.Controls
-                        colControls.Add(ctl)
+        For Each ctl In colControls
+            With ctl
+                sTag = Trim(.Tag)
+                If Left(sTag, 4) = "@DB=" Then
+                    iLen = Len(sTag)
+                    iStart = 1
+                    While iStart < iLen
+                        iStart = InStr(iStart, sTag, "@") + 1
+                        If iStart > 1 Then
+                            iEnd = InStr(iStart, sTag, "=")
+                            sKeyword = UCase(Mid$(sTag, iStart, iEnd - iStart))
+                            iStart = iEnd + 1
+                            If iStart <= iLen Then
+                                Select Case sKeyword
+                                    Case "DB"  'database tablename.fieldname
+                                        sTable = Mid$(sTag, iStart, IIf(InStr(iStart, sTag, ".") = 0, 0, InStr(iStart, sTag, ".") - iStart))
+                                        iStart = iStart + Len(sTable) + 1
+                                        sField = CStr(GetTagItem(sTag, iStart, iEnd))
+                                    Case Else
+                                        GetTagItem(sTag, iStart, iEnd)
+                                End Select
+                            End If
+                        End If
+                    End While
+                    GetDataDefinition(sTable, sField, eDataType, bAllowNull, lFieldLength, sFieldDescription)
+                    iCtlType = ControlType(ctl)
+                    If iCtlType = Label Then .Text = sFieldDescription
+                    If iCtlType = ComboBox Then
+                        ctl.Items.Clear()
+                        If InStr(sField, "StateCd", CompareMethod.Text) > 0 Then
+                            ctl.items.add("")
+                            For Each sTemp As String In colStateCodes
+                                ctl.Items.Add(sTemp)
+                            Next
+                        ElseIf (sTable = "Clients" Or sTable = "LocationsBPP" Or sTable = "LocationsRE") And (sField = "ClientCoordinatorName" Or sField = "AccountRep" Or sField = "BPPConsultantName" Or sField = "REConsultantName" Or sField = "ConsultantName") Then
+                            ctl.items.add("")
+                            For Each sTemp As String In colConsultants
+                                ctl.Items.Add(sTemp)
+                            Next
+                        ElseIf sTable = "Clients" And (sField = "LeadStatus" Or sField = "SolicitType") Then
+                        ElseIf sField = "SICCode" Then
+                            ctl.items.add("")
+                            For Each stemp As String In colSICCodes
+                                ctl.items.add(stemp)
+                            Next
+                        Else
+                            Dim drFiltered() As DataRow, row As DataRow
+                            drFiltered = dtFieldDataDefinition.Select("TableName = " & QuoStr(sTable) & " AND FieldName = " & QuoStr(sField))
+                            If drFiltered.Count > 0 Then
+                                ctl.items.add("")
+                                For Each row In drFiltered
+                                    ctl.items.add(row("FieldValue"))
+                                Next
+                            End If
+                        End If
+                    End If
+                    ReDim Preserve DBInfo(UBound(DBInfo) + 1)
+                    With DBInfo(UBound(DBInfo))
+                        .sTable = sTable
+                        .sUpdateField = sField
+                    End With
+                    For i1 = 0 To UBound(DBPrimary)
+                        If DBPrimary(i1).sTable = sTable Then
+                            ReDim DBInfo(UBound(DBInfo)).PrimaryKeys(UBound(DBPrimary(i1).PrimaryKeys))
+                            For i2 = 0 To UBound(DBPrimary(i1).PrimaryKeys)
+                                DBInfo(UBound(DBInfo)).PrimaryKeys(i2).sField = DBPrimary(i1).PrimaryKeys(i2).sField
+                                DBInfo(UBound(DBInfo)).PrimaryKeys(i2).vValue = DBPrimary(i1).PrimaryKeys(i2).vValue
+                            Next
+                        End If
                     Next
-                Next
-            ElseIf TypeOf ctlFormControl Is GroupBox Or TypeOf ctlFormControl Is SplitContainer Or TypeOf ctlFormControl Is SplitterPanel Then       'group box may contain other group boxes
-                For Each ctl1 In ctlFormControl.controls         'this goes down 3 levels
-                    If TypeOf ctl1 Is GroupBox Or TypeOf ctl1 Is SplitContainer Or TypeOf ctl1 Is SplitterPanel Then
-                        For Each ctl2 In ctl1.controls
-                            If TypeOf ctl2 Is GroupBox Or TypeOf ctl2 Is SplitContainer Or TypeOf ctl2 Is SplitterPanel Then
+                    .Tag = .Tag & ";@IDX=" & UBound(DBInfo)
+                End If
+            End With
+        Next
+    End Sub
+
+    Public Sub RefreshControls(ByRef frm As Form, ByVal dt As DataTable, ByVal sParmTable As String)
+        Dim sTagTable As String = "", sField As String = "", sFormat As String = ""
+        Dim iStart As Integer = 0, iLen As Integer = 0, iEnd As Integer = 0, sTag As String = ""
+        Dim eDataType As enumDataTypes, lTranslateCode As Long = 0, bAllowNull As Boolean = False
+        Dim sKeyword As String = "", vWrkVar As Object, lFieldLength As Long = 0
+        Dim lRows As Long = 0, dr As DataRow, ctl As Object
+        Dim colControls As New Collection
+
+        Try
+            lRows = dt.Rows.Count
+            If lRows > 0 Then dr = dt.Rows(0)
+            colControls = GetFormControls(frm)
+
+            For Each ctl In colControls
+                With ctl
+                    sTag = Trim(.Tag)
+                    sFormat = ""
+                    If Left(sTag, 4) = "@DB=" Then
+                        iStart = 1
+                        iLen = Len(sTag)
+                        While iStart < iLen
+                            iStart = InStr(iStart, sTag, "@") + 1
+                            If iStart > 1 Then
+                                iEnd = InStr(iStart, sTag, "=")
+                                sKeyword = UCase(Mid$(sTag, iStart, iEnd - iStart))
+                                iStart = iEnd + 1
+                                If iStart <= iLen Then
+                                    Select Case sKeyword
+                                        Case "DB"  'database tablename.fieldname
+                                            sTagTable = Mid$(sTag, iStart, IIf(InStr(iStart, sTag, ".") = 0, 0, InStr(iStart, sTag, ".") - iStart))
+                                            iStart = iStart + Len(sTagTable) + 1
+                                            sField = CStr(GetTagItem(sTag, iStart, iEnd))
+                                        Case "FMT"
+                                            vWrkVar = GetTagItem(sTag, iStart, iEnd)
+                                            Select Case UCase$(vWrkVar)
+                                                Case "DOL"
+                                                    sFormat = csDol
+                                                Case "PCT"
+                                                    sFormat = csPct
+                                                Case "INT"
+                                                    sFormat = csInt
+                                                Case "FACTOR"
+                                                    sFormat = csFactor
+                                                Case "TAXRATE"
+                                                    sFormat = csTaxRate
+                                                Case "DATE"
+                                                    sFormat = csDate
+                                                Case "SHORTDATE"
+                                                    sFormat = csShortDate
+                                                Case "DATETIME"
+                                                    sFormat = csDateTime
+                                                Case "YEAR"
+                                                    sFormat = csYear
+                                            End Select
+                                        Case Else
+                                            GetTagItem(sTag, iStart, iEnd)
+                                    End Select
+                                End If
+                            End If
+                        End While
+                        If sTagTable = sParmTable Then
+                            GetDataDefinition(sTagTable, sField, eDataType, bAllowNull, lFieldLength, "")
+                            LoadOneControl(ctl, sField, dr(sField), eDataType, sFormat, lTranslateCode, lRows)
+                        End If
+                    End If
+                End With
+            Next
+        Catch ex As Exception
+            MsgBox("Error refreshing form data in RefreshControls:  " & ex.Message & ", TAG=" & sTag)
+        End Try
+    End Sub
+
+    Private Function GetFormControls(frm As Form) As Collection
+        Dim colControls As New Collection
+
+        For Each ctlFormControl In frm.Controls
+            If ctlFormControl.controls.count > 0 Then
+                For Each ctl In ctlFormControl.controls
+                    If ctl.controls.count > 0 Then
+                        For Each ctl2 In ctl.controls
+                            If ctl2.controls.count > 0 Then
                                 For Each ctl3 In ctl2.controls
-                                    If TypeOf ctl3 Is GroupBox Or TypeOf ctl3 Is SplitContainer Or TypeOf ctl3 Is SplitterPanel Then
+                                    If ctl3.controls.count > 0 Then
                                         For Each ctl4 In ctl3.controls
-                                            If TypeOf ctl4 Is GroupBox Or TypeOf ctl4 Is SplitContainer Or TypeOf ctl4 Is SplitterPanel Then
+                                            If ctl4.controls.count > 0 Then
+                                                For Each ctl5 In ctl4.controls
+                                                    If ctl5.controls.count > 0 Then
+                                                        For Each ctl6 In ctl5.controls
+                                                            If ctl6.controls.count > 0 Then
+                                                                For Each ctl7 In ctl6.controls
+                                                                    If ctl7.controls.count > 0 Then
+                                                                        For Each ctl8 In ctl7.controls
+                                                                            If ctl8.controls.count > 0 Then
+                                                                                For Each ctl9 In ctl8.controls
+                                                                                    If ctl9.controls.count > 0 Then
+                                                                                        For Each ctl10 In ctl9.controls
+                                                                                            If ctl10.controls.count > 0 Then
+                                                                                                For Each ctl11 In ctl10.controls
+                                                                                                    If ctl11.controls.count > 0 Then
+                                                                                                        MsgBox("Undefined control:" & ctl11.name)
+                                                                                                    Else
+                                                                                                        colControls.Add(ctl11)
+                                                                                                    End If
+                                                                                                Next
+                                                                                            Else
+                                                                                                colControls.Add(ctl10)
+                                                                                            End If
+                                                                                        Next
+                                                                                    Else
+                                                                                        colControls.Add(ctl9)
+                                                                                    End If
+                                                                                Next
+                                                                            Else
+                                                                                colControls.Add(ctl8)
+                                                                            End If
+                                                                        Next
+                                                                    Else
+                                                                        colControls.Add(ctl7)
+                                                                    End If
+                                                                Next
+                                                            Else
+                                                                colControls.Add(ctl6)
+                                                            End If
+                                                        Next
+                                                    Else
+                                                        colControls.Add(ctl5)
+                                                    End If
+                                                Next
                                             Else
                                                 colControls.Add(ctl4)
                                             End If
@@ -659,198 +846,16 @@
                             End If
                         Next
                     Else
-                        colControls.Add(ctl1)
+                        colControls.Add(ctl)
                     End If
                 Next
             Else
-                colControls.Add(ctlFormControl)             'first level control
+                colControls.Add(ctlFormControl)
             End If
-
-            For Each ctl In colControls
-                With ctl
-                    sTag = Trim(.Tag)
-                    If Left(sTag, 4) = "@DB=" Then
-                        iLen = Len(sTag)
-                        iStart = 1
-                        While iStart < iLen
-                            iStart = InStr(iStart, sTag, "@") + 1
-                            If iStart > 1 Then
-                                iEnd = InStr(iStart, sTag, "=")
-                                sKeyword = UCase(Mid$(sTag, iStart, iEnd - iStart))
-                                iStart = iEnd + 1
-                                If iStart <= iLen Then
-                                    Select Case sKeyword
-                                        Case "DB"  'database tablename.fieldname
-                                            sTable = Mid$(sTag, iStart, IIf(InStr(iStart, sTag, ".") = 0, 0, InStr(iStart, sTag, ".") - iStart))
-                                            iStart = iStart + Len(sTable) + 1
-                                            sField = CStr(GetTagItem(sTag, iStart, iEnd))
-                                        Case Else
-                                            GetTagItem(sTag, iStart, iEnd)
-                                    End Select
-                                End If
-                            End If
-                        End While
-                        GetDataDefinition(sTable, sField, eDataType, bAllowNull, lFieldLength, sFieldDescription)
-                        iCtlType = ControlType(ctl)
-                        If iCtlType = Label Then .Text = sFieldDescription
-                        If iCtlType = ComboBox Then
-                            ctl.Items.Clear()
-                            If InStr(sField, "StateCd", CompareMethod.Text) > 0 Then
-                                ctl.items.add("")
-                                For Each sTemp As String In colStateCodes
-                                    ctl.Items.Add(sTemp)
-                                Next
-                            ElseIf (sTable = "Clients" Or sTable = "LocationsBPP" Or sTable = "LocationsRE") And (sField = "ClientCoordinatorName" Or sField = "AccountRep" Or sField = "BPPConsultantName" Or sField = "REConsultantName" Or sField = "ConsultantName") Then
-                                ctl.items.add("")
-                                For Each sTemp As String In colConsultants
-                                    ctl.Items.Add(sTemp)
-                                Next
-                            ElseIf sTable = "Clients" And (sField = "LeadStatus" Or sField = "SolicitType") Then
-                            ElseIf sField = "SICCode" Then
-                                ctl.items.add("")
-                                For Each stemp As String In colSICCodes
-                                    ctl.items.add(stemp)
-                                Next
-                            Else
-                                Dim drFiltered() As DataRow, row As DataRow
-                                drFiltered = dtFieldDataDefinition.Select("TableName = " & QuoStr(sTable) & " AND FieldName = " & QuoStr(sField))
-                                If drFiltered.Count > 0 Then
-                                    ctl.items.add("")
-                                    For Each row In drFiltered
-                                        ctl.items.add(row("FieldValue"))
-                                    Next
-                                End If
-                            End If
-                        End If
-                        ReDim Preserve DBInfo(UBound(DBInfo) + 1)
-                        With DBInfo(UBound(DBInfo))
-                            .sTable = sTable
-                            .sUpdateField = sField
-                        End With
-                        For i1 = 0 To UBound(DBPrimary)
-                            If DBPrimary(i1).sTable = sTable Then
-                                ReDim DBInfo(UBound(DBInfo)).PrimaryKeys(UBound(DBPrimary(i1).PrimaryKeys))
-                                For i2 = 0 To UBound(DBPrimary(i1).PrimaryKeys)
-                                    DBInfo(UBound(DBInfo)).PrimaryKeys(i2).sField = DBPrimary(i1).PrimaryKeys(i2).sField
-                                    DBInfo(UBound(DBInfo)).PrimaryKeys(i2).vValue = DBPrimary(i1).PrimaryKeys(i2).vValue
-                                Next
-                            End If
-                        Next
-                        .Tag = .Tag & ";@IDX=" & UBound(DBInfo)
-                    End If
-                End With
-            Next
         Next
-    End Sub
+        Return colControls
 
-    Public Sub RefreshControls(ByRef frm As Form, ByVal dt As DataTable, ByVal sParmTable As String)
-        Dim sTagTable As String = "", sField As String = "", sFormat As String = ""
-        Dim iStart As Integer = 0, iLen As Integer = 0, iEnd As Integer = 0, sTag As String = ""
-        Dim eDataType As enumDataTypes, lTranslateCode As Long = 0, bAllowNull As Boolean = False
-        Dim sKeyword As String = "", vWrkVar As Object, lFieldLength As Long = 0
-        Dim lRows As Long = 0, dr As DataRow, ctlFormControl As Object, ctl As Object
-        Dim colControls As New Collection, page As Object
-
-        Try
-            lRows = dt.Rows.Count
-            If lRows > 0 Then dr = dt.Rows(0)
-            For Each ctlFormControl In frm.Controls             '1st level of collection of controls
-                colControls = New Collection
-                If TypeOf ctlFormControl Is TabControl Then     'tab control contains it's own collection of pages
-                    For Each page In ctlFormControl.controls    'page contains controls
-                        For Each ctl In page.Controls
-                            colControls.Add(ctl)
-                        Next
-                    Next
-                ElseIf TypeOf ctlFormControl Is GroupBox Or TypeOf ctlFormControl Is SplitContainer Or TypeOf ctlFormControl Is SplitterPanel Then       'group box may contain other group boxes
-                    For Each ctl1 In ctlFormControl.controls         'this goes down 3 levels
-                        If TypeOf ctl1 Is GroupBox Or TypeOf ctl1 Is SplitContainer Or TypeOf ctl1 Is SplitterPanel Then
-                            For Each ctl2 In ctl1.controls
-                                If TypeOf ctl2 Is GroupBox Or TypeOf ctl2 Is SplitContainer Or TypeOf ctl2 Is SplitterPanel Then
-                                    For Each ctl3 In ctl2.controls
-                                        If TypeOf ctl3 Is GroupBox Or TypeOf ctl3 Is SplitContainer Or TypeOf ctl3 Is SplitterPanel Then
-                                            For Each ctl4 In ctl3.controls
-                                                If TypeOf ctl4 Is GroupBox Or TypeOf ctl4 Is SplitContainer Or TypeOf ctl4 Is SplitterPanel Then
-                                                Else
-                                                    colControls.Add(ctl4)
-                                                End If
-                                            Next
-                                        Else
-                                            colControls.Add(ctl3)
-                                        End If
-                                    Next
-                                Else
-                                    colControls.Add(ctl2)
-                                End If
-                            Next
-                        Else
-                            colControls.Add(ctl1)
-                        End If
-                    Next
-                Else
-                    colControls.Add(ctlFormControl)             'first level control
-                End If
-
-                For Each ctl In colControls
-                    With ctl
-                        sTag = Trim(.Tag)
-                        sFormat = ""
-                        If Left(sTag, 4) = "@DB=" Then
-                            iStart = 1
-                            iLen = Len(sTag)
-                            While iStart < iLen
-                                iStart = InStr(iStart, sTag, "@") + 1
-                                If iStart > 1 Then
-                                    iEnd = InStr(iStart, sTag, "=")
-                                    sKeyword = UCase(Mid$(sTag, iStart, iEnd - iStart))
-                                    iStart = iEnd + 1
-                                    If iStart <= iLen Then
-                                        Select Case sKeyword
-                                            Case "DB"  'database tablename.fieldname
-                                                sTagTable = Mid$(sTag, iStart, IIf(InStr(iStart, sTag, ".") = 0, 0, InStr(iStart, sTag, ".") - iStart))
-                                                iStart = iStart + Len(sTagTable) + 1
-                                                sField = CStr(GetTagItem(sTag, iStart, iEnd))
-                                            Case "FMT"
-                                                vWrkVar = GetTagItem(sTag, iStart, iEnd)
-                                                Select Case UCase$(vWrkVar)
-                                                    Case "DOL"
-                                                        sFormat = csDol
-                                                    Case "PCT"
-                                                        sFormat = csPct
-                                                    Case "INT"
-                                                        sFormat = csInt
-                                                    Case "FACTOR"
-                                                        sFormat = csFactor
-                                                    Case "TAXRATE"
-                                                        sFormat = csTaxRate
-                                                    Case "DATE"
-                                                        sFormat = csDate
-                                                    Case "SHORTDATE"
-                                                        sFormat = csShortDate
-                                                    Case "DATETIME"
-                                                        sFormat = csDateTime
-                                                    Case "YEAR"
-                                                        sFormat = csYear
-                                                End Select
-                                            Case Else
-                                                GetTagItem(sTag, iStart, iEnd)
-                                        End Select
-                                    End If
-                                End If
-                            End While
-                            If sTagTable = sParmTable Then
-                                GetDataDefinition(sTagTable, sField, eDataType, bAllowNull, lFieldLength, "")
-                                LoadOneControl(ctl, sField, dr(sField), eDataType, sFormat, lTranslateCode, lRows)
-                            End If
-                        End If
-                    End With
-                Next
-            Next
-
-        Catch ex As Exception
-            MsgBox("Error refreshing form data in RefreshControls:  " & ex.Message & ", TAG=" & sTag)
-        End Try
-    End Sub
+    End Function
 
     Private Function GetTagItem(ByVal sTag As String, ByRef iStart As Integer, ByRef iEnd As Integer) As Object
         'given a beginning, looks for known alternate delimiters before returning the string.

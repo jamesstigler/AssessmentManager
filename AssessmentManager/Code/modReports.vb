@@ -448,7 +448,8 @@
                 End If
                 If lClientId > 0 Then sSQL = sSQL & " AND c.ClientId = " & lClientId
             ElseIf eType = enumReport.enumMissingTaxBills Then
-                sSQL = "SELECT 'BPP' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address,'') AS Address, ISNULL(l.City,'') AS City, l.StateCd, ISNULL(l.Zip,'') AS Zip, ISNULL(a.AcctNum,'') AS AcctNum, col.DueDate," &
+                sSQL = "SELECT 'BPP' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address,'') AS Address," &
+                    " ISNULL(l.City,'') AS City, l.StateCd, ISNULL(l.Zip,'') AS Zip, ISNULL(a.AcctNum,'') AS AcctNum, col.BPPDueDate1 AS DueDate," &
                     " j.Name AS Jurisdictions_Name, ISNULL(col.Name,'') + ', ' + ISNULL(col.StateCd,'') + '  ' + ISNULL(col.Phone, '') AS Collectors_Name," &
                     " ISNULL(l.ConsultantName, ISNULL(c.BPPConsultantName,'NONE')) AS Clients_ConsultantName" &
                     " FROM AssessmentDetailBPP AS ad INNER JOIN" &
@@ -464,8 +465,9 @@
                 If bIncludeInactive = False Then
                     sSQL = sSQL & " AND ISNULL(c.InactiveFl,0) = 0 AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(a.InactiveFl,0) = 0 "
                 End If
-                sSQL = sSQL & " UNION SELECT 'Real' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address,'') AS Address, ISNULL(l.City,'') AS City, l.StateCd," &
-                    " ISNULL(l.Zip,'') AS Zip, ISNULL(a.AcctNum,'') AS AcctNum, col.DueDate," &
+                sSQL = sSQL & " UNION SELECT 'Real' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address,'') AS Address," &
+                    " ISNULL(l.City,'') AS City, l.StateCd," &
+                    " ISNULL(l.Zip,'') AS Zip, ISNULL(a.AcctNum,'') AS AcctNum, col.REDueDate1 AS DueDate," &
                     " j.Name AS Jurisdictions_Name, ISNULL(col.Name,'') + ', ' + ISNULL(col.StateCd,'') + '  ' + ISNULL(col.Phone, '') AS Collectors_Name," &
                     " ISNULL(l.ConsultantName,ISNULL(c.REConsultantName,'NONE')) AS Clients_ConsultantName" &
                     " FROM AssessmentDetailRE AS ad INNER JOIN" &
@@ -481,7 +483,8 @@
                 If bIncludeInactive = False Then
                     sSQL = sSQL & " AND ISNULL(c.InactiveFl,0) = 0 AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(a.InactiveFl,0) = 0 "
                 End If
-                sSQL = sSQL & " UNION SELECT 'BPP' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address, '') AS Address, ISNULL(l.City, '') AS City, l.StateCd," &
+                sSQL = sSQL & " UNION SELECT 'BPP' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address, '') AS Address," &
+                    " ISNULL(l.City, '') AS City, l.StateCd," &
                     " ISNULL(l.Zip, '') AS Zip, ISNULL(a.AcctNum, '') AS AcctNum, i.PayToDt AS DueDate," &
                     " j.Name AS Jurisdictions_Name, ISNULL(col.Name, '') + ', ' + ISNULL(col.StateCd, '') + '  ' + ISNULL(col.Phone, '') AS Collectors_Name," &
                     " ISNULL(l.ConsultantName,ISNULL(c.BPPConsultantName,'NONE')) AS Clients_ConsultantName" &
@@ -493,13 +496,14 @@
                     " AND a.TaxYear = l.TaxYear ON ad.ClientId = a.ClientId" &
                     " AND ad.LocationId = a.LocationId And ad.AssessmentId = a.AssessmentId And ad.TaxYear = a.TaxYear INNER JOIN" &
                     " InstallmentsBPP AS i ON a.ClientId = i.ClientId AND a.LocationId = i.LocationId AND a.AssessmentId = i.AssessmentId AND a.TaxYear = i.TaxYear" &
-                    " LEFT OUTER JOIN Collectors AS col ON i.CollectorId = col.CollectorId And i.TaxYear = col.TaxYear" &
-                    " WHERE ISNULL(c.ProspectFl, 0) = 0 AND  i.TaxBillPrintedDate Is NULL"
+                    " INNER JOIN Collectors AS col ON i.CollectorId = col.CollectorId And i.TaxYear = col.TaxYear" &
+                    " WHERE ISNULL(c.ProspectFl, 0) = 0 AND  i.PaidDt Is NULL"
                 If bIncludeInactive = False Then
                     sSQL = sSQL & " AND ISNULL(c.InactiveFl,0) = 0 AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(a.InactiveFl,0) = 0 "
                 End If
 
-                sSQL = sSQL & " UNION SELECT 'Real' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address, '') AS Address, ISNULL(l.City, '') AS City, l.StateCd," &
+                sSQL = sSQL & " UNION SELECT 'Real' AS PropType, ISNULL(l.LegalOwner, c.Name) AS Clients_Name, ISNULL(l.Address, '') AS Address," &
+                    " ISNULL(l.City, '') AS City, l.StateCd," &
                     " ISNULL(l.Zip, '') AS Zip, ISNULL(a.AcctNum, '') AS AcctNum, i.PayToDt AS DueDate," &
                     " j.Name AS Jurisdictions_Name, ISNULL(col.Name, '') + ', ' + ISNULL(col.StateCd, '') + '  ' + ISNULL(col.Phone, '') AS Collectors_Name," &
                     " ISNULL(l.ConsultantName,ISNULL(c.REConsultantName,'NONE')) AS Clients_ConsultantName" &
@@ -511,8 +515,8 @@
                     " AND a.TaxYear = l.TaxYear ON ad.ClientId = a.ClientId" &
                     " AND ad.LocationId = a.LocationId And ad.AssessmentId = a.AssessmentId And ad.TaxYear = a.TaxYear INNER JOIN" &
                     " InstallmentsRE AS i ON a.ClientId = i.ClientId AND a.LocationId = i.LocationId AND a.AssessmentId = i.AssessmentId AND a.TaxYear = i.TaxYear" &
-                    " LEFT OUTER JOIN Collectors AS col ON i.CollectorId = col.CollectorId And i.TaxYear = col.TaxYear" &
-                    " WHERE ISNULL(c.ProspectFl, 0) = 0 AND  i.TaxBillPrintedDate Is NULL"
+                    " INNER JOIN Collectors AS col ON i.CollectorId = col.CollectorId And i.TaxYear = col.TaxYear" &
+                    " WHERE ISNULL(c.ProspectFl, 0) = 0 AND  i.PaidDt Is NULL"
                 If bIncludeInactive = False Then
                     sSQL = sSQL & " AND ISNULL(c.InactiveFl,0) = 0 AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(a.InactiveFl,0) = 0 "
                 End If

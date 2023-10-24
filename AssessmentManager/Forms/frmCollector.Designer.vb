@@ -22,46 +22,48 @@ Partial Class frmCollector
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtPercentage = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtPhone = New System.Windows.Forms.TextBox
-        Me.txtFax = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.TextBox3 = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.txtComment = New System.Windows.Forms.TextBox
-        Me.cboPayeeStateCd = New System.Windows.Forms.ComboBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.txtAddress = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtCity = New System.Windows.Forms.TextBox
-        Me.txtZip = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtName = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.TextBox5 = New System.Windows.Forms.TextBox
-        Me.TextBox4 = New System.Windows.Forms.TextBox
-        Me.chkAddressCorrectFl = New System.Windows.Forms.CheckBox
-        Me.chkDiscountFl = New System.Windows.Forms.CheckBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.TextBox6 = New System.Windows.Forms.TextBox
-        Me.TextBox7 = New System.Windows.Forms.TextBox
-        Me.TextBox8 = New System.Windows.Forms.TextBox
-        Me.TextBox9 = New System.Windows.Forms.TextBox
-        Me.TextBox10 = New System.Windows.Forms.TextBox
-        Me.TextBox11 = New System.Windows.Forms.TextBox
-        Me.TextBox12 = New System.Windows.Forms.TextBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.TextBox15 = New System.Windows.Forms.TextBox
-        Me.TextBox14 = New System.Windows.Forms.TextBox
-        Me.TextBox13 = New System.Windows.Forms.TextBox
-        Me.cboStateCd = New System.Windows.Forms.ComboBox
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtPercentage = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtPhone = New System.Windows.Forms.TextBox()
+        Me.txtFax = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtComment = New System.Windows.Forms.TextBox()
+        Me.cboPayeeStateCd = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtAddress = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtCity = New System.Windows.Forms.TextBox()
+        Me.txtZip = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtName = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.chkAddressCorrectFl = New System.Windows.Forms.CheckBox()
+        Me.chkDiscountFl = New System.Windows.Forms.CheckBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.TextBox10 = New System.Windows.Forms.TextBox()
+        Me.TextBox11 = New System.Windows.Forms.TextBox()
+        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.TextBox15 = New System.Windows.Forms.TextBox()
+        Me.TextBox14 = New System.Windows.Forms.TextBox()
+        Me.TextBox13 = New System.Windows.Forms.TextBox()
+        Me.cboStateCd = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -262,11 +264,11 @@ Partial Class frmCollector
         'TextBox4
         '
         Me.TextBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox4.Location = New System.Drawing.Point(6, 19)
+        Me.TextBox4.Location = New System.Drawing.Point(24, 20)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(69, 20)
         Me.TextBox4.TabIndex = 13
-        Me.TextBox4.Tag = "@DB=Collectors.DueDate;@fmt=DATE"
+        Me.TextBox4.Tag = "@DB=Collectors.BPPDueDate1;@fmt=DATE"
         '
         'chkAddressCorrectFl
         '
@@ -396,7 +398,7 @@ Partial Class frmCollector
         Me.GroupBox1.Controls.Add(Me.TextBox6)
         Me.GroupBox1.Controls.Add(Me.TextBox8)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(113, 302)
+        Me.GroupBox1.Location = New System.Drawing.Point(168, 300)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(184, 165)
         Me.GroupBox1.TabIndex = 202
@@ -405,6 +407,8 @@ Partial Class frmCollector
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Label9)
+        Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.TextBox15)
         Me.GroupBox2.Controls.Add(Me.TextBox14)
         Me.GroupBox2.Controls.Add(Me.TextBox13)
@@ -412,37 +416,36 @@ Partial Class frmCollector
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(11, 302)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(84, 123)
+        Me.GroupBox2.Size = New System.Drawing.Size(117, 142)
         Me.GroupBox2.TabIndex = 203
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Due Dates"
         '
         'TextBox15
         '
         Me.TextBox15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox15.Location = New System.Drawing.Point(6, 97)
+        Me.TextBox15.Location = New System.Drawing.Point(24, 112)
         Me.TextBox15.Name = "TextBox15"
         Me.TextBox15.Size = New System.Drawing.Size(69, 20)
         Me.TextBox15.TabIndex = 16
-        Me.TextBox15.Tag = "@DB=Collectors.DueDate4;@fmt=DATE"
+        Me.TextBox15.Tag = "@DB=Collectors.REDueDate2;@fmt=DATE"
         '
         'TextBox14
         '
         Me.TextBox14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox14.Location = New System.Drawing.Point(6, 71)
+        Me.TextBox14.Location = New System.Drawing.Point(24, 88)
         Me.TextBox14.Name = "TextBox14"
         Me.TextBox14.Size = New System.Drawing.Size(69, 20)
         Me.TextBox14.TabIndex = 15
-        Me.TextBox14.Tag = "@DB=Collectors.DueDate3;@fmt=DATE"
+        Me.TextBox14.Tag = "@DB=Collectors.REDueDate1;@fmt=DATE"
         '
         'TextBox13
         '
         Me.TextBox13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox13.Location = New System.Drawing.Point(6, 45)
+        Me.TextBox13.Location = New System.Drawing.Point(24, 44)
         Me.TextBox13.Name = "TextBox13"
         Me.TextBox13.Size = New System.Drawing.Size(69, 20)
         Me.TextBox13.TabIndex = 14
-        Me.TextBox13.Tag = "@DB=Collectors.DueDate2;@fmt=DATE"
+        Me.TextBox13.Tag = "@DB=Collectors.BPPDueDate2;@fmt=DATE"
         '
         'cboStateCd
         '
@@ -454,6 +457,26 @@ Partial Class frmCollector
         Me.cboStateCd.Size = New System.Drawing.Size(145, 21)
         Me.cboStateCd.TabIndex = 1
         Me.cboStateCd.Tag = "@DB=Collectors.StateCd"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(12, 4)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(95, 13)
+        Me.Label2.TabIndex = 193
+        Me.Label2.Text = "BPP Due Dates"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(16, 72)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(88, 13)
+        Me.Label9.TabIndex = 194
+        Me.Label9.Text = "RE Due Dates"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frmCollector
         '
@@ -539,4 +562,6 @@ Partial Class frmCollector
     Friend WithEvents TextBox14 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox13 As System.Windows.Forms.TextBox
     Friend WithEvents cboStateCd As System.Windows.Forms.ComboBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label2 As Label
 End Class

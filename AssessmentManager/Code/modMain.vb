@@ -1980,18 +1980,18 @@ Module modMain
                 " WHERE t2.AssessorId = t1.AssessorId AND t2.TaxYear = " & iToYear & ")"
             lRows = ExecuteSQL(sSQL)
 
-            sSQL = "INSERT Collectors (CollectorId,TaxYear,Name,StateCd,PayeeStateCd,Payee,Address1,Address2,City,Zip,Phone,Fax,WebSite," & _
-                " DueDate,DueDate2,DueDate3,DueDate4,Comment,DiscountDate,NumDaysWarning,AddUser,DiscountFl," & _
-                " DiscountDate2,DiscountDate3,DiscountDate4," & _
-                " DiscountPct,DiscountPct2,DiscountPct3,DiscountPct4) SELECT" & _
-                " t1.CollectorId," & iToYear & ",t1.Name,t1.StateCd,t1.PayeeStateCd,t1.Payee,t1.Address1,t1.Address2,t1.City,t1.Zip,t1.Phone,t1.Fax,t1.WebSite," & _
-                " DATEADD(year,1,t1.DueDate),DATEADD(year,1,t1.DueDate2),DATEADD(year,1,t1.DueDate3),DATEADD(year,1,t1.DueDate4)," & _
-                " t1.Comment,DATEADD(year,1,t1.DiscountDate),t1.NumDaysWarning," & QuoStr(AppData.UserId) & "," & _
-                " t1.DiscountFl," & _
-                " DATEADD(year,1,t1.DiscountDate2), DATEADD(year,1,t1.DiscountDate3),DATEADD(year,1,t1.DiscountDate4)," & _
-                " t1.DiscountPct,t1.DiscountPct2,t1.DiscountPct3,t1.DiscountPct4" & _
-                " FROM Collectors t1 WHERE t1.TaxYear = " & iFromYear & _
-                " AND NOT EXISTS(SELECT t2.CollectorId FROM Collectors t2" & _
+            sSQL = "INSERT Collectors (CollectorId,TaxYear,Name,StateCd,PayeeStateCd,Payee,Address1,Address2,City,Zip,Phone,Fax,WebSite," &
+                " BPPDueDate1,BPPDueDate2,REDueDate1,ReDueDate2,Comment,DiscountDate,NumDaysWarning,AddUser,DiscountFl," &
+                " DiscountDate2,DiscountDate3,DiscountDate4," &
+                " DiscountPct,DiscountPct2,DiscountPct3,DiscountPct4) SELECT" &
+                " t1.CollectorId," & iToYear & ",t1.Name,t1.StateCd,t1.PayeeStateCd,t1.Payee,t1.Address1,t1.Address2,t1.City,t1.Zip,t1.Phone,t1.Fax,t1.WebSite," &
+                " DATEADD(year,1,t1.BPPDueDate1),DATEADD(year,1,t1.BPPDueDate2),DATEADD(year,1,t1.REDueDate1),DATEADD(year,1,t1.REDueDate2)," &
+                " t1.Comment,DATEADD(year,1,t1.DiscountDate),t1.NumDaysWarning," & QuoStr(AppData.UserId) & "," &
+                " t1.DiscountFl," &
+                " DATEADD(year,1,t1.DiscountDate2), DATEADD(year,1,t1.DiscountDate3),DATEADD(year,1,t1.DiscountDate4)," &
+                " t1.DiscountPct,t1.DiscountPct2,t1.DiscountPct3,t1.DiscountPct4" &
+                " FROM Collectors t1 WHERE t1.TaxYear = " & iFromYear &
+                " AND NOT EXISTS(SELECT t2.CollectorId FROM Collectors t2" &
                 " WHERE t2.CollectorId = t1.CollectorId AND t2.TaxYear = " & iToYear & ")"
             lRows = ExecuteSQL(sSQL)
 

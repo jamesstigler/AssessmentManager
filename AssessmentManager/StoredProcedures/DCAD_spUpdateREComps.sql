@@ -7,8 +7,7 @@ CREATE PROCEDURE spUpdateREComps
 	@AssessorId bigint,
 	@TaxYear smallint,
 	@Threshhold bigint,
-	@AddUser varchar(30)
-	 
+	@AddUser varchar(30)	 
 AS
 	BEGIN
 		DELETE AssessmentManagerData..REComps WHERE AssessorId = @AssessorId AND TaxYear = @TaxYear
@@ -44,10 +43,10 @@ AS
            ,[PricingMethod]
 		   ,[AddUser])
 
-		SELECT @AssessorId AS AssessorId, tmp1.Account_Num, @TaxYear AS TaxYear, ISNULL(tmp1.IMPR_VAL,0), ISNULL(tmp1.LAND_VAL,0), 
-		ISNULL(tmp1.GROSS_BLDG_AREA,0), ISNULL(tmp1.AREA_SIZE,0),
-		ISNULL(tmp1.NUM_UNITS,0), ISNULL(tmp1.YEAR_BUILT,0), ISNULL(tmp1.BLDG_CLASS_DESC,''), 
-		ISNULL(tmp1.COMPARABILITY_CD,''), '' AS EconomicArea, ISNULL(tmp1.LMA,''), ISNULL(tmp1.IMA,''), ISNULL(tmp1.MAPSCO,''),
+		SELECT @AssessorId AS AssessorId, tmp1.Account_Num, @TaxYear AS TaxYear, ISNULL(tmp1.IMPR_VAL,0) AS IMPR_VAL, ISNULL(tmp1.LAND_VAL,0) AS LAND_VAL, 
+		ISNULL(tmp1.GROSS_BLDG_AREA,0) AS GROSS_BLDG_AREA, ISNULL(tmp1.AREA_SIZE,0) AS AREA_SIZE,
+		ISNULL(tmp1.NUM_UNITS,0) AS NUM_UNITS, ISNULL(tmp1.YEAR_BUILT,0) AS YEAR_BUILT, ISNULL(tmp1.BLDG_CLASS_DESC,'') AS BLDG_CLASS_DESC, 
+		ISNULL(tmp1.COMPARABILITY_CD,'') AS COMPARABILITY_CD, '' AS EconomicArea, ISNULL(tmp1.LMA,''), ISNULL(tmp1.IMA,''), ISNULL(tmp1.MAPSCO,''),
 		ISNULL(tmp1.NBHD_CD,''), ISNULL(tmp1.STREET_NUM,'') + ISNULL(tmp1.STREET_HALF_NUM,'') + ' ' + ISNULL(tmp1.FULL_STREET_NAME,'') AS StreetName, 
 		ISNULL(tmp1.BIZ_NAME,''),ISNULL(tmp1.TOT_VAL,0), 
 		CASE WHEN ISNULL(tmp1.AREA_SIZE,0) > 0 THEN ROUND(ISNULL(tmp1.LAND_VAL,0) / ISNULL(tmp1.AREA_SIZE,0),2) ELSE 0 END AS LandValuePerSqFt,
@@ -80,12 +79,11 @@ AS
 		MAX(account_info.LEGAL4) AS LEGAL4, MAX(account_info.LEGAL5) AS LEGAL5, MAX(account_info.DEED_TXFR_DATE) AS DEED_TXFR_DATE, 
 		MAX(account_info.GIS_PARCEL_ID) AS GIS_PARCEL_ID, 
 		MAX(account_info.PHONE_NUM) AS PHONE_NUM, MAX(account_info.LMA) AS LMA, MAX(account_info.IMA) AS IMA, 
-		MAX(com_detail.TAX_OBJ_ID) AS TAX_OBJ_ID,
-		
-		select detail record with the lowest year built and use that bldgdesc
-
-		MAX(com_detail.BLDG_CLASS_DESC) AS BLDG_CLASS_DESC, 
-		
+		MAX(com_detail.TAX_OBJ_ID) AS TAX_OBJ_ID,		
+		--select detail record with the lowest year built and use that bldgdesc
+		(SELECT TOP 1 d2.BLDG_CLASS_DESC FROM com_detail d2 WHERE d2.ACCOUNT_NUM = account_apprl_year.ACCOUNT_NUM 
+			AND d2.YEAR_BUILT = (SELECT MAX(d3.YEAR_BUILT) FROM com_detail d3 WHERE d3.ACCOUNT_NUM = d2.ACCOUNT_NUM)) AS BLDG_CLASS_DESC,
+		--MAX(com_detail.BLDG_CLASS_DESC) AS BLDG_CLASS_DESC, 		
 		MIN(com_detail.YEAR_BUILT) AS YEAR_BUILT, SUM(com_detail.GROSS_BLDG_AREA) AS GROSS_BLDG_AREA, 
 		MAX(com_detail.FOUNDATION_TYP_DESC) AS FOUNDATION_TYP_DESC, 
 		MAX(com_detail.FOUNDATION_AREA) AS FOUNDATION_AREA, MAX(com_detail.BASEMENT_DESC) AS BASEMENT_DESC, MAX(com_detail.BASEMENT_AREA) AS BASEMENT_AREA, 
@@ -113,7 +111,7 @@ AS
 		DCAD..abatement_exempt ON account_apprl_year.ACCOUNT_NUM = abatement_exempt.ACCOUNT_NUM LEFT OUTER JOIN
 		DCAD..acct_exempt_value ON account_apprl_year.ACCOUNT_NUM = acct_exempt_value.ACCOUNT_NUM
 		GROUP BY account_apprl_year.ACCOUNT_NUM
-		HAVING MAX(CONVERT(bigint,account_apprl_year.TOT_VAL)) >= @Threshhold
+		HAVING MAX(CONVERT(bigint,account_apprl_year.TOT_VAL)) >= @Threshhold		
 		) as tmp1
 
 	END

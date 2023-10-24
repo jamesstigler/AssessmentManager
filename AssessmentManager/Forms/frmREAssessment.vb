@@ -130,6 +130,9 @@
                 " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode"
             sSQL = sSQL & ",a.BuildingType,a.BuildingClass,a.BuildingSqFt,a.NetLeasableSqFt,a.GrossLeasableSqFt,a.YearBuilt,a.EffYearBuilt,a.LandSqFt,a.ExcessLandSqFt"
             sSQL = sSQL & ",a.ConstructionType,a.ValueMethod,a.ValueMethodCost,a.ValueMethodIncome,a.ValueMethodMarket"
+            sSQL = sSQL & ",a.LeaseupCommissionPct,a.LeaseupTotIncCostPerSqFt,a.LeaseupVacantSqFt,a.MarketAddlRevenuePerSqFt,a.MarketCapRate,a.MarketCommonAreaMaintPct" &
+                ",a.MarketMgmtFeesPct,a.MarketNonReimbPct,a.MarketPropInsPct,a.MarketReimbRevenuePerSqFt,a.MarketRentPerSqFt,a.MarketTaxRate" &
+                ",a.MarketVacCollLossPct,a.ValueMethodEquity,a.ValueMethodTarget,a.CeilingHeight"
             sSQL = sSQL &
                 " FROM Clients AS c INNER JOIN" &
                 " AssessmentsRE AS a ON c.ClientId = a.ClientId INNER JOIN" &
@@ -151,13 +154,11 @@
 
             RefreshControls(Me, dt, "AssessmentsRE")
             LoadDropDowns(UnNullToString(dr("AssessorName")))
-
+            LoadComments()
             LoadJurisdictions()
             LoadECU(lParentAssessmentId)
 
             Return True
-
-
         Catch ex As Exception
             MsgBox("Error in RefreshData:  " & ex.Message)
             Return False
@@ -174,7 +175,24 @@
             txtValueProtestMailedDate.GotFocus, cboValueProtestStatus.GotFocus, txtComment.GotFocus, txtClientLocationId.GotFocus, cboOccupiedStatus.GotFocus,
             cboAccountInvoicedStatus.GotFocus, cboBuildingType.GotFocus, cboBuildingClass.GotFocus, txtBuildingSqFt.GotFocus, txtNetLeasableSqFt.GotFocus, txtGrossLeasableSqFt.GotFocus,
             txtYearBuilt.GotFocus, txtEffYearBuilt.GotFocus, txtLandSqFt.GotFocus, txtExcessLandSqFt.GotFocus, cboConstructionType.GotFocus,
-            cboValueMethod.GotFocus, txtValueMethodCost.GotFocus, txtValueMethodIncome.GotFocus, txtValueMethodMarket.GotFocus
+            cboValueMethod.GotFocus, txtValueMethodCost.GotFocus, txtValueMethodIncome.GotFocus, txtValueMethodMarket.GotFocus,
+            txtLeaseupCommissionPct.GotFocus,
+            txtLeaseupTotIncCostPerSqFt.GotFocus,
+            txtLeaseupVacantSqFt.GotFocus,
+            txtMarketAddlRevenue.GotFocus,
+            txtMarketCapRate.GotFocus,
+            txtMarketCommonAreaMaintPct.GotFocus,
+            txtMarketMgmtFeesPct.GotFocus,
+            txtMarketNonReimbPct.GotFocus,
+            txtMarketPropInsPct.GotFocus,
+            txtMarketReimbRevenue.GotFocus,
+            txtMarketRentPerSqFt.GotFocus,
+            txtMarketTaxRate.GotFocus,
+            txtMarketVacCollLossPct.GotFocus,
+            txtValueMethodEquity.GotFocus,
+            txtValueMethodTarget.GotFocus,
+            txtCeilingHeight.GotFocus
+
         sender.selectall()
     End Sub
 
@@ -186,7 +204,24 @@
             cboAccountInvoicedStatus.TextChanged, cboBuildingType.TextChanged, cboBuildingClass.TextChanged, txtBuildingSqFt.TextChanged, txtNetLeasableSqFt.TextChanged,
             txtGrossLeasableSqFt.TextChanged,
             txtYearBuilt.TextChanged, txtEffYearBuilt.TextChanged, txtLandSqFt.TextChanged, txtExcessLandSqFt.TextChanged, cboConstructionType.TextChanged,
-            cboValueMethod.TextChanged, txtValueMethodCost.TextChanged, txtValueMethodIncome.TextChanged, txtValueMethodMarket.TextChanged
+            cboValueMethod.TextChanged, txtValueMethodCost.TextChanged, txtValueMethodIncome.TextChanged, txtValueMethodMarket.TextChanged,
+            txtLeaseupCommissionPct.TextChanged,
+            txtLeaseupTotIncCostPerSqFt.TextChanged,
+            txtLeaseupVacantSqFt.TextChanged,
+            txtMarketAddlRevenue.TextChanged,
+            txtMarketCapRate.TextChanged,
+            txtMarketCommonAreaMaintPct.TextChanged,
+            txtMarketMgmtFeesPct.TextChanged,
+            txtMarketNonReimbPct.TextChanged,
+            txtMarketPropInsPct.TextChanged,
+            txtMarketReimbRevenue.TextChanged,
+            txtMarketRentPerSqFt.TextChanged,
+            txtMarketTaxRate.TextChanged,
+            txtMarketVacCollLossPct.TextChanged,
+            txtValueMethodEquity.TextChanged,
+            txtValueMethodTarget.TextChanged,
+            txtCeilingHeight.TextChanged
+
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
                 If sender.checkstate = CheckState.Checked Then
@@ -210,7 +245,23 @@
             cboAccountInvoicedStatus.LostFocus, cboBuildingType.LostFocus, cboBuildingClass.LostFocus, txtBuildingSqFt.LostFocus, txtNetLeasableSqFt.LostFocus,
             txtGrossLeasableSqFt.LostFocus,
             txtYearBuilt.LostFocus, txtEffYearBuilt.LostFocus, txtLandSqFt.LostFocus, txtExcessLandSqFt.LostFocus, cboConstructionType.LostFocus,
-            cboValueMethod.LostFocus, txtValueMethodCost.LostFocus, txtValueMethodIncome.LostFocus, txtValueMethodMarket.LostFocus
+            cboValueMethod.LostFocus, txtValueMethodCost.LostFocus, txtValueMethodIncome.LostFocus, txtValueMethodMarket.LostFocus,
+            txtLeaseupCommissionPct.LostFocus,
+            txtLeaseupTotIncCostPerSqFt.LostFocus,
+            txtLeaseupVacantSqFt.LostFocus,
+            txtMarketAddlRevenue.LostFocus,
+            txtMarketCapRate.LostFocus,
+            txtMarketCommonAreaMaintPct.LostFocus,
+            txtMarketMgmtFeesPct.LostFocus,
+            txtMarketNonReimbPct.LostFocus,
+            txtMarketPropInsPct.LostFocus,
+            txtMarketReimbRevenue.LostFocus,
+            txtMarketRentPerSqFt.LostFocus,
+            txtMarketTaxRate.LostFocus,
+            txtMarketVacCollLossPct.LostFocus,
+            txtValueMethodEquity.LostFocus,
+            txtValueMethodTarget.LostFocus,
+            txtCeilingHeight.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -234,9 +285,9 @@
         cboAssessor.Text = ""
         cboAssessor.Items.Clear() : cboAssessor.Items.Add("")
 
-        sSQL = "select AssessorId, (Name + ', ' + StateCd) AS Name from Assessors" & _
-            " WHERE StateCd = " & QuoStr(sStateCd) & _
-            " AND TaxYear = " & m_TaxYear & _
+        sSQL = "select AssessorId, (Name + ', ' + StateCd) AS Name from Assessors" &
+            " WHERE StateCd = " & QuoStr(sStateCd) &
+            " AND TaxYear = " & m_TaxYear &
             " ORDER BY Name"
         GetData(sSQL, dt)
         For Each dr In dt.Rows
@@ -649,6 +700,48 @@
             Return False
         End Try
     End Function
+    Private Function LoadComments() As Boolean
+        Dim sError As String = "", lRows As Long = 0, sSQL As String = ""
+        Dim dtList As New DataTable, bind As New BindingSource
+
+        Try
+            sSQL = "SELECT ID, ISNULL(ChangeDate,AddDate) AS ChangeDate, Comment FROM AssessmentsREComments" &
+                " WHERE ClientId = " & m_ClientId &
+                " AND LocationId = " & m_LocationId &
+                " AND AssessmentId = " & m_AssessmentId &
+                " AND TaxYear = " & m_TaxYear &
+                " AND CommentType = 2" &
+                " ORDER BY ID DESC"
+            lRows = GetData(sSQL, dtList)
+
+            dgComments.Columns.Clear()
+            bind.DataSource = dtList
+            dgComments.DataSource = bind
+
+
+            For Each column As DataGridViewTextBoxColumn In dgComments.Columns
+                If IsIndexField(column.Name) Then column.Visible = False
+                If column.Name = "ChangeDate" Then
+                    column.HeaderText = "Date/Time"
+                    column.ReadOnly = True
+                    column.DefaultCellStyle.Format = csDateTime
+                    'column.Width = 140
+                End If
+                If column.Name = "Comment" Then
+                    column.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+                    column.MaxInputLength = 1000
+                    'column.Width = dgComments.Width - 140 - 20
+                End If
+            Next
+            dgComments.Columns("ChangeDate").Width = 140
+            dgComments.Columns("Comment").Width = dgComments.Width - 140 - 20
+
+            Return True
+        Catch ex As Exception
+            MsgBox("Error in LoadComments:  " & ex.Message)
+            Return False
+        End Try
+    End Function
     Private Sub mnuContextDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnuContextDelete.Click
         Try
             If iMouseClickColIndex >= 0 Then
@@ -657,18 +750,18 @@
                     Dim sSQL As String = ""
                     Dim row As DataGridViewRow
                     For Each row In dgJurisdictions.SelectedRows
-                        sSQL = "DELETE AssessmentDetailRE WHERE ClientId = " & m_ClientId & _
-                            " AND LocationId = " & m_LocationId & _
-                            " AND AssessmentId = " & m_AssessmentId & _
-                            " AND JurisdictionId = " & row.Cells("JurisdictionId").Value & _
+                        sSQL = "DELETE AssessmentDetailRE WHERE ClientId = " & m_ClientId &
+                            " AND LocationId = " & m_LocationId &
+                            " AND AssessmentId = " & m_AssessmentId &
+                            " AND JurisdictionId = " & row.Cells("JurisdictionId").Value &
                             " AND TaxYear = " & m_TaxYear
                         If sSQL <> "" Then
                             ExecuteSQL(sSQL)
                             WriteSQLToHistory("DeleteAssessmentDetailRE", sSQL)
                         End If
                     Next
-                    sSQL = "UPDATE AssessmentsRE SET ChangeDate = GETDATE(), ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeType = 2" & _
-                        " WHERE ClientId = " & m_ClientId & " AND LocationId = " & m_LocationId & _
+                    sSQL = "UPDATE AssessmentsRE SET ChangeDate = GETDATE(), ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeType = 2" &
+                        " WHERE ClientId = " & m_ClientId & " AND LocationId = " & m_LocationId &
                         " AND AssessmentId = " & m_AssessmentId & " AND TaxYear = " & m_TaxYear
                     ExecuteSQL(sSQL)
                     RefreshData()
@@ -732,7 +825,7 @@
             If frm.Name = "frmAddJurisdictions" Then
                 frmJ = frm
                 structAssess = frmJ.Assessments(1)
-                If structAssess.ClientId = m_ClientId And structAssess.LocationId = m_LocationId And structAssess.AssessmentId = m_AssessmentId And _
+                If structAssess.ClientId = m_ClientId And structAssess.LocationId = m_LocationId And structAssess.AssessmentId = m_AssessmentId And
                             frmJ.StateCd = sStateCd And frmJ.TaxYear = m_TaxYear And frmJ.PropType = enumTable.enumLocationRE Then
                     frm.Focus()
                     Exit Sub
@@ -768,7 +861,7 @@
                         JurisdictionList.Add(row.Cells("JurisdictionId").Value)
                     Next
                     Dim sPDFFileName As String = CleanFileName("TaxBill_" & Me.Text & ".pdf")
-                    RunReport(enumReport.enumTaxBill, m_ClientId, m_LocationId, m_AssessmentId, JurisdictionList, m_TaxYear, _
+                    RunReport(enumReport.enumTaxBill, m_ClientId, m_LocationId, m_AssessmentId, JurisdictionList, m_TaxYear,
                             enumTable.enumLocationRE, 0, 0, False, sPDFFileName, "")
                 End If
             End If
@@ -871,19 +964,87 @@
         End Try
     End Sub
 
-    Private Sub cmdECU_Click(sender As Object, e As System.EventArgs) Handles cmdECU.Click
-        If fraECU.Visible = False Then
-            fraECU.BringToFront()
-            fraECU.Visible = True
-        Else
-            fraECU.Visible = False
-        End If
-    End Sub
-
     Private Sub cmdOpenAssessor_Click(sender As Object, e As EventArgs) Handles cmdOpenAssessor.Click
         Try
             OpenAssessor(colAssessors(cboAssessor.Text), m_TaxYear)
         Catch ex As Exception
         End Try
     End Sub
+
+    Private Sub dgComments_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgComments.CellEndEdit
+        Dim sError As String = ""
+
+        If Not UpdateComment(dgComments.Rows(e.RowIndex).Cells("ID").Value, UnNullToString(dgComments.Rows(e.RowIndex).Cells("Comment").Value), sError) Then
+            MsgBox(sError)
+        End If
+        dgComments.Rows(e.RowIndex).ErrorText = String.Empty
+    End Sub
+
+    Private Sub dgComments_CellMouseDown(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgComments.CellMouseDown
+        Select Case e.Button
+            Case MouseButtons.Left
+            Case MouseButtons.Right
+                iMouseClickColIndex = e.ColumnIndex
+            Case MouseButtons.Middle
+            Case MouseButtons.XButton1
+            Case MouseButtons.XButton2
+            Case MouseButtons.None
+        End Select
+    End Sub
+    Private Sub cmdNewComment_Click(sender As System.Object, e As System.EventArgs) Handles cmdNewComment.Click
+        Dim sComment As String = Trim(InputBox("Enter comment"))
+        If sComment = "" Then Exit Sub
+        Dim sError As String = ""
+        If UpdateComment("", sComment, sError) Then
+            LoadComments()
+        Else
+            MsgBox(sError)
+        End If
+    End Sub
+
+    Private Function UpdateComment(ByVal sID As String, ByVal sComment As String, ByRef sError As String) As Boolean
+        Try
+            sError = "" : sID = Trim(sID) : sComment = Trim(sComment)
+            Dim sSQL As String = ""
+            If sID = "" Then
+                sSQL = "INSERT AssessmentsREComments (ClientId,LocationId,AssessmentId,CommentType,TaxYear,Comment,AddUser)" &
+                    " SELECT " & m_ClientId & "," &
+                    m_LocationId & "," & m_AssessmentId & ",2," & m_TaxYear & "," &
+                    QuoStr(sComment) & "," & QuoStr(AppData.UserId)
+            Else
+                sSQL = "UPDATE AssessmentsREComments SET Comment = " & QuoStr(sComment) & "," &
+                    " ChangeType = 2, ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeDate = GETDATE()" &
+                    " WHERE ID = " & sID
+            End If
+            If ExecuteSQL(sSQL) <> 1 Then
+                sError = "Error saving comment"
+                Return False
+            End If
+
+            Return True
+        Catch ex As Exception
+            sError = "Error saving comment:  " & ex.Message
+            Return False
+        End Try
+    End Function
+
+    Private Sub mnuContextDeleteComment_Click(sender As Object, e As EventArgs) Handles mnuContextDeleteComment.Click
+        Try
+            If iMouseClickColIndex >= 0 Then
+                If dgComments.SelectedRows.Count > 0 Then
+                    If MsgBox("Are you sure you want to delete?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
+                    Dim sSQL As String = ""
+                    Dim row As DataGridViewRow
+                    For Each row In dgComments.SelectedRows
+                        sSQL = "DELETE AssessmentsREComments WHERE ID = " & row.Cells("ID").Value
+                        If sSQL <> "" Then ExecuteSQL(sSQL)
+                        LoadComments()
+                    Next
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox("Error deleting:  " & ex.Message)
+        End Try
+    End Sub
+
 End Class
