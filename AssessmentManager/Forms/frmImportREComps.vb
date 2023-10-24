@@ -248,8 +248,10 @@ Public Class frmImportREComps
                 sInsert.Append(",").Append(row(0).ToString)
                 Select Case row(0).ToString
                     Case "AcctNum", "BuildingClass", "ComparabilityCode", "EconomicArea", "LandMarketArea", "ImprovementMarketArea", "Mapsco",
-                                "NeighborhoodGroup", "StreetName", "BusinessName", "ConstructionType", "AppraisalMethod", "PricingMethod"
-                        sSelect.Append(",").Append("LTRIM(RTRIM(ISNULL(").Append(row(0).ToString).Append(",'')))")
+                                "NeighborhoodGroup", "StreetName", "ConstructionType", "AppraisalMethod", "PricingMethod"
+                        sSelect.Append(",").Append(" LTRIM(RTRIM(ISNULL(").Append(row(0).ToString).Append(",'')))")
+                    Case "BusinessName"
+                        sSelect.Append(",").Append("SUBSTRING(LTRIM(RTRIM(ISNULL(").Append(row(0).ToString).Append(",''))),1,255)")
                     Case "LandValuePerSqFt", "ImprovementValuePerSqFt", "TotalValuePerSqFt", "TotalValuePerUnit", "LandBuildingRatio"
                         sSelect.Append(",").Append("ROUND(CONVERT(float,ISNULL(").Append(row(0).ToString).Append(",'0')),2)")
                     Case Else

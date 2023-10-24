@@ -81,7 +81,12 @@ AS
 		MAX(account_info.GIS_PARCEL_ID) AS GIS_PARCEL_ID, 
 		MAX(account_info.PHONE_NUM) AS PHONE_NUM, MAX(account_info.LMA) AS LMA, MAX(account_info.IMA) AS IMA, 
 		MAX(com_detail.TAX_OBJ_ID) AS TAX_OBJ_ID,
-		MAX(com_detail.BLDG_CLASS_DESC) AS BLDG_CLASS_DESC, MAX(com_detail.YEAR_BUILT) AS YEAR_BUILT, MAX(com_detail.GROSS_BLDG_AREA) AS GROSS_BLDG_AREA, 
+		
+		select detail record with the lowest year built and use that bldgdesc
+
+		MAX(com_detail.BLDG_CLASS_DESC) AS BLDG_CLASS_DESC, 
+		
+		MIN(com_detail.YEAR_BUILT) AS YEAR_BUILT, SUM(com_detail.GROSS_BLDG_AREA) AS GROSS_BLDG_AREA, 
 		MAX(com_detail.FOUNDATION_TYP_DESC) AS FOUNDATION_TYP_DESC, 
 		MAX(com_detail.FOUNDATION_AREA) AS FOUNDATION_AREA, MAX(com_detail.BASEMENT_DESC) AS BASEMENT_DESC, MAX(com_detail.BASEMENT_AREA) AS BASEMENT_AREA, 
 		MAX(com_detail.NUM_STORIES) AS NUM_STORIES, 

@@ -125,7 +125,7 @@
                 " a.ValueProtestMailedDate,a.ValueProtestHearingDate,a.ValueProtestStatus," &
                 " ISNULL(a.ValueProtestDeadlineDate,assrs.REProtestDeadlineDate) AS ValueProtestDeadlineDate," &
                 " a.ValueProtestCMRRR," &
-                " assrs.REProtestDeadlineDate, ISNULL(assrs.Name,'') AS AssessorName,a.OccupiedStatus, ISNULL(a.ParentAssessmentId,0) AS ParentAssessmentId," &
+                " assrs.REProtestDeadlineDate, ISNULL(assrs.Name,'') + ', ' + isnull(assrs.StateCd,'') AS AssessorName,a.OccupiedStatus, ISNULL(a.ParentAssessmentId,0) AS ParentAssessmentId," &
                 " ISNULL(l.ConsultantName,ISNULL(c.REConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus," &
                 " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode"
             sSQL = sSQL & ",a.BuildingType,a.BuildingClass,a.BuildingSqFt,a.NetLeasableSqFt,a.GrossLeasableSqFt,a.YearBuilt,a.EffYearBuilt,a.LandSqFt,a.ExcessLandSqFt"
@@ -880,4 +880,10 @@
         End If
     End Sub
 
+    Private Sub cmdOpenAssessor_Click(sender As Object, e As EventArgs) Handles cmdOpenAssessor.Click
+        Try
+            OpenAssessor(colAssessors(cboAssessor.Text), m_TaxYear)
+        Catch ex As Exception
+        End Try
+    End Sub
 End Class

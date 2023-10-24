@@ -64,11 +64,11 @@
             If txtImprovementValueFrom.Text <> "" And txtImprovementValueTo.Text <> "" Then
                 sWHERE.Append(" AND ImprovementValue BETWEEN " & txtImprovementValueFrom.Text & " AND " & txtImprovementValueTo.Text)
             End If
-            If txtImprovementValueSqFtFrom.Text <> "" And txtImprovementValueSqFtFrom.Text <> "" Then
+            If txtImprovementValueSqFtFrom.Text <> "" And txtImprovementValueSqFtTo.Text <> "" Then
                 sWHERE.Append(" AND ImprovementValuePerSqFt BETWEEN " & txtImprovementValueSqFtFrom.Text & " AND " & txtImprovementValueSqFtTo.Text)
             End If
             If txtLandSqFtFrom.Text <> "" And txtLandSqFtTo.Text <> "" Then
-                sWHERE.Append(" AND LandValuePerSqFt BETWEEN " & txtLandSqFtFrom.Text & " AND " & txtLandSqFtTo.Text)
+                sWHERE.Append(" AND LandSqFt BETWEEN " & txtLandSqFtFrom.Text & " AND " & txtLandSqFtTo.Text)
             End If
             If txtLandValueFrom.Text <> "" And txtLandValueTo.Text <> "" Then
                 sWHERE.Append(" AND LandValue BETWEEN " & txtLandValueFrom.Text & " AND " & txtLandValueTo.Text)

@@ -740,6 +740,7 @@ Module modMain
                             If lNumberOfRows > 0 And lRowCounter = lNumberOfRows Then
                                 Exit Do
                             Else
+                                'replace quote with space
                                 sLine = Trim(sr.ReadLine)
                                 If sLine <> "" Then
                                     Dim sLineContents() As String = Split(sLine, vbTab)

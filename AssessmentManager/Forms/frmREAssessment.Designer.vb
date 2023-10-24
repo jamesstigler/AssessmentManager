@@ -104,6 +104,7 @@ Partial Class frmREAssessment
         Me.cboOccupiedStatus = New System.Windows.Forms.ComboBox()
         Me.fraECU = New System.Windows.Forms.GroupBox()
         Me.dgECU = New System.Windows.Forms.DataGridView()
+        Me.cmdOpenAssessor = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
@@ -128,7 +129,7 @@ Partial Class frmREAssessment
         Me.cboAssessor.FormattingEnabled = True
         Me.cboAssessor.Location = New System.Drawing.Point(104, 32)
         Me.cboAssessor.Name = "cboAssessor"
-        Me.cboAssessor.Size = New System.Drawing.Size(221, 21)
+        Me.cboAssessor.Size = New System.Drawing.Size(200, 21)
         Me.cboAssessor.TabIndex = 1
         Me.cboAssessor.Tag = "@DB=AssessmentsRE.AssessorId"
         '
@@ -584,6 +585,7 @@ Partial Class frmREAssessment
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.cmdOpenAssessor)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraHistory)
         Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraCollectors)
@@ -1029,6 +1031,15 @@ Partial Class frmREAssessment
         Me.dgECU.Size = New System.Drawing.Size(382, 213)
         Me.dgECU.TabIndex = 247
         '
+        'cmdOpenAssessor
+        '
+        Me.cmdOpenAssessor.Location = New System.Drawing.Point(304, 32)
+        Me.cmdOpenAssessor.Name = "cmdOpenAssessor"
+        Me.cmdOpenAssessor.Size = New System.Drawing.Size(24, 19)
+        Me.cmdOpenAssessor.TabIndex = 269
+        Me.cmdOpenAssessor.Text = "..."
+        Me.cmdOpenAssessor.UseVisualStyleBackColor = True
+        '
         'frmREAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1137,4 +1148,5 @@ Partial Class frmREAssessment
     Friend WithEvents cboValueMethod As ComboBox
     Friend WithEvents txtValueMethodCost As TextBox
     Friend WithEvents Label25 As Label
+    Friend WithEvents cmdOpenAssessor As Button
 End Class

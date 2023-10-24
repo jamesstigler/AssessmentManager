@@ -42,9 +42,13 @@
             End If
             Dim sFolder As String = txtFolder.Text.Trim.ToLower
             Dim files() As String = System.IO.Directory.GetFiles(sFolder)
-
-            For Each s As String In files
-                s = s.Trim.ToLower
+            If files.Count = 0 Then
+                MsgBox("No files found")
+                Return False
+            End If
+            Dim i As Integer
+            For i = 0 To files.Count - 1
+                files(i) = files(i).ToLower
             Next
             If files.Contains(IO.Path.Combine(sFolder, "abatement_exempt.csv")) And files.Contains(IO.Path.Combine(sFolder, "account_apprl_year.csv")) And
                     files.Contains(IO.Path.Combine(sFolder, "account_info.csv")) And files.Contains(IO.Path.Combine(sFolder, "acct_exempt_value.csv")) And
@@ -61,6 +65,7 @@
             Return False
         End Try
     End Function
+
     Private Sub cmdBack_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdBack.Click
         If fraResults.Visible Then
             fraResults.Visible = False

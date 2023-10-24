@@ -1125,4 +1125,11 @@
     Private Sub SplitContainer1_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles SplitContainer1.Panel1.Paint
 
     End Sub
+
+    Private Sub cmdOpenAssessor_Click(sender As Object, e As EventArgs) Handles cmdOpenAssessor.Click
+        Try
+            OpenAssessor(colAssessors(cboAssessor.Text), m_TaxYear)
+        Catch ex As Exception
+        End Try
+    End Sub
 End Class

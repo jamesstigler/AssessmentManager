@@ -23,10 +23,10 @@ Partial Class frmBPPTaxList
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtAcctNum = New System.Windows.Forms.TextBox()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
@@ -69,6 +69,7 @@ Partial Class frmBPPTaxList
         Me.fraHistory = New System.Windows.Forms.GroupBox()
         Me.cmdViewAssessment = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.chkRenditionExtFl = New System.Windows.Forms.CheckBox()
         Me.txtSICCode = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtConsultantName = New System.Windows.Forms.TextBox()
@@ -93,7 +94,7 @@ Partial Class frmBPPTaxList
         Me.Label4 = New System.Windows.Forms.Label()
         Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.chkRenditionExtFl = New System.Windows.Forms.CheckBox()
+        Me.cmdOpenAssessor = New System.Windows.Forms.Button()
         CType(Me.dgJurisdictions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.fraCollectors.SuspendLayout()
@@ -142,7 +143,7 @@ Partial Class frmBPPTaxList
         Me.cboAssessor.FormattingEnabled = True
         Me.cboAssessor.Location = New System.Drawing.Point(100, 40)
         Me.cboAssessor.Name = "cboAssessor"
-        Me.cboAssessor.Size = New System.Drawing.Size(221, 21)
+        Me.cboAssessor.Size = New System.Drawing.Size(196, 21)
         Me.cboAssessor.TabIndex = 2
         Me.cboAssessor.Tag = "@DB=AssessmentsBPP.AssessorId"
         '
@@ -549,15 +550,15 @@ Partial Class frmBPPTaxList
         Me.dgHistory.AllowUserToDeleteRows = False
         Me.dgHistory.AllowUserToOrderColumns = True
         Me.dgHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.Format = "N0"
+        DataGridViewCellStyle5.NullValue = Nothing
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgHistory.Location = New System.Drawing.Point(6, 17)
         Me.dgHistory.Name = "dgHistory"
@@ -602,6 +603,7 @@ Partial Class frmBPPTaxList
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.cmdOpenAssessor)
         Me.SplitContainer1.Panel1.Controls.Add(Me.chkRenditionExtFl)
         Me.SplitContainer1.Panel1.Controls.Add(Me.fraCollectors)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtSICCode)
@@ -660,6 +662,17 @@ Partial Class frmBPPTaxList
         Me.SplitContainer1.Size = New System.Drawing.Size(1325, 585)
         Me.SplitContainer1.SplitterDistance = 253
         Me.SplitContainer1.TabIndex = 250
+        '
+        'chkRenditionExtFl
+        '
+        Me.chkRenditionExtFl.AutoSize = True
+        Me.chkRenditionExtFl.Location = New System.Drawing.Point(456, 152)
+        Me.chkRenditionExtFl.Name = "chkRenditionExtFl"
+        Me.chkRenditionExtFl.Size = New System.Drawing.Size(119, 17)
+        Me.chkRenditionExtFl.TabIndex = 273
+        Me.chkRenditionExtFl.Tag = "@DB=AssessmentsBPP.RenditionExtFl"
+        Me.chkRenditionExtFl.Text = "Rendition Extended"
+        Me.chkRenditionExtFl.UseVisualStyleBackColor = True
         '
         'txtSICCode
         '
@@ -758,14 +771,14 @@ Partial Class frmBPPTaxList
         Me.dgComments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgComments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgComments.ContextMenuStrip = Me.ContextMenuStrip3
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgComments.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgComments.Location = New System.Drawing.Point(0, 0)
         Me.dgComments.Margin = New System.Windows.Forms.Padding(0)
@@ -809,23 +822,23 @@ Partial Class frmBPPTaxList
         Me.dgECU.AllowUserToDeleteRows = False
         Me.dgECU.AllowUserToOrderColumns = True
         Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.Format = "N0"
-        DataGridViewCellStyle3.NullValue = Nothing
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.Format = "N0"
+        DataGridViewCellStyle2.NullValue = Nothing
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgECU.Location = New System.Drawing.Point(3, 16)
         Me.dgECU.Name = "dgECU"
         Me.dgECU.ReadOnly = True
         Me.dgECU.RowHeadersVisible = False
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle7
         Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgECU.ShowCellErrors = False
         Me.dgECU.ShowCellToolTips = False
@@ -959,16 +972,14 @@ Partial Class frmBPPTaxList
         Me.Label7.Text = "*"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'chkRenditionExtFl
+        'cmdOpenAssessor
         '
-        Me.chkRenditionExtFl.AutoSize = True
-        Me.chkRenditionExtFl.Location = New System.Drawing.Point(456, 152)
-        Me.chkRenditionExtFl.Name = "chkRenditionExtFl"
-        Me.chkRenditionExtFl.Size = New System.Drawing.Size(119, 17)
-        Me.chkRenditionExtFl.TabIndex = 273
-        Me.chkRenditionExtFl.Tag = "@DB=AssessmentsBPP.RenditionExtFl"
-        Me.chkRenditionExtFl.Text = "Rendition Extended"
-        Me.chkRenditionExtFl.UseVisualStyleBackColor = True
+        Me.cmdOpenAssessor.Location = New System.Drawing.Point(296, 40)
+        Me.cmdOpenAssessor.Name = "cmdOpenAssessor"
+        Me.cmdOpenAssessor.Size = New System.Drawing.Size(24, 19)
+        Me.cmdOpenAssessor.TabIndex = 274
+        Me.cmdOpenAssessor.Text = "..."
+        Me.cmdOpenAssessor.UseVisualStyleBackColor = True
         '
         'frmBPPTaxList
         '
@@ -1069,4 +1080,5 @@ Partial Class frmBPPTaxList
     Friend WithEvents txtAssetsVerifiedDate As TextBox
     Friend WithEvents chkAssetsVerifiedFl As CheckBox
     Friend WithEvents chkRenditionExtFl As CheckBox
+    Friend WithEvents cmdOpenAssessor As Button
 End Class

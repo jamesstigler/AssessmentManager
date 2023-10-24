@@ -100,7 +100,7 @@ Module modForms
                 structFields(3).sPDFField = "PHONE NUMBER" : structFields(3).sTable = "FirmInfo" : structFields(3).sField = "Phone"
                 structFields(4).sPDFField = "OWNER NAME" : structFields(4).sTable = "Locations" : structFields(4).sField = "OwnerName"
                 structFields(5).sPDFField = "ACCOUNT NUMBER" : structFields(5).sTable = "Assessments" : structFields(5).sField = "AcctNum"
-                structFields(6).sPDFField = "CMRRR" : structFields(6).sTable = "Assessments" : structFields(6).sField = "RenditionExtCMRRR"
+                structFields(6).sPDFField = "PRINTED NAME" : structFields(6).sTable = "Consultants" : structFields(6).sField = "FullName"
                 structFields(7).sPDFField = "BUSINESS NAME" : structFields(7).sTable = "Clients" : structFields(7).sField = "Name"
                 structFields(8).sPDFField = "PROPERTY ADDRESS" : structFields(8).sTable = "LocationsBPP" : structFields(8).sField = "Address"
                 structFields(9).sPDFField = "FAX NUMBER" : structFields(9).sTable = "FirmInfo" : structFields(9).sField = "Fax"
@@ -123,6 +123,7 @@ Module modForms
                     QuoStr(AppData.FirmPhone) & " AS FirmInfo_Phone," &
                     QuoStr(AppData.FirmFax) & " AS FirmInfo_Fax," &
                     " 'Agent' AS FirmInfo_Title," &
+                    QuoStr(AppData.FullName) & " AS Consultants_FullName," &
                     " CONVERT(varchar,GETDATE(),101) AS FirmInfo_Date," &
                     " RTRIM(ISNULL(l.Address,'')) AS LocationsBPP_Address," &
                     " RTRIM(ISNULL(l.City,'')) + ', ' + RTRIM(ISNULL(l.StateCd,'')) + '  ' + RTRIM(ISNULL(l.Zip,'')) AS LocationsBPP_City," &

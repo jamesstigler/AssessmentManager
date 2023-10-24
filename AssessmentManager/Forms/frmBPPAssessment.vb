@@ -123,7 +123,7 @@
                 " a.OtherProtest1CMRRR, a.OtherProtest1Status, a.OtherProtest1HearingDate," &
                 " ISNULL(a.RenditionDeadlineDate,assrs.RenditionDueDate) AS RenditionDeadlineDate," &
                 " a.RenditionExtDeadlineDate, a.RenditionCMRRR, a.RenditionMailedDate, ISNULL(l.ClientLocationId, '') AS ClientLocationId," &
-                " a.RenditionExtCMRRR, a.RenditionExtMailedDate, assrs.Name AS AssessorName, assrs.RenditionDueDate," &
+                " a.RenditionExtCMRRR, a.RenditionExtMailedDate, ltrim(rtrim(assrs.Name)) + ', ' + assrs.StateCd AS AssessorName, assrs.RenditionDueDate," &
                 " assrs.BPPProtestDeadlineDate," &
                 " ISNULL(l.SICCode,ISNULL(c.SICCode,'')) AS SICCode," &
                 " ISNULL(l.ConsultantName,ISNULL(c.BPPConsultantName,'')) AS ConsultantName, a.AccountInvoicedStatus" &
@@ -261,4 +261,10 @@
         End If
     End Sub
 
+    Private Sub cmdOpenAssessor_Click(sender As Object, e As EventArgs) Handles cmdOpenAssessor.Click
+        Try
+            OpenAssessor(colAssessors(cboAssessor.Text), m_TaxYear)
+        Catch ex As Exception
+        End Try
+    End Sub
 End Class

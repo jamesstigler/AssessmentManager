@@ -75,6 +75,7 @@ Partial Class frmBPPAssessment
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtSICCode = New System.Windows.Forms.TextBox()
+        Me.cmdOpenAssessor = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.SuspendLayout()
@@ -287,7 +288,7 @@ Partial Class frmBPPAssessment
         '
         'Label21
         '
-        Me.Label21.Location = New System.Drawing.Point(376, 8)
+        Me.Label21.Location = New System.Drawing.Point(436, 8)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(62, 20)
         Me.Label21.TabIndex = 221
@@ -297,7 +298,7 @@ Partial Class frmBPPAssessment
         'txtClientLocationId
         '
         Me.txtClientLocationId.AllowDrop = True
-        Me.txtClientLocationId.Location = New System.Drawing.Point(448, 12)
+        Me.txtClientLocationId.Location = New System.Drawing.Point(508, 12)
         Me.txtClientLocationId.Name = "txtClientLocationId"
         Me.txtClientLocationId.Size = New System.Drawing.Size(154, 20)
         Me.txtClientLocationId.TabIndex = 1
@@ -542,7 +543,7 @@ Partial Class frmBPPAssessment
         Me.cboAccountInvoicedStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboAccountInvoicedStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboAccountInvoicedStatus.FormattingEnabled = True
-        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(448, 36)
+        Me.cboAccountInvoicedStatus.Location = New System.Drawing.Point(508, 36)
         Me.cboAccountInvoicedStatus.Name = "cboAccountInvoicedStatus"
         Me.cboAccountInvoicedStatus.Size = New System.Drawing.Size(108, 21)
         Me.cboAccountInvoicedStatus.TabIndex = 3
@@ -550,7 +551,7 @@ Partial Class frmBPPAssessment
         '
         'Label4
         '
-        Me.Label4.Location = New System.Drawing.Point(336, 36)
+        Me.Label4.Location = New System.Drawing.Point(396, 36)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(104, 20)
         Me.Label4.TabIndex = 243
@@ -576,11 +577,21 @@ Partial Class frmBPPAssessment
         Me.txtSICCode.TabIndex = 244
         Me.txtSICCode.Tag = ""
         '
+        'cmdOpenAssessor
+        '
+        Me.cmdOpenAssessor.Location = New System.Drawing.Point(332, 36)
+        Me.cmdOpenAssessor.Name = "cmdOpenAssessor"
+        Me.cmdOpenAssessor.Size = New System.Drawing.Size(24, 19)
+        Me.cmdOpenAssessor.TabIndex = 246
+        Me.cmdOpenAssessor.Text = "..."
+        Me.cmdOpenAssessor.UseVisualStyleBackColor = True
+        '
         'frmBPPAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(828, 389)
+        Me.Controls.Add(Me.cmdOpenAssessor)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtSICCode)
         Me.Controls.Add(Me.cboAccountInvoicedStatus)
@@ -689,4 +700,5 @@ Partial Class frmBPPAssessment
     Friend WithEvents Label4 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents txtSICCode As TextBox
+    Friend WithEvents cmdOpenAssessor As Button
 End Class
