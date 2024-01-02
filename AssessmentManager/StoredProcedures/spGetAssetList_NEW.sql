@@ -72,8 +72,8 @@ AS
 			BPPRatio float null,
 			BusinessUnitId bigint null,
 			LeaseType varchar(50) null,
-			LessorName varchar(50) null,
-			LessorAddress varchar(255) null,
+			LesseeName varchar(50) null,
+			LesseeAddress varchar(255) null,
 			LeaseTerm smallint null,
 			EquipmentMake varchar(50) null,
 			EquipmentModel varchar(50) null,
@@ -101,7 +101,7 @@ AS
 			Locations_StateCd, Locations_ClientLocationId, Assessors_Name, Assessments_AcctNum, Clients_ExcludeNotified, Clients_ExcludeAbatements,
 			Clients_ExcludeFreeport, Clients_ExcludeClient, Assessments_SavingsExclusionCd, VIN, Assets_LocationAddress,
 			ClientRenditionValue, BPPRatio, BusinessUnitId,
-			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel
+			LeaseType, LesseeName, LesseeAddress, LeaseTerm, EquipmentMake, EquipmentModel
 )				
 		SELECT c.ClientId, l.LocationId, assess.AssessmentId, a.AssetId, a.TaxYear, ISNULL(a.OriginalCost,0),
 			a.PurchaseDate, a.Description,a.GLCode, CASE WHEN @FactorEntityId = 0 THEN assess.FactorEntityId1 ELSE @FactorEntityId END, 
@@ -110,7 +110,7 @@ AS
 			l.StateCd, ISNULL(l.ClientLocationId,''), assessor.Name, assess.AcctNum, ISNULL(c.ExcludeNotified,0), ISNULL(c.ExcludeAbatements,0),
 			ISNULL(c.ExcludeFreeport,0), ISNULL(c.ExcludeClient,0), ISNULL(assess.SavingsExclusionCd,0), a.VIN, a.LocationAddress,
 			assess.ClientRenditionValue, ISNULL(assessor.BPPRatio,0),ISNULL(assess.BusinessUnitId,0),
-			LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel
+			LeaseType, LesseeName, LesseeAddress, LeaseTerm, EquipmentMake, EquipmentModel
 
 		FROM AssessmentsBPP AS assess
         INNER JOIN Clients AS c ON assess.ClientId = c.ClientId

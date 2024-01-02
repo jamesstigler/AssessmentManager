@@ -110,7 +110,8 @@
                 " a.AssessmentId, a.AssetId, a.TaxYear, assess.FactorEntityId1, assess.FactorEntityId2," &
                 " assess.FactorEntityId3, assess.FactorEntityId4, assess.FactorEntityId5," &
                 " a.VIN, a.LocationAddress,a.OriginalCost,a.PurchaseDate,a.Description,a.GLCode," &
-                " a.LessorName, a.LessorAddress, a.LeaseTerm, a.EquipmentMake, a.EquipmentModel, a.LeaseType, a.AuditFl, a.ActivityQty" &
+                " a.LesseeName, a.LesseeAddress, a.LesseeCity, a.LesseeStateCd, a.LesseeZip, a.LeaseTerm, a.EquipmentMake, a.EquipmentModel," &
+                " a.LeaseType, a.AuditFl, a.ActivityQty" &
                 " FROM Clients AS c INNER JOIN" &
                 " LocationsBPP AS l ON c.ClientId = l.ClientId INNER JOIN" &
                 " AssessmentsBPP AS assess ON l.ClientId = assess.ClientId" &
@@ -209,8 +210,9 @@
             cboClientFactorOvr4.GotFocus, cboClientFactorOvr5.GotFocus,
             txtPct1.GotFocus, txtPct2.GotFocus, txtPct3.GotFocus, txtPct4.GotFocus, txtPct5.GotFocus,
             txtPct1Interstate.GotFocus, txtPct2Interstate.GotFocus, txtPct3Interstate.GotFocus, txtPct4Interstate.GotFocus, txtPct5Interstate.GotFocus,
-            txtEquipmentMake.GotFocus, txtEquipmentModel.GotFocus, txtLeaseTerm.GotFocus, txtLessorAddress.GotFocus, txtLessorName.GotFocus, cboLeaseType.GotFocus,
-            txtActivityQty.GotFocus
+            txtEquipmentMake.GotFocus, txtEquipmentModel.GotFocus,
+            txtLeaseTerm.GotFocus, txtLesseeAddress.GotFocus, txtLesseeName.GotFocus, cboLeaseType.GotFocus,
+            txtActivityQty.GotFocus, txtLesseeCity.GotFocus, txtLesseeZip.GotFocus, cboLesseeStateCd.GotFocus
 
         sender.selectall()
     End Sub
@@ -223,9 +225,11 @@
             cboClientFactorOvr1.TextChanged, cboClientFactorOvr2.TextChanged, cboClientFactorOvr3.TextChanged,
             cboClientFactorOvr4.TextChanged, cboClientFactorOvr5.TextChanged,
             txtPct1.TextChanged, txtPct2.TextChanged, txtPct3.TextChanged, txtPct4.TextChanged, txtPct5.TextChanged,
-            txtPct1Interstate.TextChanged, txtPct2Interstate.TextChanged, txtPct3Interstate.TextChanged, txtPct4Interstate.TextChanged, txtPct5Interstate.TextChanged,
-            txtEquipmentMake.TextChanged, txtEquipmentModel.TextChanged, txtLeaseTerm.TextChanged, txtLessorAddress.TextChanged, txtLessorName.TextChanged,
-            cboLeaseType.TextChanged, chkAuditFl.CheckedChanged, txtActivityQty.TextChanged
+            txtPct1Interstate.TextChanged, txtPct2Interstate.TextChanged,
+            txtPct3Interstate.TextChanged, txtPct4Interstate.TextChanged, txtPct5Interstate.TextChanged,
+            txtEquipmentMake.TextChanged, txtEquipmentModel.TextChanged, txtLeaseTerm.TextChanged, txtLesseeAddress.TextChanged, txtLesseeName.TextChanged,
+            cboLeaseType.TextChanged, chkAuditFl.CheckedChanged, txtActivityQty.TextChanged,
+            txtLesseeCity.TextChanged, txtLesseeZip.TextChanged, cboLesseeStateCd.TextChanged
         If bActivated Then bChanged = True
     End Sub
     Private Sub ComboBox_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
@@ -237,9 +241,9 @@
             cboClientFactorOvr4.LostFocus, cboClientFactorOvr5.LostFocus,
             txtPct1.LostFocus, txtPct2.LostFocus, txtPct3.LostFocus, txtPct4.LostFocus, txtPct5.LostFocus,
             txtPct1Interstate.LostFocus, txtPct2Interstate.LostFocus, txtPct3Interstate.LostFocus, txtPct4Interstate.LostFocus, txtPct5Interstate.LostFocus,
-            txtEquipmentMake.LostFocus, txtEquipmentModel.LostFocus, txtLeaseTerm.LostFocus, txtLessorAddress.LostFocus, txtLessorName.LostFocus,
-            cboLeaseType.LostFocus, chkAuditFl.LostFocus, txtActivityQty.LostFocus
-
+            txtEquipmentMake.LostFocus, txtEquipmentModel.LostFocus, txtLeaseTerm.LostFocus, txtLesseeAddress.LostFocus, txtLesseeName.LostFocus,
+            cboLeaseType.LostFocus, chkAuditFl.LostFocus, txtActivityQty.LostFocus,
+            txtLesseeCity.LostFocus, txtLesseeZip.LostFocus, cboLesseeStateCd.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox And (InStr(sender.name, "cboClientFactorOvr", CompareMethod.Text) > 0 Or InStr(sender.name, "cboFactorOvr", CompareMethod.Text) > 0) Then

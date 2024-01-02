@@ -2089,14 +2089,22 @@ Module modMain
             'If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId
             'lRows = ExecuteSQL(sSQL)
 
-
             sSQL = "INSERT AssessmentsRE (ClientId,LocationId,AssessmentId,TaxYear,AssessorId,AcctNum,Comment,InactiveFl," &
                 " AddUser,SavingsExclusionCd,OccupiedStatus,ParentAssessmentId,BusinessUnitId," &
-                " BuildingType,BuildingClass,BuildingSqFt,NetLeasableSqFt,GrossLeasableSqFt,YearBuilt,EffYearBuilt,LandSqFt,ExcessLandSqFt,ConstructionType,AgencyId)" &
+                " BuildingType,BuildingClass,BuildingSqFt,NetLeasableSqFt,GrossLeasableSqFt,YearBuilt,EffYearBuilt,LandSqFt,ExcessLandSqFt,ConstructionType,AgencyId" &
+                ",MarketReimbRevenuePerSqFt,MarketAddlRevenuePerSqFt,CeilingHeight" &
+                ",ValueMethodTarget,MarketCapRate,MarketCommonAreaMaintPct,MarketMgmtFeesPct,MarketNonReimbPct,MarketPropInsPct" &
+                ",ValueMethodEquity,MarketRentPerSqFt,MarketTaxRate,MarketVacCollLossPct,LeaseupCommissionPct,LeaseupTotIncCostPerSqFt" &
+                ",LeaseupVacantSqFt,ValueMethodIncome,ValueMethodMarket,ValueMethod,ValueMethodCost" &
+                ")" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId," & iToYear & "," &
                 " t1.AssessorId,t1.AcctNum,t1.Comment,t1.InactiveFl," &
                 QuoStr(AppData.UserId) & ",t1.SavingsExclusionCd,t1.OccupiedStatus,t1.ParentAssessmentId,t1.BusinessUnitId," &
                 " t1.BuildingType,t1.BuildingClass,t1.BuildingSqFt,t1.NetLeasableSqFt,t1.GrossLeasableSqFt,t1.YearBuilt,t1.EffYearBuilt,t1.LandSqFt,t1.ExcessLandSqFt,t1.ConstructionType,t1.AgencyId" &
+                ",t1.MarketReimbRevenuePerSqFt,t1.MarketAddlRevenuePerSqFt,t1.CeilingHeight" &
+                ",t1.ValueMethodTarget,t1.MarketCapRate,t1.MarketCommonAreaMaintPct,t1.MarketMgmtFeesPct,t1.MarketNonReimbPct,t1.MarketPropInsPct" &
+                ",t1.ValueMethodEquity,t1.MarketRentPerSqFt,t1.MarketTaxRate,t1.MarketVacCollLossPct,t1.LeaseupCommissionPct,t1.LeaseupTotIncCostPerSqFt" &
+                ",t1.LeaseupVacantSqFt,t1.ValueMethodIncome,t1.ValueMethodMarket,t1.ValueMethod,t1.ValueMethodCost" &
                 " FROM AssessmentsRE t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM AssessmentsRE t2" &
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
@@ -2118,12 +2126,23 @@ Module modMain
             If lAssessmentId > 0 Then sSQL = sSQL & " AND t1.AssessmentId = " & lAssessmentId
             lRows = ExecuteSQL(sSQL)
 
+            sSQL = "INSERT AssessmentsREComments (ClientId,LocationId,AssessmentId,TaxYear,CommentType,Comment,AddUser,AddDate,ChangeDate,ChangeUser,ChangeType)" &
+                " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId," & iToYear & "," &
+                " t1.CommentType,t1.Comment,t1.AddUser,t1.AddDate,t1.ChangeDate,t1.ChangeUser,t1.ChangeType" &
+                " FROM AssessmentsREComments t1 WHERE t1.TaxYear = " & iFromYear
+            If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
+            If lLocationId > 0 Then sSQL = sSQL & " AND t1.LocationId = " & lLocationId
+            If lAssessmentId > 0 Then sSQL = sSQL & " AND t1.AssessmentId = " & lAssessmentId
+            lRows = ExecuteSQL(sSQL)
+
             sSQL = "INSERT Assets (ClientId,LocationId,AssessmentId,AssetId,TaxYear,OriginalCost,PurchaseDate,Description," &
-                " GLCode,AddUser,VIN,LocationAddress,AllocationPct,LessorName,LessorAddress,LeaseTerm,EquipmentMake,EquipmentModel,LeaseType,AuditFl,ActivityQty)" &
+                " GLCode,AddUser,VIN,LocationAddress,AllocationPct,LesseeName,LesseeAddress,LeaseTerm,EquipmentMake,EquipmentModel,LeaseType,AuditFl,ActivityQty," &
+                " LesseeCity, LesseeStateCd, LesseeZip)" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId,t1.AssetId," & iToYear & "," &
                 " t1.OriginalCost,t1.PurchaseDate,t1.Description,t1.GLCode," &
                 QuoStr(AppData.UserId) & ",t1.VIN, t1.LocationAddress,t1.AllocationPct," &
-                " t1.LessorName,t1.LessorAddress,t1.LeaseTerm,t1.EquipmentMake,t1.EquipmentModel,t1.LeaseType,t1.AuditFl,t1.ActivityQty" &
+                " t1.LesseeName,t1.LesseeAddress,t1.LeaseTerm,t1.EquipmentMake,t1.EquipmentModel,t1.LeaseType,t1.AuditFl,t1.ActivityQty," &
+                " t1.LesseeCity, t1.LesseeStateCd, t1.LesseeZip" &
                 " FROM Assets t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM Assets t2" &
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId AND t2.AssessmentId = t1.AssessmentId" &

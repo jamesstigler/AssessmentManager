@@ -157,6 +157,7 @@ Partial Class MDIParent1
         Me.mnuOptionsTaxYear2021 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsTaxYear2022 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsTaxYear2023 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOptionsTaxYear2024 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsDB = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsIncludeInactive = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsAgency = New System.Windows.Forms.ToolStripMenuItem()
@@ -205,7 +206,7 @@ Partial Class MDIParent1
         '
         'MenuStrip
         '
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuEdit, Me.mnuProspects, Me.mnuTasks, Me.mnuView, Me.mnuREComps, Me.mnuBPPComps, Me.mnuOptions, Me.mnuTools, Me.mnuWindows, Me.mnuHelp})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuEdit, Me.mnuProspects, Me.mnuTasks, Me.mnuView, Me.mnuREComps, Me.mnuOptions, Me.mnuBPPComps, Me.mnuTools, Me.mnuWindows, Me.mnuHelp})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.MdiWindowListItem = Me.mnuWindows
         Me.MenuStrip.Name = "MenuStrip"
@@ -954,7 +955,7 @@ Partial Class MDIParent1
         '
         'mnuOptionsTaxYear
         '
-        Me.mnuOptionsTaxYear.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOptionsTaxYear2008, Me.mnuOptionsTaxYear2009, Me.mnuOptionsTaxYear2010, Me.mnuOptionsTaxYear2011, Me.mnuOptionsTaxYear2012, Me.mnuOptionsTaxYear2013, Me.mnuOptionsTaxYear2014, Me.mnuOptionsTaxYear2015, Me.mnuOptionsTaxYear2016, Me.mnuOptionsTaxYear2017, Me.mnuOptionsTaxYear2018, Me.mnuOptionsTaxYear2019, Me.mnuOptionsTaxYear2020, Me.mnuOptionsTaxYear2021, Me.mnuOptionsTaxYear2022, Me.mnuOptionsTaxYear2023})
+        Me.mnuOptionsTaxYear.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOptionsTaxYear2008, Me.mnuOptionsTaxYear2009, Me.mnuOptionsTaxYear2010, Me.mnuOptionsTaxYear2011, Me.mnuOptionsTaxYear2012, Me.mnuOptionsTaxYear2013, Me.mnuOptionsTaxYear2014, Me.mnuOptionsTaxYear2015, Me.mnuOptionsTaxYear2016, Me.mnuOptionsTaxYear2017, Me.mnuOptionsTaxYear2018, Me.mnuOptionsTaxYear2019, Me.mnuOptionsTaxYear2020, Me.mnuOptionsTaxYear2021, Me.mnuOptionsTaxYear2022, Me.mnuOptionsTaxYear2023, Me.mnuOptionsTaxYear2024})
         Me.mnuOptionsTaxYear.Name = "mnuOptionsTaxYear"
         Me.mnuOptionsTaxYear.Size = New System.Drawing.Size(204, 22)
         Me.mnuOptionsTaxYear.Text = "Tax Year"
@@ -1063,6 +1064,12 @@ Partial Class MDIParent1
         Me.mnuOptionsTaxYear2023.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2023.Text = "2023"
         '
+        'mnuOptionsTaxYear2024
+        '
+        Me.mnuOptionsTaxYear2024.Name = "mnuOptionsTaxYear2024"
+        Me.mnuOptionsTaxYear2024.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2024.Text = "2024"
+        '
         'mnuOptionsDB
         '
         Me.mnuOptionsDB.Name = "mnuOptionsDB"
@@ -1103,7 +1110,7 @@ Partial Class MDIParent1
         'mnuToolsRoll
         '
         Me.mnuToolsRoll.Name = "mnuToolsRoll"
-        Me.mnuToolsRoll.Size = New System.Drawing.Size(121, 22)
+        Me.mnuToolsRoll.Size = New System.Drawing.Size(180, 22)
         Me.mnuToolsRoll.Text = "Roll Data"
         '
         'mnuWindows
@@ -1545,4 +1552,5 @@ Partial Class MDIParent1
     Friend WithEvents mnuOptionsTaxYear2022 As ToolStripMenuItem
     Friend WithEvents mnuOptionsAgencies As ToolStripMenuItem
     Friend WithEvents mnuOptionsTaxYear2023 As ToolStripMenuItem
+    Friend WithEvents mnuOptionsTaxYear2024 As ToolStripMenuItem
 End Class

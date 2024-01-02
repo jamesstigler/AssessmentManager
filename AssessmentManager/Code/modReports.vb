@@ -214,6 +214,7 @@
         Dim sql As New StringBuilder
         Dim bIncludeRow As Boolean = False, sDesc As String = ""
         Dim sProperty As New StringBuilder
+        Dim LesseeInfo As New StringBuilder
 
         Try
             'need to incorporate batch printing into the print server
@@ -1283,14 +1284,14 @@
                 Next
             ElseIf eType = enumReport.enumClientEnvelope Or eType = enumReport.enumAssessorEnvelope Or eType = enumReport.enumAssessorValueProtestEnvelope Then
                 For Each row In dt.Rows
-                        sSQL = "INSERT INTO ReportData" &
-                            " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08)" &
-                            " SELECT " & QuoStr(AppData.UserId) & "," &
-                            AppData.ReportId & "," &
-                            QuoStr(row("FirmName")) & "," &
-                            QuoStr(row("FirmAddress")) & "," &
-                            QuoStr(row("FirmCityStZip")) & "," &
-                            QuoStr(row("FirmPhone")) & ","
+                    sSQL = "INSERT INTO ReportData" &
+                        " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08)" &
+                        " SELECT " & QuoStr(AppData.UserId) & "," &
+                        AppData.ReportId & "," &
+                        QuoStr(row("FirmName")) & "," &
+                        QuoStr(row("FirmAddress")) & "," &
+                        QuoStr(row("FirmCityStZip")) & "," &
+                        QuoStr(row("FirmPhone")) & ","
                     If eType = enumReport.enumClientEnvelope Then
                         sSQL = sSQL &
                                 QuoStr(row("Name")) & "," &
@@ -1310,235 +1311,235 @@
                     End If
 
                     ExecuteSQL(sSQL)
-                    Next
-                ElseIf eType = enumReport.enumFixedAssetReconByGLCode Or eType = enumReport.enumFixedAssetReconByDeprCode Then
-                    clsReport = New clsReportData
-                    For Each row In dt.Rows
-                        clsReport.Title01 = sTitle
-                        clsReport.Text01 = row("Address").ToString.Trim & "  " & row("City").ToString.Trim & ", " & row("StateCd").ToString.Trim & "  " & row("ClientLocationId").ToString.Trim
-                        If eType = enumReport.enumFixedAssetReconByGLCode Then
-                            If row("GLCode") = "INVENTORY" Then
-                                clsReport.Text02 = "INVENTORY"
-                            Else
-                                clsReport.Text02 = "FIXED ASSETS TOTAL"
-                            End If
+                Next
+            ElseIf eType = enumReport.enumFixedAssetReconByGLCode Or eType = enumReport.enumFixedAssetReconByDeprCode Then
+                clsReport = New clsReportData
+                For Each row In dt.Rows
+                    clsReport.Title01 = sTitle
+                    clsReport.Text01 = row("Address").ToString.Trim & "  " & row("City").ToString.Trim & ", " & row("StateCd").ToString.Trim & "  " & row("ClientLocationId").ToString.Trim
+                    If eType = enumReport.enumFixedAssetReconByGLCode Then
+                        If row("GLCode") = "INVENTORY" Then
+                            clsReport.Text02 = "INVENTORY"
                         Else
-                            If row("FactorCode1") = "INVENTORY" Then
-                                clsReport.Text02 = "INVENTORY"
-                            Else
-                                clsReport.Text02 = "FIXED ASSETS TOTAL"
-                            End If
+                            clsReport.Text02 = "FIXED ASSETS TOTAL"
                         End If
-                        clsReport.Text03 = "Cost " & iTaxYear - 1
-                        clsReport.Text04 = "Cost " & iTaxYear
-                        If eType = enumReport.enumFixedAssetReconByGLCode Then
-                            clsReport.Text05 = row("GLCode").ToString().Trim()
+                    Else
+                        If row("FactorCode1") = "INVENTORY" Then
+                            clsReport.Text02 = "INVENTORY"
                         Else
-                            clsReport.Text05 = row("FactorCode1").ToString().Trim()
-                        End If
-                        clsReport.Text06 = row("Clients_Name").ToString.Trim
-
-                        If eType = enumReport.enumFixedAssetReconByGLCode Then
-                            If row("GLCode").ToString.Trim.ToUpper = "INVENTORY" Then
-                                clsReport.Number01 = 1
-                            Else
-                                clsReport.Number01 = 0
-                            End If
-                            clsReport.Text07 = "G/L Code"
-                        Else
-                            If row("FactorCode1").ToString.Trim.ToUpper = "INVENTORY" Then
-                                clsReport.Number01 = 1
-                            Else
-                                clsReport.Number01 = 0
-                            End If
-                            clsReport.Text07 = "Depreciation Code"
-                        End If
-
-                        clsReport.Number02 = row("YearPurchased")
-                        clsReport.Number03 = row("PreviousYearCost")
-                        clsReport.Number04 = row("Difference")
-                        clsReport.Number05 = row("CurrentYearCost")
-                        clsReport.WriteReportData()
-                    Next
-                ElseIf eType = enumReport.enumTaxSavings Then
-                    Dim bHasBusinessUnits As Boolean = True
-                    If lClientId > 0 Then
-                        If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
-                            bHasBusinessUnits = True
-                        Else
-                            bHasBusinessUnits = False
+                            clsReport.Text02 = "FIXED ASSETS TOTAL"
                         End If
                     End If
-                    clsReport = New clsReportData
-                    For Each row In dt.Rows
-                        clsReport.Text01 = row("Clients_Name").ToString.Trim
-                        clsReport.Text02 = row("TaxYear") & " Tax Accrual Savings Report"
-                        clsReport.Text03 = "Tax Rate"
-                        clsReport.Text04 = row("Clients_Name").ToString.Trim
-                        clsReport.Text05 = row("AcctNum").ToString.Trim
-                        clsReport.Text06 = row("Locations_StateCd").ToString
-                        clsReport.Text07 = row("Locations_Address").ToString.Trim
-                        clsReport.Text08 = row("Locations_City").ToString.Trim
-                        clsReport.Text09 = row("ValueSource").ToString
-                        clsReport.Text12 = row("AcctNum").ToString.Trim & "  " & row("Locations_StateCd").ToString & "  " & row("Locations_Address").ToString.Trim &
-                            "  " & row("Locations_City").ToString.Trim
-                        clsReport.Text10 = IIf(row("PropertyType") = "R", "Real Estate", "Business Personal Property")
-                        clsReport.Text11 = row("Jurisdictions_Name").ToString.Trim
-                        clsReport.Text13 = row("Assessors_Name").ToString.Trim
-                        clsReport.Text14 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
-                            "  " & row("AcctNum").ToString.Trim
-                        clsReport.Text15 = IIf(row("ClientLocationId").ToString.Length > 0, "Loc " & row("ClientLocationId").ToString.Trim, "")
-                        If row("PropertyType") = "R" Then
-                            clsReport.Text17 = "Last year value:  " & Format(row("PriorYearTotalFinalValue"), csInt)
-                        Else
-                            clsReport.Text17 = ""
-                        End If
-                        If row("PropertyType") = "P" Then
-                            clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("BPPRatio")), csPct)
-                        Else
-                            clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("RERatio")), csPct)
-                        End If
-                        clsReport.Text18 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
-                        clsReport.Text19 = "Total For " & clsReport.Text18
-                        clsReport.Number01 = UnNullToDouble(row("TaxRate"))
-                        clsReport.Number02 = UnNullToDouble(row("TotalAssessedValue"))
-                        clsReport.Number03 = UnNullToDouble(row("FinalValue"))
-                        clsReport.Number04 = UnNullToDouble(row("AbatementReductionAmt")) + UnNullToDouble(row("FreeportReductionAmt")) - UnNullToDouble(row("AdjAmt1"))
-                        clsReport.Number05 = UnNullToDouble(row("ValueDifference"))
-                        clsReport.Number06 = UnNullToDouble(row("TaxDueBeforeSavings"))
-                        clsReport.Number07 = UnNullToDouble(row("TaxDueUsingPreviousYearRate"))
-                        clsReport.Number08 = UnNullToDouble(row("SavingsAmt"))
-                        'suppress business units if not business units, suppress=1
-                        clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
-                        clsReport.WriteReportData()
-                    Next
-                ElseIf eType = enumReport.enumAssessorCover Then
-                    For Each row In dt.Rows
-                        sSQL = "INSERT INTO ReportData" &
-                            " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10,Text11,Text12,Text13)" &
-                            " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                            QuoStr(row("FirmName")) & "," &
-                            QuoStr(row("FirmAddress")) & "," &
-                            QuoStr(row("FirmCityStZip")) & "," &
-                            QuoStr(row("FirmPhone")) & "," &
-                            QuoStr(row("Name")) & "," & QuoStr(row("Address")) & "," & QuoStr(row("City")) & "," &
-                            QuoStr(row("Phone")) & "," & QuoStr("") & "," &
-                            QuoStr("") & "," & QuoStr("") & "," & QuoStr("") & "," &
-                            QuoStr("")
-                        ExecuteSQL(sSQL)
-                    Next
-                ElseIf eType = enumReport.enumTaxAccrual Or eType = enumReport.enumTaxAccrualSummary Then
-                    Dim bHasBusinessUnits As Boolean = True
-                    Dim excludecode As enumSavingsExclusionCd
-                    Dim dValue As Double = 0
-                    Dim dAbatement As Double = 0
-                    Dim dFreeport As Double = 0
-                    Dim lNetTaxableValue As Long = 0
-
-                    If lClientId > 0 Then
-                        If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
-                            bHasBusinessUnits = True
-                        Else
-                            bHasBusinessUnits = False
-                        End If
+                    clsReport.Text03 = "Cost " & iTaxYear - 1
+                    clsReport.Text04 = "Cost " & iTaxYear
+                    If eType = enumReport.enumFixedAssetReconByGLCode Then
+                        clsReport.Text05 = row("GLCode").ToString().Trim()
+                    Else
+                        clsReport.Text05 = row("FactorCode1").ToString().Trim()
                     End If
-                    ''need to add abatement and freeport and taxable values to report
-                    clsReport = New clsReportData
-                    For Each row In dt.Rows
-                        excludecode = row("Assessments_SavingsExclusionCd")
-                        dValue = 0
-                        dAbatement = 0
-                        dFreeport = 0
-                        lNetTaxableValue = 0
+                    clsReport.Text06 = row("Clients_Name").ToString.Trim
 
-                        If row("PropertyType") = "BPP" Then
-                            If row("Clients_ExcludeNotified") And row("Clients_ExcludeClient") Then
-                                dValue = 0
+                    If eType = enumReport.enumFixedAssetReconByGLCode Then
+                        If row("GLCode").ToString.Trim.ToUpper = "INVENTORY" Then
+                            clsReport.Number01 = 1
+                        Else
+                            clsReport.Number01 = 0
+                        End If
+                        clsReport.Text07 = "G/L Code"
+                    Else
+                        If row("FactorCode1").ToString.Trim.ToUpper = "INVENTORY" Then
+                            clsReport.Number01 = 1
+                        Else
+                            clsReport.Number01 = 0
+                        End If
+                        clsReport.Text07 = "Depreciation Code"
+                    End If
+
+                    clsReport.Number02 = row("YearPurchased")
+                    clsReport.Number03 = row("PreviousYearCost")
+                    clsReport.Number04 = row("Difference")
+                    clsReport.Number05 = row("CurrentYearCost")
+                    clsReport.WriteReportData()
+                Next
+            ElseIf eType = enumReport.enumTaxSavings Then
+                Dim bHasBusinessUnits As Boolean = True
+                If lClientId > 0 Then
+                    If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
+                        bHasBusinessUnits = True
+                    Else
+                        bHasBusinessUnits = False
+                    End If
+                End If
+                clsReport = New clsReportData
+                For Each row In dt.Rows
+                    clsReport.Text01 = row("Clients_Name").ToString.Trim
+                    clsReport.Text02 = row("TaxYear") & " Tax Accrual Savings Report"
+                    clsReport.Text03 = "Tax Rate"
+                    clsReport.Text04 = row("Clients_Name").ToString.Trim
+                    clsReport.Text05 = row("AcctNum").ToString.Trim
+                    clsReport.Text06 = row("Locations_StateCd").ToString
+                    clsReport.Text07 = row("Locations_Address").ToString.Trim
+                    clsReport.Text08 = row("Locations_City").ToString.Trim
+                    clsReport.Text09 = row("ValueSource").ToString
+                    clsReport.Text12 = row("AcctNum").ToString.Trim & "  " & row("Locations_StateCd").ToString & "  " & row("Locations_Address").ToString.Trim &
+                        "  " & row("Locations_City").ToString.Trim
+                    clsReport.Text10 = IIf(row("PropertyType") = "R", "Real Estate", "Business Personal Property")
+                    clsReport.Text11 = row("Jurisdictions_Name").ToString.Trim
+                    clsReport.Text13 = row("Assessors_Name").ToString.Trim
+                    clsReport.Text14 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
+                        "  " & row("AcctNum").ToString.Trim
+                    clsReport.Text15 = IIf(row("ClientLocationId").ToString.Length > 0, "Loc " & row("ClientLocationId").ToString.Trim, "")
+                    If row("PropertyType") = "R" Then
+                        clsReport.Text17 = "Last year value:  " & Format(row("PriorYearTotalFinalValue"), csInt)
+                    Else
+                        clsReport.Text17 = ""
+                    End If
+                    If row("PropertyType") = "P" Then
+                        clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("BPPRatio")), csPct)
+                    Else
+                        clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("RERatio")), csPct)
+                    End If
+                    clsReport.Text18 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
+                    clsReport.Text19 = "Total For " & clsReport.Text18
+                    clsReport.Number01 = UnNullToDouble(row("TaxRate"))
+                    clsReport.Number02 = UnNullToDouble(row("TotalAssessedValue"))
+                    clsReport.Number03 = UnNullToDouble(row("FinalValue"))
+                    clsReport.Number04 = UnNullToDouble(row("AbatementReductionAmt")) + UnNullToDouble(row("FreeportReductionAmt")) - UnNullToDouble(row("AdjAmt1"))
+                    clsReport.Number05 = UnNullToDouble(row("ValueDifference"))
+                    clsReport.Number06 = UnNullToDouble(row("TaxDueBeforeSavings"))
+                    clsReport.Number07 = UnNullToDouble(row("TaxDueUsingPreviousYearRate"))
+                    clsReport.Number08 = UnNullToDouble(row("SavingsAmt"))
+                    'suppress business units if not business units, suppress=1
+                    clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
+                    clsReport.WriteReportData()
+                Next
+            ElseIf eType = enumReport.enumAssessorCover Then
+                For Each row In dt.Rows
+                    sSQL = "INSERT INTO ReportData" &
+                        " (UserName,ReportId,Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10,Text11,Text12,Text13)" &
+                        " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
+                        QuoStr(row("FirmName")) & "," &
+                        QuoStr(row("FirmAddress")) & "," &
+                        QuoStr(row("FirmCityStZip")) & "," &
+                        QuoStr(row("FirmPhone")) & "," &
+                        QuoStr(row("Name")) & "," & QuoStr(row("Address")) & "," & QuoStr(row("City")) & "," &
+                        QuoStr(row("Phone")) & "," & QuoStr("") & "," &
+                        QuoStr("") & "," & QuoStr("") & "," & QuoStr("") & "," &
+                        QuoStr("")
+                    ExecuteSQL(sSQL)
+                Next
+            ElseIf eType = enumReport.enumTaxAccrual Or eType = enumReport.enumTaxAccrualSummary Then
+                Dim bHasBusinessUnits As Boolean = True
+                Dim excludecode As enumSavingsExclusionCd
+                Dim dValue As Double = 0
+                Dim dAbatement As Double = 0
+                Dim dFreeport As Double = 0
+                Dim lNetTaxableValue As Long = 0
+
+                If lClientId > 0 Then
+                    If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
+                        bHasBusinessUnits = True
+                    Else
+                        bHasBusinessUnits = False
+                    End If
+                End If
+                ''need to add abatement and freeport and taxable values to report
+                clsReport = New clsReportData
+                For Each row In dt.Rows
+                    excludecode = row("Assessments_SavingsExclusionCd")
+                    dValue = 0
+                    dAbatement = 0
+                    dFreeport = 0
+                    lNetTaxableValue = 0
+
+                    If row("PropertyType") = "BPP" Then
+                        If row("Clients_ExcludeNotified") And row("Clients_ExcludeClient") Then
+                            dValue = 0
+                        Else
+                            If row("Clients_ExcludeNotified") Then
+                                dValue = UnNullToDouble(row("SumOfFactoredAmount"))
+                            ElseIf row("Clients_ExcludeClient") Then
+                                dValue = UnNullToDouble(row("NotifiedValue"))
                             Else
-                                If row("Clients_ExcludeNotified") Then
-                                    dValue = UnNullToDouble(row("SumOfFactoredAmount"))
-                                ElseIf row("Clients_ExcludeClient") Then
-                                    dValue = UnNullToDouble(row("NotifiedValue"))
-                                Else
-                                    Select Case excludecode
-                                        Case enumSavingsExclusionCd.enumNotified,
-                                                enumSavingsExclusionCd.enumNotifiedAbatements,
-                                                enumSavingsExclusionCd.enumNotifiedAbatementsFreeport,
-                                                enumSavingsExclusionCd.enumNotifiedFreeport
-                                            dValue = UnNullToDouble(row("SumOfFactoredAmount"))
-                                        Case enumSavingsExclusionCd.enumClient,
-                                                enumSavingsExclusionCd.enumClientAbatements,
-                                                enumSavingsExclusionCd.enumClientAbatementsFreeport,
-                                                enumSavingsExclusionCd.enumClientFreeport
-                                            dValue = UnNullToDouble(row("NotifiedValue"))
-                                        Case Else
-                                            dValue = UnNullToDouble(row("FinalValue"))
-                                    End Select
-                                End If
+                                Select Case excludecode
+                                    Case enumSavingsExclusionCd.enumNotified,
+                                            enumSavingsExclusionCd.enumNotifiedAbatements,
+                                            enumSavingsExclusionCd.enumNotifiedAbatementsFreeport,
+                                            enumSavingsExclusionCd.enumNotifiedFreeport
+                                        dValue = UnNullToDouble(row("SumOfFactoredAmount"))
+                                    Case enumSavingsExclusionCd.enumClient,
+                                            enumSavingsExclusionCd.enumClientAbatements,
+                                            enumSavingsExclusionCd.enumClientAbatementsFreeport,
+                                            enumSavingsExclusionCd.enumClientFreeport
+                                        dValue = UnNullToDouble(row("NotifiedValue"))
+                                    Case Else
+                                        dValue = UnNullToDouble(row("FinalValue"))
+                                End Select
                             End If
-                            dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
-                            dFreeport = UnNullToDouble(row("ClientFreeportAmt"))
-                        Else
-                            dValue = UnNullToDouble(row("FinalValue"))
-                            dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
                         End If
-                        clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"
-                        clsReport.Text02 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
-                        clsReport.Text03 = iTaxYear - 1 & " Tax Rate"
-                        clsReport.Text04 = UnNullToString(row("Assessments_AcctNum"))
-                        clsReport.Text05 = row("Locations_StateCd")
-                        clsReport.Text06 = Trim(UnNullToString(row("Locations_ClientLocationId"))) & "  " & Trim(UnNullToString(row("Locations_Address"))) & "  " &
-                            Trim(UnNullToString(row("Locations_City")))
-                        clsReport.Text07 = "Total For " & clsReport.Text02
-                        clsReport.Text08 = UnNullToString(row("Assessors_Name"))
-                        clsReport.Text09 = IIf(row("PropertyType") = "BPP", "Business Personal Property", "Real Estate")
-                        clsReport.Text10 = UnNullToString(row("Jurisdictions_Name"))
-                        clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
-                            "  " & row("Assessments_AcctNum").ToString.Trim
-                        clsReport.Number01 = iTaxYear
-                        clsReport.Number09 = UnNullToDouble(row("TaxRate"))
-                        If row("ClientRenditionValue") = 0 Then
-                            clsReport.Number10 = dValue
-                            lNetTaxableValue = dValue - dAbatement - dFreeport
-                            dTaxDue = (row("Assessors_Ratio") *
-                                (dValue -
-                                dAbatement -
-                                dFreeport)) / 100 *
-                                UnNullToDouble(row("TaxRate"))
-                        Else
-                            clsReport.Number10 = dValue
-                            lNetTaxableValue = dValue - dAbatement - dFreeport
-                            dTaxDue = (row("Assessors_Ratio") *
-                                (dValue -
-                                dAbatement -
-                                dFreeport)) / 100 *
-                                UnNullToDouble(row("TaxRate"))
-                        End If
-                        clsReport.Number14 = Val(Format(dTaxDue, "0.00"))
-                        clsReport.Number15 = row("Assessors_Ratio") * 100
-                        clsReport.Number02 = Val(Format(dAbatement, "0.00"))
-                        clsReport.Number03 = Val(Format(dFreeport, "0.00"))
-                        clsReport.Number04 = lNetTaxableValue
-                        'suppress business units if not business units, suppress=1
-                        clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
-                        clsReport.Number16 = row("ClientId")
-                        clsReport.Number17 = row("LocationId")
-                        clsReport.Number18 = row("AssessmentId")
-                        clsReport.Number19 = row("JurisdictionId")
-                        clsReport.Number20 = row("NotifiedValue")
-                        'Number01 is tax year
-
-                        clsReport.WriteReportData()
-                    Next
-
-                    'hack to sum up the accrual detail stored in clsReport (need stored proc to do accrual calculations)
-                    'write data back to sql and use sql to sum/group by and store in ReportData table
-                    If eType = enumReport.enumTaxAccrualSummary Then
-                        If Not RunTaxAccrualSummaryReport(clsReport) Then Return False
+                        dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
+                        dFreeport = UnNullToDouble(row("ClientFreeportAmt"))
+                    Else
+                        dValue = UnNullToDouble(row("FinalValue"))
+                        dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
                     End If
+                    clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"
+                    clsReport.Text02 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
+                    clsReport.Text03 = iTaxYear - 1 & " Tax Rate"
+                    clsReport.Text04 = UnNullToString(row("Assessments_AcctNum"))
+                    clsReport.Text05 = row("Locations_StateCd")
+                    clsReport.Text06 = Trim(UnNullToString(row("Locations_ClientLocationId"))) & "  " & Trim(UnNullToString(row("Locations_Address"))) & "  " &
+                        Trim(UnNullToString(row("Locations_City")))
+                    clsReport.Text07 = "Total For " & clsReport.Text02
+                    clsReport.Text08 = UnNullToString(row("Assessors_Name"))
+                    clsReport.Text09 = IIf(row("PropertyType") = "BPP", "Business Personal Property", "Real Estate")
+                    clsReport.Text10 = UnNullToString(row("Jurisdictions_Name"))
+                    clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
+                        "  " & row("Assessments_AcctNum").ToString.Trim
+                    clsReport.Number01 = iTaxYear
+                    clsReport.Number09 = UnNullToDouble(row("TaxRate"))
+                    If row("ClientRenditionValue") = 0 Then
+                        clsReport.Number10 = dValue
+                        lNetTaxableValue = dValue - dAbatement - dFreeport
+                        dTaxDue = (row("Assessors_Ratio") *
+                            (dValue -
+                            dAbatement -
+                            dFreeport)) / 100 *
+                            UnNullToDouble(row("TaxRate"))
+                    Else
+                        clsReport.Number10 = dValue
+                        lNetTaxableValue = dValue - dAbatement - dFreeport
+                        dTaxDue = (row("Assessors_Ratio") *
+                            (dValue -
+                            dAbatement -
+                            dFreeport)) / 100 *
+                            UnNullToDouble(row("TaxRate"))
+                    End If
+                    clsReport.Number14 = Val(Format(dTaxDue, "0.00"))
+                    clsReport.Number15 = row("Assessors_Ratio") * 100
+                    clsReport.Number02 = Val(Format(dAbatement, "0.00"))
+                    clsReport.Number03 = Val(Format(dFreeport, "0.00"))
+                    clsReport.Number04 = lNetTaxableValue
+                    'suppress business units if not business units, suppress=1
+                    clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
+                    clsReport.Number16 = row("ClientId")
+                    clsReport.Number17 = row("LocationId")
+                    clsReport.Number18 = row("AssessmentId")
+                    clsReport.Number19 = row("JurisdictionId")
+                    clsReport.Number20 = row("NotifiedValue")
+                    'Number01 is tax year
 
-                ElseIf eType = enumReport.enumREComp Then
-                    clsReport = New clsReportData
+                    clsReport.WriteReportData()
+                Next
+
+                'hack to sum up the accrual detail stored in clsReport (need stored proc to do accrual calculations)
+                'write data back to sql and use sql to sum/group by and store in ReportData table
+                If eType = enumReport.enumTaxAccrualSummary Then
+                    If Not RunTaxAccrualSummaryReport(clsReport) Then Return False
+                End If
+
+            ElseIf eType = enumReport.enumREComp Then
+                clsReport = New clsReportData
                 For Each row In dt.Rows
                     clsReport.Title01 = AppData.FirmName & vbCrLf & "Tax Comps - " & iTaxYear & " Commercial Values" & vbCrLf & row("Assessors_Name")
                     clsReport.Text01 = row("AcctNum")
@@ -1578,51 +1579,51 @@
                     clsReport.WriteReportData()
                 Next
             ElseIf eType = enumReport.enumBPPCompBarCode Then
-                    clsReport = New clsReportData
-                    For Each row In dt.Rows
-                        clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.BPPComps, row("CompID"))
-                        clsReport.BarCode2 = BuildBarCode2(enumBarCodeTypes.BPPComps, row("CompID"))
-                        clsReport.BarCodeDesc = BuildBarCodeDesc(enumBarCodeTypes.BPPComps, row("CompID"), row("AssetType"), row("ManufactureYear"),
-                            row("Manufacturer"), row("Model"), row("SerialNumber"))
-                        clsReport.BarCodeImage = BuildBarCodeImage(enumBarCodeTypes.BPPComps, 0, 0, enumTable.enumLocationBPP, 0, 0, 0, 0, row("CompID"))
-                        clsReport.WriteReportData()
-                    Next
-                ElseIf eType = enumReport.enumValueComparison Then
-                    Dim bHasBusinessUnits As Boolean = True
-                    If lClientId > 0 Then
-                        If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
-                            bHasBusinessUnits = True
-                        Else
-                            bHasBusinessUnits = False
-                        End If
+                clsReport = New clsReportData
+                For Each row In dt.Rows
+                    clsReport.BarCode1 = BuildBarCode1(enumBarCodeTypes.BPPComps, row("CompID"))
+                    clsReport.BarCode2 = BuildBarCode2(enumBarCodeTypes.BPPComps, row("CompID"))
+                    clsReport.BarCodeDesc = BuildBarCodeDesc(enumBarCodeTypes.BPPComps, row("CompID"), row("AssetType"), row("ManufactureYear"),
+                        row("Manufacturer"), row("Model"), row("SerialNumber"))
+                    clsReport.BarCodeImage = BuildBarCodeImage(enumBarCodeTypes.BPPComps, 0, 0, enumTable.enumLocationBPP, 0, 0, 0, 0, row("CompID"))
+                    clsReport.WriteReportData()
+                Next
+            ElseIf eType = enumReport.enumValueComparison Then
+                Dim bHasBusinessUnits As Boolean = True
+                If lClientId > 0 Then
+                    If GetData("SELECT 1 WHERE EXISTS (SELECT ClientId FROM BusinessUnits WHERE ClientId = " & lClientId & ")", New DataTable) > 0 Then
+                        bHasBusinessUnits = True
+                    Else
+                        bHasBusinessUnits = False
                     End If
-                    clsReport = New clsReportData
-                    For Each row In dt.Rows
-                        clsReport.Title01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Value Comparison - " & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "Real Estate")
-                        clsReport.Text01 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
-                        clsReport.Text02 = row("Assessors_Name")
-                        clsReport.Text03 = row("Assessments_AcctNum")
-                        clsReport.Text04 = IIf(row("Locations_ClientLocationId") = "", "", row("Locations_ClientLocationId") & "  ") & row("Locations_Address") & "  " &
-                            row("Locations_City") & ", " & row("Locations_StateCd")
-                        clsReport.Text05 = IIf(row("PropType") = "P", "BPP", "Real")
-                        ''sorting
-                        clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
-                            "  " & row("Assessments_AcctNum").ToString.Trim
-                        clsReport.Number01 = row("PriorYearFinalValue")
-                        If row("PropType").ToString() = "P" Then
-                            clsReport.Number02 = row("CountyReclassValue")
-                            clsReport.Number03 = row("MarketReclassValue")
-                        Else
-                            clsReport.Number02 = row("CurrentYearAssessedValue")
-                        End If
-                        'suppress business units if not business units, suppress=1
-                        clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
-                        clsReport.WriteReportData()
-                    Next
-                Else
-                    '1 thru 5 are the 5 potential depreciation schedules
-                    '1 is printed twice, 1a is client value, 1b is normal reclassed
-                    If lFactorEntityId = 0 Or bPrintClientScheduleOnly Then
+                End If
+                clsReport = New clsReportData
+                For Each row In dt.Rows
+                    clsReport.Title01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Value Comparison - " & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "Real Estate")
+                    clsReport.Text01 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
+                    clsReport.Text02 = row("Assessors_Name")
+                    clsReport.Text03 = row("Assessments_AcctNum")
+                    clsReport.Text04 = IIf(row("Locations_ClientLocationId") = "", "", row("Locations_ClientLocationId") & "  ") & row("Locations_Address") & "  " &
+                        row("Locations_City") & ", " & row("Locations_StateCd")
+                    clsReport.Text05 = IIf(row("PropType") = "P", "BPP", "Real")
+                    ''sorting
+                    clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
+                        "  " & row("Assessments_AcctNum").ToString.Trim
+                    clsReport.Number01 = row("PriorYearFinalValue")
+                    If row("PropType").ToString() = "P" Then
+                        clsReport.Number02 = row("CountyReclassValue")
+                        clsReport.Number03 = row("MarketReclassValue")
+                    Else
+                        clsReport.Number02 = row("CurrentYearAssessedValue")
+                    End If
+                    'suppress business units if not business units, suppress=1
+                    clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
+                    clsReport.WriteReportData()
+                Next
+            Else
+                '1 thru 5 are the 5 potential depreciation schedules
+                '1 is printed twice, 1a is client value, 1b is normal reclassed
+                If lFactorEntityId = 0 Or bPrintClientScheduleOnly Then
                     bPrintingClientValue = True
                 Else
                     bPrintingClientValue = False
@@ -1805,33 +1806,47 @@
                                             End If
                                             ExecuteSQL(sSQL)
                                         ElseIf eType = enumReport.enumAssetSummary Then
-                                            If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
-                                            Else
-                                                bHasFixed = True
-                                                sTotalAssessorRatio = "Total at " & Format(row("BPPRatio"), csPct) & " ratio"
-                                                sSQL = "insert into ReportData (UserName,ReportId,RowCounter,Title01,Text01,Text03,Number01," &
+                                            sTotalAssessorRatio = "Total at " & Format(row("BPPRatio"), csPct) & " ratio"
+                                            LesseeInfo.Clear()
+                                            If dt.Columns.Contains("LesseeName") Then
+                                                If row("LesseeName").ToString.Trim <> "" Then
+                                                    LesseeInfo.Append(row("LesseeName").ToString.Trim)
+                                                    If row("LesseeAddress").ToString.Trim <> "" Then LesseeInfo.Append(" ").Append(row("LesseeAddress").ToString.Trim)
+                                                    If row("LesseeCity").ToString.Trim <> "" Then LesseeInfo.Append(" ").Append(row("LesseeCity").ToString.Trim)
+                                                    If row("LesseeStateCd").ToString.Trim <> "" Then LesseeInfo.Append(", ").Append(row("LesseeStateCd").ToString.Trim)
+                                                    If row("LesseeZip").ToString.Trim <> "" Then LesseeInfo.Append("  ").Append(row("LesseeZip").ToString.Trim)
+                                                End If
+                                            End If
+                                            sSQL = "insert into ReportData (UserName,ReportId,RowCounter,Title01,Text01,Text02,Text03,Number01," &
                                                     "Number02,Number03,Number04,Number05,Number06,Number07,Text10,Text04,Number08,Text09," &
-                                                    "Number09, Number10," &
+                                                    "Number09, Number10, Text05, Number11," &
                                                     "BarCode1,BarCode2,BarCodeDesc)" &
-                                                    " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                                                    lRowCounter & "," & QuoStr(sTitle) & "," &
-                                                    QuoStr(row("AssetId")) & "," &
-                                                    QuoStr(sFactorDescription) & "," &
-                                                    dFactoredAmt & "," & dOriginalAmt & "," & iSuppressOriginalCost & "," &
-                                                    Year(row("PurchaseDate")) & "," & dFactor & "," &
-                                                    IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & "," &
-                                                    row("BPPRatio") & "," &
-                                                    QuoStr(sFactorCode) & "," &
-                                                    QuoStr(sTotalAssessorRatio) & "," &
-                                                    iINVYear & "," &
-                                                    QuoStr(Format(row("BPPRatio"), csPct)) & ","
-                                                'Number09
-                                                sSQL = sSQL & IIf(bHasInterstateAllocationPct, 0, 1) & ","      ''if has allocation, show columns (1=suppress)
-                                                'Number10
-                                                sSQL = sSQL & lFactoredAmtBeforeInterstateAllocationPct & ","
-
-                                                If bPrintCoverPage Then
-                                                    sSQL = sSQL & QuoStr(BuildBarCode1(enumBarCodeTypes.Rendition, row("ClientId"), iTaxYear,
+                                                    " SELECT " & QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &    'username,reportid
+                                                    lRowCounter & "," & QuoStr(sTitle) & "," &              'rowcounter,title01              
+                                                    QuoStr(row("AssetId")) & "," &                          'text01
+                                                    QuoStr(LesseeInfo.ToString) & "," &                     'text02
+                                                    QuoStr(sFactorDescription) & "," &                      'text03
+                                                    dFactoredAmt & "," & dOriginalAmt & "," & iSuppressOriginalCost & "," &     'number01,number02,number03
+                                                    Year(row("PurchaseDate")) & "," & dFactor & "," &       'number04,number05
+                                                    IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & "," &     'number06
+                                                    row("BPPRatio") & "," &                                 'number07
+                                                    QuoStr(sFactorCode) & "," &                             'text10
+                                                    QuoStr(sTotalAssessorRatio) & "," &                     'text04
+                                                    iINVYear & "," &                                        'number08
+                                                    QuoStr(Format(row("BPPRatio"), csPct)) & ","            'text09
+                                            'Number09
+                                            sSQL = sSQL & IIf(bHasInterstateAllocationPct, 0, 1) & ","      ''if has allocation, show columns (1=suppress)
+                                            'Number10
+                                            sSQL = sSQL & lFactoredAmtBeforeInterstateAllocationPct & ","
+                                            'Text05, Number11
+                                            If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
+                                                sSQL = sSQL & "'" & iTaxYear & " Inventory',1,"
+                                            Else
+                                                sSQL = sSQL & "'Fixed Assets',0,"
+                                            End If
+                                            'BarCode1,BarCode2,BarCodeDesc
+                                            If bPrintCoverPage Then
+                                                sSQL = sSQL & QuoStr(BuildBarCode1(enumBarCodeTypes.Rendition, row("ClientId"), iTaxYear,
                                                         enumTable.enumLocationBPP, row("LocationId"), row("AssessmentId"), 0, 0)) & "," &
                                                     QuoStr(BuildBarCode2(enumBarCodeTypes.Rendition, row("ClientId"), iTaxYear,
                                                         enumTable.enumLocationBPP, row("LocationId"), row("AssessmentId"), 0, 0)) & "," &
@@ -1839,35 +1854,44 @@
                                                     row("Clients_Name"), iTaxYear, row("Locations_Address"),
                                                     row("Locations_City"), row("Locations_StateCd"), row("Assessments_AcctNum"),
                                                     row("Locations_ClientLocationId"), row("Assessors_Name"), ""))
-                                                Else
-                                                    sSQL = sSQL & "'','',''"
-                                                End If
-                                                ExecuteSQL(sSQL)
+                                            Else
+                                                sSQL = sSQL & "'','',''"
                                             End If
+                                            ExecuteSQL(sSQL)
                                         ElseIf eType = enumReport.enumAssetDetailCost Or eType = enumReport.enumAssetDetailExempt Or eType = enumReport.enumAssetDetailNon Then
                                             If eType = enumReport.enumAssetDetailExempt Or eType = enumReport.enumAssetDetailNon Then iSuppressOriginalCost = 1
                                             sSQL = "insert into ReportData (UserName,ReportId,RowCounter,Title01,Text01,Date01," &
                                                 "Text03,Text04,Number01," &
-                                                "Number02,Number03,Number04,Number05,Text10,Number06,Text02,Number07,Text05," &
+                                                "Number02,Number03,Number04,Number05,Text10,Number06,Text02,Text06,Number07,Text05," &
                                                 " Number09,BarCode1,BarCode2,BarCodeDesc,Number10,Number11,Number12,Number13)" &
                                                 " SELECT " &
-                                                QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                                                lRowCounter & "," & QuoStr(sTitle) & "," &
-                                                QuoStr(row("AssetId")) & "," & QuoStr(Format(row("PurchaseDate"), csDate)) & "," &
-                                                QuoStr(row("Description") &
+                                                QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &         'username, reportid
+                                                lRowCounter & "," & QuoStr(sTitle) & "," &                      'rowcounter, title01
+                                                QuoStr(row("AssetId")) & "," & QuoStr(Format(row("PurchaseDate"), csDate)) & "," &      'text01, date01
+                                                QuoStr(row("Description") &                                     'text03
                                                 IIf(sVIN = "", "", vbCrLf & "VIN: " & sVIN)) & "," &
-                                                QuoStr(sFactorDescription) & "," & dFactoredAmt & "," &
-                                                dOriginalAmt & "," & iSuppressOriginalCost & "," &
-                                                Year(row("PurchaseDate")) & "," & dFactor & "," & QuoStr(sFactorCode) & ","
-                                            'Number07, Text05
+                                                QuoStr(sFactorDescription) & "," & dFactoredAmt & "," &         'text04, number01
+                                                dOriginalAmt & "," & iSuppressOriginalCost & "," &              'number02, number03
+                                                Year(row("PurchaseDate")) & "," & dFactor & "," & QuoStr(sFactorCode) & ","     'number04, number05, text10
+                                            'Number06,Text02
                                             If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
                                                 sSQL = sSQL & "1, 'Inventory',"
-                                                bHasINV = True
                                             Else
-                                                sSQL = sSQL & "0, 'Fixed Assets',"
+                                                sSQL = sSQL & "0,'Fixed Assets',"
                                             End If
-                                            'Number09
-                                            sSQL = sSQL & row("BPPRatio") & "," & QuoStr(Format(row("BPPRatio"), csPct)) & ",0,"
+                                            'Text06
+                                            LesseeInfo.Clear()
+                                            If dt.Columns.Contains("LesseeName") Then
+                                                If row("LesseeName").ToString.Trim <> "" Then
+                                                    LesseeInfo.Append(row("LesseeName").ToString.Trim)
+                                                    If row("LesseeAddress").ToString.Trim <> "" Then LesseeInfo.Append(" ").Append(row("LesseeAddress").ToString.Trim)
+                                                    If row("LesseeCity").ToString.Trim <> "" Then LesseeInfo.Append(" ").Append(row("LesseeCity").ToString.Trim)
+                                                    If row("LesseeStateCd").ToString.Trim <> "" Then LesseeInfo.Append(", ").Append(row("LesseeStateCd").ToString.Trim)
+                                                    If row("LesseeZip").ToString.Trim <> "" Then LesseeInfo.Append("  ").Append(row("LesseeZip").ToString.Trim)
+                                                End If
+                                            End If
+                                            sSQL = sSQL & QuoStr(LesseeInfo.ToString) & ","                         'Text06
+                                            sSQL = sSQL & row("BPPRatio") & "," & QuoStr(Format(row("BPPRatio"), csPct)) & ",0,"        'number07, text05, number09
                                             'BarCode1,BarCode2,BarCodeDesc
                                             If bPrintCoverPage Then
                                                 sSQL = sSQL & QuoStr(BuildBarCode1(enumBarCodeTypes.Rendition, row("ClientId"), iTaxYear,
@@ -1899,7 +1923,6 @@
                                                 sSQL = sSQL & ",1"
                                             End If
                                             ExecuteSQL(sSQL)
-
                                         ElseIf eType = enumReport.enumAssetDetailLeasedProperty Or eType = enumReport.enumAssetDetailLeaseholdImprovements Or eType = enumReport.enumAssetDetailLeasesAll Then
                                             sql.Clear()
                                             If row("LeaseType").ToString = LEASEHOLDIMPROVEMENTS Then
@@ -1917,8 +1940,8 @@
                                             sql.Append(QuoStr(AppData.UserId)).Append(",").Append(AppData.ReportId).Append(",")
                                             sql.Append(lRowCounter.ToString).Append(",").Append(QuoStr(sTitle)).Append(",")
                                             sql.Append(QuoStr(row("AssetId"))).Append(",").Append(QuoStr(row("GLCode").ToString)).Append(",")
-                                            sql.Append(QuoStr(row("Description").ToString)).Append(",").Append(QuoStr(row("LessorName").ToString)).Append(",")
-                                            sql.Append(QuoStr(row("LessorAddress").ToString)).Append(",")
+                                            sql.Append(QuoStr(row("Description").ToString)).Append(",").Append(QuoStr(row("LesseeName").ToString)).Append(",")
+                                            sql.Append(QuoStr(row("LesseeAddress").ToString)).Append(",")
                                             sDesc = row("EquipmentMake").ToString & " " & row("EquipmentModel").ToString
                                             If dt.Columns.Contains("VIN") Then sDesc = sDesc & " " & row("VIN").ToString
                                             sql.Append(QuoStr(sDesc)).Append(",")
@@ -1930,72 +1953,72 @@
                                         End If
                                     End If
                                 Next
-                                'set total assessed value (total * bppratio) and whether has inv
-                                If eType = enumReport.enumAssetDetailCost Then
-                                    sSQL = "DECLARE @Sum float SELECT @Sum = (SELECT SUM(ISNULL(Number01,0))" &
-                                        " FROM ReportData WHERE UserName = " & QuoStr(AppData.UserId) &
-                                        " AND ReportId = " & AppData.ReportId & ")" &
-                                        " UPDATE ReportData SET Number08 = ROUND(@Sum * ISNULL(Number07,0),0)," &
-                                        " Number09 = " & IIf(bHasINV, "1", "0") &
-                                        " WHERE UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId
-                                    ExecuteSQL(sSQL)
-                                End If
+                                '''''set total assessed value (total * bppratio) and whether has inv
+                                ''''If eType = enumReport.enumAssetDetailCost Then
+                                ''''    sSQL = "DECLARE @Sum float SELECT @Sum = (SELECT SUM(ISNULL(Number01,0))" &
+                                ''''        " FROM ReportData WHERE UserName = " & QuoStr(AppData.UserId) &
+                                ''''        " AND ReportId = " & AppData.ReportId & ")" &
+                                ''''        " UPDATE ReportData SET Number08 = ROUND(@Sum * ISNULL(Number07,0),0)," &
+                                ''''        " Number09 = " & IIf(bHasINV, "1", "0") &
+                                ''''        " WHERE UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId
+                                ''''    ExecuteSQL(sSQL)
+                                ''''End If
 
-                                If eType = enumReport.enumAssetSummary Then
-                                    If bHasFixed = False Then
-                                        Dim invrow As DataRow
-                                        If dt.Rows.Count > 0 Then
-                                            invrow = dt.Rows(0)
-                                            sTotalAssessorRatio = "Total at " & Format(invrow("BPPRatio"), csPct) & " ratio"
-                                            sSQL = "insert into ReportData (UserName,ReportId,RowCounter,Title01,Text01,Text03,Number01," &
-                                                "Number02,Number03,Number04,Number05,Number06,Number07,Text10,Text04,Number15,Number08,Text09," &
-                                                "Number09, Number10," &
-                                                "BarCode1,BarCode2,BarCodeDesc) SELECT " &
-                                                QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
-                                                1 & "," & QuoStr(sTitle) & "," &
-                                                QuoStr("") & "," &
-                                                QuoStr("No fixed assets") & "," &
-                                                0 & "," & 0 & "," & iSuppressOriginalCost & "," &
-                                                0 & "," & 0 & "," &
-                                                IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & "," &
-                                                invrow("BPPRatio") & "," &
-                                                QuoStr("") & "," &
-                                                QuoStr(sTotalAssessorRatio) & "," &
-                                                IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & "," &
-                                                iINVYear & "," &
-                                                QuoStr(Format(invrow("BPPRatio"), csPct)) & ","
-                                            'Number09    allocation suppress switch
-                                            sSQL = sSQL & IIf(bHasInterstateAllocationPct, 0, 1) & ","        ''if has allocation, show columns (1=suppress)
-                                            'Number10    cost after allocation, same as number01
-                                            sSQL = sSQL & "0,"
+                                ''''If eType = enumReport.enumAssetSummary Then
+                                ''''    If bHasFixed = False Then
+                                ''''        Dim invrow As DataRow
+                                ''''        If dt.Rows.Count > 0 Then
+                                ''''            invrow = dt.Rows(0)
+                                ''''            sTotalAssessorRatio = "Total at " & Format(invrow("BPPRatio"), csPct) & " ratio"
+                                ''''            sSQL = "insert into ReportData (UserName,ReportId,RowCounter,Title01,Text01,Text03,Number01," &
+                                ''''                "Number02,Number03,Number04,Number05,Number06,Number07,Text10,Text04,Number15,Number08,Text09," &
+                                ''''                "Number09, Number10," &
+                                ''''                "BarCode1,BarCode2,BarCodeDesc) SELECT " &
+                                ''''                QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &
+                                ''''                1 & "," & QuoStr(sTitle) & "," &
+                                ''''                QuoStr("") & "," &
+                                ''''                QuoStr("No fixed assets") & "," &
+                                ''''                0 & "," & 0 & "," & iSuppressOriginalCost & "," &
+                                ''''                0 & "," & 0 & "," &
+                                ''''                IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & "," &
+                                ''''                invrow("BPPRatio") & "," &
+                                ''''                QuoStr("") & "," &
+                                ''''                QuoStr(sTotalAssessorRatio) & "," &
+                                ''''                IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & "," &
+                                ''''                iINVYear & "," &
+                                ''''                QuoStr(Format(invrow("BPPRatio"), csPct)) & ","
+                                ''''            'Number09    allocation suppress switch
+                                ''''            sSQL = sSQL & IIf(bHasInterstateAllocationPct, 0, 1) & ","        ''if has allocation, show columns (1=suppress)
+                                ''''            'Number10    cost after allocation, same as number01
+                                ''''            sSQL = sSQL & "0,"
 
-                                            If bPrintCoverPage Then
-                                                sSQL = sSQL & QuoStr(BuildBarCode1(enumBarCodeTypes.Rendition, invrow("ClientId"), iTaxYear,
-                                                    enumTable.enumLocationBPP, invrow("LocationId"), invrow("AssessmentId"), 0, 0)) & "," &
-                                                QuoStr(BuildBarCode2(enumBarCodeTypes.Rendition, invrow("ClientId"), iTaxYear,
-                                                    enumTable.enumLocationBPP, invrow("LocationId"), invrow("AssessmentId"), 0, 0)) & "," &
-                                                QuoStr(BuildBarCodeDesc(enumBarCodeTypes.Rendition, " for " & sName,
-                                                invrow("Clients_Name"), iTaxYear, invrow("Locations_Address"),
-                                                invrow("Locations_City"), invrow("Locations_StateCd"), invrow("Assessments_AcctNum"),
-                                                invrow("Locations_ClientLocationId"), invrow("Assessors_Name"), ""))
-                                            Else
-                                                sSQL = sSQL & "'','',''"
-                                            End If
-                                            ExecuteSQL(sSQL)
-                                        End If
-                                    Else
-                                        'Set field for total of inventory and fixed assets
-                                        sSQL = "UPDATE ReportData SET Number15 = (SELECT SUM(Number01) FROM ReportData" &
-                                            " WHERE UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId & ")" &
-                                            " + " & IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & " WHERE " &
-                                            " UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId & " "
-                                        ExecuteSQL(sSQL)
-                                    End If
-                                    'set total asset value (fixed plus inventory) times the assessor ratio
-                                    sSQL = "UPDATE ReportData SET Number16 = ROUND(ISNULL(Number15,0) * ISNULL(Number07,0),0)" &
-                                        " WHERE UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId
-                                    ExecuteSQL(sSQL)
-                                End If
+                                ''''            If bPrintCoverPage Then
+                                ''''                sSQL = sSQL & QuoStr(BuildBarCode1(enumBarCodeTypes.Rendition, invrow("ClientId"), iTaxYear,
+                                ''''                    enumTable.enumLocationBPP, invrow("LocationId"), invrow("AssessmentId"), 0, 0)) & "," &
+                                ''''                QuoStr(BuildBarCode2(enumBarCodeTypes.Rendition, invrow("ClientId"), iTaxYear,
+                                ''''                    enumTable.enumLocationBPP, invrow("LocationId"), invrow("AssessmentId"), 0, 0)) & "," &
+                                ''''                QuoStr(BuildBarCodeDesc(enumBarCodeTypes.Rendition, " for " & sName,
+                                ''''                invrow("Clients_Name"), iTaxYear, invrow("Locations_Address"),
+                                ''''                invrow("Locations_City"), invrow("Locations_StateCd"), invrow("Assessments_AcctNum"),
+                                ''''                invrow("Locations_ClientLocationId"), invrow("Assessors_Name"), ""))
+                                ''''            Else
+                                ''''                sSQL = sSQL & "'','',''"
+                                ''''            End If
+                                ''''            ExecuteSQL(sSQL)
+                                ''''        End If
+                                ''''    Else
+                                ''''        'Set field for total of inventory and fixed assets
+                                ''''        sSQL = "UPDATE ReportData SET Number15 = (SELECT SUM(Number01) FROM ReportData" &
+                                ''''            " WHERE UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId & ")" &
+                                ''''            " + " & IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & " WHERE " &
+                                ''''            " UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId & " "
+                                ''''        ExecuteSQL(sSQL)
+                                ''''    End If
+                                ''''    'set total asset value (fixed plus inventory) times the assessor ratio
+                                ''''    sSQL = "UPDATE ReportData SET Number16 = ROUND(ISNULL(Number15,0) * ISNULL(Number07,0),0)" &
+                                ''''        " WHERE UserName = " & QuoStr(AppData.UserId) & " AND ReportId = " & AppData.ReportId
+                                ''''    ExecuteSQL(sSQL)
+                                ''''End If
 
                                 If eType = enumReport.enumAssetDetail Or eType = enumReport.enumAssetSummary Or eType = enumReport.enumAssetDetailCost Or
                                             eType = enumReport.enumAssetDetailExempt Or eType = enumReport.enumAssetDetailNon Or
@@ -2161,11 +2184,12 @@
                 sSQL = "select * from ReportData" & sWHERE & " ORDER BY Title01,Text06"
                 sReportFile = "rptAssetImportSummary.rpt"
             Case enumReport.enumAssetSummary
-                sSQL = "SELECT Title01, Text03, Text10, Number04, Number03, Number05, Number06, Number07, Text04, Number15, Number16, Number08, Text09, Number09," &
+                sSQL = "SELECT Title01, Text02, Text05, Text03, Text10, Number04, Number03, Number05, Number06, Number07, Text04, Number15, Number16, Number08, Text09, Number09, Number11," &
                     " BarCode1,BarCode2,BarCodeDesc," &
                     " Sum(Number01) AS Number01, Sum(Number02) AS Number02, SUM(Number10) AS Number10" &
-                    " FROM ReportData" & sWHERE & "  GROUP BY Title01, Text03, Text10, Number04, Number03, Number05," &
-                    " Number06, Number07, Text04, Number15, Number16, Number08, Text09, Number09, BarCode1, BarCode2, BarCodeDesc ORDER BY Text03, Number04 DESC"
+                    " FROM ReportData" & sWHERE & "  GROUP BY Title01, Text02, Text05, Text03, Text10, Number04, Number03, Number05," &
+                    " Number06, Number07, Text04, Number15, Number16, Number08, Text09, Number09, Number11, BarCode1, BarCode2, BarCodeDesc ORDER BY Text02, Text05 DESC, Text03, Number04 DESC"
+                ''sSQL = "select * from ReportData" & sWHERE
                 sReportFile = "rptAssetSummary.rpt"
             Case enumReport.enumAssetDetailExempt, enumReport.enumAssetDetailNon
                 sSQL = "SELECT * FROM ReportData" & sWHERE & "  ORDER BY Text04, Number04 desc, Text01"
@@ -2423,3 +2447,4 @@
         End Try
     End Function
 End Module
+

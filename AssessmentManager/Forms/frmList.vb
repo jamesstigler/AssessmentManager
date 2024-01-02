@@ -29,8 +29,11 @@
     Private eAllocationPctType As enumAllocationPctType
     Private _FreezeLeaseInfoSettings As Boolean = True
     Private _LeaseTypeChanged As Boolean = False
-    Private _LessorNameChanged As Boolean = False
-    Private _LessorAddressChanged As Boolean = False
+    Private _LesseeNameChanged As Boolean = False
+    Private _LesseeAddressChanged As Boolean = False
+    Private _LesseeCityChanged As Boolean = False
+    Private _LesseeStateCdChanged As Boolean = False
+    Private _LesseeZipChanged As Boolean = False
     Private _LeaseTermChanged As Boolean = False
     Private _EquipmentMakeChanged As Boolean = False
     Private _EquipmentModelChanged As Boolean = False
@@ -1439,10 +1442,16 @@
                     column.DefaultCellStyle.Format = csTaxRate
                 Case "LeaseType"
                     column.HeaderText = "Lease Type"
-                Case "LessorName"
-                    column.HeaderText = "Lessor Name"
-                Case "LessorAddress"
-                    column.HeaderText = "Lessor Address"
+                Case "LesseeName"
+                    column.HeaderText = "Lessee Name"
+                Case "LesseeAddress"
+                    column.HeaderText = "Lessee Address"
+                Case "LesseeCity"
+                    column.HeaderText = "Lessee City"
+                Case "LesseeStateCd"
+                    column.HeaderText = "Lessee State"
+                Case "LesseeZip"
+                    column.HeaderText = "Lessee ZIP"
                 Case "LeaseTerm"
                     column.HeaderText = "Lease Term"
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
@@ -3110,8 +3119,9 @@
         End Try
     End Sub
 
-    Private Sub LeaseInfo_TextChanged(sender As Object, e As EventArgs) Handles cboLeaseType.TextChanged, txtEquipmentMake.TextChanged, txtEquipmentModel.TextChanged,
-            txtLeaseTerm.TextChanged, txtLessorAddress.TextChanged, txtLessorName.TextChanged
+    Private Sub LeaseInfo_TextChanged(sender As Object, e As EventArgs) Handles cboLeaseType.TextChanged, txtEquipmentMake.TextChanged,
+            txtEquipmentModel.TextChanged, txtLeaseTerm.TextChanged, txtLesseeAddress.TextChanged, txtLesseeName.TextChanged,
+            txtLesseeCity.TextChanged, cboLesseeStateCd.TextChanged, txtLesseeZip.TextChanged
         If _FreezeLeaseInfoSettings = False And sender.Font.Italic = True Then
             sender.Font = New Font(Me.Font, FontStyle.Regular)
             Select Case sender.name
@@ -3121,12 +3131,18 @@
                     _EquipmentModelChanged = True
                 Case txtLeaseTerm.Name
                     _LeaseTermChanged = True
-                Case txtLessorAddress.Name
-                    _LessorAddressChanged = True
-                Case txtLessorName.Name
-                    _LessorNameChanged = True
+                Case txtLesseeAddress.Name
+                    _LesseeAddressChanged = True
+                Case txtLesseeName.Name
+                    _LesseeNameChanged = True
                 Case cboLeaseType.Name
                     _LeaseTypeChanged = True
+                Case txtLesseeCity.Name
+                    _LesseeCityChanged = True
+                Case cboLesseeStateCd.Name
+                    _LesseeStateCdChanged = True
+                Case txtLesseeZip.Name
+                    _LesseeZipChanged = True
             End Select
         End If
     End Sub
@@ -3144,24 +3160,39 @@
                     cboLeaseType.Items.Add(row("FieldValue").ToString)
                 Next
             End If
+            If cboLesseeStateCd.Items.Count = 0 Then
+                cboLesseeStateCd.Items.Add("")
+                For Each sTemp As String In colStateCodes
+                    cboLesseeStateCd.Items.Add(sTemp)
+                Next
+            End If
             cboLeaseType.Text = "Lease type"
             txtLeaseTerm.Text = "Lease term"
-            txtLessorAddress.Text = "Lessor address"
-            txtLessorName.Text = "Lessor name"
+            txtLesseeAddress.Text = "Lessee address"
+            txtLesseeName.Text = "Lessee name"
+            txtLesseeCity.Text = "Lessee city"
+            cboLesseeStateCd.Text = "Lessee state"
+            txtLesseeZip.Text = "Lessee zip"
             txtEquipmentMake.Text = "Equipment make"
             txtEquipmentModel.Text = "Equipment model"
             cboLeaseType.Font = New Font(cboLeaseType.Font, FontStyle.Italic)
             txtLeaseTerm.Font = New Font(txtLeaseTerm.Font, FontStyle.Italic)
-            txtLessorAddress.Font = New Font(txtLessorAddress.Font, FontStyle.Italic)
-            txtLessorName.Font = New Font(txtLessorName.Font, FontStyle.Italic)
+            txtLesseeAddress.Font = New Font(txtLesseeAddress.Font, FontStyle.Italic)
+            txtLesseeName.Font = New Font(txtLesseeName.Font, FontStyle.Italic)
+            txtLesseeCity.Font = New Font(txtLesseeCity.Font, FontStyle.Italic)
+            cboLesseeStateCd.Font = New Font(cboLesseeStateCd.Font, FontStyle.Italic)
+            txtLesseeZip.Font = New Font(txtLesseeZip.Font, FontStyle.Italic)
             txtEquipmentMake.Font = New Font(txtEquipmentMake.Font, FontStyle.Italic)
             txtEquipmentModel.Font = New Font(txtEquipmentModel.Font, FontStyle.Italic)
             _EquipmentMakeChanged = False
             _EquipmentModelChanged = False
             _LeaseTermChanged = False
             _LeaseTypeChanged = False
-            _LessorAddressChanged = False
-            _LessorNameChanged = False
+            _LesseeAddressChanged = False
+            _LesseeNameChanged = False
+            _LesseeCityChanged = False
+            _LesseeStateCdChanged = False
+            _LesseeZipChanged = False
             _FreezeLeaseInfoSettings = False
 
             pnlLeaseInfo.Visible = True
@@ -3184,8 +3215,21 @@
             If _EquipmentMakeChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" EquipmentMake = ").Append(IIf(txtEquipmentMake.Text.Trim = "", "NULL", QuoStr(txtEquipmentMake.Text)))
             If _EquipmentModelChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" EquipmentModel = ").Append(IIf(txtEquipmentModel.Text.Trim = "", "NULL", QuoStr(txtEquipmentModel.Text)))
             If _LeaseTermChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LeaseTerm = ").Append(IIf(txtLeaseTerm.Text.Trim = "", "NULL", txtLeaseTerm.Text))
-            If _LessorNameChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LessorName = ").Append(IIf(txtLessorName.Text.Trim = "", "NULL", QuoStr(txtLessorName.Text)))
-            If _LessorAddressChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LessorAddress = ").Append(IIf(txtLessorAddress.Text.Trim = "", "NULL", QuoStr(txtLessorAddress.Text)))
+            If _LesseeNameChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LesseeName = ").Append(IIf(txtLesseeName.Text.Trim = "", "NULL", QuoStr(txtLesseeName.Text)))
+            If _LesseeAddressChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LesseeAddress = ").Append(IIf(txtLesseeAddress.Text.Trim = "", "NULL", QuoStr(txtLesseeAddress.Text)))
+            If _LesseeCityChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LesseeCity = ").Append(IIf(txtLesseeCity.Text.Trim = "", "NULL", QuoStr(txtLesseeCity.Text)))
+            If _LesseeStateCdChanged Then
+                Dim statecd As String = ""
+                If cboLesseeStateCd.Text.Trim = "" Then
+                    statecd = ""
+                Else
+                    If colStateNames.Contains(cboLesseeStateCd.Text.Trim) Then
+                        statecd = colStateNames(cboLesseeStateCd.Text.Trim)
+                    End If
+                End If
+                fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LesseeStateCd = ").Append(IIf(statecd = "", "NULL", QuoStr(statecd)))
+            End If
+            If _LesseeZipChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LesseeZip = ").Append(IIf(txtLesseeZip.Text.Trim = "", "NULL", QuoStr(txtLesseeZip.Text)))
             If _LeaseTypeChanged Then fields.Append(IIf(fields.Length > 0, ",", "")).Append(" LeaseType = ").Append(IIf(cboLeaseType.Text.Trim = "", "NULL", QuoStr(cboLeaseType.Text)))
             If fields.Length = 0 Then
                 MsgBox("No changes to be saved")

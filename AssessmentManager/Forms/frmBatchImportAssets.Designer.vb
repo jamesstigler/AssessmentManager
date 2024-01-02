@@ -29,7 +29,15 @@ Partial Class frmBatchImportAssets
         Me.radioImportAdditions = New System.Windows.Forms.RadioButton()
         Me.radioImportComplete = New System.Windows.Forms.RadioButton()
         Me.fraColumns = New System.Windows.Forms.GroupBox()
-        Me.cboLessorName = New System.Windows.Forms.ComboBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.cboLesseeZip = New System.Windows.Forms.ComboBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.cboLesseeStateCd = New System.Windows.Forms.ComboBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.cboLesseeCity = New System.Windows.Forms.ComboBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.cboActivityQty = New System.Windows.Forms.ComboBox()
+        Me.cboLesseeName = New System.Windows.Forms.ComboBox()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.cboEquipmentModel = New System.Windows.Forms.ComboBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -37,7 +45,7 @@ Partial Class frmBatchImportAssets
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.cboLeaseTerm = New System.Windows.Forms.ComboBox()
-        Me.cboLessorAddress = New System.Windows.Forms.ComboBox()
+        Me.cboLesseeAddress = New System.Windows.Forms.ComboBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.cboLeaseType = New System.Windows.Forms.ComboBox()
@@ -81,8 +89,6 @@ Partial Class frmBatchImportAssets
         Me.lblTotals = New System.Windows.Forms.Label()
         Me.dgResults = New System.Windows.Forms.DataGridView()
         Me.cmdPrint = New System.Windows.Forms.Button()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.cboActivityQty = New System.Windows.Forms.ComboBox()
         Me.fraFile.SuspendLayout()
         Me.fraColumns.SuspendLayout()
         CType(Me.dgFileContents, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -154,9 +160,15 @@ Partial Class frmBatchImportAssets
         '
         'fraColumns
         '
+        Me.fraColumns.Controls.Add(Me.Label23)
+        Me.fraColumns.Controls.Add(Me.cboLesseeZip)
+        Me.fraColumns.Controls.Add(Me.Label24)
+        Me.fraColumns.Controls.Add(Me.cboLesseeStateCd)
+        Me.fraColumns.Controls.Add(Me.Label25)
+        Me.fraColumns.Controls.Add(Me.cboLesseeCity)
         Me.fraColumns.Controls.Add(Me.Label22)
         Me.fraColumns.Controls.Add(Me.cboActivityQty)
-        Me.fraColumns.Controls.Add(Me.cboLessorName)
+        Me.fraColumns.Controls.Add(Me.cboLesseeName)
         Me.fraColumns.Controls.Add(Me.Label21)
         Me.fraColumns.Controls.Add(Me.cboEquipmentModel)
         Me.fraColumns.Controls.Add(Me.Label16)
@@ -164,7 +176,7 @@ Partial Class frmBatchImportAssets
         Me.fraColumns.Controls.Add(Me.Label17)
         Me.fraColumns.Controls.Add(Me.Label18)
         Me.fraColumns.Controls.Add(Me.cboLeaseTerm)
-        Me.fraColumns.Controls.Add(Me.cboLessorAddress)
+        Me.fraColumns.Controls.Add(Me.cboLesseeAddress)
         Me.fraColumns.Controls.Add(Me.Label19)
         Me.fraColumns.Controls.Add(Me.Label20)
         Me.fraColumns.Controls.Add(Me.cboLeaseType)
@@ -202,26 +214,99 @@ Partial Class frmBatchImportAssets
         Me.fraColumns.Controls.Add(Me.cboCost)
         Me.fraColumns.Location = New System.Drawing.Point(120, 204)
         Me.fraColumns.Name = "fraColumns"
-        Me.fraColumns.Size = New System.Drawing.Size(984, 424)
+        Me.fraColumns.Size = New System.Drawing.Size(1036, 424)
         Me.fraColumns.TabIndex = 23
         Me.fraColumns.TabStop = False
         Me.fraColumns.Visible = False
         '
-        'cboLessorName
+        'Label23
         '
-        Me.cboLessorName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboLessorName.FormattingEnabled = True
-        Me.cboLessorName.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboLessorName.Location = New System.Drawing.Point(540, 104)
-        Me.cboLessorName.Name = "cboLessorName"
-        Me.cboLessorName.Size = New System.Drawing.Size(60, 21)
-        Me.cboLessorName.TabIndex = 18
+        Me.Label23.Location = New System.Drawing.Point(756, 96)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(60, 32)
+        Me.Label23.TabIndex = 93
+        Me.Label23.Text = "Lessee ZIP"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cboLesseeZip
+        '
+        Me.cboLesseeZip.FormattingEnabled = True
+        Me.cboLesseeZip.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboLesseeZip.Location = New System.Drawing.Point(756, 128)
+        Me.cboLesseeZip.Name = "cboLesseeZip"
+        Me.cboLesseeZip.Size = New System.Drawing.Size(60, 21)
+        Me.cboLesseeZip.TabIndex = 22
+        '
+        'Label24
+        '
+        Me.Label24.Location = New System.Drawing.Point(688, 96)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(60, 32)
+        Me.Label24.TabIndex = 92
+        Me.Label24.Text = "Lessee State"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cboLesseeStateCd
+        '
+        Me.cboLesseeStateCd.FormattingEnabled = True
+        Me.cboLesseeStateCd.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboLesseeStateCd.Location = New System.Drawing.Point(688, 128)
+        Me.cboLesseeStateCd.Name = "cboLesseeStateCd"
+        Me.cboLesseeStateCd.Size = New System.Drawing.Size(60, 21)
+        Me.cboLesseeStateCd.TabIndex = 21
+        '
+        'Label25
+        '
+        Me.Label25.Location = New System.Drawing.Point(620, 96)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(60, 32)
+        Me.Label25.TabIndex = 91
+        Me.Label25.Text = "Lessee City"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cboLesseeCity
+        '
+        Me.cboLesseeCity.FormattingEnabled = True
+        Me.cboLesseeCity.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboLesseeCity.Location = New System.Drawing.Point(620, 128)
+        Me.cboLesseeCity.Name = "cboLesseeCity"
+        Me.cboLesseeCity.Size = New System.Drawing.Size(60, 21)
+        Me.cboLesseeCity.TabIndex = 20
+        '
+        'Label22
+        '
+        Me.Label22.Location = New System.Drawing.Point(352, 96)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(52, 32)
+        Me.Label22.TabIndex = 87
+        Me.Label22.Text = "Activity Qty"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cboActivityQty
+        '
+        Me.cboActivityQty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboActivityQty.FormattingEnabled = True
+        Me.cboActivityQty.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboActivityQty.Location = New System.Drawing.Point(348, 128)
+        Me.cboActivityQty.Name = "cboActivityQty"
+        Me.cboActivityQty.Size = New System.Drawing.Size(60, 21)
+        Me.cboActivityQty.TabIndex = 16
+        '
+        'cboLesseeName
+        '
+        Me.cboLesseeName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboLesseeName.FormattingEnabled = True
+        Me.cboLesseeName.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboLesseeName.Location = New System.Drawing.Point(484, 128)
+        Me.cboLesseeName.Name = "cboLesseeName"
+        Me.cboLesseeName.Size = New System.Drawing.Size(60, 21)
+        Me.cboLesseeName.TabIndex = 18
         '
         'Label21
         '
-        Me.Label21.Location = New System.Drawing.Point(884, 88)
+        Me.Label21.Location = New System.Drawing.Point(960, 96)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(76, 16)
+        Me.Label21.Size = New System.Drawing.Size(60, 32)
         Me.Label21.TabIndex = 85
         Me.Label21.Text = "Equip Model"
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -230,16 +315,16 @@ Partial Class frmBatchImportAssets
         '
         Me.cboEquipmentModel.FormattingEnabled = True
         Me.cboEquipmentModel.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboEquipmentModel.Location = New System.Drawing.Point(892, 104)
+        Me.cboEquipmentModel.Location = New System.Drawing.Point(960, 128)
         Me.cboEquipmentModel.Name = "cboEquipmentModel"
         Me.cboEquipmentModel.Size = New System.Drawing.Size(60, 21)
-        Me.cboEquipmentModel.TabIndex = 22
+        Me.cboEquipmentModel.TabIndex = 25
         '
         'Label16
         '
-        Me.Label16.Location = New System.Drawing.Point(796, 88)
+        Me.Label16.Location = New System.Drawing.Point(892, 96)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(76, 16)
+        Me.Label16.Size = New System.Drawing.Size(60, 32)
         Me.Label16.TabIndex = 83
         Me.Label16.Text = "Equip Make"
         Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -248,61 +333,61 @@ Partial Class frmBatchImportAssets
         '
         Me.cboEquipmentMake.FormattingEnabled = True
         Me.cboEquipmentMake.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboEquipmentMake.Location = New System.Drawing.Point(804, 104)
+        Me.cboEquipmentMake.Location = New System.Drawing.Point(892, 128)
         Me.cboEquipmentMake.Name = "cboEquipmentMake"
         Me.cboEquipmentMake.Size = New System.Drawing.Size(60, 21)
-        Me.cboEquipmentMake.TabIndex = 21
+        Me.cboEquipmentMake.TabIndex = 24
         '
         'Label17
         '
-        Me.Label17.Location = New System.Drawing.Point(708, 88)
+        Me.Label17.Location = New System.Drawing.Point(824, 96)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(76, 16)
+        Me.Label17.Size = New System.Drawing.Size(60, 32)
         Me.Label17.TabIndex = 82
         Me.Label17.Text = "Lease Term"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label18
         '
-        Me.Label18.Location = New System.Drawing.Point(616, 88)
+        Me.Label18.Location = New System.Drawing.Point(552, 96)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(84, 16)
+        Me.Label18.Size = New System.Drawing.Size(60, 32)
         Me.Label18.TabIndex = 81
-        Me.Label18.Text = "Lessor Address"
+        Me.Label18.Text = "Lessee Address"
         Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'cboLeaseTerm
         '
         Me.cboLeaseTerm.FormattingEnabled = True
         Me.cboLeaseTerm.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboLeaseTerm.Location = New System.Drawing.Point(716, 104)
+        Me.cboLeaseTerm.Location = New System.Drawing.Point(824, 128)
         Me.cboLeaseTerm.Name = "cboLeaseTerm"
         Me.cboLeaseTerm.Size = New System.Drawing.Size(60, 21)
-        Me.cboLeaseTerm.TabIndex = 20
+        Me.cboLeaseTerm.TabIndex = 23
         '
-        'cboLessorAddress
+        'cboLesseeAddress
         '
-        Me.cboLessorAddress.FormattingEnabled = True
-        Me.cboLessorAddress.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboLessorAddress.Location = New System.Drawing.Point(628, 104)
-        Me.cboLessorAddress.Name = "cboLessorAddress"
-        Me.cboLessorAddress.Size = New System.Drawing.Size(60, 21)
-        Me.cboLessorAddress.TabIndex = 19
+        Me.cboLesseeAddress.FormattingEnabled = True
+        Me.cboLesseeAddress.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboLesseeAddress.Location = New System.Drawing.Point(552, 128)
+        Me.cboLesseeAddress.Name = "cboLesseeAddress"
+        Me.cboLesseeAddress.Size = New System.Drawing.Size(60, 21)
+        Me.cboLesseeAddress.TabIndex = 19
         '
         'Label19
         '
-        Me.Label19.Location = New System.Drawing.Point(532, 88)
+        Me.Label19.Location = New System.Drawing.Point(484, 96)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(76, 16)
+        Me.Label19.Size = New System.Drawing.Size(60, 32)
         Me.Label19.TabIndex = 80
-        Me.Label19.Text = "Lessor Name"
+        Me.Label19.Text = "Lessee Name"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label20
         '
-        Me.Label20.Location = New System.Drawing.Point(448, 88)
+        Me.Label20.Location = New System.Drawing.Point(416, 96)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(64, 16)
+        Me.Label20.Size = New System.Drawing.Size(60, 32)
         Me.Label20.TabIndex = 79
         Me.Label20.Text = "Lease Type"
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -312,14 +397,14 @@ Partial Class frmBatchImportAssets
         Me.cboLeaseType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboLeaseType.FormattingEnabled = True
         Me.cboLeaseType.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboLeaseType.Location = New System.Drawing.Point(452, 104)
+        Me.cboLeaseType.Location = New System.Drawing.Point(416, 128)
         Me.cboLeaseType.Name = "cboLeaseType"
         Me.cboLeaseType.Size = New System.Drawing.Size(60, 21)
         Me.cboLeaseType.TabIndex = 17
         '
         'Label15
         '
-        Me.Label15.Location = New System.Drawing.Point(8, 40)
+        Me.Label15.Location = New System.Drawing.Point(4, 40)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(69, 16)
         Me.Label15.TabIndex = 73
@@ -330,7 +415,7 @@ Partial Class frmBatchImportAssets
         '
         Me.cboClientLocationId.FormattingEnabled = True
         Me.cboClientLocationId.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboClientLocationId.Location = New System.Drawing.Point(12, 56)
+        Me.cboClientLocationId.Location = New System.Drawing.Point(8, 56)
         Me.cboClientLocationId.Name = "cboClientLocationId"
         Me.cboClientLocationId.Size = New System.Drawing.Size(60, 21)
         Me.cboClientLocationId.TabIndex = 0
@@ -341,17 +426,17 @@ Partial Class frmBatchImportAssets
         Me.dgFileContents.AllowUserToAddRows = False
         Me.dgFileContents.AllowUserToDeleteRows = False
         Me.dgFileContents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgFileContents.Location = New System.Drawing.Point(8, 132)
+        Me.dgFileContents.Location = New System.Drawing.Point(8, 156)
         Me.dgFileContents.Name = "dgFileContents"
         Me.dgFileContents.ReadOnly = True
-        Me.dgFileContents.Size = New System.Drawing.Size(964, 280)
+        Me.dgFileContents.Size = New System.Drawing.Size(1020, 256)
         Me.dgFileContents.TabIndex = 22
         '
         'Label14
         '
-        Me.Label14.Location = New System.Drawing.Point(268, 88)
+        Me.Label14.Location = New System.Drawing.Point(280, 96)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(100, 16)
+        Me.Label14.Size = New System.Drawing.Size(60, 32)
         Me.Label14.TabIndex = 70
         Me.Label14.Text = "Interstate Alloc Pct"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -360,14 +445,14 @@ Partial Class frmBatchImportAssets
         '
         Me.cboAllocationPct.FormattingEnabled = True
         Me.cboAllocationPct.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboAllocationPct.Location = New System.Drawing.Point(284, 104)
+        Me.cboAllocationPct.Location = New System.Drawing.Point(280, 128)
         Me.cboAllocationPct.Name = "cboAllocationPct"
         Me.cboAllocationPct.Size = New System.Drawing.Size(60, 21)
         Me.cboAllocationPct.TabIndex = 15
         '
         'Label12
         '
-        Me.Label12.Location = New System.Drawing.Point(232, 88)
+        Me.Label12.Location = New System.Drawing.Point(228, 112)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(29, 16)
         Me.Label12.TabIndex = 69
@@ -376,7 +461,7 @@ Partial Class frmBatchImportAssets
         '
         'Label13
         '
-        Me.Label13.Location = New System.Drawing.Point(148, 88)
+        Me.Label13.Location = New System.Drawing.Point(144, 112)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(60, 16)
         Me.Label13.TabIndex = 68
@@ -387,7 +472,7 @@ Partial Class frmBatchImportAssets
         '
         Me.cboVIN.FormattingEnabled = True
         Me.cboVIN.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboVIN.Location = New System.Drawing.Point(216, 104)
+        Me.cboVIN.Location = New System.Drawing.Point(212, 128)
         Me.cboVIN.Name = "cboVIN"
         Me.cboVIN.Size = New System.Drawing.Size(60, 21)
         Me.cboVIN.TabIndex = 14
@@ -396,21 +481,21 @@ Partial Class frmBatchImportAssets
         '
         Me.cboAddress.FormattingEnabled = True
         Me.cboAddress.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboAddress.Location = New System.Drawing.Point(148, 104)
+        Me.cboAddress.Location = New System.Drawing.Point(144, 128)
         Me.cboAddress.Name = "cboAddress"
         Me.cboAddress.Size = New System.Drawing.Size(60, 21)
         Me.cboAddress.TabIndex = 13
         '
         'txtDisposedValue
         '
-        Me.txtDisposedValue.Location = New System.Drawing.Point(80, 104)
+        Me.txtDisposedValue.Location = New System.Drawing.Point(76, 128)
         Me.txtDisposedValue.Name = "txtDisposedValue"
         Me.txtDisposedValue.Size = New System.Drawing.Size(60, 20)
         Me.txtDisposedValue.TabIndex = 12
         '
         'Label11
         '
-        Me.Label11.Location = New System.Drawing.Point(80, 88)
+        Me.Label11.Location = New System.Drawing.Point(76, 112)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(60, 16)
         Me.Label11.TabIndex = 67
@@ -419,7 +504,7 @@ Partial Class frmBatchImportAssets
         '
         'Label10
         '
-        Me.Label10.Location = New System.Drawing.Point(12, 88)
+        Me.Label10.Location = New System.Drawing.Point(8, 112)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(60, 16)
         Me.Label10.TabIndex = 66
@@ -431,7 +516,7 @@ Partial Class frmBatchImportAssets
         Me.cboDisposed.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboDisposed.FormattingEnabled = True
         Me.cboDisposed.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboDisposed.Location = New System.Drawing.Point(12, 104)
+        Me.cboDisposed.Location = New System.Drawing.Point(8, 128)
         Me.cboDisposed.Name = "cboDisposed"
         Me.cboDisposed.Size = New System.Drawing.Size(60, 21)
         Me.cboDisposed.TabIndex = 11
@@ -467,18 +552,18 @@ Partial Class frmBatchImportAssets
         '
         'Label8
         '
-        Me.Label8.Location = New System.Drawing.Point(260, 40)
+        Me.Label8.Location = New System.Drawing.Point(208, 28)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(95, 16)
+        Me.Label8.Size = New System.Drawing.Size(64, 28)
         Me.Label8.TabIndex = 64
         Me.Label8.Text = "Purchase Date"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label7
         '
-        Me.Label7.Location = New System.Drawing.Point(360, 40)
+        Me.Label7.Location = New System.Drawing.Point(276, 40)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(63, 16)
+        Me.Label7.Size = New System.Drawing.Size(64, 16)
         Me.Label7.TabIndex = 63
         Me.Label7.Text = "Description"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -512,7 +597,7 @@ Partial Class frmBatchImportAssets
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(188, 40)
+        Me.Label3.Location = New System.Drawing.Point(144, 40)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(60, 16)
         Me.Label3.TabIndex = 58
@@ -521,7 +606,7 @@ Partial Class frmBatchImportAssets
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(96, 40)
+        Me.Label2.Location = New System.Drawing.Point(72, 40)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(67, 16)
         Me.Label2.TabIndex = 56
@@ -530,7 +615,7 @@ Partial Class frmBatchImportAssets
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(452, 40)
+        Me.Label1.Location = New System.Drawing.Point(344, 40)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(60, 16)
         Me.Label1.TabIndex = 54
@@ -541,16 +626,16 @@ Partial Class frmBatchImportAssets
         '
         Me.cboPurchaseDate.FormattingEnabled = True
         Me.cboPurchaseDate.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboPurchaseDate.Location = New System.Drawing.Point(276, 56)
+        Me.cboPurchaseDate.Location = New System.Drawing.Point(212, 56)
         Me.cboPurchaseDate.Name = "cboPurchaseDate"
-        Me.cboPurchaseDate.Size = New System.Drawing.Size(60, 21)
+        Me.cboPurchaseDate.Size = New System.Drawing.Size(56, 21)
         Me.cboPurchaseDate.TabIndex = 3
         '
         'cboDescription
         '
         Me.cboDescription.FormattingEnabled = True
         Me.cboDescription.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboDescription.Location = New System.Drawing.Point(364, 56)
+        Me.cboDescription.Location = New System.Drawing.Point(276, 56)
         Me.cboDescription.Name = "cboDescription"
         Me.cboDescription.Size = New System.Drawing.Size(60, 21)
         Me.cboDescription.TabIndex = 4
@@ -589,7 +674,7 @@ Partial Class frmBatchImportAssets
         '
         Me.cboGLCode.FormattingEnabled = True
         Me.cboGLCode.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboGLCode.Location = New System.Drawing.Point(188, 56)
+        Me.cboGLCode.Location = New System.Drawing.Point(144, 56)
         Me.cboGLCode.Name = "cboGLCode"
         Me.cboGLCode.Size = New System.Drawing.Size(60, 21)
         Me.cboGLCode.TabIndex = 2
@@ -598,7 +683,7 @@ Partial Class frmBatchImportAssets
         '
         Me.cboAssetId.FormattingEnabled = True
         Me.cboAssetId.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboAssetId.Location = New System.Drawing.Point(100, 56)
+        Me.cboAssetId.Location = New System.Drawing.Point(76, 56)
         Me.cboAssetId.Name = "cboAssetId"
         Me.cboAssetId.Size = New System.Drawing.Size(60, 21)
         Me.cboAssetId.TabIndex = 1
@@ -608,7 +693,7 @@ Partial Class frmBatchImportAssets
         Me.cboCost.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboCost.FormattingEnabled = True
         Me.cboCost.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboCost.Location = New System.Drawing.Point(452, 56)
+        Me.cboCost.Location = New System.Drawing.Point(344, 56)
         Me.cboCost.Name = "cboCost"
         Me.cboCost.Size = New System.Drawing.Size(60, 21)
         Me.cboCost.TabIndex = 5
@@ -694,25 +779,6 @@ Partial Class frmBatchImportAssets
         Me.cmdPrint.Text = "Print"
         Me.cmdPrint.UseVisualStyleBackColor = True
         '
-        'Label22
-        '
-        Me.Label22.Location = New System.Drawing.Point(368, 88)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(64, 16)
-        Me.Label22.TabIndex = 87
-        Me.Label22.Text = "Activity Qty"
-        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'cboActivityQty
-        '
-        Me.cboActivityQty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboActivityQty.FormattingEnabled = True
-        Me.cboActivityQty.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboActivityQty.Location = New System.Drawing.Point(372, 104)
-        Me.cboActivityQty.Name = "cboActivityQty"
-        Me.cboActivityQty.Size = New System.Drawing.Size(60, 21)
-        Me.cboActivityQty.TabIndex = 16
-        '
         'frmBatchImportAssets
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -796,11 +862,17 @@ Partial Class frmBatchImportAssets
     Friend WithEvents Label17 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents cboLeaseTerm As ComboBox
-    Friend WithEvents cboLessorAddress As ComboBox
+    Friend WithEvents cboLesseeAddress As ComboBox
     Friend WithEvents Label19 As Label
     Friend WithEvents Label20 As Label
     Friend WithEvents cboLeaseType As ComboBox
-    Friend WithEvents cboLessorName As ComboBox
+    Friend WithEvents cboLesseeName As ComboBox
     Friend WithEvents Label22 As Label
     Friend WithEvents cboActivityQty As ComboBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents cboLesseeZip As ComboBox
+    Friend WithEvents Label24 As Label
+    Friend WithEvents cboLesseeStateCd As ComboBox
+    Friend WithEvents Label25 As Label
+    Friend WithEvents cboLesseeCity As ComboBox
 End Class

@@ -51,7 +51,9 @@
                 " StateCd varchar(2), Zip varchar(50), AcctNum varchar(50), OriginalCost bigint, ClientLocationId varchar(255)," &
                 " PurchaseDate datetime, Description varchar(255), GLCode varchar(50), VIN varchar(255), LocationAddress varchar(255)," &
                 " AssetId varchar(30)," &
-                " [LessorName] [varchar](50) NULL,[LessorAddress] [varchar](255) NULL,[LeaseTerm] [smallint] NULL,[EquipmentMake] [varchar](50) NULL," &
+                " [LesseeName] [varchar](50) NULL,[LesseeAddress] [varchar](255) NULL," &
+                " [LesseeCity] [varchar](255) NULL,[LesseeStateCd] [varchar](2) NULL," & " [LesseeZip] [varchar](10) NULL," &
+                " [LeaseTerm] [smallint] NULL,[EquipmentMake] [varchar](50) NULL," &
                 " [EquipmentModel] [varchar](50) NULL,[LeaseType] [varchar](50) NULL, AuditFl bit null, ActivityQty bigint null)"
             lRows = ExecuteSQL(sSQL)
             sSQL = "INSERT INTO " & sExistingAssetsTableName &
@@ -60,7 +62,9 @@
                 " a.PurchaseDate, ISNULL(a.Description,'') AS Description, ISNULL(a.GLCode,'') AS GLCode," &
                 " ISNULL(a.VIN,'') AS VIN, ISNULL(a.LocationAddress,'') AS LocationAddress," &
                 " a.AssetId," &
-                " ISNULL(a.[LessorName],''),ISNULL(a.[LessorAddress],''),ISNULL(a.[LeaseTerm],0),ISNULL(a.[EquipmentMake],''),ISNULL(a.[EquipmentModel],''),ISNULL(a.[LeaseType],'')" &
+                " ISNULL(a.[LesseeName],''),ISNULL(a.[LesseeAddress],'')," &
+                " ISNULL(a.[LesseeCity],''),ISNULL(a.[LesseeStateCd],''),ISNULL(a.[LesseeZip],'')," &
+                " ISNULL(a.[LeaseTerm],0),ISNULL(a.[EquipmentMake],''),ISNULL(a.[EquipmentModel],''),ISNULL(a.[LeaseType],'')" &
                 " ,ISNULL(a.AuditFl,0), ISNULL(a.ActivityQty,0)" &
                 " FROM Clients AS c INNER JOIN" &
                 " LocationsBPP AS l ON c.ClientId = l.ClientId INNER JOIN" &
@@ -92,8 +96,11 @@
             sSQL = sSQL & "[LocationAddress] [varchar](255) NULL,"
             sSQL = sSQL & "[AssetId] [varchar](30) NULL,"
             sSQL = sSQL & "[InterstateAllocationPct] [float] NULL,"
-            sSQL = sSQL & "[LessorName] [varchar](50) NULL, [LessorAddress] [varchar](255) NULL, [LeaseTerm] [smallint] NULL,"
-            sSQL = sSQL & "[EquipmentMake] [varchar](50) NULL, [EquipmentModel] [varchar](50) NULL, [LeaseType] [varchar](50) NULL, AuditFl bit null, ActivityQty bigint null,"
+            sSQL = sSQL & "[LesseeName] [varchar](50) NULL, [LesseeAddress] [varchar](255) NULL,"
+            sSQL = sSQL & "[LesseeCity] [varchar](255) NULL, [LesseeStateCd] [varchar](2) NULL,[LesseeZip] [varchar](10) NULL,"
+            sSQL = sSQL & "[LeaseTerm] [smallint] NULL,"
+            sSQL = sSQL & "[EquipmentMake] [varchar](50) NULL, [EquipmentModel] [varchar](50) NULL, [LeaseType] [varchar](50) NULL,"
+            sSQL = sSQL & "AuditFl bit null, ActivityQty bigint null,"
             sSQL = sSQL & "[Status] [varchar](50) NULL,"
             sSQL = sSQL & "[ErrorType] [int] NULL)"
             ExecuteSQL(sSQL)
@@ -173,10 +180,16 @@
 
         cboLeaseType.Items.Clear()
         cboLeaseType.Items.Add("")
-        cboLessorName.Items.Clear()
-        cboLessorName.Items.Add("")
-        cboLessorAddress.Items.Clear()
-        cboLessorAddress.Items.Add("")
+        cboLesseeName.Items.Clear()
+        cboLesseeName.Items.Add("")
+        cboLesseeAddress.Items.Clear()
+        cboLesseeAddress.Items.Add("")
+        cboLesseeCity.Items.Clear()
+        cboLesseeCity.Items.Add("")
+        cboLesseeStateCd.Items.Clear()
+        cboLesseeStateCd.Items.Add("")
+        cboLesseeZip.Items.Clear()
+        cboLesseeZip.Items.Add("")
         cboLeaseTerm.Items.Clear()
         cboLeaseTerm.Items.Add("")
         cboEquipmentMake.Items.Clear()
@@ -220,8 +233,11 @@
             cboAddress.Items.Add(lColumn)
             cboAllocationPct.Items.Add(lColumn)
             cboLeaseType.Items.Add(lColumn)
-            cboLessorName.Items.Add(lColumn)
-            cboLessorAddress.Items.Add(lColumn)
+            cboLesseeName.Items.Add(lColumn)
+            cboLesseeAddress.Items.Add(lColumn)
+            cboLesseeCity.Items.Add(lColumn)
+            cboLesseeStateCd.Items.Add(lColumn)
+            cboLesseeZip.Items.Add(lColumn)
             cboLeaseTerm.Items.Add(lColumn)
             cboEquipmentMake.Items.Add(lColumn)
             cboEquipmentModel.Items.Add(lColumn)
@@ -289,7 +305,8 @@
         Dim sAssetId As String = "", lOriginalCost As Long = 0, sPurchaseDate As String = "", sDescription As String = "", sGLCode As String = ""
         Dim sVIN As String = "", sLocationAddress As String = "", dInterstateAllocationPct As Double = 0, sTemp As String = ""
         Dim sClientLocationId As String = ""
-        Dim sLessorName As String = "", sLessorAddress As String = "", sLeaseTerm As String = "", sEquipmentMake As String = "", sEquipmentModel As String = "", sLeaseType As String = ""
+        Dim sLesseeName As String = "", sLesseeAddress As String = "", sLeaseTerm As String = "", sEquipmentMake As String = "", sEquipmentModel As String = "", sLeaseType As String = ""
+        Dim sLesseeCity As String = "", sLesseeStateCd As String = "", sLesseeZip As String = ""
         Dim sActivityQty As String = ""
         Dim Asset As structAsset
         Dim iProgress As Integer = 0, lTotalRows As Long = 0, assetidaray(0) As String
@@ -319,8 +336,11 @@
 
                     sLeaseTerm = UnNullToString(dgResults.Rows(lRow).Cells("LeaseTerm").Value)
                     sLeaseType = UnNullToString(dgResults.Rows(lRow).Cells("LeaseType").Value)
-                    sLessorAddress = UnNullToString(dgResults.Rows(lRow).Cells("LessorAddress").Value)
-                    sLessorName = UnNullToString(dgResults.Rows(lRow).Cells("LessorName").Value)
+                    sLesseeAddress = UnNullToString(dgResults.Rows(lRow).Cells("LesseeAddress").Value)
+                    sLesseeName = UnNullToString(dgResults.Rows(lRow).Cells("LesseeName").Value)
+                    sLesseeCity = UnNullToString(dgResults.Rows(lRow).Cells("LesseeCity").Value)
+                    sLesseeStateCd = UnNullToString(dgResults.Rows(lRow).Cells("LesseeStateCd").Value)
+                    sLesseeZip = UnNullToString(dgResults.Rows(lRow).Cells("LesseeZip").Value)
                     sEquipmentMake = UnNullToString(dgResults.Rows(lRow).Cells("EquipmentMake").Value)
                     sEquipmentModel = UnNullToString(dgResults.Rows(lRow).Cells("EquipmentModel").Value)
                     sActivityQty = UnNullToString(dgResults.Rows(lRow).Cells("ActivityQty").Value)
@@ -336,8 +356,11 @@
                     Asset.sEquipmentModel = sEquipmentModel
                     Asset.sGLCode = sGLCode
                     Asset.sLeaseType = sLeaseType
-                    Asset.sLessorAddress = sLessorAddress
-                    Asset.sLessorName = sLessorName
+                    Asset.sLesseeAddress = sLesseeAddress
+                    Asset.sLesseeName = sLesseeName
+                    Asset.sLesseeCity = sLesseeCity
+                    Asset.sLesseeStateCd = sLesseeStateCd
+                    Asset.sLesseeZip = sLesseeZip
                     Asset.sLocationAddress = sLocationAddress
                     Asset.sPurchaseDate = sPurchaseDate
                     Asset.sVIN = sVIN
@@ -350,8 +373,11 @@
                             " Description = " & QuoStr(sDescription) & "," &
                             " VIN = " & IIf(sVIN = "", "NULL", QuoStr(sVIN)) & "," &
                             " LocationAddress = " & IIf(sLocationAddress = "", "NULL", QuoStr(sLocationAddress)) & "," &
-                            " LessorName = " & IIf(sLessorName = "", "NULL", QuoStr(sLessorName)) & "," &
-                            " LessorAddress = " & IIf(sLessorAddress = "", "NULL", QuoStr(sLessorAddress)) & "," &
+                            " LesseeName = " & IIf(sLesseeName = "", "NULL", QuoStr(sLesseeName)) & "," &
+                            " LesseeAddress = " & IIf(sLesseeAddress = "", "NULL", QuoStr(sLesseeAddress)) & "," &
+                            " LesseeCity = " & IIf(sLesseeCity = "", "NULL", QuoStr(sLesseeCity)) & "," &
+                            " LesseeStateCd = " & IIf(sLesseeStateCd = "", "NULL", QuoStr(sLesseeStateCd)) & "," &
+                            " LesseeZip = " & IIf(sLesseeZip = "", "NULL", QuoStr(sLesseeZip)) & "," &
                             " LeaseTerm = " & IIf(sLeaseTerm = "", "NULL", sLeaseTerm) & "," &
                             " EquipmentMake = " & IIf(sEquipmentMake = "", "NULL", QuoStr(sEquipmentMake)) & "," &
                             " EquipmentModel = " & IIf(sEquipmentModel = "", "NULL", QuoStr(sEquipmentModel)) & "," &
@@ -587,7 +613,8 @@
             cboDescription.TextChanged, cboCost.TextChanged, cboMonth.TextChanged, cboDay.TextChanged,
             cboYear.TextChanged, cboDisposed.TextChanged, cboAddress.TextChanged, cboVIN.TextChanged,
             cboAllocationPct.TextChanged, cboClientLocationId.TextChanged, cboEquipmentMake.TextChanged, cboEquipmentModel.TextChanged,
-            cboLeaseTerm.TextChanged, cboLeaseType.TextChanged, cboLessorAddress.TextChanged, cboLessorName.TextChanged, cboActivityQty.TextChanged
+            cboLeaseTerm.TextChanged, cboLeaseType.TextChanged, cboLesseeAddress.TextChanged, cboLesseeName.TextChanged, cboActivityQty.TextChanged,
+            cboLesseeCity.TextChanged, cboLesseeStateCd.TextChanged, cboLesseeZip.TextChanged
         If Trim(sender.text) = "" Or (Val(sender.text) >= 1 And Val(sender.text) <= iNumberOfColumns) Then
             RenameColumns()
         End If
@@ -708,19 +735,43 @@
         End If
 
         For i = 0 To dgFileContents.Columns.Count - 1
-            If dgFileContents.Columns(i).HeaderText = "Lessor Name" Then dgFileContents.Columns(i).HeaderText = i + 1
+            If dgFileContents.Columns(i).HeaderText = "Lessee Name" Then dgFileContents.Columns(i).HeaderText = i + 1
         Next
-        If Trim(cboLessorName.Text) <> "" Then
-            iColumn = Val(cboLessorName.Text) - 1
-            dgFileContents.Columns.Item(iColumn).HeaderText = "Lessor Name"
+        If Trim(cboLesseeName.Text) <> "" Then
+            iColumn = Val(cboLesseeName.Text) - 1
+            dgFileContents.Columns.Item(iColumn).HeaderText = "Lessee Name"
         End If
 
         For i = 0 To dgFileContents.Columns.Count - 1
-            If dgFileContents.Columns(i).HeaderText = "Lessor Address" Then dgFileContents.Columns(i).HeaderText = i + 1
+            If dgFileContents.Columns(i).HeaderText = "Lessee Address" Then dgFileContents.Columns(i).HeaderText = i + 1
         Next
-        If Trim(cboLessorAddress.Text) <> "" Then
-            iColumn = Val(cboLessorAddress.Text) - 1
-            dgFileContents.Columns.Item(iColumn).HeaderText = "Lessor Address"
+        If Trim(cboLesseeAddress.Text) <> "" Then
+            iColumn = Val(cboLesseeAddress.Text) - 1
+            dgFileContents.Columns.Item(iColumn).HeaderText = "Lessee Address"
+        End If
+
+        For i = 0 To dgFileContents.Columns.Count - 1
+            If dgFileContents.Columns(i).HeaderText = "Lessee City" Then dgFileContents.Columns(i).HeaderText = i + 1
+        Next
+        If Trim(cboLesseeCity.Text) <> "" Then
+            iColumn = Val(cboLesseeCity.Text) - 1
+            dgFileContents.Columns.Item(iColumn).HeaderText = "Lessee City"
+        End If
+
+        For i = 0 To dgFileContents.Columns.Count - 1
+            If dgFileContents.Columns(i).HeaderText = "Lessee State" Then dgFileContents.Columns(i).HeaderText = i + 1
+        Next
+        If Trim(cboLesseeStateCd.Text) <> "" Then
+            iColumn = Val(cboLesseeStateCd.Text) - 1
+            dgFileContents.Columns.Item(iColumn).HeaderText = "Lessee State"
+        End If
+
+        For i = 0 To dgFileContents.Columns.Count - 1
+            If dgFileContents.Columns(i).HeaderText = "Lessee Zip" Then dgFileContents.Columns(i).HeaderText = i + 1
+        Next
+        If Trim(cboLesseeZip.Text) <> "" Then
+            iColumn = Val(cboLesseeZip.Text) - 1
+            dgFileContents.Columns.Item(iColumn).HeaderText = "Lessee Zip"
         End If
 
         For i = 0 To dgFileContents.Columns.Count - 1
@@ -815,8 +866,11 @@
             If cboDescription.Text <> "" Then sInsertSQL = sInsertSQL & ", Description"
             If cboAllocationPct.Text <> "" Then sInsertSQL = sInsertSQL & ", InterstateAllocationPct"
             If cboLeaseType.Text <> "" Then sInsertSQL = sInsertSQL & ", LeaseType"
-            If cboLessorName.Text <> "" Then sInsertSQL = sInsertSQL & ", LessorName"
-            If cboLessorAddress.Text <> "" Then sInsertSQL = sInsertSQL & ", LessorAddress"
+            If cboLesseeName.Text <> "" Then sInsertSQL = sInsertSQL & ", LesseeName"
+            If cboLesseeAddress.Text <> "" Then sInsertSQL = sInsertSQL & ", LesseeAddress"
+            If cboLesseeCity.Text <> "" Then sInsertSQL = sInsertSQL & ", LesseeCity"
+            If cboLesseeStateCd.Text <> "" Then sInsertSQL = sInsertSQL & ", LesseeStateCd"
+            If cboLesseeZip.Text <> "" Then sInsertSQL = sInsertSQL & ", LesseeZip"
             If cboLeaseTerm.Text <> "" Then sInsertSQL = sInsertSQL & ", LeaseTerm"
             If cboEquipmentMake.Text <> "" Then sInsertSQL = sInsertSQL & ", EquipmentMake"
             If cboEquipmentModel.Text <> "" Then sInsertSQL = sInsertSQL & ", EquipmentModel"
@@ -860,8 +914,12 @@
             End If
 
             If cboLeaseType.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LeaseType))"
-            If cboLessorName.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LessorName))"
-            If cboLessorAddress.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LessorAddress))"
+            If cboLesseeName.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LesseeName))"
+            If cboLesseeAddress.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LesseeAddress))"
+            If cboLesseeCity.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LesseeCity))"
+            ''If cboLesseeStateCd.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LesseeStateCd))"
+            If cboLesseeStateCd.Text <> "" Then sSQL = sSQL & ",CASE WHEN RTRIM(LTRIM(ISNULL(i.LesseeStateCd,''))) = '' THEN NULL ELSE CASE WHEN (SELECT s.StateCd FROM States s WHERE s.StateCd = RTRIM(LTRIM(i.LesseeStateCd))) IS NULL THEN CASE WHEN (SELECT s.StateCd FROM States s WHERE s.StateName = RTRIM(LTRIM(i.LesseeStateCd))) IS NULL THEN NULL ELSE (SELECT s.StateCd FROM States s WHERE s.StateName = RTRIM(LTRIM(i.LesseeStateCd))) END ELSE RTRIM(LTRIM(i.LesseeStateCd)) END END"
+            If cboLesseeZip.Text <> "" Then sSQL = sSQL & ",LTRIM(RTRIM(i.LesseeZip))"
             If cboLeaseTerm.Text <> "" Then
                 sSQL = sSQL & ",CASE WHEN RTRIM(LTRIM(ISNULL(i.LeaseTerm,''))) = '' THEN NULL ELSE ROUND(CONVERT(smallint,REPLACE(REPLACE(i.LeaseTerm,'%',''),',','')),0) END"
             End If
@@ -870,7 +928,6 @@
             If cboActivityQty.Text <> "" Then
                 sSQL = sSQL & ",CASE WHEN RTRIM(LTRIM(ISNULL(i.ActivityQty,''))) = '' THEN NULL ELSE ROUND(CONVERT(bigint,REPLACE(REPLACE(i.ActivityQty,'%',''),',','')),0) END"
             End If
-
 
             sSQL = sSQL & " FROM " & sImportedAssetsTableName & " i"
             ExecuteSQL(sSQL)
@@ -987,7 +1044,8 @@
 
             dgResults.Columns.Clear()
             sSQL = "SELECT " & IIf(_IsSpecificAccount = False, "ClientLocationId,", "") & "AssetId,GLCode,PurchaseDate,OriginalCost,Description,VIN,LocationAddress,InterstateAllocationPct," &
-                " LeaseType, LessorName, LessorAddress, LeaseTerm, EquipmentMake, EquipmentModel,ActivityQty," &
+                " LeaseType, LesseeName, LesseeAddress,LesseeCity,LesseeStateCd,LesseeZip," &
+                " LeaseTerm, EquipmentMake, EquipmentModel,ActivityQty," &
                 " Status,ErrorType" &
                 " FROM " & sResultsTableName & " ORDER BY " & IIf(_IsSpecificAccount, "", "ClientLocationId,") & "AssetId"
             Dim bind As New BindingSource
@@ -1000,8 +1058,11 @@
             dgResults.Columns("Description").Visible = Not (cboDescription.Text = "")
             dgResults.Columns("InterstateAllocationPct").Visible = Not (cboAllocationPct.Text = "")
             dgResults.Columns("LeaseType").Visible = Not (cboLeaseType.Text = "")
-            dgResults.Columns("LessorName").Visible = Not (cboLessorName.Text = "")
-            dgResults.Columns("LessorAddress").Visible = Not (cboLessorAddress.Text = "")
+            dgResults.Columns("LesseeName").Visible = Not (cboLesseeName.Text = "")
+            dgResults.Columns("LesseeAddress").Visible = Not (cboLesseeAddress.Text = "")
+            dgResults.Columns("LesseeCity").Visible = Not (cboLesseeCity.Text = "")
+            dgResults.Columns("LesseeStateCd").Visible = Not (cboLesseeStateCd.Text = "")
+            dgResults.Columns("LesseeZip").Visible = Not (cboLesseeZip.Text = "")
             dgResults.Columns("LeaseTerm").Visible = Not (cboLeaseTerm.Text = "")
             dgResults.Columns("EquipmentMake").Visible = Not (cboEquipmentMake.Text = "")
             dgResults.Columns("EquipmentModel").Visible = Not (cboEquipmentModel.Text = "")
@@ -1059,7 +1120,7 @@
                 " FROM " & sResultsTableName & " AS t" &
                 " INNER JOIN (SELECT DISTINCT t3.ClientLocationId" &
                 " FROM " & sResultsTableName & " t3 WHERE Not EXISTS (SELECT t4.ClientLocationId FROM " & sResultsTableName & " t4" &
-                " WHERE t4.ClientLocationId = t3.ClientLocationId And t4.ErrorType NOT IN(" & ErrorType.NoError & "," & ErrorType.Mismatch  & "))) AS ul" &
+                " WHERE t4.ClientLocationId = t3.ClientLocationId And t4.ErrorType Not IN(" & ErrorType.NoError & "," & ErrorType.Mismatch & "))) AS ul" &
                 " ON t.ClientLocationId = ul.ClientLocationId WHERE t.Status <> 'Delete') t2" &
                 " GROUP BY t2.ClientLocationId"
             GetData(sSQL, dt)
@@ -1185,10 +1246,16 @@
                         sField = "InterstateAllocationPct"
                     Case "Lease Type"
                         sField = "LeaseType"
-                    Case "Lessor Name"
-                        sField = "LessorName"
-                    Case "Lessor Address"
-                        sField = "LessorAddress"
+                    Case "Lessee Name"
+                        sField = "LesseeName"
+                    Case "Lessee Address"
+                        sField = "LesseeAddress"
+                    Case "Lessee City"
+                        sField = "LesseeCity"
+                    Case "Lessee State"
+                        sField = "LesseeStateCd"
+                    Case "Lessee Zip"
+                        sField = "LesseeZip"
                     Case "Lease Term"
                         sField = "LeaseTerm"
                     Case "Equipment Make"

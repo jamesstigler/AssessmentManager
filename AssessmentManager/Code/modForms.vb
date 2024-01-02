@@ -295,14 +295,14 @@ Module modForms
                 Select Case eType
                     Case enumReport.enumValueProtestForm
                         ReDim structFields(7)
-                        structFields(0).sPDFField = "Intro_Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
-                        structFields(1).sPDFField = "Intro_Year" : structFields(1).sTable = "Assessments" : structFields(1).sField = "TaxYear"
-                        structFields(2).sPDFField = "Sec1_Name" : structFields(2).sTable = "Locations" : structFields(2).sField = "OwnerName"
-                        structFields(3).sPDFField = "Sec1_Address" : structFields(3).sTable = "Clients" : structFields(3).sField = "FullAddress"
-                        structFields(4).sPDFField = "Sec1_Phone" : structFields(4).sTable = "Clients" : structFields(4).sField = "Phone"
-                        structFields(5).sPDFField = "Sec2_Address" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
-                        structFields(6).sPDFField = "Intro_Number" : structFields(6).sTable = "Assessments" : structFields(6).sField = "AcctNum"
-                        structFields(7).sPDFField = "Sec8_Date" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Date"
+                        structFields(0).sPDFField = "Appraisal Districts Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
+                        structFields(1).sPDFField = "Tax Year" : structFields(1).sTable = "Assessments" : structFields(1).sField = "TaxYear"
+                        structFields(2).sPDFField = "Name of Property Owner or Lessee" : structFields(2).sTable = "Locations" : structFields(2).sField = "OwnerName"
+                        structFields(3).sPDFField = "Mailing Address City State ZIP Code" : structFields(3).sTable = "Clients" : structFields(3).sField = "FullAddress"
+                        structFields(4).sPDFField = "Phone Number area code and number" : structFields(4).sTable = "Clients" : structFields(4).sField = "Phone"
+                        structFields(5).sPDFField = "Physical Address City State Zip Code if different than above" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
+                        structFields(6).sPDFField = "Appraisal District Account Number if known" : structFields(6).sTable = "Assessments" : structFields(6).sField = "AcctNum"
+                        structFields(7).sPDFField = "Date" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Date"
                         structFields(7).sValue = Format(Now, "MM/dd/yyyy")
                     Case enumReport.enumAffidavitOfEvidence
                         ReDim structFields(13)

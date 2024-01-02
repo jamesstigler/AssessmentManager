@@ -13,8 +13,11 @@
         Friend sLocationAddress As String
         Friend dAllocationPct As Double
         Friend sLeaseType As String
-        Friend sLessorName As String
-        Friend sLessorAddress As String
+        Friend sLesseeName As String
+        Friend sLesseeAddress As String
+        Friend sLesseeCity As String
+        Friend sLesseeStateCd As String
+        Friend sLesseeZip As String
         Friend iLeaseTerm As Integer
         Friend sEquipmentMake As String
         Friend sEquipmentModel As String
@@ -379,8 +382,11 @@
             Dim sVIN As String = UCase(Trim(Asset.sVIN))
             Dim sAddress As String = Trim(Asset.sLocationAddress)
             Dim sLeaseType = Trim(Asset.sLeaseType)
-            Dim sLessorName = Trim(Asset.sLessorName)
-            Dim sLessorAddress = Trim(Asset.sLessorAddress)
+            Dim sLesseeName = Trim(Asset.sLesseeName)
+            Dim sLesseeAddress = Trim(Asset.sLesseeAddress)
+            Dim sLesseeCity = Trim(Asset.sLesseeCity)
+            Dim sLesseeStateCd = Trim(Asset.sLesseeStateCd)
+            Dim sLesseeZip = Trim(Asset.sLesseeZip)
             Dim iLeaseTerm = Asset.iLeaseTerm
             Dim sEquipmentMake = Trim(Asset.sEquipmentMake)
             Dim sEquipmentModel = Trim(Asset.sEquipmentModel)
@@ -407,8 +413,11 @@
                 If sVIN <> "" Then sql.Append(",VIN")
                 If sAddress <> "" Then sql.Append(",LocationAddress")
                 If sLeaseType <> "" Then sql.Append(",LeaseType")
-                If sLessorName <> "" Then sql.Append(",LessorName")
-                If sLessorAddress <> "" Then sql.Append(",LessorAddress")
+                If sLesseeName <> "" Then sql.Append(",LesseeName")
+                If sLesseeAddress <> "" Then sql.Append(",LesseeAddress")
+                If sLesseeCity <> "" Then sql.Append(",LesseeCity")
+                If sLesseeStateCd <> "" Then sql.Append(",LesseeStateCd")
+                If sLesseeZip <> "" Then sql.Append(",LesseeZip")
                 If iLeaseTerm <> 0 Then sql.Append(",LeaseTerm")
                 If sEquipmentMake <> "" Then sql.Append(",EquipmentMake")
                 If sEquipmentModel <> "" Then sql.Append(",EquipmentModel")
@@ -421,8 +430,11 @@
                 If sVIN <> "" Then sql.Append(",").Append(QuoStr(sVIN))
                 If sAddress <> "" Then sql.Append(",").Append(QuoStr(sAddress))
                 If sLeaseType <> "" Then sql.Append(",").Append(QuoStr(sLeaseType))
-                If sLessorName <> "" Then sql.Append(", ").Append(QuoStr(sLessorName))
-                If sLessorAddress <> "" Then sql.Append(",").Append(QuoStr(sLessorAddress))
+                If sLesseeName <> "" Then sql.Append(", ").Append(QuoStr(sLesseeName))
+                If sLesseeAddress <> "" Then sql.Append(",").Append(QuoStr(sLesseeAddress))
+                If sLesseeCity <> "" Then sql.Append(",").Append(QuoStr(sLesseeCity))
+                If sLesseeStateCd <> "" Then sql.Append(",").Append(QuoStr(sLesseeStateCd))
+                If sLesseeZip <> "" Then sql.Append(",").Append(QuoStr(sLesseeZip))
                 If iLeaseTerm <> 0 Then sql.Append(",").Append(iLeaseTerm)
                 If sEquipmentMake <> "" Then sql.Append(",").Append(QuoStr(sEquipmentMake))
                 If sEquipmentModel <> "" Then sql.Append(", ").Append(QuoStr(sEquipmentModel))

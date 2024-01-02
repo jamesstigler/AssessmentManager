@@ -30,6 +30,7 @@ Partial Class frmList
         Me.mnuContextDeleteAssets = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextFactor = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextPrint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextSetAgency = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetECUParent = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetBusinessUnit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetConsultantName = New System.Windows.Forms.ToolStripMenuItem()
@@ -57,7 +58,6 @@ Partial Class frmList
         Me.mnuContextSetRenditionServiceLevel = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetRenditionInterstateAllocation = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetLeaseInfo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuContextSetAgency = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetRenditionAuditFl = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.cboSortType3 = New System.Windows.Forms.ComboBox()
@@ -154,8 +154,13 @@ Partial Class frmList
         Me.chkAuditFl = New System.Windows.Forms.CheckBox()
         Me.cmdAuditFlOK = New System.Windows.Forms.Button()
         Me.pnlLeaseInfo = New System.Windows.Forms.Panel()
-        Me.txtLessorName = New System.Windows.Forms.TextBox()
-        Me.txtLessorAddress = New System.Windows.Forms.TextBox()
+        Me.cboLesseeStateCd = New System.Windows.Forms.ComboBox()
+        Me.txtLesseeZip = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtLesseeCity = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtLesseeName = New System.Windows.Forms.TextBox()
+        Me.txtLesseeAddress = New System.Windows.Forms.TextBox()
         Me.txtEquipmentMake = New System.Windows.Forms.TextBox()
         Me.txtLeaseTerm = New System.Windows.Forms.TextBox()
         Me.txtEquipmentModel = New System.Windows.Forms.TextBox()
@@ -238,7 +243,7 @@ Partial Class frmList
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextDeleteAssets, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetAgency, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextAssignTask, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.mnuContextImportAssets, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 741)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 719)
         '
         'mnuContextCopy
         '
@@ -271,6 +276,12 @@ Partial Class frmList
         Me.mnuContextPrint.Name = "mnuContextPrint"
         Me.mnuContextPrint.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextPrint.Text = "Print"
+        '
+        'mnuContextSetAgency
+        '
+        Me.mnuContextSetAgency.Name = "mnuContextSetAgency"
+        Me.mnuContextSetAgency.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextSetAgency.Text = "Set Agency"
         '
         'mnuContextSetECUParent
         '
@@ -353,6 +364,7 @@ Partial Class frmList
         Me.mnuContextLabelEdit.BackColor = System.Drawing.SystemColors.Window
         Me.mnuContextLabelEdit.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.mnuContextLabelEdit.Enabled = False
+        Me.mnuContextLabelEdit.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.mnuContextLabelEdit.Name = "mnuContextLabelEdit"
         Me.mnuContextLabelEdit.ReadOnly = True
         Me.mnuContextLabelEdit.Size = New System.Drawing.Size(100, 16)
@@ -363,6 +375,7 @@ Partial Class frmList
         'mnuContextTextBox
         '
         Me.mnuContextTextBox.AutoToolTip = True
+        Me.mnuContextTextBox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.mnuContextTextBox.Name = "mnuContextTextBox"
         Me.mnuContextTextBox.Size = New System.Drawing.Size(100, 23)
         Me.mnuContextTextBox.ToolTipText = "Edit value"
@@ -447,12 +460,6 @@ Partial Class frmList
         Me.mnuContextSetLeaseInfo.Name = "mnuContextSetLeaseInfo"
         Me.mnuContextSetLeaseInfo.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetLeaseInfo.Text = "Set Lease Information"
-        '
-        'mnuContextSetAgency
-        '
-        Me.mnuContextSetAgency.Name = "mnuContextSetAgency"
-        Me.mnuContextSetAgency.Size = New System.Drawing.Size(204, 22)
-        Me.mnuContextSetAgency.Text = "Set Agency"
         '
         'mnuContextSetRenditionAuditFl
         '
@@ -1073,7 +1080,7 @@ Partial Class frmList
         Me.pnlLeadInfoSentFl.Controls.Add(Me.cmdLeadInfoSentFlCancel)
         Me.pnlLeadInfoSentFl.Controls.Add(Me.chkLeadInfoSentFl)
         Me.pnlLeadInfoSentFl.Controls.Add(Me.cmdLeadInfoSentFlOK)
-        Me.pnlLeadInfoSentFl.Location = New System.Drawing.Point(736, 200)
+        Me.pnlLeadInfoSentFl.Location = New System.Drawing.Point(1196, 4)
         Me.pnlLeadInfoSentFl.Margin = New System.Windows.Forms.Padding(4)
         Me.pnlLeadInfoSentFl.Name = "pnlLeadInfoSentFl"
         Me.pnlLeadInfoSentFl.Size = New System.Drawing.Size(247, 88)
@@ -1487,7 +1494,7 @@ Partial Class frmList
         Me.pnlAuditFl.Controls.Add(Me.cmdAuditFlCancel)
         Me.pnlAuditFl.Controls.Add(Me.chkAuditFl)
         Me.pnlAuditFl.Controls.Add(Me.cmdAuditFlOK)
-        Me.pnlAuditFl.Location = New System.Drawing.Point(1009, 209)
+        Me.pnlAuditFl.Location = New System.Drawing.Point(1196, 96)
         Me.pnlAuditFl.Margin = New System.Windows.Forms.Padding(4)
         Me.pnlAuditFl.Name = "pnlAuditFl"
         Me.pnlAuditFl.Size = New System.Drawing.Size(247, 88)
@@ -1529,8 +1536,13 @@ Partial Class frmList
         'pnlLeaseInfo
         '
         Me.pnlLeaseInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlLeaseInfo.Controls.Add(Me.txtLessorName)
-        Me.pnlLeaseInfo.Controls.Add(Me.txtLessorAddress)
+        Me.pnlLeaseInfo.Controls.Add(Me.cboLesseeStateCd)
+        Me.pnlLeaseInfo.Controls.Add(Me.txtLesseeZip)
+        Me.pnlLeaseInfo.Controls.Add(Me.Label22)
+        Me.pnlLeaseInfo.Controls.Add(Me.txtLesseeCity)
+        Me.pnlLeaseInfo.Controls.Add(Me.Label21)
+        Me.pnlLeaseInfo.Controls.Add(Me.txtLesseeName)
+        Me.pnlLeaseInfo.Controls.Add(Me.txtLesseeAddress)
         Me.pnlLeaseInfo.Controls.Add(Me.txtEquipmentMake)
         Me.pnlLeaseInfo.Controls.Add(Me.txtLeaseTerm)
         Me.pnlLeaseInfo.Controls.Add(Me.txtEquipmentModel)
@@ -1543,44 +1555,96 @@ Partial Class frmList
         Me.pnlLeaseInfo.Controls.Add(Me.cboLeaseType)
         Me.pnlLeaseInfo.Controls.Add(Me.Label13)
         Me.pnlLeaseInfo.Controls.Add(Me.cmdLeaseInfoOK)
-        Me.pnlLeaseInfo.Location = New System.Drawing.Point(600, 4)
+        Me.pnlLeaseInfo.Location = New System.Drawing.Point(732, 4)
         Me.pnlLeaseInfo.Margin = New System.Windows.Forms.Padding(4)
         Me.pnlLeaseInfo.Name = "pnlLeaseInfo"
-        Me.pnlLeaseInfo.Size = New System.Drawing.Size(452, 199)
+        Me.pnlLeaseInfo.Size = New System.Drawing.Size(452, 244)
         Me.pnlLeaseInfo.TabIndex = 34
         Me.pnlLeaseInfo.Visible = False
         '
-        'txtLessorName
+        'cboLesseeStateCd
         '
-        Me.txtLessorName.AllowDrop = True
-        Me.txtLessorName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLessorName.Location = New System.Drawing.Point(136, 32)
-        Me.txtLessorName.Name = "txtLessorName"
-        Me.txtLessorName.Size = New System.Drawing.Size(180, 20)
-        Me.txtLessorName.TabIndex = 214
-        Me.txtLessorName.Tag = ""
-        Me.txtLessorName.Text = "Lessor name"
-        Me.txtLessorName.WordWrap = False
+        Me.cboLesseeStateCd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboLesseeStateCd.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboLesseeStateCd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboLesseeStateCd.FormattingEnabled = True
+        Me.cboLesseeStateCd.Location = New System.Drawing.Point(136, 104)
+        Me.cboLesseeStateCd.Margin = New System.Windows.Forms.Padding(4)
+        Me.cboLesseeStateCd.Name = "cboLesseeStateCd"
+        Me.cboLesseeStateCd.Size = New System.Drawing.Size(200, 21)
+        Me.cboLesseeStateCd.TabIndex = 4
+        Me.cboLesseeStateCd.Tag = ""
+        Me.cboLesseeStateCd.Text = "Lessee state"
         '
-        'txtLessorAddress
+        'txtLesseeZip
         '
-        Me.txtLessorAddress.AllowDrop = True
-        Me.txtLessorAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLessorAddress.Location = New System.Drawing.Point(136, 56)
-        Me.txtLessorAddress.Name = "txtLessorAddress"
-        Me.txtLessorAddress.Size = New System.Drawing.Size(296, 20)
-        Me.txtLessorAddress.TabIndex = 215
-        Me.txtLessorAddress.Tag = ""
-        Me.txtLessorAddress.Text = "Lessor address"
+        Me.txtLesseeZip.AllowDrop = True
+        Me.txtLesseeZip.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLesseeZip.Location = New System.Drawing.Point(340, 104)
+        Me.txtLesseeZip.Name = "txtLesseeZip"
+        Me.txtLesseeZip.Size = New System.Drawing.Size(92, 20)
+        Me.txtLesseeZip.TabIndex = 5
+        Me.txtLesseeZip.Tag = ""
+        Me.txtLesseeZip.Text = "Lessee zip"
+        '
+        'Label22
+        '
+        Me.Label22.Location = New System.Drawing.Point(8, 108)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(96, 13)
+        Me.Label22.TabIndex = 225
+        Me.Label22.Text = "Lessee state/zip"
+        '
+        'txtLesseeCity
+        '
+        Me.txtLesseeCity.AllowDrop = True
+        Me.txtLesseeCity.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLesseeCity.Location = New System.Drawing.Point(136, 80)
+        Me.txtLesseeCity.Name = "txtLesseeCity"
+        Me.txtLesseeCity.Size = New System.Drawing.Size(296, 20)
+        Me.txtLesseeCity.TabIndex = 3
+        Me.txtLesseeCity.Tag = ""
+        Me.txtLesseeCity.Text = "Lessee city"
+        '
+        'Label21
+        '
+        Me.Label21.Location = New System.Drawing.Point(8, 84)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(96, 13)
+        Me.Label21.TabIndex = 223
+        Me.Label21.Text = "Lessee city"
+        '
+        'txtLesseeName
+        '
+        Me.txtLesseeName.AllowDrop = True
+        Me.txtLesseeName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLesseeName.Location = New System.Drawing.Point(136, 32)
+        Me.txtLesseeName.Name = "txtLesseeName"
+        Me.txtLesseeName.Size = New System.Drawing.Size(180, 20)
+        Me.txtLesseeName.TabIndex = 1
+        Me.txtLesseeName.Tag = ""
+        Me.txtLesseeName.Text = "Lessee name"
+        Me.txtLesseeName.WordWrap = False
+        '
+        'txtLesseeAddress
+        '
+        Me.txtLesseeAddress.AllowDrop = True
+        Me.txtLesseeAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLesseeAddress.Location = New System.Drawing.Point(136, 56)
+        Me.txtLesseeAddress.Name = "txtLesseeAddress"
+        Me.txtLesseeAddress.Size = New System.Drawing.Size(296, 20)
+        Me.txtLesseeAddress.TabIndex = 2
+        Me.txtLesseeAddress.Tag = ""
+        Me.txtLesseeAddress.Text = "Lessee address"
         '
         'txtEquipmentMake
         '
         Me.txtEquipmentMake.AllowDrop = True
         Me.txtEquipmentMake.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEquipmentMake.Location = New System.Drawing.Point(136, 104)
+        Me.txtEquipmentMake.Location = New System.Drawing.Point(136, 156)
         Me.txtEquipmentMake.Name = "txtEquipmentMake"
         Me.txtEquipmentMake.Size = New System.Drawing.Size(180, 20)
-        Me.txtEquipmentMake.TabIndex = 217
+        Me.txtEquipmentMake.TabIndex = 7
         Me.txtEquipmentMake.Tag = ""
         Me.txtEquipmentMake.Text = "Equipment make"
         '
@@ -1588,10 +1652,10 @@ Partial Class frmList
         '
         Me.txtLeaseTerm.AllowDrop = True
         Me.txtLeaseTerm.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLeaseTerm.Location = New System.Drawing.Point(136, 80)
+        Me.txtLeaseTerm.Location = New System.Drawing.Point(136, 132)
         Me.txtLeaseTerm.Name = "txtLeaseTerm"
         Me.txtLeaseTerm.Size = New System.Drawing.Size(72, 20)
-        Me.txtLeaseTerm.TabIndex = 216
+        Me.txtLeaseTerm.TabIndex = 6
         Me.txtLeaseTerm.Tag = ""
         Me.txtLeaseTerm.Text = "Lease Term"
         Me.txtLeaseTerm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1600,10 +1664,10 @@ Partial Class frmList
         '
         Me.txtEquipmentModel.AllowDrop = True
         Me.txtEquipmentModel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEquipmentModel.Location = New System.Drawing.Point(136, 128)
+        Me.txtEquipmentModel.Location = New System.Drawing.Point(136, 180)
         Me.txtEquipmentModel.Name = "txtEquipmentModel"
         Me.txtEquipmentModel.Size = New System.Drawing.Size(180, 20)
-        Me.txtEquipmentModel.TabIndex = 218
+        Me.txtEquipmentModel.TabIndex = 8
         Me.txtEquipmentModel.Tag = ""
         Me.txtEquipmentModel.Text = "Equipment model"
         '
@@ -1613,11 +1677,11 @@ Partial Class frmList
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(76, 20)
         Me.Label14.TabIndex = 221
-        Me.Label14.Text = "Lessor name"
+        Me.Label14.Text = "Lessee name"
         '
         'Label15
         '
-        Me.Label15.Location = New System.Drawing.Point(8, 84)
+        Me.Label15.Location = New System.Drawing.Point(8, 136)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(102, 13)
         Me.Label15.TabIndex = 220
@@ -1627,13 +1691,13 @@ Partial Class frmList
         '
         Me.Label16.Location = New System.Drawing.Point(8, 60)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(78, 13)
+        Me.Label16.Size = New System.Drawing.Size(96, 13)
         Me.Label16.TabIndex = 219
-        Me.Label16.Text = "Lessor address"
+        Me.Label16.Text = "Lessee address"
         '
         'Label17
         '
-        Me.Label17.Location = New System.Drawing.Point(8, 132)
+        Me.Label17.Location = New System.Drawing.Point(8, 184)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(88, 13)
         Me.Label17.TabIndex = 218
@@ -1641,7 +1705,7 @@ Partial Class frmList
         '
         'Label18
         '
-        Me.Label18.Location = New System.Drawing.Point(8, 108)
+        Me.Label18.Location = New System.Drawing.Point(8, 160)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(86, 13)
         Me.Label18.TabIndex = 217
@@ -1649,11 +1713,11 @@ Partial Class frmList
         '
         'cmdLeaseInfoCancel
         '
-        Me.cmdLeaseInfoCancel.Location = New System.Drawing.Point(228, 160)
+        Me.cmdLeaseInfoCancel.Location = New System.Drawing.Point(228, 208)
         Me.cmdLeaseInfoCancel.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdLeaseInfoCancel.Name = "cmdLeaseInfoCancel"
         Me.cmdLeaseInfoCancel.Size = New System.Drawing.Size(99, 28)
-        Me.cmdLeaseInfoCancel.TabIndex = 212
+        Me.cmdLeaseInfoCancel.TabIndex = 10
         Me.cmdLeaseInfoCancel.Text = "Cancel"
         Me.cmdLeaseInfoCancel.UseVisualStyleBackColor = True
         '
@@ -1667,7 +1731,7 @@ Partial Class frmList
         Me.cboLeaseType.Margin = New System.Windows.Forms.Padding(4)
         Me.cboLeaseType.Name = "cboLeaseType"
         Me.cboLeaseType.Size = New System.Drawing.Size(180, 21)
-        Me.cboLeaseType.TabIndex = 213
+        Me.cboLeaseType.TabIndex = 0
         Me.cboLeaseType.Tag = ""
         Me.cboLeaseType.Text = "Lease type"
         '
@@ -1682,11 +1746,11 @@ Partial Class frmList
         '
         'cmdLeaseInfoOK
         '
-        Me.cmdLeaseInfoOK.Location = New System.Drawing.Point(120, 160)
+        Me.cmdLeaseInfoOK.Location = New System.Drawing.Point(120, 208)
         Me.cmdLeaseInfoOK.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdLeaseInfoOK.Name = "cmdLeaseInfoOK"
         Me.cmdLeaseInfoOK.Size = New System.Drawing.Size(99, 28)
-        Me.cmdLeaseInfoOK.TabIndex = 211
+        Me.cmdLeaseInfoOK.TabIndex = 9
         Me.cmdLeaseInfoOK.Text = "OK"
         Me.cmdLeaseInfoOK.UseVisualStyleBackColor = True
         '
@@ -2027,8 +2091,8 @@ Partial Class frmList
     Friend WithEvents cboLeaseType As ComboBox
     Friend WithEvents Label13 As Label
     Friend WithEvents cmdLeaseInfoOK As Button
-    Friend WithEvents txtLessorName As TextBox
-    Friend WithEvents txtLessorAddress As TextBox
+    Friend WithEvents txtLesseeName As TextBox
+    Friend WithEvents txtLesseeAddress As TextBox
     Friend WithEvents txtEquipmentMake As TextBox
     Friend WithEvents txtLeaseTerm As TextBox
     Friend WithEvents txtEquipmentModel As TextBox
@@ -2061,4 +2125,9 @@ Partial Class frmList
     Friend WithEvents cmdAgencyOK As Button
     Friend WithEvents cboAgency As ComboBox
     Friend WithEvents mnuContextSetAgency As ToolStripMenuItem
+    Friend WithEvents cboLesseeStateCd As ComboBox
+    Friend WithEvents txtLesseeZip As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents txtLesseeCity As TextBox
+    Friend WithEvents Label21 As Label
 End Class

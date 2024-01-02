@@ -71,8 +71,8 @@ Partial Class frmAsset
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtLessorName = New System.Windows.Forms.TextBox()
-        Me.txtLessorAddress = New System.Windows.Forms.TextBox()
+        Me.txtLesseeName = New System.Windows.Forms.TextBox()
+        Me.txtLesseeAddress = New System.Windows.Forms.TextBox()
         Me.txtEquipmentMake = New System.Windows.Forms.TextBox()
         Me.txtLeaseTerm = New System.Windows.Forms.TextBox()
         Me.txtEquipmentModel = New System.Windows.Forms.TextBox()
@@ -80,6 +80,12 @@ Partial Class frmAsset
         Me.chkAuditFl = New System.Windows.Forms.CheckBox()
         Me.txtActivityQty = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtLesseeZip = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtLesseeCity = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.cboLesseeStateCd = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'cboFactorOvr1
@@ -517,9 +523,9 @@ Partial Class frmAsset
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(540, 272)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(67, 13)
+        Me.Label11.Size = New System.Drawing.Size(70, 13)
         Me.Label11.TabIndex = 211
-        Me.Label11.Text = "Lessor name"
+        Me.Label11.Text = "Lessee name"
         '
         'Label12
         '
@@ -533,7 +539,7 @@ Partial Class frmAsset
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(540, 320)
+        Me.Label13.Location = New System.Drawing.Point(540, 368)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(102, 13)
         Me.Label13.TabIndex = 209
@@ -544,14 +550,14 @@ Partial Class frmAsset
         Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(540, 296)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(78, 13)
+        Me.Label14.Size = New System.Drawing.Size(81, 13)
         Me.Label14.TabIndex = 208
-        Me.Label14.Text = "Lessor address"
+        Me.Label14.Text = "Lessee address"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(540, 368)
+        Me.Label15.Location = New System.Drawing.Point(540, 416)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(88, 13)
         Me.Label15.TabIndex = 207
@@ -560,57 +566,57 @@ Partial Class frmAsset
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(540, 344)
+        Me.Label16.Location = New System.Drawing.Point(540, 392)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(86, 13)
         Me.Label16.TabIndex = 206
         Me.Label16.Text = "Equipment make"
         '
-        'txtLessorName
+        'txtLesseeName
         '
-        Me.txtLessorName.AllowDrop = True
-        Me.txtLessorName.Location = New System.Drawing.Point(660, 268)
-        Me.txtLessorName.Name = "txtLessorName"
-        Me.txtLessorName.Size = New System.Drawing.Size(180, 20)
-        Me.txtLessorName.TabIndex = 29
-        Me.txtLessorName.Tag = "@DB=Assets.LessorName"
-        Me.txtLessorName.WordWrap = False
+        Me.txtLesseeName.AllowDrop = True
+        Me.txtLesseeName.Location = New System.Drawing.Point(660, 268)
+        Me.txtLesseeName.Name = "txtLesseeName"
+        Me.txtLesseeName.Size = New System.Drawing.Size(180, 20)
+        Me.txtLesseeName.TabIndex = 30
+        Me.txtLesseeName.Tag = "@DB=Assets.LesseeName"
+        Me.txtLesseeName.WordWrap = False
         '
-        'txtLessorAddress
+        'txtLesseeAddress
         '
-        Me.txtLessorAddress.AllowDrop = True
-        Me.txtLessorAddress.Location = New System.Drawing.Point(660, 292)
-        Me.txtLessorAddress.Name = "txtLessorAddress"
-        Me.txtLessorAddress.Size = New System.Drawing.Size(296, 20)
-        Me.txtLessorAddress.TabIndex = 30
-        Me.txtLessorAddress.Tag = "@DB=Assets.LessorAddress"
+        Me.txtLesseeAddress.AllowDrop = True
+        Me.txtLesseeAddress.Location = New System.Drawing.Point(660, 292)
+        Me.txtLesseeAddress.Name = "txtLesseeAddress"
+        Me.txtLesseeAddress.Size = New System.Drawing.Size(296, 20)
+        Me.txtLesseeAddress.TabIndex = 31
+        Me.txtLesseeAddress.Tag = "@DB=Assets.LesseeAddress"
         '
         'txtEquipmentMake
         '
         Me.txtEquipmentMake.AllowDrop = True
-        Me.txtEquipmentMake.Location = New System.Drawing.Point(660, 340)
+        Me.txtEquipmentMake.Location = New System.Drawing.Point(660, 388)
         Me.txtEquipmentMake.Name = "txtEquipmentMake"
         Me.txtEquipmentMake.Size = New System.Drawing.Size(180, 20)
-        Me.txtEquipmentMake.TabIndex = 32
+        Me.txtEquipmentMake.TabIndex = 36
         Me.txtEquipmentMake.Tag = "@DB=Assets.EquipmentMake"
         '
         'txtLeaseTerm
         '
         Me.txtLeaseTerm.AllowDrop = True
-        Me.txtLeaseTerm.Location = New System.Drawing.Point(660, 316)
+        Me.txtLeaseTerm.Location = New System.Drawing.Point(660, 364)
         Me.txtLeaseTerm.Name = "txtLeaseTerm"
         Me.txtLeaseTerm.Size = New System.Drawing.Size(56, 20)
-        Me.txtLeaseTerm.TabIndex = 31
+        Me.txtLeaseTerm.TabIndex = 35
         Me.txtLeaseTerm.Tag = "@DB=Assets.LeaseTerm;@FMT=int"
         Me.txtLeaseTerm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'txtEquipmentModel
         '
         Me.txtEquipmentModel.AllowDrop = True
-        Me.txtEquipmentModel.Location = New System.Drawing.Point(660, 364)
+        Me.txtEquipmentModel.Location = New System.Drawing.Point(660, 412)
         Me.txtEquipmentModel.Name = "txtEquipmentModel"
         Me.txtEquipmentModel.Size = New System.Drawing.Size(180, 20)
-        Me.txtEquipmentModel.TabIndex = 33
+        Me.txtEquipmentModel.TabIndex = 37
         Me.txtEquipmentModel.Tag = "@DB=Assets.EquipmentModel"
         '
         'cboLeaseType
@@ -622,7 +628,7 @@ Partial Class frmAsset
         Me.cboLeaseType.Location = New System.Drawing.Point(660, 244)
         Me.cboLeaseType.Name = "cboLeaseType"
         Me.cboLeaseType.Size = New System.Drawing.Size(180, 21)
-        Me.cboLeaseType.TabIndex = 28
+        Me.cboLeaseType.TabIndex = 29
         Me.cboLeaseType.Tag = "@DB=Assets.LeaseType"
         '
         'chkAuditFl
@@ -631,7 +637,7 @@ Partial Class frmAsset
         Me.chkAuditFl.Location = New System.Drawing.Point(16, 420)
         Me.chkAuditFl.Name = "chkAuditFl"
         Me.chkAuditFl.Size = New System.Drawing.Size(62, 17)
-        Me.chkAuditFl.TabIndex = 27
+        Me.chkAuditFl.TabIndex = 28
         Me.chkAuditFl.Tag = "@DB=Assets.AuditFl"
         Me.chkAuditFl.Text = "Audited"
         Me.chkAuditFl.UseVisualStyleBackColor = True
@@ -642,7 +648,7 @@ Partial Class frmAsset
         Me.txtActivityQty.Location = New System.Drawing.Point(196, 388)
         Me.txtActivityQty.Name = "txtActivityQty"
         Me.txtActivityQty.Size = New System.Drawing.Size(80, 20)
-        Me.txtActivityQty.TabIndex = 212
+        Me.txtActivityQty.TabIndex = 27
         Me.txtActivityQty.Tag = "@DB=Assets.ActivityQty;@FMT=int"
         Me.txtActivityQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -655,18 +661,81 @@ Partial Class frmAsset
         Me.Label17.TabIndex = 213
         Me.Label17.Text = "Engine hours/Odometer"
         '
+        'txtLesseeZip
+        '
+        Me.txtLesseeZip.AllowDrop = True
+        Me.txtLesseeZip.Location = New System.Drawing.Point(888, 340)
+        Me.txtLesseeZip.Name = "txtLesseeZip"
+        Me.txtLesseeZip.Size = New System.Drawing.Size(68, 20)
+        Me.txtLesseeZip.TabIndex = 34
+        Me.txtLesseeZip.Tag = "@DB=Assets.LesseeZip"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(828, 344)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(57, 13)
+        Me.Label18.TabIndex = 215
+        Me.Label18.Text = "Lessee zip"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(540, 344)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(67, 13)
+        Me.Label19.TabIndex = 217
+        Me.Label19.Text = "Lessee state"
+        '
+        'txtLesseeCity
+        '
+        Me.txtLesseeCity.AllowDrop = True
+        Me.txtLesseeCity.Location = New System.Drawing.Point(660, 316)
+        Me.txtLesseeCity.Name = "txtLesseeCity"
+        Me.txtLesseeCity.Size = New System.Drawing.Size(296, 20)
+        Me.txtLesseeCity.TabIndex = 32
+        Me.txtLesseeCity.Tag = "@DB=Assets.LesseeCity"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(540, 320)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(60, 13)
+        Me.Label20.TabIndex = 219
+        Me.Label20.Text = "Lessee city"
+        '
+        'cboLesseeStateCd
+        '
+        Me.cboLesseeStateCd.AllowDrop = True
+        Me.cboLesseeStateCd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboLesseeStateCd.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboLesseeStateCd.FormattingEnabled = True
+        Me.cboLesseeStateCd.Location = New System.Drawing.Point(660, 340)
+        Me.cboLesseeStateCd.Name = "cboLesseeStateCd"
+        Me.cboLesseeStateCd.Size = New System.Drawing.Size(160, 21)
+        Me.cboLesseeStateCd.TabIndex = 33
+        Me.cboLesseeStateCd.Tag = "@DB=Assets.LesseeStateCd"
+        '
         'frmAsset
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(973, 451)
+        Me.ClientSize = New System.Drawing.Size(973, 449)
+        Me.Controls.Add(Me.cboLesseeStateCd)
+        Me.Controls.Add(Me.txtLesseeCity)
+        Me.Controls.Add(Me.Label20)
+        Me.Controls.Add(Me.Label19)
+        Me.Controls.Add(Me.txtLesseeZip)
+        Me.Controls.Add(Me.Label18)
         Me.Controls.Add(Me.txtActivityQty)
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.chkAuditFl)
         Me.Controls.Add(Me.cboLeaseType)
-        Me.Controls.Add(Me.txtLessorName)
-        Me.Controls.Add(Me.txtLessorAddress)
+        Me.Controls.Add(Me.txtLesseeName)
+        Me.Controls.Add(Me.txtLesseeAddress)
         Me.Controls.Add(Me.txtEquipmentMake)
         Me.Controls.Add(Me.txtLeaseTerm)
         Me.Controls.Add(Me.txtEquipmentModel)
@@ -777,8 +846,8 @@ Partial Class frmAsset
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents Label16 As Label
-    Friend WithEvents txtLessorName As TextBox
-    Friend WithEvents txtLessorAddress As TextBox
+    Friend WithEvents txtLesseeName As TextBox
+    Friend WithEvents txtLesseeAddress As TextBox
     Friend WithEvents txtEquipmentMake As TextBox
     Friend WithEvents txtLeaseTerm As TextBox
     Friend WithEvents txtEquipmentModel As TextBox
@@ -786,4 +855,10 @@ Partial Class frmAsset
     Friend WithEvents chkAuditFl As CheckBox
     Friend WithEvents txtActivityQty As TextBox
     Friend WithEvents Label17 As Label
+    Friend WithEvents txtLesseeZip As TextBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents txtLesseeCity As TextBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents cboLesseeStateCd As ComboBox
 End Class
