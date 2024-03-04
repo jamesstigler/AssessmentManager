@@ -324,7 +324,7 @@
                 If sSQL <> "" Then sSQL = sSQL & " UNION "
                 sSQL = sSQL & "SELECT " & i & " AS Counter, fe.Name, fec.FactorCode FROM FactorEntities fe, FactorEntityCodes fec" &
                     " WHERE fe.FactorEntityId = " & lFactorEntityId(i) & " AND fec.TaxYear = " & m_TaxYear &
-                    " AND fe.FactorEntityId = fec.FactorEntityId"
+                    " AND fe.FactorEntityId = fec.FactorEntityId AND ISNULL(fec.InactiveFl,0) = 0"
             End If
         Next
         If sSQL = "" Then Return True

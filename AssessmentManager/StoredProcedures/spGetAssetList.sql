@@ -226,14 +226,14 @@ AS
 		IF @FactorEntityExists1 = 1
 		BEGIN
 			--client gl mapping
-			UPDATE #temptbl SET ClientMappingFactorCode1 = cx.FactorCode, ClientMappingFactorDesc1 = fec.Description
+			UPDATE #temptbl SET ClientMappingFactorCode1 = cx.FactorCode, ClientMappingFactorDesc1 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END
 				FROM ClientGLCodeXRef AS cx
 				INNER JOIN FactorEntityCodes AS fec ON cx.FactorEntityId = fec.FactorEntityId
 					AND cx.FactorCode = fec.FactorCode AND cx.TaxYear = fec.TaxYear
 				INNER JOIN #temptbl ON #temptbl.ClientId = cx.ClientId AND #temptbl.Locations_StateCd = cx.StateCd
 					AND #temptbl.GLCode = cx.GLCode AND #temptbl.TaxYear = cx.TaxYear AND #temptbl.FactorEntityId1 = cx.FactorEntityId
 			--client reclass (overrides client gl mapping)
-			UPDATE #temptbl SET ClientMappingFactorCodeOverride1 = fec.FactorCode, ClientMappingFactorDescOverride1 = fec.Description				
+			UPDATE #temptbl SET ClientMappingFactorCodeOverride1 = fec.FactorCode, ClientMappingFactorDescOverride1 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN ClientFactorCodeOverrides AS cfc ON fec.FactorEntityId = cfc.FactorEntityId AND fec.FactorCode = cfc.FactorCode
 					AND fec.TaxYear = cfc.TaxYear 
@@ -243,7 +243,7 @@ AS
 			UPDATE #temptbl SET ClientFactorCode1 = ISNULL(ClientMappingFactorCodeOverride1,ClientMappingFactorCode1), 
 				ClientFactorDesc1 = ISNULL(ClientMappingFactorDescOverride1,ClientMappingFactorDesc1)
 			--entity factor override
-			UPDATE #temptbl SET EntityFactorCodeOverride1 = fec.FactorCode, EntityFactorDescOverride1 = fec.Description				
+			UPDATE #temptbl SET EntityFactorCodeOverride1 = fec.FactorCode, EntityFactorDescOverride1 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN FactorCodeOverrides AS fc ON fec.FactorEntityId = fc.FactorEntityId AND fec.FactorCode = fc.FactorCode
 					AND fec.TaxYear = fc.TaxYear 
@@ -266,14 +266,14 @@ AS
 		IF @FactorEntityExists2 = 1
 		BEGIN
 					--client gl mapping
-			UPDATE #temptbl SET ClientMappingFactorCode2 = cx.FactorCode, ClientMappingFactorDesc2 = fec.Description
+			UPDATE #temptbl SET ClientMappingFactorCode2 = cx.FactorCode, ClientMappingFactorDesc2 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END
 				FROM ClientGLCodeXRef AS cx
 				INNER JOIN FactorEntityCodes AS fec ON cx.FactorEntityId = fec.FactorEntityId
 					AND cx.FactorCode = fec.FactorCode AND cx.TaxYear = fec.TaxYear
 				INNER JOIN #temptbl ON #temptbl.ClientId = cx.ClientId AND #temptbl.Locations_StateCd = cx.StateCd
 					AND #temptbl.GLCode = cx.GLCode AND #temptbl.TaxYear = cx.TaxYear AND #temptbl.FactorEntityId2 = cx.FactorEntityId
 			--client reclass (overrides client gl mapping)
-			UPDATE #temptbl SET ClientMappingFactorCodeOverride2 = fec.FactorCode, ClientMappingFactorDescOverride2 = fec.Description				
+			UPDATE #temptbl SET ClientMappingFactorCodeOverride2 = fec.FactorCode, ClientMappingFactorDescOverride2 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN ClientFactorCodeOverrides AS cfc ON fec.FactorEntityId = cfc.FactorEntityId AND fec.FactorCode = cfc.FactorCode
 					AND fec.TaxYear = cfc.TaxYear 
@@ -283,7 +283,7 @@ AS
 			UPDATE #temptbl SET ClientFactorCode2 = ISNULL(ClientMappingFactorCodeOverride2,ClientMappingFactorCode2), 
 				ClientFactorDesc2 = ISNULL(ClientMappingFactorDescOverride2,ClientMappingFactorDesc2)
 			--entity factor override
-			UPDATE #temptbl SET EntityFactorCodeOverride2 = fec.FactorCode, EntityFactorDescOverride2 = fec.Description				
+			UPDATE #temptbl SET EntityFactorCodeOverride2 = fec.FactorCode, EntityFactorDescOverride2 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN FactorCodeOverrides AS fc ON fec.FactorEntityId = fc.FactorEntityId AND fec.FactorCode = fc.FactorCode
 					AND fec.TaxYear = fc.TaxYear 
@@ -304,14 +304,14 @@ AS
 		IF @FactorEntityExists3 = 1
 		BEGIN
 					--client gl mapping
-			UPDATE #temptbl SET ClientMappingFactorCode3 = cx.FactorCode, ClientMappingFactorDesc3 = fec.Description
+			UPDATE #temptbl SET ClientMappingFactorCode3 = cx.FactorCode, ClientMappingFactorDesc3 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END
 				FROM ClientGLCodeXRef AS cx
 				INNER JOIN FactorEntityCodes AS fec ON cx.FactorEntityId = fec.FactorEntityId
 					AND cx.FactorCode = fec.FactorCode AND cx.TaxYear = fec.TaxYear
 				INNER JOIN #temptbl ON #temptbl.ClientId = cx.ClientId AND #temptbl.Locations_StateCd = cx.StateCd
 					AND #temptbl.GLCode = cx.GLCode AND #temptbl.TaxYear = cx.TaxYear AND #temptbl.FactorEntityId3 = cx.FactorEntityId
 			--client reclass (overrides client gl mapping)
-			UPDATE #temptbl SET ClientMappingFactorCodeOverride3 = fec.FactorCode, ClientMappingFactorDescOverride3 = fec.Description				
+			UPDATE #temptbl SET ClientMappingFactorCodeOverride3 = fec.FactorCode, ClientMappingFactorDescOverride3 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN ClientFactorCodeOverrides AS cfc ON fec.FactorEntityId = cfc.FactorEntityId AND fec.FactorCode = cfc.FactorCode
 					AND fec.TaxYear = cfc.TaxYear 
@@ -321,7 +321,7 @@ AS
 			UPDATE #temptbl SET ClientFactorCode3 = ISNULL(ClientMappingFactorCodeOverride3,ClientMappingFactorCode3), 
 				ClientFactorDesc3 = ISNULL(ClientMappingFactorDescOverride3,ClientMappingFactorDesc3)
 			--entity factor override
-			UPDATE #temptbl SET EntityFactorCodeOverride3 = fec.FactorCode, EntityFactorDescOverride3 = fec.Description				
+			UPDATE #temptbl SET EntityFactorCodeOverride3 = fec.FactorCode, EntityFactorDescOverride3 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN FactorCodeOverrides AS fc ON fec.FactorEntityId = fc.FactorEntityId AND fec.FactorCode = fc.FactorCode
 					AND fec.TaxYear = fc.TaxYear 
@@ -343,14 +343,14 @@ AS
 		IF @FactorEntityExists4 = 1
 		BEGIN
 					--client gl mapping
-			UPDATE #temptbl SET ClientMappingFactorCode4 = cx.FactorCode, ClientMappingFactorDesc4 = fec.Description
+			UPDATE #temptbl SET ClientMappingFactorCode4 = cx.FactorCode, ClientMappingFactorDesc4 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END
 				FROM ClientGLCodeXRef AS cx
 				INNER JOIN FactorEntityCodes AS fec ON cx.FactorEntityId = fec.FactorEntityId
 					AND cx.FactorCode = fec.FactorCode AND cx.TaxYear = fec.TaxYear
 				INNER JOIN #temptbl ON #temptbl.ClientId = cx.ClientId AND #temptbl.Locations_StateCd = cx.StateCd
 					AND #temptbl.GLCode = cx.GLCode AND #temptbl.TaxYear = cx.TaxYear AND #temptbl.FactorEntityId4 = cx.FactorEntityId
 			--client reclass (overrides client gl mapping)
-			UPDATE #temptbl SET ClientMappingFactorCodeOverride4 = fec.FactorCode, ClientMappingFactorDescOverride4 = fec.Description				
+			UPDATE #temptbl SET ClientMappingFactorCodeOverride4 = fec.FactorCode, ClientMappingFactorDescOverride4 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN ClientFactorCodeOverrides AS cfc ON fec.FactorEntityId = cfc.FactorEntityId AND fec.FactorCode = cfc.FactorCode
 					AND fec.TaxYear = cfc.TaxYear 
@@ -360,7 +360,7 @@ AS
 			UPDATE #temptbl SET ClientFactorCode4 = ISNULL(ClientMappingFactorCodeOverride4,ClientMappingFactorCode4), 
 				ClientFactorDesc4 = ISNULL(ClientMappingFactorDescOverride4,ClientMappingFactorDesc4)
 			--entity factor override
-			UPDATE #temptbl SET EntityFactorCodeOverride4 = fec.FactorCode, EntityFactorDescOverride4 = fec.Description				
+			UPDATE #temptbl SET EntityFactorCodeOverride4 = fec.FactorCode, EntityFactorDescOverride4 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN FactorCodeOverrides AS fc ON fec.FactorEntityId = fc.FactorEntityId AND fec.FactorCode = fc.FactorCode
 					AND fec.TaxYear = fc.TaxYear 
@@ -381,14 +381,14 @@ AS
 		IF @FactorEntityExists5 = 1
 		BEGIN
 					--client gl mapping
-			UPDATE #temptbl SET ClientMappingFactorCode5 = cx.FactorCode, ClientMappingFactorDesc5 = fec.Description
+			UPDATE #temptbl SET ClientMappingFactorCode5 = cx.FactorCode, ClientMappingFactorDesc5 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END
 				FROM ClientGLCodeXRef AS cx
 				INNER JOIN FactorEntityCodes AS fec ON cx.FactorEntityId = fec.FactorEntityId
 					AND cx.FactorCode = fec.FactorCode AND cx.TaxYear = fec.TaxYear
 				INNER JOIN #temptbl ON #temptbl.ClientId = cx.ClientId AND #temptbl.Locations_StateCd = cx.StateCd
 					AND #temptbl.GLCode = cx.GLCode AND #temptbl.TaxYear = cx.TaxYear AND #temptbl.FactorEntityId5 = cx.FactorEntityId
 			--client reclass (overrides client gl mapping)
-			UPDATE #temptbl SET ClientMappingFactorCodeOverride5 = fec.FactorCode, ClientMappingFactorDescOverride5 = fec.Description				
+			UPDATE #temptbl SET ClientMappingFactorCodeOverride5 = fec.FactorCode, ClientMappingFactorDescOverride5 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN ClientFactorCodeOverrides AS cfc ON fec.FactorEntityId = cfc.FactorEntityId AND fec.FactorCode = cfc.FactorCode
 					AND fec.TaxYear = cfc.TaxYear 
@@ -398,7 +398,7 @@ AS
 			UPDATE #temptbl SET ClientFactorCode5 = ISNULL(ClientMappingFactorCodeOverride5,ClientMappingFactorCode5), 
 				ClientFactorDesc5 = ISNULL(ClientMappingFactorDescOverride5,ClientMappingFactorDesc5)
 			--entity factor override
-			UPDATE #temptbl SET EntityFactorCodeOverride5 = fec.FactorCode, EntityFactorDescOverride5 = fec.Description				
+			UPDATE #temptbl SET EntityFactorCodeOverride5 = fec.FactorCode, EntityFactorDescOverride5 = CASE WHEN ISNULL(fec.InactiveFl,0)=0 THEN fec.Description ELSE '' END				
 				FROM FactorEntityCodes AS fec 
 				INNER JOIN FactorCodeOverrides AS fc ON fec.FactorEntityId = fc.FactorEntityId AND fec.FactorCode = fc.FactorCode
 					AND fec.TaxYear = fc.TaxYear 

@@ -112,8 +112,8 @@
             txtClientName.Text = dt.Rows(0).Item("ClientName")
             txtEntity.Text = dt.Rows(0).Item("EntityName")
 
-            sSQL = "SELECT FactorCode FROM FactorEntityCodes WHERE FactorEntityId = " & m_FactorEntityId & _
-                " AND TaxYear = " & m_TaxYear & " ORDER BY FactorCode"
+            sSQL = "SELECT FactorCode FROM FactorEntityCodes WHERE FactorEntityId = " & m_FactorEntityId &
+                " AND TaxYear = " & m_TaxYear & " AND ISNULL(InactiveFl,0) = 0 ORDER BY FactorCode"
             GetData(sSQL, dt)
             For Each dr In dt.Rows
                 cboFactorCode.Items.Add(dr("FactorCode"))

@@ -481,7 +481,8 @@
                 sText = "Factoring Entities"
                 dgList.ReadOnly = False
             ElseIf m_ListType = enumListType.enumFactorCodes Then
-                sSQL = "SELECT FactorEntityId, FactorCode, Description, TaxYear FROM FactorEntityCodes WHERE FactorEntityId = " & m_FactoringEntityId & " AND TaxYear = " & m_TaxYear & " ORDER BY FactorCode"
+                sSQL = "SELECT FactorEntityId, FactorCode, Description, InactiveFl, TaxYear FROM FactorEntityCodes WHERE FactorEntityId = " &
+                    m_FactoringEntityId & " AND TaxYear = " & m_TaxYear & " ORDER BY FactorCode"
                 sText = "Factoring Codes:  " & m_AdditionalText
                 dgList.ReadOnly = False
             ElseIf m_ListType = enumListType.enumFactors Then
@@ -619,11 +620,12 @@
                     column.Visible = False
                 End If
                 If m_ListType = enumListType.enumFactorCodes Then
-                    If column.Name = "Description" Then
-                        column.ReadOnly = False
-                    Else
-                        column.ReadOnly = True
-                    End If
+                    Select Case column.Name
+                        Case "Description", "InactiveFl"
+                            column.ReadOnly = False
+                        Case Else
+                            column.ReadOnly = True
+                    End Select
                 ElseIf m_ListType = enumListType.enumFactoringEntities Then
                     If column.Name = "StateCd" Or column.Name = "Name" Then
                         column.ReadOnly = False
@@ -1594,7 +1596,7 @@
                         End If
                         sSQL = "SELECT FactorCode,FactorCode FROM FactorEntityCodes" &
                             " WHERE FactorEntityId = " & lFactorEntityId & " AND TaxYear = " & m_TaxYear &
-                            " ORDER BY 1"
+                            "  AND ISNULL(InactiveFl,0) = 0 ORDER BY 1"
                         cboFactorFactorCode.Items.Clear()
                         cboFactorFactorCode.Items.Add("")
                         LoadComboBox(sSQL, cboFactorFactorCode, colTemp)
@@ -2032,11 +2034,14 @@
     Private Sub dgList_CellEndEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgList.CellEndEdit
         Dim sError As String = ""
         If m_ListType = enumListType.enumFactoringEntities Then
-            If Not UpdateFactorEntities(dgList.Rows(e.RowIndex).Cells("FactorEntityId").Value, dgList.Columns(e.ColumnIndex).Name, Trim(UnNullToString(dgList.Rows(e.RowIndex).Cells(e.ColumnIndex).Value)), sError) Then
+            If Not UpdateFactorEntities(dgList.Rows(e.RowIndex).Cells("FactorEntityId").Value, dgList.Columns(e.ColumnIndex).Name,
+                    Trim(UnNullToString(dgList.Rows(e.RowIndex).Cells(e.ColumnIndex).Value)), sError) Then
                 MsgBox(sError)
             End If
         ElseIf m_ListType = enumListType.enumFactorCodes Then
-            If Not UpdateFactorEntityCodes(dgList.Rows(e.RowIndex).Cells("FactorEntityId").Value, dgList.Rows(e.RowIndex).Cells("FactorCode").Value, dgList.Rows(e.RowIndex).Cells("TaxYear").Value, dgList.Columns(e.ColumnIndex).Name, Trim(UnNullToString(dgList.Rows(e.RowIndex).Cells(e.ColumnIndex).Value)), sError) Then
+            If Not UpdateFactorEntityCodes(dgList.Rows(e.RowIndex).Cells("FactorEntityId").Value, dgList.Rows(e.RowIndex).Cells("FactorCode").Value,
+                    dgList.Rows(e.RowIndex).Cells("TaxYear").Value, dgList.Columns(e.ColumnIndex).Name,
+                    Trim(UnNullToString(dgList.Rows(e.RowIndex).Cells(e.ColumnIndex).Value)), sError) Then
                 MsgBox(sError)
             End If
         End If

@@ -215,6 +215,7 @@
         Dim bIncludeRow As Boolean = False, sDesc As String = ""
         Dim sProperty As New StringBuilder
         Dim LesseeInfo As New StringBuilder
+        Dim citystate As New StringBuilder
 
         Try
             'need to incorporate batch printing into the print server
@@ -299,8 +300,12 @@
                 sReportText = "Exempt Assets - Tax Year " & iTaxYear
             ElseIf eType = enumReport.enumAssetDetailNon Then
                 sReportText = "Non-taxable Assets - Tax Year " & iTaxYear
-            ElseIf eType = enumReport.enumAssetDetailLeasedProperty Or eType = enumReport.enumAssetDetailLeaseholdImprovements Or eType = enumReport.enumAssetDetailLeasesAll Then
+            ElseIf eType = enumReport.enumAssetDetailLeasedProperty Or
+                    eType = enumReport.enumAssetDetailLeaseholdImprovements Or
+                    eType = enumReport.enumAssetDetailLeasesAll Then
                 sReportText = "Leased Property - Tax Year " & iTaxYear
+            ElseIf eType = enumReport.enumLeaseSummary Then
+                sReportText = "Asset Summary - Leases - Tax Year " & iTaxYear
             ElseIf eType = enumReport.enumTaxBill Then
                 sReportText = "Statement of Taxes Due"
             ElseIf eType = enumReport.enumBarCode Then
@@ -775,7 +780,8 @@
                         " tblValues.Assessors_Name, " &
                         " CONVERT(float,ISNULL(tblValues.BPPRatio,0)) AS Assessors_Ratio," &
                         " CONVERT(float,tblValues.ClientRenditionValue) AS ClientRenditionValue, j.Name as Jurisdictions_Name, CONVERT(float,j.TaxRate) AS TaxRate,"
-                    sSQL = sSQL & " CASE WHEN tblValues.SumOfFactoredAmount > ISNULL(ISNULL(ad.NotifiedValue,tblValues.SumOfFactoredAmount),0)" &
+                    sSQL = sSQL & " CASE WHEN ISNULL(ad.FinalValue,0)>0 THEN ad.FinalValue" &
+                        " WHEN tblValues.SumOfFactoredAmount > ISNULL(ISNULL(ad.NotifiedValue,tblValues.SumOfFactoredAmount),0)" &
                         " THEN tblValues.SumOfFactoredAmount ELSE ISNULL(ISNULL(ad.NotifiedValue,tblValues.SumOfFactoredAmount),0) END AS FinalValue,"
                     sSQL = sSQL & " CONVERT(float,ISNULL(ISNULL(ad.AbatementReductionAmt,(SELECT ad2.AbatementReductionAmt" &
                         " FROM AssessmentDetailBPP ad2 WHERE ad2.ClientId = ad.ClientId" &
@@ -928,7 +934,8 @@
                     eType = enumReport.enumAssetDetailLeasedProperty Or
                     eType = enumReport.enumAssetDetailLeaseholdImprovements Or
                     eType = enumReport.enumAssetDetailLeasesAll Or
-                    eType = enumReport.enumAssetSummary Then
+                    eType = enumReport.enumAssetSummary Or
+                    eType = enumReport.enumLeaseSummary Then
                 dt = GetAssetList(lClientId, lLocationId, lAssessmentId, iTaxYear, lFactorEntityId, True, False, False, False, True, False).Tables("ReturnTypeDetail")
                 lRows = dt.Rows.Count
             Else
@@ -1711,36 +1718,6 @@
                                         sFactorCode = UnNullToString(row("EntityFactorCode" & iScheduleCounter))
                                     End If
 
-
-
-                                    'keep this for backup 9/9/2019
-                                    'If bPrintingClientValue Then
-                                    '    sFactorDescription = UnNullToString(row("ClientFactorDesc" & iScheduleCounter))
-                                    '    dFactoredAmt = UnNullToDouble(row("ClientValue" & iScheduleCounter))
-                                    '    lFactoredAmtBeforeInterstateAllocationPct = dFactoredAmt
-                                    '    dFactor = UnNullToDouble(row("ClientFactor" & iScheduleCounter))
-                                    '    sFactorCode = UnNullToString(row("ClientFactorCode" & iScheduleCounter))
-                                    'Else
-                                    '    sFactorDescription = UnNullToString(row("EntityFactorDesc" & iScheduleCounter))
-                                    '    dFactoredAmt = UnNullToDouble(row("EntityValue" & iScheduleCounter))
-                                    '    ''''need to move this to the stored proc
-                                    '    lFactoredAmtBeforeInterstateAllocationPct = dFactoredAmt
-                                    '    If dt.Columns.Contains("InterstateAllocationPct" & iScheduleCounter) Then
-                                    '        If UnNullToDouble(row("InterstateAllocationPct" & iScheduleCounter)) > 0 Then
-                                    '            lFactoredAmtBeforeInterstateAllocationPct = dOriginalAmt * UnNullToDouble(row("EntityFactor" & iScheduleCounter))
-                                    '            If dt.Columns.Contains("AllocationPct" & iScheduleCounter) Then
-                                    '                If UnNullToDouble(row("AllocationPct" & iScheduleCounter)) > 0 Then
-                                    '                    lFactoredAmtBeforeInterstateAllocationPct = lFactoredAmtBeforeInterstateAllocationPct * UnNullToDouble(row("AllocationPct" & iScheduleCounter))
-                                    '                End If
-                                    '            End If
-                                    '        End If
-                                    '    End If
-                                    '    dFactor = UnNullToDouble(row("EntityFactor" & iScheduleCounter))
-                                    '    sFactorCode = UnNullToString(row("EntityFactorCode" & iScheduleCounter))
-                                    'End If
-
-
-
                                     bIncludeRow = False
                                     If eType = enumReport.enumAssetDetailLeasedProperty _
                                             Or eType = enumReport.enumAssetDetailLeaseholdImprovements _
@@ -1923,7 +1900,9 @@
                                                 sSQL = sSQL & ",1"
                                             End If
                                             ExecuteSQL(sSQL)
-                                        ElseIf eType = enumReport.enumAssetDetailLeasedProperty Or eType = enumReport.enumAssetDetailLeaseholdImprovements Or eType = enumReport.enumAssetDetailLeasesAll Then
+                                        ElseIf eType = enumReport.enumAssetDetailLeasedProperty Or
+                                                eType = enumReport.enumAssetDetailLeaseholdImprovements Or
+                                                eType = enumReport.enumAssetDetailLeasesAll Then
                                             sql.Clear()
                                             If row("LeaseType").ToString = LEASEHOLDIMPROVEMENTS Then
                                                 sTitle = "Leasehold Improvements - Tax Year " & iTaxYear
@@ -1949,6 +1928,31 @@
                                             sql.Append(IIf(row("LeaseType").ToString = LEASEHOLDIMPROVEMENTS, 0, 1)).Append(",")
                                             sql.Append(dOriginalAmt.ToString).Append(",")
                                             sql.Append(UnNullToDouble(row("LeaseTerm")))
+                                            ExecuteSQL(sql.ToString)
+                                        ElseIf eType = enumReport.enumLeaseSummary Then
+                                            sql.Clear() : citystate.Clear()
+                                            'sTitle = sTitle & vbCrLf & row("LegalOwner") &
+                                            '    IIf(row("Locations_ClientLocationId").ToString().Trim().Length > 0, vbCrLf & row("Locations_ClientLocationId").ToString().Trim(), "") &
+                                            '    vbCrLf & row("Locations_Address") &
+                                            '    vbCrLf & row("Locations_City") & ", " & row("Locations_StateCd") & vbCrLf &
+                                            '    row("Assessors_Name") & "  " & row("Assessments_AcctNum")
+                                            sql.Append("INSERT INTO ReportData (UserName,ReportId,RowCounter,Title01,Text01,Number01,Number02) SELECT ")
+                                            sql.Append(QuoStr(AppData.UserId)).Append(",").Append(AppData.ReportId).Append(",")
+                                            sql.Append(lRowCounter.ToString).Append(",").Append(QuoStr(sTitle)).Append(",")
+                                            'Text01
+                                            If dt.Columns.Contains("LesseeCity") Then
+                                                If row("LesseeCity").ToString <> "" Then citystate.Append(row("LesseeCity").ToString)
+                                            End If
+                                            If dt.Columns.Contains("LesseeStateCd") Then
+                                                If row("LesseeStateCd").ToString() <> "" Then citystate.Append(", ").Append(row("LesseeStateCd").ToString)
+                                            End If
+                                            sql.Append(QuoStr(citystate.ToString())).Append(",")
+                                            'Number01 and Number02
+                                            If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
+                                                sql.Append("0,").Append(dFactoredAmt)
+                                            Else
+                                                sql.Append(dFactoredAmt).Append(",0")
+                                            End If
                                             ExecuteSQL(sql.ToString)
                                         End If
                                     End If
@@ -2024,7 +2028,8 @@
                                             eType = enumReport.enumAssetDetailExempt Or eType = enumReport.enumAssetDetailNon Or
                                             eType = enumReport.enumAssetDetailLeasedProperty Or
                                             eType = enumReport.enumAssetDetailLeaseholdImprovements Or
-                                            eType = enumReport.enumAssetDetailLeasesAll Then
+                                            eType = enumReport.enumAssetDetailLeasesAll Or
+                                            eType = enumReport.enumLeaseSummary Then
                                     sAssetExportFile =
                                         Replace(sPDFFileName, ".pdf", "_" & sName & ".pdf", , , CompareMethod.Text)
                                     OpenReport(eType, sReportText & " " & sName & "  " & sAcctNum, bSendToPrinter,
@@ -2201,34 +2206,37 @@
             Case enumReport.enumAssetDetailCost
                 sSQL = "SELECT * FROM ReportData" & sWHERE
                 sReportFile = "rptAssetDetailCost.rpt"
+            Case enumReport.enumLeaseSummary
+                sSQL = "SELECT Title01, Text01, Sum(Number01) AS Number01, Sum(Number02) AS Number02 FROM ReportData" & sWHERE & " GROUP BY Title01, Text01 ORDER BY Text01"
+                sReportFile = "rptAssetLeasesSummary.rpt"
             Case enumReport.enumTaxBill
-                'sSQL = "select * from ReportData" & sWHERE & " ORDER BY ID"
+                'sSQL = "Select * from ReportData" & sWHERE & " ORDER BY ID"
                 sReportFile = "rptTaxBillTransmittal.rpt"
             Case enumReport.enumBarCode
-                sSQL = "select * from ReportData" & sWHERE & " ORDER BY ID"
+                sSQL = "Select * from ReportData" & sWHERE & " ORDER BY ID"
                 sReportFile = "rptBarCode.rpt"
             Case enumReport.enumTaxBillCheckOff
-                sSQL = "select * from ReportData" & sWHERE & " ORDER BY ID"
+                sSQL = "Select * from ReportData" & sWHERE & " ORDER BY ID"
                 sReportFile = "rptTaxBillCheckOff.rpt"
             Case enumReport.enumRenditionDueDate
-                sSQL = "select Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Title01, NoRows FROM ReportData " &
+                sSQL = "Select Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Title01, NoRows FROM ReportData " &
                     sWHERE & " ORDER BY Text08, Date01, Text04, Text07, Text02"
                 sReportFile = "rptRenditionDueDate.rpt"
             Case enumReport.enumMissingTaxBills
                 sReportFile = "rptMissingTaxBills.rpt"
             Case enumReport.enumClientLocationListing
-                sSQL = "select Title01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09, NoRows FROM ReportData " &
+                sSQL = "Select Title01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09, NoRows FROM ReportData " &
                     sWHERE & " ORDER BY Text01, Text05, Text03, Text04, Text08, Text07"
                 sReportFile = "rptClientLocationListing.rpt"
             Case enumReport.enumMissingNotice
-                sSQL = "select Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09, Title01, NoRows FROM ReportData " &
+                sSQL = "Select Date01, Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09, Title01, NoRows FROM ReportData " &
                     sWHERE & " ORDER BY Text09, Date01, Text07, Text02"
                 sReportFile = "rptMissingNotice.rpt"
             Case enumReport.enumAssessorEnvelope, enumReport.enumAssessorValueProtestEnvelope, enumReport.enumClientEnvelope
-                sSQL = "SELECT Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08 FROM ReportData " & sWHERE & " ORDER BY ID"
+                sSQL = "Select Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08 FROM ReportData " & sWHERE & " ORDER BY ID"
                 sReportFile = "rptAssessorEnvelope.rpt"
             Case enumReport.enumAssessorCover
-                sSQL = "SELECT Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10,Text11,Text12,Text13" &
+                sSQL = "Select Text01,Text02,Text03,Text04,Text05,Text06,Text07,Text08,Text09,Text10,Text11,Text12,Text13" &
                     " FROM ReportData " & sWHERE
                 sReportFile = "rptAssessorEnvelope.rpt"
             Case enumReport.enumFixedAssetReconByGLCode, enumReport.enumFixedAssetReconByDeprCode
@@ -2237,11 +2245,11 @@
                 sReportFile = "rptTaxAccrual.rpt"
             Case enumReport.enumTaxAccrualSummary
                 sReportFile = "rptTaxAccrualSummary.rpt"
-                sSQL = "select * from ReportData" & sWHERE
+                sSQL = "Select * from ReportData" & sWHERE
             Case enumReport.enumTaxSavings
                 sReportFile = "rptTaxSavings.rpt"
             Case enumReport.enumAppointmentOfAgentForm
-                sSQL = "SELECT Title01,Text01,Text02,Number01 FROM ReportData " & sWHERE
+                sSQL = "Select Title01,Text01,Text02,Number01 FROM ReportData " & sWHERE
                 sReportFile = "rptAofADetail.rpt"
             Case enumReport.enumREComp
                 sReportFile = "rptREComps.rpt"

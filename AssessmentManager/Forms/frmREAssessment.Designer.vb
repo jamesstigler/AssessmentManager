@@ -23,15 +23,15 @@ Partial Class frmREAssessment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -157,6 +157,8 @@ Partial Class frmREAssessment
         Me.Label13 = New System.Windows.Forms.Label()
         Me.fraCollectors = New System.Windows.Forms.GroupBox()
         Me.dgCollectors = New System.Windows.Forms.DataGridView()
+        Me.cboLandType = New System.Windows.Forms.ComboBox()
+        Me.Label44 = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
@@ -548,23 +550,23 @@ Partial Class frmREAssessment
         Me.dgHistory.AllowUserToDeleteRows = False
         Me.dgHistory.AllowUserToOrderColumns = True
         Me.dgHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.Format = "N0"
+        DataGridViewCellStyle10.NullValue = Nothing
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgHistory.Dock = System.Windows.Forms.DockStyle.Top
         Me.dgHistory.Location = New System.Drawing.Point(3, 16)
         Me.dgHistory.Name = "dgHistory"
         Me.dgHistory.ReadOnly = True
         Me.dgHistory.RowHeadersVisible = False
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgHistory.RowsDefaultCellStyle = DataGridViewCellStyle11
         Me.dgHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgHistory.ShowCellErrors = False
         Me.dgHistory.ShowCellToolTips = False
@@ -758,23 +760,23 @@ Partial Class frmREAssessment
         Me.dgECU.AllowUserToDeleteRows = False
         Me.dgECU.AllowUserToOrderColumns = True
         Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.Format = "N0"
-        DataGridViewCellStyle3.NullValue = Nothing
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.Format = "N0"
+        DataGridViewCellStyle12.NullValue = Nothing
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgECU.Location = New System.Drawing.Point(3, 16)
         Me.dgECU.Name = "dgECU"
         Me.dgECU.ReadOnly = True
         Me.dgECU.RowHeadersVisible = False
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle13
         Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgECU.ShowCellErrors = False
         Me.dgECU.ShowCellToolTips = False
@@ -958,20 +960,20 @@ Partial Class frmREAssessment
         Me.dgComments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgComments.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.ChangeDate, Me.Comment})
         Me.dgComments.ContextMenuStrip = Me.ContextMenuStrip3
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle17
         Me.dgComments.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgComments.Location = New System.Drawing.Point(0, 0)
         Me.dgComments.Margin = New System.Windows.Forms.Padding(0)
         Me.dgComments.Name = "dgComments"
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgComments.RowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgComments.RowsDefaultCellStyle = DataGridViewCellStyle18
         Me.dgComments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgComments.ShowCellErrors = False
         Me.dgComments.ShowCellToolTips = False
@@ -982,8 +984,8 @@ Partial Class frmREAssessment
         '
         'ID
         '
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ID.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ID.DefaultCellStyle = DataGridViewCellStyle14
         Me.ID.HeaderText = "Column1"
         Me.ID.Name = "ID"
         Me.ID.ReadOnly = True
@@ -991,8 +993,8 @@ Partial Class frmREAssessment
         '
         'ChangeDate
         '
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChangeDate.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChangeDate.DefaultCellStyle = DataGridViewCellStyle15
         Me.ChangeDate.FillWeight = 142.132!
         Me.ChangeDate.HeaderText = "Date/Time"
         Me.ChangeDate.MinimumWidth = 100
@@ -1001,8 +1003,8 @@ Partial Class frmREAssessment
         '
         'Comment
         '
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Comment.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Comment.DefaultCellStyle = DataGridViewCellStyle16
         Me.Comment.FillWeight = 57.86803!
         Me.Comment.HeaderText = "Comment"
         Me.Comment.MinimumWidth = 250
@@ -1398,6 +1400,8 @@ Partial Class frmREAssessment
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.cboLandType)
+        Me.GroupBox2.Controls.Add(Me.Label44)
         Me.GroupBox2.Controls.Add(Me.txtCeilingHeight)
         Me.GroupBox2.Controls.Add(Me.Label43)
         Me.GroupBox2.Controls.Add(Me.cboConstructionType)
@@ -1423,7 +1427,7 @@ Partial Class frmREAssessment
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(8, 8)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(392, 164)
+        Me.GroupBox2.Size = New System.Drawing.Size(392, 192)
         Me.GroupBox2.TabIndex = 206
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Property Details"
@@ -1432,10 +1436,10 @@ Partial Class frmREAssessment
         '
         Me.txtCeilingHeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtCeilingHeight.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCeilingHeight.Location = New System.Drawing.Point(88, 136)
+        Me.txtCeilingHeight.Location = New System.Drawing.Point(88, 160)
         Me.txtCeilingHeight.Name = "txtCeilingHeight"
         Me.txtCeilingHeight.Size = New System.Drawing.Size(60, 20)
-        Me.txtCeilingHeight.TabIndex = 152
+        Me.txtCeilingHeight.TabIndex = 143
         Me.txtCeilingHeight.Tag = "@DB=AssessmentsRE.CeilingHeight;@fmt=int"
         Me.txtCeilingHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtCeilingHeight.WordWrap = False
@@ -1443,7 +1447,7 @@ Partial Class frmREAssessment
         'Label43
         '
         Me.Label43.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label43.Location = New System.Drawing.Point(6, 140)
+        Me.Label43.Location = New System.Drawing.Point(6, 164)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(80, 16)
         Me.Label43.TabIndex = 151
@@ -1456,16 +1460,16 @@ Partial Class frmREAssessment
         Me.cboConstructionType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboConstructionType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboConstructionType.FormattingEnabled = True
-        Me.cboConstructionType.Location = New System.Drawing.Point(88, 64)
+        Me.cboConstructionType.Location = New System.Drawing.Point(88, 88)
         Me.cboConstructionType.Name = "cboConstructionType"
         Me.cboConstructionType.Size = New System.Drawing.Size(160, 21)
-        Me.cboConstructionType.TabIndex = 150
+        Me.cboConstructionType.TabIndex = 140
         Me.cboConstructionType.Tag = "@DB=AssessmentsRE.ConstructionType"
         '
         'Label24
         '
         Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(16, 68)
+        Me.Label24.Location = New System.Drawing.Point(16, 92)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(70, 16)
         Me.Label24.TabIndex = 149
@@ -1501,7 +1505,7 @@ Partial Class frmREAssessment
         Me.txtLandSqFt.Location = New System.Drawing.Point(324, 88)
         Me.txtLandSqFt.Name = "txtLandSqFt"
         Me.txtLandSqFt.Size = New System.Drawing.Size(64, 20)
-        Me.txtLandSqFt.TabIndex = 146
+        Me.txtLandSqFt.TabIndex = 147
         Me.txtLandSqFt.Tag = "@DB=AssessmentsRE.LandSqFt;@fmt=int"
         Me.txtLandSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtLandSqFt.WordWrap = False
@@ -1520,10 +1524,10 @@ Partial Class frmREAssessment
         '
         Me.txtGrossLeasableSqFt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGrossLeasableSqFt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtGrossLeasableSqFt.Location = New System.Drawing.Point(88, 112)
+        Me.txtGrossLeasableSqFt.Location = New System.Drawing.Point(88, 136)
         Me.txtGrossLeasableSqFt.Name = "txtGrossLeasableSqFt"
         Me.txtGrossLeasableSqFt.Size = New System.Drawing.Size(60, 20)
-        Me.txtGrossLeasableSqFt.TabIndex = 144
+        Me.txtGrossLeasableSqFt.TabIndex = 142
         Me.txtGrossLeasableSqFt.Tag = "@DB=AssessmentsRE.GrossLeasableSqFt;@fmt=int"
         Me.txtGrossLeasableSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtGrossLeasableSqFt.WordWrap = False
@@ -1531,7 +1535,7 @@ Partial Class frmREAssessment
         'Label20
         '
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(6, 116)
+        Me.Label20.Location = New System.Drawing.Point(6, 140)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(80, 16)
         Me.Label20.TabIndex = 143
@@ -1545,7 +1549,7 @@ Partial Class frmREAssessment
         Me.txtYearBuilt.Location = New System.Drawing.Point(324, 16)
         Me.txtYearBuilt.Name = "txtYearBuilt"
         Me.txtYearBuilt.Size = New System.Drawing.Size(32, 20)
-        Me.txtYearBuilt.TabIndex = 142
+        Me.txtYearBuilt.TabIndex = 144
         Me.txtYearBuilt.Tag = "@DB=AssessmentsRE.YearBuilt;@fmt=year"
         Me.txtYearBuilt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtYearBuilt.WordWrap = False
@@ -1557,7 +1561,7 @@ Partial Class frmREAssessment
         Me.txtEffYearBuilt.Location = New System.Drawing.Point(324, 40)
         Me.txtEffYearBuilt.Name = "txtEffYearBuilt"
         Me.txtEffYearBuilt.Size = New System.Drawing.Size(32, 20)
-        Me.txtEffYearBuilt.TabIndex = 141
+        Me.txtEffYearBuilt.TabIndex = 145
         Me.txtEffYearBuilt.Tag = "@DB=AssessmentsRE.EffYearBuilt;@fmt=year"
         Me.txtEffYearBuilt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtEffYearBuilt.WordWrap = False
@@ -1569,7 +1573,7 @@ Partial Class frmREAssessment
         Me.txtBuildingSqFt.Location = New System.Drawing.Point(324, 64)
         Me.txtBuildingSqFt.Name = "txtBuildingSqFt"
         Me.txtBuildingSqFt.Size = New System.Drawing.Size(60, 20)
-        Me.txtBuildingSqFt.TabIndex = 140
+        Me.txtBuildingSqFt.TabIndex = 146
         Me.txtBuildingSqFt.Tag = "@DB=AssessmentsRE.BuildingSqFt;@fmt=int"
         Me.txtBuildingSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtBuildingSqFt.WordWrap = False
@@ -1578,10 +1582,10 @@ Partial Class frmREAssessment
         '
         Me.txtNetLeasableSqFt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtNetLeasableSqFt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNetLeasableSqFt.Location = New System.Drawing.Point(88, 88)
+        Me.txtNetLeasableSqFt.Location = New System.Drawing.Point(88, 112)
         Me.txtNetLeasableSqFt.Name = "txtNetLeasableSqFt"
         Me.txtNetLeasableSqFt.Size = New System.Drawing.Size(60, 20)
-        Me.txtNetLeasableSqFt.TabIndex = 139
+        Me.txtNetLeasableSqFt.TabIndex = 141
         Me.txtNetLeasableSqFt.Tag = "@DB=AssessmentsRE.NetLeasableSqFt;@fmt=int"
         Me.txtNetLeasableSqFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtNetLeasableSqFt.WordWrap = False
@@ -1592,10 +1596,10 @@ Partial Class frmREAssessment
         Me.cboBuildingClass.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboBuildingClass.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboBuildingClass.FormattingEnabled = True
-        Me.cboBuildingClass.Location = New System.Drawing.Point(88, 40)
+        Me.cboBuildingClass.Location = New System.Drawing.Point(88, 64)
         Me.cboBuildingClass.Name = "cboBuildingClass"
         Me.cboBuildingClass.Size = New System.Drawing.Size(56, 21)
-        Me.cboBuildingClass.TabIndex = 138
+        Me.cboBuildingClass.TabIndex = 139
         Me.cboBuildingClass.Tag = "@DB=AssessmentsRE.BuildingClass"
         '
         'cboBuildingType
@@ -1633,7 +1637,7 @@ Partial Class frmREAssessment
         'Label16
         '
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(4, 92)
+        Me.Label16.Location = New System.Drawing.Point(4, 116)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(82, 16)
         Me.Label16.TabIndex = 134
@@ -1643,7 +1647,7 @@ Partial Class frmREAssessment
         'Label15
         '
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(28, 44)
+        Me.Label15.Location = New System.Drawing.Point(28, 68)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(58, 16)
         Me.Label15.TabIndex = 133
@@ -1699,6 +1703,28 @@ Partial Class frmREAssessment
         Me.dgCollectors.ShowRowErrors = False
         Me.dgCollectors.Size = New System.Drawing.Size(754, 117)
         Me.dgCollectors.TabIndex = 212
+        '
+        'cboLandType
+        '
+        Me.cboLandType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboLandType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboLandType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboLandType.FormattingEnabled = True
+        Me.cboLandType.Location = New System.Drawing.Point(88, 40)
+        Me.cboLandType.Name = "cboLandType"
+        Me.cboLandType.Size = New System.Drawing.Size(160, 21)
+        Me.cboLandType.TabIndex = 138
+        Me.cboLandType.Tag = "@DB=AssessmentsRE.LandType"
+        '
+        'Label44
+        '
+        Me.Label44.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label44.Location = New System.Drawing.Point(16, 44)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(70, 16)
+        Me.Label44.TabIndex = 153
+        Me.Label44.Text = "Land Type"
+        Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frmREAssessment
         '
@@ -1873,4 +1899,6 @@ Partial Class frmREAssessment
     Friend WithEvents Label42 As Label
     Friend WithEvents txtCeilingHeight As TextBox
     Friend WithEvents Label43 As Label
+    Friend WithEvents cboLandType As ComboBox
+    Friend WithEvents Label44 As Label
 End Class

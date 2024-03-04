@@ -264,7 +264,7 @@
                         m_TypeOfReport = enumReport.enumAssetDetailNon Or
                         m_TypeOfReport = enumReport.enumAssetDetailLeasedProperty Or
                         m_TypeOfReport = enumReport.enumAssetDetailLeaseholdImprovements Or
-                        m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or
+                        m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                         m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
                         m_TypeOfReport = enumReport.enumRenditionExtensionForm Or
                         m_TypeOfReport = enumReport.enumCertificateOfMailing Or m_TypeOfReport = enumReport.enumClientLocationListing Or
@@ -352,7 +352,7 @@
                     m_TypeOfReport = enumReport.enumAssetDetailCost Or m_TypeOfReport = enumReport.enumAssetDetailExempt Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeasedProperty Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeaseholdImprovements Or
-                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or
+                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                     m_TypeOfReport = enumReport.enumAssetDetailNon Or
                     m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
                     m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
@@ -465,7 +465,7 @@
                     m_TypeOfReport = enumReport.enumAssetDetailNon Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeasedProperty Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeaseholdImprovements Or
-                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or
+                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                     m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
                     m_TypeOfReport = enumReport.enumRenditionExtensionForm Or
                     m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
@@ -784,7 +784,7 @@
             cboFactorCode.Items.Clear()
             cboFactorCode.Text = ""
             sSQL = "select RTRIM(FactorCode),RTRIM(FactorCode) from FactorEntityCodes where FactorEntityId = " & lEntityId &
-                " and TaxYear = " & AppData.TaxYear
+                " and TaxYear = " & AppData.TaxYear & " AND ISNULL(InactiveFl,0) = 0"
             LoadComboBox(sSQL, cboFactorCode, colCodes)
             bRefreshing = False
             Return True
@@ -870,7 +870,7 @@
                     m_TypeOfReport = enumReport.enumAssetDetailNon Or m_TypeOfReport = enumReport.enumRenditionForm Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeasedProperty Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeaseholdImprovements Or
-                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or
+                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                     m_TypeOfReport = enumReport.enumRenditionExtensionForm Or m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or
                     m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
                     m_TypeOfReport = enumReport.enumFreeportForm Then
@@ -946,7 +946,7 @@
                     m_TypeOfReport = enumReport.enumAssetDetailCost Or m_TypeOfReport = enumReport.enumAssetDetailExempt Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeasedProperty Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeaseholdImprovements Or
-                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or
+                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                     m_TypeOfReport = enumReport.enumAssetDetailNon Or
                     m_TypeOfImport = enumTable.enumAssessmentBPP Or m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
                     m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
@@ -1102,7 +1102,7 @@
                     m_TypeOfReport = enumReport.enumAssetDetailCost Or m_TypeOfReport = enumReport.enumAssetDetailExempt Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeasedProperty Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeaseholdImprovements Or
-                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or
+                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                     m_TypeOfReport = enumReport.enumAssetDetailNon Then
                 sPDFFileName = CleanFileName("AssetReport_" & m_TypeOfReport & "_" & cboAssessment.Text & ".pdf")
                 RunReport(m_TypeOfReport, colClients(cboClient.Text), colLocations(cboLocation.Text),
@@ -1311,7 +1311,7 @@
                     m_TypeOfReport = enumReport.enumAssetDetailNon Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeasedProperty Or
                     m_TypeOfReport = enumReport.enumAssetDetailLeaseholdImprovements Or
-                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or
+                    m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                     m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
                     m_TypeOfReport = enumReport.enumRenditionExtensionForm Or
                     m_TypeOfReport = enumReport.enumCertificateOfMailing Or

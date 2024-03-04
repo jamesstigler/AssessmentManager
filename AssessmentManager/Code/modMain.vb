@@ -116,6 +116,7 @@ Module modMain
         enumAssetDetailLeasesAll
         enumTaxAccrualSummary
         enumAssessorValueProtestEnvelope
+        enumLeaseSummary
     End Enum
     Public Enum enumContactTypes
         enumTax
@@ -2095,7 +2096,7 @@ Module modMain
                 ",MarketReimbRevenuePerSqFt,MarketAddlRevenuePerSqFt,CeilingHeight" &
                 ",ValueMethodTarget,MarketCapRate,MarketCommonAreaMaintPct,MarketMgmtFeesPct,MarketNonReimbPct,MarketPropInsPct" &
                 ",ValueMethodEquity,MarketRentPerSqFt,MarketTaxRate,MarketVacCollLossPct,LeaseupCommissionPct,LeaseupTotIncCostPerSqFt" &
-                ",LeaseupVacantSqFt,ValueMethodIncome,ValueMethodMarket,ValueMethod,ValueMethodCost" &
+                ",LeaseupVacantSqFt,ValueMethodIncome,ValueMethodMarket,ValueMethod,ValueMethodCost,LandType" &
                 ")" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId," & iToYear & "," &
                 " t1.AssessorId,t1.AcctNum,t1.Comment,t1.InactiveFl," &
@@ -2104,7 +2105,7 @@ Module modMain
                 ",t1.MarketReimbRevenuePerSqFt,t1.MarketAddlRevenuePerSqFt,t1.CeilingHeight" &
                 ",t1.ValueMethodTarget,t1.MarketCapRate,t1.MarketCommonAreaMaintPct,t1.MarketMgmtFeesPct,t1.MarketNonReimbPct,t1.MarketPropInsPct" &
                 ",t1.ValueMethodEquity,t1.MarketRentPerSqFt,t1.MarketTaxRate,t1.MarketVacCollLossPct,t1.LeaseupCommissionPct,t1.LeaseupTotIncCostPerSqFt" &
-                ",t1.LeaseupVacantSqFt,t1.ValueMethodIncome,t1.ValueMethodMarket,t1.ValueMethod,t1.ValueMethodCost" &
+                ",t1.LeaseupVacantSqFt,t1.ValueMethodIncome,t1.ValueMethodMarket,t1.ValueMethod,t1.ValueMethodCost,t1.LandType" &
                 " FROM AssessmentsRE t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM AssessmentsRE t2" &
                 " WHERE t2.ClientId = t1.ClientId AND t2.LocationId = t1.LocationId" &
@@ -2171,11 +2172,11 @@ Module modMain
             'If lClientId > 0 Then sSQL = sSQL & " AND t1.ClientId = " & lClientId
             'lRows = ExecuteSQL(sSQL)
 
-            sSQL = "INSERT FactorEntityCodes (FactorEntityId,FactorCode,TaxYear,Description,AddUser)" & _
-                " SELECT t1.FactorEntityId,t1.FactorCode," & iToYear & ",t1.Description," & QuoStr(AppData.UserId) & _
-                " FROM FactorEntityCodes t1 WHERE t1.TaxYear = " & iFromYear & _
-                " AND NOT EXISTS(SELECT t2.FactorEntityId FROM FactorEntityCodes t2" & _
-                " WHERE t2.FactorEntityId = t1.FactorEntityId AND t2.FactorCode = t1.FactorCode" & _
+            sSQL = "INSERT FactorEntityCodes (FactorEntityId,FactorCode,TaxYear,Description,AddUser,InactiveFl)" &
+                " SELECT t1.FactorEntityId,t1.FactorCode," & iToYear & ",t1.Description," & QuoStr(AppData.UserId) & ",t1.InactiveFl" &
+                " FROM FactorEntityCodes t1 WHERE t1.TaxYear = " & iFromYear &
+                " AND NOT EXISTS(SELECT t2.FactorEntityId FROM FactorEntityCodes t2" &
+                " WHERE t2.FactorEntityId = t1.FactorEntityId AND t2.FactorCode = t1.FactorCode" &
                 " AND t2.TaxYear = " & iToYear & ")"
             lRows = ExecuteSQL(sSQL)
 

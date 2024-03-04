@@ -695,6 +695,7 @@ Public Class MDIParent1
             sender.checked = True
             AppData.TaxYear = Val(Microsoft.VisualBasic.Right(sender.name, 4))
             SaveSetting(AppData.AppName, "Configuration", "TaxYear", AppData.TaxYear)
+            Me.Text = AppData.AppName & " version:  " & AppData.Version & IIf(AppData.PrintServer, " (Print Server)", "") & ", datebase:  " & AppData.Server & "          " & AppData.TaxYear
             CloseMDIChildren()
             ShowStatus()
         Catch ex As Exception

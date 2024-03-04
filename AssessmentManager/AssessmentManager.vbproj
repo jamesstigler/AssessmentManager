@@ -501,6 +501,12 @@
       <DependentUpon>rptAssetImportSummary.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\rptAssetLeasesSummary.vb">
+      <DependentUpon>rptAssetLeasesSummary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\rptAssetLeases.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -783,6 +789,10 @@
     <EmbeddedResource Include="Reports\rptAssetImportSummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptAssetImportSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptAssetLeasesSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAssetLeasesSummary.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptAssetLeases.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

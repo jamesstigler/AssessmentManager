@@ -62,8 +62,8 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionAssessor = New System.Windows.Forms.CheckBox()
         Me.chkBatchRenditionRendition = New System.Windows.Forms.CheckBox()
         Me.chkBatchRenditionAssetSummary = New System.Windows.Forms.CheckBox()
-        Me.chkBatchRenditionAssetDetail = New System.Windows.Forms.CheckBox()
         Me.chkBatchRenditionBarCode = New System.Windows.Forms.CheckBox()
+        Me.chkBatchRenditionAssetDetail = New System.Windows.Forms.CheckBox()
         Me.grpBatchValue = New System.Windows.Forms.GroupBox()
         Me.chkBatchValueProtestCert = New System.Windows.Forms.CheckBox()
         Me.chkBatchValueProtestAssessor = New System.Windows.Forms.CheckBox()
@@ -95,6 +95,7 @@ Partial Class frmReportSelection
         Me.chkShowCostAndFactors = New System.Windows.Forms.CheckBox()
         Me.chkIdentifyFields = New System.Windows.Forms.CheckBox()
         Me.radioTaxAccrualSummary = New System.Windows.Forms.RadioButton()
+        Me.radioLeaseSummary = New System.Windows.Forms.RadioButton()
         Me.grpBatchRendition.SuspendLayout()
         Me.grpBatchValue.SuspendLayout()
         Me.grpBatchTaxBill.SuspendLayout()
@@ -117,7 +118,7 @@ Partial Class frmReportSelection
         'cmdRun
         '
         Me.cmdRun.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.cmdRun.Location = New System.Drawing.Point(473, 541)
+        Me.cmdRun.Location = New System.Drawing.Point(473, 569)
         Me.cmdRun.Name = "cmdRun"
         Me.cmdRun.Size = New System.Drawing.Size(75, 23)
         Me.cmdRun.TabIndex = 37
@@ -127,10 +128,10 @@ Partial Class frmReportSelection
         'radioRenditionForm
         '
         Me.radioRenditionForm.AutoSize = True
-        Me.radioRenditionForm.Location = New System.Drawing.Point(16, 188)
+        Me.radioRenditionForm.Location = New System.Drawing.Point(16, 212)
         Me.radioRenditionForm.Name = "radioRenditionForm"
         Me.radioRenditionForm.Size = New System.Drawing.Size(96, 17)
-        Me.radioRenditionForm.TabIndex = 9
+        Me.radioRenditionForm.TabIndex = 11
         Me.radioRenditionForm.TabStop = True
         Me.radioRenditionForm.Text = "Rendition Form"
         Me.radioRenditionForm.UseVisualStyleBackColor = True
@@ -138,10 +139,10 @@ Partial Class frmReportSelection
         'radioFreeportForm
         '
         Me.radioFreeportForm.AutoSize = True
-        Me.radioFreeportForm.Location = New System.Drawing.Point(200, 208)
+        Me.radioFreeportForm.Location = New System.Drawing.Point(200, 232)
         Me.radioFreeportForm.Name = "radioFreeportForm"
         Me.radioFreeportForm.Size = New System.Drawing.Size(90, 17)
-        Me.radioFreeportForm.TabIndex = 13
+        Me.radioFreeportForm.TabIndex = 15
         Me.radioFreeportForm.TabStop = True
         Me.radioFreeportForm.Text = "Freeport Form"
         Me.radioFreeportForm.UseVisualStyleBackColor = True
@@ -170,7 +171,7 @@ Partial Class frmReportSelection
         'chkPrint
         '
         Me.chkPrint.AutoSize = True
-        Me.chkPrint.Location = New System.Drawing.Point(15, 441)
+        Me.chkPrint.Location = New System.Drawing.Point(15, 465)
         Me.chkPrint.Name = "chkPrint"
         Me.chkPrint.Size = New System.Drawing.Size(95, 17)
         Me.chkPrint.TabIndex = 33
@@ -180,10 +181,10 @@ Partial Class frmReportSelection
         'radioValueProtestForm
         '
         Me.radioValueProtestForm.AutoSize = True
-        Me.radioValueProtestForm.Location = New System.Drawing.Point(200, 228)
+        Me.radioValueProtestForm.Location = New System.Drawing.Point(200, 252)
         Me.radioValueProtestForm.Name = "radioValueProtestForm"
         Me.radioValueProtestForm.Size = New System.Drawing.Size(114, 17)
-        Me.radioValueProtestForm.TabIndex = 14
+        Me.radioValueProtestForm.TabIndex = 16
         Me.radioValueProtestForm.TabStop = True
         Me.radioValueProtestForm.Text = "Value Protest Form"
         Me.radioValueProtestForm.UseVisualStyleBackColor = True
@@ -224,10 +225,10 @@ Partial Class frmReportSelection
         'radioTaxBill
         '
         Me.radioTaxBill.AutoSize = True
-        Me.radioTaxBill.Location = New System.Drawing.Point(16, 260)
+        Me.radioTaxBill.Location = New System.Drawing.Point(16, 284)
         Me.radioTaxBill.Name = "radioTaxBill"
         Me.radioTaxBill.Size = New System.Drawing.Size(59, 17)
-        Me.radioTaxBill.TabIndex = 17
+        Me.radioTaxBill.TabIndex = 18
         Me.radioTaxBill.TabStop = True
         Me.radioTaxBill.Text = "Tax Bill"
         Me.radioTaxBill.UseVisualStyleBackColor = True
@@ -235,7 +236,7 @@ Partial Class frmReportSelection
         'radioTaxBillCheckOff
         '
         Me.radioTaxBillCheckOff.AutoSize = True
-        Me.radioTaxBillCheckOff.Location = New System.Drawing.Point(16, 280)
+        Me.radioTaxBillCheckOff.Location = New System.Drawing.Point(16, 304)
         Me.radioTaxBillCheckOff.Name = "radioTaxBillCheckOff"
         Me.radioTaxBillCheckOff.Size = New System.Drawing.Size(110, 17)
         Me.radioTaxBillCheckOff.TabIndex = 18
@@ -246,10 +247,10 @@ Partial Class frmReportSelection
         'radioAppointmentOfAgentForm
         '
         Me.radioAppointmentOfAgentForm.AutoSize = True
-        Me.radioAppointmentOfAgentForm.Location = New System.Drawing.Point(200, 188)
+        Me.radioAppointmentOfAgentForm.Location = New System.Drawing.Point(200, 212)
         Me.radioAppointmentOfAgentForm.Name = "radioAppointmentOfAgentForm"
         Me.radioAppointmentOfAgentForm.Size = New System.Drawing.Size(153, 17)
-        Me.radioAppointmentOfAgentForm.TabIndex = 12
+        Me.radioAppointmentOfAgentForm.TabIndex = 14
         Me.radioAppointmentOfAgentForm.TabStop = True
         Me.radioAppointmentOfAgentForm.Text = "Appointment of Agent Form"
         Me.radioAppointmentOfAgentForm.UseVisualStyleBackColor = True
@@ -257,7 +258,7 @@ Partial Class frmReportSelection
         'chkExport
         '
         Me.chkExport.AutoSize = True
-        Me.chkExport.Location = New System.Drawing.Point(15, 464)
+        Me.chkExport.Location = New System.Drawing.Point(15, 488)
         Me.chkExport.Name = "chkExport"
         Me.chkExport.Size = New System.Drawing.Size(56, 17)
         Me.chkExport.TabIndex = 34
@@ -266,14 +267,14 @@ Partial Class frmReportSelection
         '
         'txtFolder
         '
-        Me.txtFolder.Location = New System.Drawing.Point(96, 492)
+        Me.txtFolder.Location = New System.Drawing.Point(96, 516)
         Me.txtFolder.Name = "txtFolder"
         Me.txtFolder.Size = New System.Drawing.Size(332, 20)
         Me.txtFolder.TabIndex = 36
         '
         'cmdBrowse
         '
-        Me.cmdBrowse.Location = New System.Drawing.Point(15, 489)
+        Me.cmdBrowse.Location = New System.Drawing.Point(15, 513)
         Me.cmdBrowse.Name = "cmdBrowse"
         Me.cmdBrowse.Size = New System.Drawing.Size(75, 23)
         Me.cmdBrowse.TabIndex = 35
@@ -283,10 +284,10 @@ Partial Class frmReportSelection
         'radioRenditionExtensionForm
         '
         Me.radioRenditionExtensionForm.AutoSize = True
-        Me.radioRenditionExtensionForm.Location = New System.Drawing.Point(16, 208)
+        Me.radioRenditionExtensionForm.Location = New System.Drawing.Point(16, 232)
         Me.radioRenditionExtensionForm.Name = "radioRenditionExtensionForm"
         Me.radioRenditionExtensionForm.Size = New System.Drawing.Size(145, 17)
-        Me.radioRenditionExtensionForm.TabIndex = 10
+        Me.radioRenditionExtensionForm.TabIndex = 12
         Me.radioRenditionExtensionForm.TabStop = True
         Me.radioRenditionExtensionForm.Text = "Rendition Extension Form"
         Me.radioRenditionExtensionForm.UseVisualStyleBackColor = True
@@ -294,7 +295,7 @@ Partial Class frmReportSelection
         'radioRenditionDueDate
         '
         Me.radioRenditionDueDate.AutoSize = True
-        Me.radioRenditionDueDate.Location = New System.Drawing.Point(200, 260)
+        Me.radioRenditionDueDate.Location = New System.Drawing.Point(200, 284)
         Me.radioRenditionDueDate.Name = "radioRenditionDueDate"
         Me.radioRenditionDueDate.Size = New System.Drawing.Size(124, 17)
         Me.radioRenditionDueDate.TabIndex = 21
@@ -305,7 +306,7 @@ Partial Class frmReportSelection
         'radioMissingTaxBills
         '
         Me.radioMissingTaxBills.AutoSize = True
-        Me.radioMissingTaxBills.Location = New System.Drawing.Point(200, 300)
+        Me.radioMissingTaxBills.Location = New System.Drawing.Point(200, 324)
         Me.radioMissingTaxBills.Name = "radioMissingTaxBills"
         Me.radioMissingTaxBills.Size = New System.Drawing.Size(102, 17)
         Me.radioMissingTaxBills.TabIndex = 23
@@ -316,7 +317,7 @@ Partial Class frmReportSelection
         'radioMissingNotice
         '
         Me.radioMissingNotice.AutoSize = True
-        Me.radioMissingNotice.Location = New System.Drawing.Point(200, 320)
+        Me.radioMissingNotice.Location = New System.Drawing.Point(200, 344)
         Me.radioMissingNotice.Name = "radioMissingNotice"
         Me.radioMissingNotice.Size = New System.Drawing.Size(94, 17)
         Me.radioMissingNotice.TabIndex = 25
@@ -327,10 +328,10 @@ Partial Class frmReportSelection
         'radioCertificateOfMailing
         '
         Me.radioCertificateOfMailing.AutoSize = True
-        Me.radioCertificateOfMailing.Location = New System.Drawing.Point(16, 228)
+        Me.radioCertificateOfMailing.Location = New System.Drawing.Point(16, 252)
         Me.radioCertificateOfMailing.Name = "radioCertificateOfMailing"
         Me.radioCertificateOfMailing.Size = New System.Drawing.Size(120, 17)
-        Me.radioCertificateOfMailing.TabIndex = 11
+        Me.radioCertificateOfMailing.TabIndex = 13
         Me.radioCertificateOfMailing.TabStop = True
         Me.radioCertificateOfMailing.Text = "Certificate of Mailing"
         Me.radioCertificateOfMailing.UseVisualStyleBackColor = True
@@ -338,7 +339,7 @@ Partial Class frmReportSelection
         'radioClientLocationListing
         '
         Me.radioClientLocationListing.AutoSize = True
-        Me.radioClientLocationListing.Location = New System.Drawing.Point(200, 340)
+        Me.radioClientLocationListing.Location = New System.Drawing.Point(200, 364)
         Me.radioClientLocationListing.Name = "radioClientLocationListing"
         Me.radioClientLocationListing.Size = New System.Drawing.Size(128, 17)
         Me.radioClientLocationListing.TabIndex = 26
@@ -349,7 +350,7 @@ Partial Class frmReportSelection
         'radioFixedAssetRecon
         '
         Me.radioFixedAssetRecon.AutoSize = True
-        Me.radioFixedAssetRecon.Location = New System.Drawing.Point(16, 156)
+        Me.radioFixedAssetRecon.Location = New System.Drawing.Point(16, 180)
         Me.radioFixedAssetRecon.Name = "radioFixedAssetRecon"
         Me.radioFixedAssetRecon.Size = New System.Drawing.Size(149, 17)
         Me.radioFixedAssetRecon.TabIndex = 10
@@ -360,7 +361,7 @@ Partial Class frmReportSelection
         'radioTaxAccrual
         '
         Me.radioTaxAccrual.AutoSize = True
-        Me.radioTaxAccrual.Location = New System.Drawing.Point(16, 300)
+        Me.radioTaxAccrual.Location = New System.Drawing.Point(16, 324)
         Me.radioTaxAccrual.Name = "radioTaxAccrual"
         Me.radioTaxAccrual.Size = New System.Drawing.Size(82, 17)
         Me.radioTaxAccrual.TabIndex = 19
@@ -371,7 +372,7 @@ Partial Class frmReportSelection
         'radioTaxSavings
         '
         Me.radioTaxSavings.AutoSize = True
-        Me.radioTaxSavings.Location = New System.Drawing.Point(16, 340)
+        Me.radioTaxSavings.Location = New System.Drawing.Point(16, 364)
         Me.radioTaxSavings.Name = "radioTaxSavings"
         Me.radioTaxSavings.Size = New System.Drawing.Size(84, 17)
         Me.radioTaxSavings.TabIndex = 20
@@ -393,7 +394,7 @@ Partial Class frmReportSelection
         'radioAssessorCover
         '
         Me.radioAssessorCover.AutoSize = True
-        Me.radioAssessorCover.Location = New System.Drawing.Point(15, 379)
+        Me.radioAssessorCover.Location = New System.Drawing.Point(15, 403)
         Me.radioAssessorCover.Name = "radioAssessorCover"
         Me.radioAssessorCover.Size = New System.Drawing.Size(124, 17)
         Me.radioAssessorCover.TabIndex = 28
@@ -404,7 +405,7 @@ Partial Class frmReportSelection
         'radioClientEnvelope
         '
         Me.radioClientEnvelope.AutoSize = True
-        Me.radioClientEnvelope.Location = New System.Drawing.Point(200, 380)
+        Me.radioClientEnvelope.Location = New System.Drawing.Point(200, 404)
         Me.radioClientEnvelope.Name = "radioClientEnvelope"
         Me.radioClientEnvelope.Size = New System.Drawing.Size(99, 17)
         Me.radioClientEnvelope.TabIndex = 31
@@ -418,7 +419,7 @@ Partial Class frmReportSelection
         Me.cboContactType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboContactType.FormattingEnabled = True
         Me.cboContactType.Items.AddRange(New Object() {"Tax", "Invoice", "Contract", "Information", "Miscellaneous"})
-        Me.cboContactType.Location = New System.Drawing.Point(304, 378)
+        Me.cboContactType.Location = New System.Drawing.Point(304, 402)
         Me.cboContactType.Name = "cboContactType"
         Me.cboContactType.Size = New System.Drawing.Size(114, 21)
         Me.cboContactType.TabIndex = 32
@@ -428,7 +429,7 @@ Partial Class frmReportSelection
         'radioBarCode
         '
         Me.radioBarCode.AutoSize = True
-        Me.radioBarCode.Location = New System.Drawing.Point(15, 402)
+        Me.radioBarCode.Location = New System.Drawing.Point(15, 426)
         Me.radioBarCode.Name = "radioBarCode"
         Me.radioBarCode.Size = New System.Drawing.Size(95, 17)
         Me.radioBarCode.TabIndex = 29
@@ -442,7 +443,7 @@ Partial Class frmReportSelection
         Me.cboBarCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboBarCode.FormattingEnabled = True
         Me.cboBarCode.Items.AddRange(New Object() {"AOA", "Audit", "Communication", "Data", "Evidence", "Exempt", "Extension", "Hearing Final Order", "Hearing Notice", "Notice", "Protest", "Rendition", "Report", "Tax Bill", "V1 AGR", "V1 Lawsuit", "VSR"})
-        Me.cboBarCode.Location = New System.Drawing.Point(115, 401)
+        Me.cboBarCode.Location = New System.Drawing.Point(115, 425)
         Me.cboBarCode.Name = "cboBarCode"
         Me.cboBarCode.Size = New System.Drawing.Size(114, 21)
         Me.cboBarCode.Sorted = True
@@ -545,18 +546,6 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionAssetSummary.Text = "Asset summary"
         Me.chkBatchRenditionAssetSummary.UseVisualStyleBackColor = True
         '
-        'chkBatchRenditionAssetDetail
-        '
-        Me.chkBatchRenditionAssetDetail.AutoSize = True
-        Me.chkBatchRenditionAssetDetail.Checked = True
-        Me.chkBatchRenditionAssetDetail.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionAssetDetail.Location = New System.Drawing.Point(8, 60)
-        Me.chkBatchRenditionAssetDetail.Name = "chkBatchRenditionAssetDetail"
-        Me.chkBatchRenditionAssetDetail.Size = New System.Drawing.Size(80, 17)
-        Me.chkBatchRenditionAssetDetail.TabIndex = 4
-        Me.chkBatchRenditionAssetDetail.Text = "Asset detail"
-        Me.chkBatchRenditionAssetDetail.UseVisualStyleBackColor = True
-        '
         'chkBatchRenditionBarCode
         '
         Me.chkBatchRenditionBarCode.AutoSize = True
@@ -568,6 +557,18 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionBarCode.TabIndex = 0
         Me.chkBatchRenditionBarCode.Text = "Bar code cover"
         Me.chkBatchRenditionBarCode.UseVisualStyleBackColor = True
+        '
+        'chkBatchRenditionAssetDetail
+        '
+        Me.chkBatchRenditionAssetDetail.AutoSize = True
+        Me.chkBatchRenditionAssetDetail.Checked = True
+        Me.chkBatchRenditionAssetDetail.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkBatchRenditionAssetDetail.Location = New System.Drawing.Point(8, 60)
+        Me.chkBatchRenditionAssetDetail.Name = "chkBatchRenditionAssetDetail"
+        Me.chkBatchRenditionAssetDetail.Size = New System.Drawing.Size(80, 17)
+        Me.chkBatchRenditionAssetDetail.TabIndex = 4
+        Me.chkBatchRenditionAssetDetail.Text = "Asset detail"
+        Me.chkBatchRenditionAssetDetail.UseVisualStyleBackColor = True
         '
         'grpBatchValue
         '
@@ -726,7 +727,7 @@ Partial Class frmReportSelection
         'radioCompletedRenditions
         '
         Me.radioCompletedRenditions.AutoSize = True
-        Me.radioCompletedRenditions.Location = New System.Drawing.Point(200, 280)
+        Me.radioCompletedRenditions.Location = New System.Drawing.Point(200, 304)
         Me.radioCompletedRenditions.Name = "radioCompletedRenditions"
         Me.radioCompletedRenditions.Size = New System.Drawing.Size(128, 17)
         Me.radioCompletedRenditions.TabIndex = 22
@@ -737,10 +738,10 @@ Partial Class frmReportSelection
         'radioCorrectionForm
         '
         Me.radioCorrectionForm.AutoSize = True
-        Me.radioCorrectionForm.Location = New System.Drawing.Point(388, 208)
+        Me.radioCorrectionForm.Location = New System.Drawing.Point(388, 232)
         Me.radioCorrectionForm.Name = "radioCorrectionForm"
         Me.radioCorrectionForm.Size = New System.Drawing.Size(99, 17)
-        Me.radioCorrectionForm.TabIndex = 16
+        Me.radioCorrectionForm.TabIndex = 18
         Me.radioCorrectionForm.TabStop = True
         Me.radioCorrectionForm.Text = "Correction Form"
         Me.radioCorrectionForm.UseVisualStyleBackColor = True
@@ -748,10 +749,10 @@ Partial Class frmReportSelection
         'radioAffidavitOfEvidenceForm
         '
         Me.radioAffidavitOfEvidenceForm.AutoSize = True
-        Me.radioAffidavitOfEvidenceForm.Location = New System.Drawing.Point(388, 188)
+        Me.radioAffidavitOfEvidenceForm.Location = New System.Drawing.Point(388, 212)
         Me.radioAffidavitOfEvidenceForm.Name = "radioAffidavitOfEvidenceForm"
         Me.radioAffidavitOfEvidenceForm.Size = New System.Drawing.Size(149, 17)
-        Me.radioAffidavitOfEvidenceForm.TabIndex = 15
+        Me.radioAffidavitOfEvidenceForm.TabIndex = 17
         Me.radioAffidavitOfEvidenceForm.TabStop = True
         Me.radioAffidavitOfEvidenceForm.Text = "Affidavit of Evidence Form"
         Me.radioAffidavitOfEvidenceForm.UseVisualStyleBackColor = True
@@ -760,7 +761,7 @@ Partial Class frmReportSelection
         '
         Me.pnlFixedAssetRecon.Controls.Add(Me.radioFixedAssetReconDepr)
         Me.pnlFixedAssetRecon.Controls.Add(Me.radioFixedAssetReconGL)
-        Me.pnlFixedAssetRecon.Location = New System.Drawing.Point(164, 152)
+        Me.pnlFixedAssetRecon.Location = New System.Drawing.Point(164, 176)
         Me.pnlFixedAssetRecon.Name = "pnlFixedAssetRecon"
         Me.pnlFixedAssetRecon.Size = New System.Drawing.Size(228, 28)
         Me.pnlFixedAssetRecon.TabIndex = 39
@@ -789,7 +790,7 @@ Partial Class frmReportSelection
         '
         'numMissingDays
         '
-        Me.numMissingDays.Location = New System.Drawing.Point(304, 300)
+        Me.numMissingDays.Location = New System.Drawing.Point(304, 324)
         Me.numMissingDays.Maximum = New Decimal(New Integer() {365, 0, 0, 0})
         Me.numMissingDays.Name = "numMissingDays"
         Me.numMissingDays.Size = New System.Drawing.Size(48, 20)
@@ -801,7 +802,7 @@ Partial Class frmReportSelection
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(356, 304)
+        Me.Label1.Location = New System.Drawing.Point(356, 328)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(29, 13)
         Me.Label1.TabIndex = 42
@@ -811,7 +812,7 @@ Partial Class frmReportSelection
         'radioRenditionValueComparison
         '
         Me.radioRenditionValueComparison.AutoSize = True
-        Me.radioRenditionValueComparison.Location = New System.Drawing.Point(388, 260)
+        Me.radioRenditionValueComparison.Location = New System.Drawing.Point(388, 284)
         Me.radioRenditionValueComparison.Name = "radioRenditionValueComparison"
         Me.radioRenditionValueComparison.Size = New System.Drawing.Size(110, 17)
         Me.radioRenditionValueComparison.TabIndex = 27
@@ -906,7 +907,7 @@ Partial Class frmReportSelection
         'radioTaxAccrualSummary
         '
         Me.radioTaxAccrualSummary.AutoSize = True
-        Me.radioTaxAccrualSummary.Location = New System.Drawing.Point(16, 320)
+        Me.radioTaxAccrualSummary.Location = New System.Drawing.Point(16, 344)
         Me.radioTaxAccrualSummary.Name = "radioTaxAccrualSummary"
         Me.radioTaxAccrualSummary.Size = New System.Drawing.Size(128, 17)
         Me.radioTaxAccrualSummary.TabIndex = 20
@@ -914,11 +915,23 @@ Partial Class frmReportSelection
         Me.radioTaxAccrualSummary.Text = "Tax Accrual Summary"
         Me.radioTaxAccrualSummary.UseVisualStyleBackColor = True
         '
+        'radioLeaseSummary
+        '
+        Me.radioLeaseSummary.AutoSize = True
+        Me.radioLeaseSummary.Location = New System.Drawing.Point(16, 152)
+        Me.radioLeaseSummary.Name = "radioLeaseSummary"
+        Me.radioLeaseSummary.Size = New System.Drawing.Size(100, 17)
+        Me.radioLeaseSummary.TabIndex = 9
+        Me.radioLeaseSummary.TabStop = True
+        Me.radioLeaseSummary.Text = "Lease Summary"
+        Me.radioLeaseSummary.UseVisualStyleBackColor = True
+        '
         'frmReportSelection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1022, 572)
+        Me.ClientSize = New System.Drawing.Size(1022, 600)
+        Me.Controls.Add(Me.radioLeaseSummary)
         Me.Controls.Add(Me.radioTaxAccrualSummary)
         Me.Controls.Add(Me.chkIdentifyFields)
         Me.Controls.Add(Me.chkShowCostAndFactors)
@@ -1062,4 +1075,5 @@ Partial Class frmReportSelection
     Friend WithEvents chkShowCostAndFactors As CheckBox
     Friend WithEvents chkIdentifyFields As CheckBox
     Friend WithEvents radioTaxAccrualSummary As RadioButton
+    Friend WithEvents radioLeaseSummary As RadioButton
 End Class

@@ -132,7 +132,7 @@
             sSQL = sSQL & ",a.ConstructionType,a.ValueMethod,a.ValueMethodCost,a.ValueMethodIncome,a.ValueMethodMarket"
             sSQL = sSQL & ",a.LeaseupCommissionPct,a.LeaseupTotIncCostPerSqFt,a.LeaseupVacantSqFt,a.MarketAddlRevenuePerSqFt,a.MarketCapRate,a.MarketCommonAreaMaintPct" &
                 ",a.MarketMgmtFeesPct,a.MarketNonReimbPct,a.MarketPropInsPct,a.MarketReimbRevenuePerSqFt,a.MarketRentPerSqFt,a.MarketTaxRate" &
-                ",a.MarketVacCollLossPct,a.ValueMethodEquity,a.ValueMethodTarget,a.CeilingHeight"
+                ",a.MarketVacCollLossPct,a.ValueMethodEquity,a.ValueMethodTarget,a.CeilingHeight,a.LandType"
             sSQL = sSQL &
                 " FROM Clients AS c INNER JOIN" &
                 " AssessmentsRE AS a ON c.ClientId = a.ClientId INNER JOIN" &
@@ -191,7 +191,7 @@
             txtMarketVacCollLossPct.GotFocus,
             txtValueMethodEquity.GotFocus,
             txtValueMethodTarget.GotFocus,
-            txtCeilingHeight.GotFocus
+            txtCeilingHeight.GotFocus, cboLandType.GotFocus
 
         sender.selectall()
     End Sub
@@ -220,7 +220,7 @@
             txtMarketVacCollLossPct.TextChanged,
             txtValueMethodEquity.TextChanged,
             txtValueMethodTarget.TextChanged,
-            txtCeilingHeight.TextChanged
+            txtCeilingHeight.TextChanged, cboLandType.TextChanged
 
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
@@ -261,7 +261,7 @@
             txtMarketVacCollLossPct.LostFocus,
             txtValueMethodEquity.LostFocus,
             txtValueMethodTarget.LostFocus,
-            txtCeilingHeight.LostFocus
+            txtCeilingHeight.LostFocus, cboLandType.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then

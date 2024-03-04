@@ -314,7 +314,10 @@
                 eReportType = enumReport.enumValueComparison Or
                 eReportType = enumReport.enumTaxSavings Or eReportType = enumReport.enumAssessorCover Or
                 eReportType = enumReport.enumClientEnvelope Or eReportType = enumReport.enumBarCode Or
-                eReportType = enumReport.enumAssetDetailLeasedProperty Or eReportType = enumReport.enumAssetDetailLeaseholdImprovements Or eReportType = enumReport.enumAssetDetailLeasesAll Then
+                eReportType = enumReport.enumAssetDetailLeasedProperty Or
+                eReportType = enumReport.enumAssetDetailLeaseholdImprovements Or
+                eReportType = enumReport.enumAssetDetailLeasesAll Or
+                eReportType = enumReport.enumLeaseSummary Then
             If bPrintClientScheduleOnly Then lFactorEntityId = structAssess.FactorEntityId1
             RunReport(eReportType, structAssess.ClientId, structAssess.LocationId,
                 structAssess.AssessmentId, structAssess.JurisdictionList,
@@ -343,7 +346,8 @@
             radioTaxAccrual.Click, radioTaxSavings.Click,
             radioAssessorCover.Click, radioClientEnvelope.Click, radioBarCode.Click, radioBatchRendition.Click, radioBatchValueProtest.Click,
             radioCompletedRenditions.Click, radioAffidavitOfEvidenceForm.Click, radioCorrectionForm.Click, radioRenditionValueComparison.Click,
-            radioDepreciationDetailLeases.Click, radioLeasedProperty.Click, radioLeaseImprove.Click, radioLeasesAll.Click, radioTaxAccrualSummary.Click
+            radioDepreciationDetailLeases.Click, radioLeasedProperty.Click, radioLeaseImprove.Click, radioLeasesAll.Click, radioTaxAccrualSummary.Click,
+            radioLeaseSummary.Click
         If sender.name = "radioDepreciationDetail" Then
             m_ReportType = enumReport.enumAssetDetail
         ElseIf sender.name = "radioDepreciationSummary" Then
@@ -423,6 +427,8 @@
                     m_ReportType = enumReport.enumAssetDetailLeasesAll
                 End If
             End If
+        ElseIf sender.name = radioLeaseSummary.Name Then
+            m_ReportType = enumReport.enumLeaseSummary
         End If
     End Sub
 
