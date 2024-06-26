@@ -65,7 +65,7 @@
 
             Return True
         Catch ex As Exception
-            MsgBox("Error loading payments:  " & ex.Message)
+            MsgBox("Error loading business units:  " & ex.Message)
             Return False
         End Try
 

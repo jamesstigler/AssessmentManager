@@ -99,14 +99,9 @@
 
     Private Sub frmREAssessment_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         If bActivated Then Exit Sub
-
-
-
         InitInfo()
         RefreshData()
-
         bActivated = True
-
     End Sub
 
 
@@ -132,7 +127,7 @@
             sSQL = sSQL & ",a.ConstructionType,a.ValueMethod,a.ValueMethodCost,a.ValueMethodIncome,a.ValueMethodMarket"
             sSQL = sSQL & ",a.LeaseupCommissionPct,a.LeaseupTotIncCostPerSqFt,a.LeaseupVacantSqFt,a.MarketAddlRevenuePerSqFt,a.MarketCapRate,a.MarketCommonAreaMaintPct" &
                 ",a.MarketMgmtFeesPct,a.MarketNonReimbPct,a.MarketPropInsPct,a.MarketReimbRevenuePerSqFt,a.MarketRentPerSqFt,a.MarketTaxRate" &
-                ",a.MarketVacCollLossPct,a.ValueMethodEquity,a.ValueMethodTarget,a.CeilingHeight,a.LandType"
+                ",a.MarketVacCollLossPct,a.ValueMethodEquity,a.ValueMethodTarget,a.CeilingHeight,a.LandType,a.ValueLimitation,a.FinalMarketValue"
             sSQL = sSQL &
                 " FROM Clients AS c INNER JOIN" &
                 " AssessmentsRE AS a ON c.ClientId = a.ClientId INNER JOIN" &
@@ -191,7 +186,7 @@
             txtMarketVacCollLossPct.GotFocus,
             txtValueMethodEquity.GotFocus,
             txtValueMethodTarget.GotFocus,
-            txtCeilingHeight.GotFocus, cboLandType.GotFocus
+            txtCeilingHeight.GotFocus, cboLandType.GotFocus, txtFinalMarketValue.GotFocus, txtValueLimitation.GotFocus
 
         sender.selectall()
     End Sub
@@ -220,7 +215,7 @@
             txtMarketVacCollLossPct.TextChanged,
             txtValueMethodEquity.TextChanged,
             txtValueMethodTarget.TextChanged,
-            txtCeilingHeight.TextChanged, cboLandType.TextChanged
+            txtCeilingHeight.TextChanged, cboLandType.TextChanged, txtValueLimitation.TextChanged, txtFinalMarketValue.TextChanged
 
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
@@ -261,7 +256,7 @@
             txtMarketVacCollLossPct.LostFocus,
             txtValueMethodEquity.LostFocus,
             txtValueMethodTarget.LostFocus,
-            txtCeilingHeight.LostFocus, cboLandType.LostFocus
+            txtCeilingHeight.LostFocus, cboLandType.LostFocus, txtValueLimitation.LostFocus, txtFinalMarketValue.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
@@ -315,17 +310,6 @@
             sqlselect.Append(" OR (a.ParentAssessmentId = ").Append(lParentAssessmentId).Append(" AND a.TaxYear = ").Append(m_TaxYear).Append(")")
             'get self
             sqlselect.Append(" OR (a.AssessmentId = ").Append(m_AssessmentId).Append(" AND a.TaxYear = ").Append(m_TaxYear).Append(") )")
-
-
-            'Dim sql = New StringBuilder
-            ''get this account info
-            'sql.Append(sqlselect.ToString).Append(" WHERE a.AssessmentId = ").Append(m_AssessmentId).Append(" AND a.TaxYear = ").Append(m_TaxYear)
-            ''get parent's acount info
-            'sql.Append(" UNION ").Append(sqlselect.ToString).Append(" WHERE a.AssessmentId = ").Append(lParentAssessmentId).Append(" AND a.TaxYear = ").Append(m_TaxYear)
-            ''get child accounts if parent has parent as itself
-            'sql.Append(" UNION ").Append(sqlselect.ToString).Append(" WHERE a.ParentAssessmentId = ").Append(lParentAssessmentId).Append(" AND a.TaxYear = ").Append(m_TaxYear)
-            ''get child accounts if parent does not have itself as parent
-            'sql.Append(" UNION ").Append(sqlselect.ToString).Append(" WHERE a.ParentAssessmentId = ").Append(m_AssessmentId).Append(" AND a.TaxYear = ").Append(m_TaxYear)
 
             Dim sqlgroup = New StringBuilder
             sqlgroup.Append("SELECT tbl1.IsParent, tbl1.AcctNum, tbl1.AssessmentId, tbl1.TaxYear, MAX(tbl1.REImprovementValue) AS REImprovementValue,")
@@ -616,45 +600,6 @@
                 d = d + dr("TotalTaxDue")
             Next
             txtTaxBillTotal.Text = Format(d, csDol)
-
-            'Dim drs() As DataRow = dtList.Select("TaxYear = " & m_TaxYear)
-            'If drs.Count > 0 Then
-            '    'populate dgcollector
-            '    Dim bFirst As Boolean = True
-            '    ReDim CollectorTotal(0)
-            '    ReDim dgRow(3)
-            '    CollectorTotal(0).lId = drs(0)("CollectorId")
-            '    CollectorTotal(0).sDescription = drs(0)("Collectors_Name")
-            '    If drs(0)("TaxBillLoaded") = "Yes" Then CollectorTotal(UBound(CollectorTotal)).bLoaded = True
-            '    For Each dr As DataRow In drs
-            '        bFound = False
-            '        For l = 0 To UBound(CollectorTotal)
-            '            If CollectorTotal(l).lId = dr("CollectorId") Then
-            '                bFound = True
-            '                Exit For
-            '            End If
-            '        Next
-            '        If bFound Then
-            '            CollectorTotal(l).dAmount = CollectorTotal(l).dAmount + dr("TaxDue")
-            '        Else
-            '            ReDim Preserve CollectorTotal(UBound(CollectorTotal) + 1)
-            '            CollectorTotal(UBound(CollectorTotal)).lId = dr("CollectorId")
-            '            CollectorTotal(UBound(CollectorTotal)).sDescription = dr("Collectors_Name")
-            '            CollectorTotal(UBound(CollectorTotal)).dAmount = dr("TaxDue")
-            '            If dr("TaxBillLoaded") = "Yes" Then CollectorTotal(UBound(CollectorTotal)).bLoaded = True
-            '        End If
-            '        d = d + dr("TaxDue")
-            '    Next
-            '    For Each CollectorItem As structTotals In CollectorTotal
-            '        dgRow(0) = CollectorItem.lId
-            '        dgRow(1) = CollectorItem.sDescription
-            '        dgRow(2) = Format(CollectorItem.dAmount, csDol)
-            '        dgRow(3) = IIf(CollectorItem.bLoaded = True, "View", "")
-            '        dgCollectors.Rows.Add(dgRow)
-            '    Next
-            '    dgCollectors.Sort(dgCollectors.Columns(1), System.ComponentModel.ListSortDirection.Ascending)
-            '    txtTaxBillTotal.Text = Format(d, csDol)
-            'End If
 
             'value history grid
             Dim bindHist As New BindingSource

@@ -246,6 +246,7 @@ Module modMain
         sPath = sPath & AppData.AppCompanyName & "\"
         Directory.CreateDirectory(sPath & "\" & AppData.AppName)
         AppData.Server = GetSetting(AppData.AppName, "Configuration", "Server")
+        ''AppData.Server = "10.10.1.4\SQLEXPRESs"
         AppData.IncludeInactive = IIf(GetSetting(AppData.AppName, "Configuration", "IncludeInactive", "1") = "1", True, False)
 
         ConnectToDB()

@@ -1140,7 +1140,7 @@
                     "FactorId5", "TaskId", "TaskAssignmentId",
                     "Clients_ClientId", "Locations_LocationId", "AssessmentsBPP_AssessmentId",
                     "AssessmentsRE_AssessmentId", "ID", "ProspectValues_LocationId", "ProspectLocations_LocationId",
-                    "InstallId", "QueryId", "BusinessUnitId"
+                    "InstallId", "QueryId", "BusinessUnitId", "EventId"
 
 
                 Return True

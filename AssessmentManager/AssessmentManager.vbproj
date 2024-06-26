@@ -233,6 +233,18 @@
     <Compile Include="Forms\frmBPPTaxList.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmEvent.Designer.vb">
+      <DependentUpon>frmEvent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEvent.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEventList.Designer.vb">
+      <DependentUpon>frmEventList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEventList.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmBusinessUnits.Designer.vb">
       <DependentUpon>frmBusinessUnits.vb</DependentUpon>
     </Compile>
@@ -652,6 +664,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBPPTaxList.resx">
       <DependentUpon>frmBPPTaxList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEvent.resx">
+      <DependentUpon>frmEvent.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEventList.resx">
+      <DependentUpon>frmEventList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBusinessUnits.resx">
       <DependentUpon>frmBusinessUnits.vb</DependentUpon>

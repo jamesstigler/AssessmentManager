@@ -1398,6 +1398,46 @@ Public Class MDIParent1
 
         End Try
     End Sub
+
+    Private Sub mnuOptionsEventsBPP_Click(sender As Object, e As EventArgs) Handles mnuOptionsEventsBPP.Click
+        Try
+            Dim frmS As frmEventList
+            For Each frm As Object In Me.MdiChildren
+                If frm.Name = "frmEventList" Then
+                    If frm.PropType = enumTable.enumLocationBPP Then
+                        frmS = frm
+                        frm.Focus()
+                        Exit Sub
+                    End If
+                End If
+            Next
+            frmS = New frmEventList
+            frmS.PropType = enumTable.enumLocationBPP
+            frmS.MdiParent = Me
+            frmS.Show()
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub mnuOptionsEventsRE_Click(sender As Object, e As EventArgs) Handles mnuOptionsEventsRE.Click
+        Try
+            Dim frmS As frmEventList
+            For Each frm As Object In Me.MdiChildren
+                If frm.Name = "frmEventList" Then
+                    If frm.PropType = enumTable.enumLocationRE Then
+                        frmS = frm
+                        frm.Focus()
+                        Exit Sub
+                    End If
+                End If
+            Next
+            frmS = New frmEventList
+            frmS.PropType = enumTable.enumLocationRE
+            frmS.MdiParent = Me
+            frmS.Show()
+        Catch ex As Exception
+        End Try
+    End Sub
 End Class
 
 

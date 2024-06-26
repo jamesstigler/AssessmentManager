@@ -23,6 +23,7 @@ Partial Class frmBPPAssessment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtAcctNum = New System.Windows.Forms.TextBox()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
@@ -76,8 +77,18 @@ Partial Class frmBPPAssessment
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtSICCode = New System.Windows.Forms.TextBox()
         Me.cmdOpenAssessor = New System.Windows.Forms.Button()
+        Me.grpEvents = New System.Windows.Forms.GroupBox()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.cmdNewEvent = New System.Windows.Forms.Button()
+        Me.dgEvents = New System.Windows.Forms.DataGridView()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
+        Me.grpEvents.SuspendLayout()
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer2.Panel1.SuspendLayout()
+        Me.SplitContainer2.Panel2.SuspendLayout()
+        Me.SplitContainer2.SuspendLayout()
+        CType(Me.dgEvents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -194,7 +205,7 @@ Partial Class frmBPPAssessment
         '
         Me.txtComment.AllowDrop = True
         Me.txtComment.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtComment.Location = New System.Drawing.Point(8, 268)
+        Me.txtComment.Location = New System.Drawing.Point(8, 516)
         Me.txtComment.Multiline = True
         Me.txtComment.Name = "txtComment"
         Me.txtComment.Size = New System.Drawing.Size(429, 70)
@@ -203,7 +214,7 @@ Partial Class frmBPPAssessment
         '
         'Label11
         '
-        Me.Label11.Location = New System.Drawing.Point(8, 248)
+        Me.Label11.Location = New System.Drawing.Point(8, 496)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 19)
         Me.Label11.TabIndex = 207
@@ -278,7 +289,7 @@ Partial Class frmBPPAssessment
         'chkInactiveFl
         '
         Me.chkInactiveFl.AutoSize = True
-        Me.chkInactiveFl.Location = New System.Drawing.Point(10, 345)
+        Me.chkInactiveFl.Location = New System.Drawing.Point(10, 593)
         Me.chkInactiveFl.Name = "chkInactiveFl"
         Me.chkInactiveFl.Size = New System.Drawing.Size(64, 17)
         Me.chkInactiveFl.TabIndex = 27
@@ -346,7 +357,7 @@ Partial Class frmBPPAssessment
         '
         'cmdValues
         '
-        Me.cmdValues.Location = New System.Drawing.Point(367, 361)
+        Me.cmdValues.Location = New System.Drawing.Point(376, 608)
         Me.cmdValues.Name = "cmdValues"
         Me.cmdValues.Size = New System.Drawing.Size(99, 23)
         Me.cmdValues.TabIndex = 29
@@ -520,7 +531,7 @@ Partial Class frmBPPAssessment
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(464, 268)
+        Me.Label3.Location = New System.Drawing.Point(464, 516)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(62, 20)
         Me.Label3.TabIndex = 241
@@ -531,7 +542,7 @@ Partial Class frmBPPAssessment
         '
         Me.txtConsultantName.AllowDrop = True
         Me.txtConsultantName.Enabled = False
-        Me.txtConsultantName.Location = New System.Drawing.Point(532, 268)
+        Me.txtConsultantName.Location = New System.Drawing.Point(532, 516)
         Me.txtConsultantName.Name = "txtConsultantName"
         Me.txtConsultantName.Size = New System.Drawing.Size(152, 20)
         Me.txtConsultantName.TabIndex = 28
@@ -560,7 +571,7 @@ Partial Class frmBPPAssessment
         '
         'Label6
         '
-        Me.Label6.Location = New System.Drawing.Point(464, 296)
+        Me.Label6.Location = New System.Drawing.Point(464, 544)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(62, 20)
         Me.Label6.TabIndex = 245
@@ -571,7 +582,7 @@ Partial Class frmBPPAssessment
         '
         Me.txtSICCode.AllowDrop = True
         Me.txtSICCode.Enabled = False
-        Me.txtSICCode.Location = New System.Drawing.Point(532, 296)
+        Me.txtSICCode.Location = New System.Drawing.Point(532, 544)
         Me.txtSICCode.Name = "txtSICCode"
         Me.txtSICCode.Size = New System.Drawing.Size(152, 20)
         Me.txtSICCode.TabIndex = 244
@@ -586,11 +597,81 @@ Partial Class frmBPPAssessment
         Me.cmdOpenAssessor.Text = "..."
         Me.cmdOpenAssessor.UseVisualStyleBackColor = True
         '
+        'grpEvents
+        '
+        Me.grpEvents.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.grpEvents.Controls.Add(Me.SplitContainer2)
+        Me.grpEvents.Location = New System.Drawing.Point(8, 244)
+        Me.grpEvents.Name = "grpEvents"
+        Me.grpEvents.Size = New System.Drawing.Size(812, 244)
+        Me.grpEvents.TabIndex = 259
+        Me.grpEvents.TabStop = False
+        Me.grpEvents.Text = "Events"
+        Me.grpEvents.Visible = False
+        '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
+        Me.SplitContainer2.Location = New System.Drawing.Point(3, 16)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.cmdNewEvent)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.dgEvents)
+        Me.SplitContainer2.Size = New System.Drawing.Size(806, 225)
+        Me.SplitContainer2.SplitterDistance = 25
+        Me.SplitContainer2.TabIndex = 233
+        '
+        'cmdNewEvent
+        '
+        Me.cmdNewEvent.Location = New System.Drawing.Point(0, 0)
+        Me.cmdNewEvent.Name = "cmdNewEvent"
+        Me.cmdNewEvent.Size = New System.Drawing.Size(80, 24)
+        Me.cmdNewEvent.TabIndex = 231
+        Me.cmdNewEvent.Text = "New Event"
+        Me.cmdNewEvent.UseVisualStyleBackColor = True
+        '
+        'dgEvents
+        '
+        Me.dgEvents.AllowDrop = True
+        Me.dgEvents.AllowUserToAddRows = False
+        Me.dgEvents.AllowUserToDeleteRows = False
+        Me.dgEvents.AllowUserToOrderColumns = True
+        Me.dgEvents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgEvents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgEvents.DefaultCellStyle = DataGridViewCellStyle1
+        Me.dgEvents.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgEvents.Location = New System.Drawing.Point(0, 0)
+        Me.dgEvents.Margin = New System.Windows.Forms.Padding(0)
+        Me.dgEvents.Name = "dgEvents"
+        Me.dgEvents.RowHeadersVisible = False
+        Me.dgEvents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgEvents.ShowCellErrors = False
+        Me.dgEvents.ShowCellToolTips = False
+        Me.dgEvents.ShowEditingIcon = False
+        Me.dgEvents.ShowRowErrors = False
+        Me.dgEvents.Size = New System.Drawing.Size(806, 196)
+        Me.dgEvents.TabIndex = 230
+        '
         'frmBPPAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(828, 389)
+        Me.ClientSize = New System.Drawing.Size(828, 639)
+        Me.Controls.Add(Me.grpEvents)
         Me.Controls.Add(Me.cmdOpenAssessor)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtSICCode)
@@ -644,6 +725,12 @@ Partial Class frmBPPAssessment
         Me.Text = "BPP Assessment"
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ContextMenuStrip2.ResumeLayout(False)
+        Me.grpEvents.ResumeLayout(False)
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
+        CType(Me.dgEvents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -701,4 +788,8 @@ Partial Class frmBPPAssessment
     Friend WithEvents Label6 As Label
     Friend WithEvents txtSICCode As TextBox
     Friend WithEvents cmdOpenAssessor As Button
+    Friend WithEvents grpEvents As GroupBox
+    Friend WithEvents SplitContainer2 As SplitContainer
+    Friend WithEvents cmdNewEvent As Button
+    Friend WithEvents dgEvents As DataGridView
 End Class

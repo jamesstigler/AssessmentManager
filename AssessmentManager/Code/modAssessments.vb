@@ -77,6 +77,12 @@
                 " ISNULL(c.ExcludeAbatements,0) AS ExcludeAbatements, ISNULL(c.ExcludeFreeport,0) AS ExcludeFreeport," &
                 " l.City AS Locations_City, l.StateCd AS Locations_StateCd, l.Zip AS Locations_Zip, ISNULL(asmt.AcctNum,'') AS AcctNum,"
         sSQL = sSQL & "ISNULL(bu.Name,'') AS BusinessUnits_Name,"
+        If ePropType = enumTable.enumLocationBPP Then
+            sSQL = sSQL & " 0 AS ValueLimitation, 0 AS FinalMarketValue,"
+        Else
+            sSQL = sSQL & " ISNULL(asmt.ValueLimitation,0) AS ValueLimitation, ISNULL(asmt.FinalMarketValue,0) AS FinalMarketValue,"
+        End If
+
         sSQL = sSQL &
                 " asmt.AssessmentId, ISNULL(asmt.SavingsExclusionCd,0) AS SavingsExclusionCd," &
                 " ISNULL(asr.Name,'') AS Assessors_Name, j.FreeportFl AS Jurisdictions_FreeportFl,"
@@ -439,7 +445,7 @@
         ElseIf bTotalByCollectorList Then
             sSQL = sSQL & " ) AS t"
             sSQL = sSQL & " GROUP BY TaxYear, Clients_Name, ClientId, LocationId, Locations_Address, Locations_ClientLocationId, Locations_Name," &
-                " Locations_City, Locations_StateCd, Locations_Zip, AcctNum, BusinessUnits_Name," &
+                " Locations_City, Locations_StateCd, Locations_Zip, AcctNum, BusinessUnits_Name,ValueLimitation,FinalMarketValue," &
                 " AssessmentId, Assessors_Name, Collectors_Name, Payee, AssessorId, CollectorId, Collectors_DueDate, Collectors_DiscountFl," &
                 " Collectors_DiscountDate," &
                 " Collectors_DiscountDate2, Collectors_DiscountDate3, Collectors_DiscountDate4," &

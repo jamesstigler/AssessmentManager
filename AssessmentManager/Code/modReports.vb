@@ -1396,16 +1396,21 @@
                     clsReport.Text14 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
                         "  " & row("AcctNum").ToString.Trim
                     clsReport.Text15 = IIf(row("ClientLocationId").ToString.Length > 0, "Loc " & row("ClientLocationId").ToString.Trim, "")
-                    If row("PropertyType") = "R" Then
-                        clsReport.Text17 = "Last year value:  " & Format(row("PriorYearTotalFinalValue"), csInt)
-                    Else
-                        clsReport.Text17 = ""
-                    End If
                     If row("PropertyType") = "P" Then
                         clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("BPPRatio")), csPct)
                     Else
                         clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("RERatio")), csPct)
                     End If
+                    If row("PropertyType") = "R" Then
+                        clsReport.Text17 = "Last year value:  " & Format(row("PriorYearTotalFinalValue"), csInt)
+                        ''new RE cap that may go away after 2026
+                        If row("ValueLimitation") > 0 Then
+                            clsReport.Text17 = clsReport.Text17 & "    Value Limitation:  " & Format(row("ValueLimitation"), csInt)
+                        End If
+                    Else
+                        clsReport.Text17 = ""
+                    End If
+
                     clsReport.Text18 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
                     clsReport.Text19 = "Total For " & clsReport.Text18
                     clsReport.Number01 = UnNullToDouble(row("TaxRate"))
@@ -1522,6 +1527,8 @@
                             dFreeport)) / 100 *
                             UnNullToDouble(row("TaxRate"))
                     End If
+                    If lNetTaxableValue < 0 Then lNetTaxableValue = 0
+                    If dTaxDue < 0 Then dTaxDue = 0
                     clsReport.Number14 = Val(Format(dTaxDue, "0.00"))
                     clsReport.Number15 = row("Assessors_Ratio") * 100
                     clsReport.Number02 = Val(Format(dAbatement, "0.00"))
