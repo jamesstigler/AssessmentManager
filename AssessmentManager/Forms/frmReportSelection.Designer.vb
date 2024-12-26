@@ -96,6 +96,9 @@ Partial Class frmReportSelection
         Me.chkIdentifyFields = New System.Windows.Forms.CheckBox()
         Me.radioTaxAccrualSummary = New System.Windows.Forms.RadioButton()
         Me.radioLeaseSummary = New System.Windows.Forms.RadioButton()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.grpBatchRendition.SuspendLayout()
         Me.grpBatchValue.SuspendLayout()
         Me.grpBatchTaxBill.SuspendLayout()
@@ -118,7 +121,7 @@ Partial Class frmReportSelection
         'cmdRun
         '
         Me.cmdRun.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.cmdRun.Location = New System.Drawing.Point(473, 569)
+        Me.cmdRun.Location = New System.Drawing.Point(473, 562)
         Me.cmdRun.Name = "cmdRun"
         Me.cmdRun.Size = New System.Drawing.Size(75, 23)
         Me.cmdRun.TabIndex = 37
@@ -171,7 +174,7 @@ Partial Class frmReportSelection
         'chkPrint
         '
         Me.chkPrint.AutoSize = True
-        Me.chkPrint.Location = New System.Drawing.Point(15, 465)
+        Me.chkPrint.Location = New System.Drawing.Point(16, 456)
         Me.chkPrint.Name = "chkPrint"
         Me.chkPrint.Size = New System.Drawing.Size(95, 17)
         Me.chkPrint.TabIndex = 33
@@ -260,21 +263,21 @@ Partial Class frmReportSelection
         Me.chkExport.AutoSize = True
         Me.chkExport.Location = New System.Drawing.Point(15, 488)
         Me.chkExport.Name = "chkExport"
-        Me.chkExport.Size = New System.Drawing.Size(56, 17)
+        Me.chkExport.Size = New System.Drawing.Size(92, 17)
         Me.chkExport.TabIndex = 34
-        Me.chkExport.Text = "Export"
+        Me.chkExport.Text = "Export to PDF"
         Me.chkExport.UseVisualStyleBackColor = True
         '
         'txtFolder
         '
-        Me.txtFolder.Location = New System.Drawing.Point(96, 516)
+        Me.txtFolder.Location = New System.Drawing.Point(196, 484)
         Me.txtFolder.Name = "txtFolder"
         Me.txtFolder.Size = New System.Drawing.Size(332, 20)
         Me.txtFolder.TabIndex = 36
         '
         'cmdBrowse
         '
-        Me.cmdBrowse.Location = New System.Drawing.Point(15, 513)
+        Me.cmdBrowse.Location = New System.Drawing.Point(116, 484)
         Me.cmdBrowse.Name = "cmdBrowse"
         Me.cmdBrowse.Size = New System.Drawing.Size(75, 23)
         Me.cmdBrowse.TabIndex = 35
@@ -926,11 +929,40 @@ Partial Class frmReportSelection
         Me.radioLeaseSummary.Text = "Lease Summary"
         Me.radioLeaseSummary.UseVisualStyleBackColor = True
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(116, 508)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 47
+        Me.Button1.Text = "Browse"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(196, 508)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(332, 20)
+        Me.TextBox1.TabIndex = 48
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(15, 512)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(101, 17)
+        Me.CheckBox1.TabIndex = 46
+        Me.CheckBox1.Text = "Export to flat file"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'frmReportSelection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1022, 600)
+        Me.ClientSize = New System.Drawing.Size(1022, 593)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.radioLeaseSummary)
         Me.Controls.Add(Me.radioTaxAccrualSummary)
         Me.Controls.Add(Me.chkIdentifyFields)
@@ -1076,4 +1108,7 @@ Partial Class frmReportSelection
     Friend WithEvents chkIdentifyFields As CheckBox
     Friend WithEvents radioTaxAccrualSummary As RadioButton
     Friend WithEvents radioLeaseSummary As RadioButton
+    Friend WithEvents Button1 As Button
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

@@ -34,6 +34,7 @@ Partial Class frmList
         Me.mnuContextSetECUParent = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetBusinessUnit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextSetConsultantName = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContextCreateEvent = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextAssignTask = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextImportTaxBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextViewTaxBill = New System.Windows.Forms.ToolStripMenuItem()
@@ -188,6 +189,17 @@ Partial Class frmList
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmdECUParentOK = New System.Windows.Forms.Button()
         Me.cboECUParent = New System.Windows.Forms.ComboBox()
+        Me.pnlEvent = New System.Windows.Forms.Panel()
+        Me.cmdEventCancel = New System.Windows.Forms.Button()
+        Me.cmdEventOK = New System.Windows.Forms.Button()
+        Me.cboEvents = New System.Windows.Forms.ComboBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtEventNote = New System.Windows.Forms.TextBox()
+        Me.txtEventDate = New System.Windows.Forms.TextBox()
+        Me.txtEventValue = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
         CType(Me.dgList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -214,6 +226,7 @@ Partial Class frmList
         Me.pnlConsultantName.SuspendLayout()
         Me.pnlBusinessUnit.SuspendLayout()
         Me.pnlECUParent.SuspendLayout()
+        Me.pnlEvent.SuspendLayout()
         Me.SuspendLayout()
         '
         'dgList
@@ -241,9 +254,9 @@ Partial Class frmList
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextDeleteAssets, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetAgency, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextAssignTask, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.mnuContextImportAssets, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextCopy, Me.mnuContextDelete, Me.mnuContextDeleteAssets, Me.mnuContextFactor, Me.mnuContextPrint, Me.mnuContextSetAgency, Me.mnuContextSetECUParent, Me.mnuContextSetBusinessUnit, Me.mnuContextSetConsultantName, Me.mnuContextCreateEvent, Me.mnuContextAssignTask, Me.mnuContextImportTaxBill, Me.mnuContextViewTaxBill, Me.mnuContextModifyQuery, Me.mnuContextAddJurisdiction, Me.mnuContextOpenListOfAssets, Me.mnuContextOpenAssessmentValues, Me.mnuContextImportAssets, Me.ToolStripSeparator1, Me.mnuContextLabelEdit, Me.mnuContextTextBox, Me.ToolStripSeparator2, Me.mnuContextOpenProspect, Me.mnuContextAssignToClient, Me.mnuContextSetSolicitType, Me.mnuContextSetSolicitSentDate, Me.mnuContextSetLeadMailDate, Me.mnuContextSetLeadFollowUpDate, Me.mnuContextSetLeadInfoSentFl, Me.mnuContextSetLeadStatus, Me.mnuContextSetClientCoordinatorName, Me.mnuContextSetRenditionServiceLevel, Me.mnuContextSetRenditionInterstateAllocation, Me.mnuContextSetLeaseInfo, Me.mnuContextSetRenditionAuditFl})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 719)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(205, 741)
         '
         'mnuContextCopy
         '
@@ -301,6 +314,12 @@ Partial Class frmList
         Me.mnuContextSetConsultantName.Name = "mnuContextSetConsultantName"
         Me.mnuContextSetConsultantName.Size = New System.Drawing.Size(204, 22)
         Me.mnuContextSetConsultantName.Text = "Set Consultant Name"
+        '
+        'mnuContextCreateEvent
+        '
+        Me.mnuContextCreateEvent.Name = "mnuContextCreateEvent"
+        Me.mnuContextCreateEvent.Size = New System.Drawing.Size(204, 22)
+        Me.mnuContextCreateEvent.Text = "Create Event"
         '
         'mnuContextAssignTask
         '
@@ -1280,6 +1299,7 @@ Partial Class frmList
         '
         'SplitContainer1.Panel2
         '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlEvent)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlAgency)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlTask)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlAuditFl)
@@ -1916,6 +1936,126 @@ Partial Class frmList
         Me.cboECUParent.Size = New System.Drawing.Size(689, 21)
         Me.cboECUParent.TabIndex = 4
         '
+        'pnlEvent
+        '
+        Me.pnlEvent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlEvent.Controls.Add(Me.cboEvents)
+        Me.pnlEvent.Controls.Add(Me.Label23)
+        Me.pnlEvent.Controls.Add(Me.txtEventNote)
+        Me.pnlEvent.Controls.Add(Me.txtEventDate)
+        Me.pnlEvent.Controls.Add(Me.txtEventValue)
+        Me.pnlEvent.Controls.Add(Me.Label29)
+        Me.pnlEvent.Controls.Add(Me.Label28)
+        Me.pnlEvent.Controls.Add(Me.Label27)
+        Me.pnlEvent.Controls.Add(Me.cmdEventCancel)
+        Me.pnlEvent.Controls.Add(Me.cmdEventOK)
+        Me.pnlEvent.Location = New System.Drawing.Point(249, 25)
+        Me.pnlEvent.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlEvent.Name = "pnlEvent"
+        Me.pnlEvent.Size = New System.Drawing.Size(511, 183)
+        Me.pnlEvent.TabIndex = 38
+        Me.pnlEvent.Visible = False
+        '
+        'cmdEventCancel
+        '
+        Me.cmdEventCancel.Location = New System.Drawing.Point(260, 144)
+        Me.cmdEventCancel.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdEventCancel.Name = "cmdEventCancel"
+        Me.cmdEventCancel.Size = New System.Drawing.Size(99, 28)
+        Me.cmdEventCancel.TabIndex = 23
+        Me.cmdEventCancel.Text = "Cancel"
+        Me.cmdEventCancel.UseVisualStyleBackColor = True
+        '
+        'cmdEventOK
+        '
+        Me.cmdEventOK.Location = New System.Drawing.Point(152, 144)
+        Me.cmdEventOK.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdEventOK.Name = "cmdEventOK"
+        Me.cmdEventOK.Size = New System.Drawing.Size(99, 28)
+        Me.cmdEventOK.TabIndex = 19
+        Me.cmdEventOK.Text = "OK"
+        Me.cmdEventOK.UseVisualStyleBackColor = True
+        '
+        'cboEvents
+        '
+        Me.cboEvents.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboEvents.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboEvents.FormattingEnabled = True
+        Me.cboEvents.Location = New System.Drawing.Point(68, 8)
+        Me.cboEvents.Name = "cboEvents"
+        Me.cboEvents.Size = New System.Drawing.Size(145, 21)
+        Me.cboEvents.TabIndex = 262
+        Me.cboEvents.Tag = ""
+        '
+        'Label23
+        '
+        Me.Label23.Location = New System.Drawing.Point(20, 8)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(44, 20)
+        Me.Label23.TabIndex = 269
+        Me.Label23.Text = "Event"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtEventNote
+        '
+        Me.txtEventNote.AllowDrop = True
+        Me.txtEventNote.Location = New System.Drawing.Point(68, 80)
+        Me.txtEventNote.Multiline = True
+        Me.txtEventNote.Name = "txtEventNote"
+        Me.txtEventNote.Size = New System.Drawing.Size(432, 56)
+        Me.txtEventNote.TabIndex = 265
+        Me.txtEventNote.Tag = ""
+        '
+        'txtEventDate
+        '
+        Me.txtEventDate.AllowDrop = True
+        Me.txtEventDate.BackColor = System.Drawing.SystemColors.Window
+        Me.txtEventDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEventDate.Location = New System.Drawing.Point(68, 32)
+        Me.txtEventDate.Name = "txtEventDate"
+        Me.txtEventDate.Size = New System.Drawing.Size(118, 20)
+        Me.txtEventDate.TabIndex = 263
+        Me.txtEventDate.Tag = ""
+        '
+        'txtEventValue
+        '
+        Me.txtEventValue.AllowDrop = True
+        Me.txtEventValue.BackColor = System.Drawing.SystemColors.Window
+        Me.txtEventValue.Location = New System.Drawing.Point(68, 56)
+        Me.txtEventValue.Name = "txtEventValue"
+        Me.txtEventValue.Size = New System.Drawing.Size(98, 20)
+        Me.txtEventValue.TabIndex = 264
+        Me.txtEventValue.Tag = ""
+        Me.txtEventValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtEventValue.WordWrap = False
+        '
+        'Label29
+        '
+        Me.Label29.Location = New System.Drawing.Point(4, 32)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(60, 20)
+        Me.Label29.TabIndex = 268
+        Me.Label29.Text = "Date/Time"
+        Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label28
+        '
+        Me.Label28.Location = New System.Drawing.Point(16, 120)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(45, 17)
+        Me.Label28.TabIndex = 267
+        Me.Label28.Text = "Note"
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label27
+        '
+        Me.Label27.Location = New System.Drawing.Point(20, 56)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(42, 20)
+        Me.Label27.TabIndex = 266
+        Me.Label27.Text = "Value"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'frmList
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1962,6 +2102,8 @@ Partial Class frmList
         Me.pnlConsultantName.ResumeLayout(False)
         Me.pnlBusinessUnit.ResumeLayout(False)
         Me.pnlECUParent.ResumeLayout(False)
+        Me.pnlEvent.ResumeLayout(False)
+        Me.pnlEvent.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2130,4 +2272,16 @@ Partial Class frmList
     Friend WithEvents Label22 As Label
     Friend WithEvents txtLesseeCity As TextBox
     Friend WithEvents Label21 As Label
+    Friend WithEvents mnuContextCreateEvent As ToolStripMenuItem
+    Friend WithEvents pnlEvent As Panel
+    Friend WithEvents cmdEventCancel As Button
+    Friend WithEvents cmdEventOK As Button
+    Friend WithEvents cboEvents As ComboBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents txtEventNote As TextBox
+    Friend WithEvents txtEventDate As TextBox
+    Friend WithEvents txtEventValue As TextBox
+    Friend WithEvents Label29 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents Label27 As Label
 End Class

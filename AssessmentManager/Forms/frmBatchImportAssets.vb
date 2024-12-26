@@ -331,9 +331,12 @@
                     sGLCode = Trim(UCase(UnNullToString(dgResults.Rows(lRow).Cells("GLCode").Value)))
                     sVIN = UnNullToString(dgResults.Rows(lRow).Cells("VIN").Value)
                     sLocationAddress = UnNullToString(dgResults.Rows(lRow).Cells("LocationAddress").Value)
-                    dInterstateAllocationPct = UnNullToDouble(dgResults.Rows(lRow).Cells("InterstateAllocationPct").Value)
-                    If dInterstateAllocationPct = 0 Then dInterstateAllocationPct = 1
-
+                    ''if interstate allocation is 0 in the file, save 0.  only set to 1 if the file has 1 or the pct is not defined in the file
+                    If dgResults.Rows(lRow).Cells("InterstateAllocationPct").Value.ToString.Trim = "" Then
+                        dInterstateAllocationPct = 1
+                    Else
+                        dInterstateAllocationPct = UnNullToDouble(dgResults.Rows(lRow).Cells("InterstateAllocationPct").Value)
+                    End If
                     sLeaseTerm = UnNullToString(dgResults.Rows(lRow).Cells("LeaseTerm").Value)
                     sLeaseType = UnNullToString(dgResults.Rows(lRow).Cells("LeaseType").Value)
                     sLesseeAddress = UnNullToString(dgResults.Rows(lRow).Cells("LesseeAddress").Value)

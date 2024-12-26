@@ -1,13 +1,14 @@
 ﻿Public Class frmEvent
-    Private bActivated As Boolean
+    Private m_activated As Boolean = False
     Private m_ClientId As Long
     Private m_LocationId As Long
     Private m_AssessmentId As Long
     Private m_TaxYear As Integer
     Private m_EventId As Long
     Private m_PropType As enumTable
-    Private DBUpdate() As typeDBUpdateInfo
-    Private bChanged As Boolean
+    Private m_EventList As New Collection
+    Private m_tablename As String = ""
+    Private m_changed As Boolean = False
 
     Public Property ClientId() As Long
         Get
@@ -59,110 +60,87 @@
     End Property
 
     Private Sub InitInfo()
-        Dim DBPrimaryKeys(0) As typeDBUpdateInfo, l As Long
-
         If m_PropType = enumTable.enumLocationBPP Then
-            DBPrimaryKeys(0).sTable = "AssessmentsBPPEvents"
-            txtEventDate.Tag = "@DB=AssessmentsBPPEvents.EventDate;@fmt=datetime"
-            txtEventNote.Tag = "@DB=AssessmentsBPPEvents.EventNote"
-            txtEventValue.Tag = "@DB=AssessmentsBPPEvents.EventValue;@FMT=dol"
+            m_tablename = "AssessmentsBPPEvents"
         Else
-            DBPrimaryKeys(0).sTable = "AssessmentsREEvents"
-            txtEventDate.Tag = "@DB=AssessmentsREEvents.EventDate;@fmt=datetime"
-            txtEventNote.Tag = "@DB=AssessmentsREEvents.EventNote"
-            txtEventValue.Tag = "@DB=AssessmentsREEvents.EventValue;@FMT=dol"
+            m_tablename = "AssessmentsREEvents"
         End If
-        DBPrimaryKeys(0).bAllowInsert = True
-        ReDim DBPrimaryKeys(0).PrimaryKeys(4)
-        DBPrimaryKeys(0).PrimaryKeys(0).sField = "ClientId"
-        DBPrimaryKeys(0).PrimaryKeys(1).sField = "LocationId"
-        DBPrimaryKeys(0).PrimaryKeys(2).sField = "AssessmentId"
-        DBPrimaryKeys(0).PrimaryKeys(3).sField = "TaxYear"
-        DBPrimaryKeys(0).PrimaryKeys(4).sField = "EventId"
-
-        InitControls(Me, DBUpdate, DBPrimaryKeys)
-        For l = 0 To UBound(DBUpdate)
-            DBUpdate(l).PrimaryKeys(0).vValue = m_ClientId
-            DBUpdate(l).PrimaryKeys(1).vValue = m_LocationId
-            DBUpdate(l).PrimaryKeys(2).vValue = m_AssessmentId
-            DBUpdate(l).PrimaryKeys(3).vValue = AppData.TaxYear
-            DBUpdate(l).PrimaryKeys(4).vValue = m_EventId
-            DBUpdate(l).bAllowInsert = True
+        m_EventList = New Collection
+        Dim sql As New StringBuilder()
+        sql.Append("SELECT EventId, EventName FROM EventList" & IIf(m_PropType = enumTable.enumLocationBPP, "BPP", "RE")).Append(" AS el")
+        sql.Append(" ORDER BY EventName")
+        Dim dt As New DataTable
+        GetData(sql.ToString, dt)
+        For Each dr As DataRow In dt.Rows
+            cboEvents.Items.Add(dr("EventName"))
+            m_EventList.Add(dr("EventId"), dr("EventName"))
         Next
+        If m_EventId = 0 Then
+            cboEvents.Enabled = True
+        Else
+            cboEvents.Enabled = False
+        End If
 
     End Sub
 
     Private Sub frmEvent_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
-        If bActivated Then Exit Sub
+        If m_activated Then Exit Sub
         InitInfo()
         RefreshData()
-        bActivated = True
+        m_activated = True
     End Sub
 
     Private Function RefreshData() As Boolean
-        'Dim sError As String = "", dt As New DataTable, sSQL As String = "", dr As DataRow
+        Try
+            txtEventDate.Text = "" : txtEventNote.Text = "" : txtEventValue.Text = ""
+            If m_EventId > 0 Then
+                Dim dt As New DataTable
+                Dim sql As String = "SELECT EventDate, EventValue, EventNote, (SELECT el.EventName FROM EventList" & IIf(m_PropType = enumTable.enumLocationBPP, "BPP", "RE") & " el WHERE el.EventId = " & m_EventId & ") AS EventName FROM " & m_tablename &
+                    " WHERE ClientId = " & m_ClientId & " AND LocationId = " & m_LocationId & " AND AssessmentId = " & m_AssessmentId &
+                    " AND TaxYear = " & m_TaxYear & " AND EventId = " & m_EventId
+                GetData(sql, dt)
+                If dt.Rows.Count > 0 Then
+                    Dim dr As DataRow = dt.Rows(0)
+                    If dr("EventDate").ToString <> "" Then txtEventDate.Text = Format(dr("EventDate"), csDateTime)
+                    If dr("EventValue").ToString <> "" Then txtEventValue.Text = Format(dr("EventValue"), csDol)
+                    txtEventNote.Text = dr("EventNote").ToString.Trim
+                    cboEvents.Text = dr("EventName").ToString
+                End If
+            End If
 
-        'Try
-        '    txtClientName.Text = "" : txtGLCode.Text = m_GLCode : txtStateCd.Text = m_StateCd : cboFactorCode.Text = ""
-        '    txtEntity.Text = ""
-        '    cboFactorCode.Items.Clear() : cboFactorCode.Items.Add("")
-
-        '    sSQL = "SELECT c.Name AS ClientName," &
-        '        " ISNULL((SELECT cx.FactorCode FROM ClientGLCodeXRef cx WHERE cx.ClientId = " & m_ClientId &
-        '        " AND cx.StateCd = " & QuoStr(m_StateCd) & " AND cx.GLCode = " & QuoStr(m_GLCode) &
-        '        " AND cx.TaxYear = " & m_TaxYear & " AND cx.FactorEntityId = " & m_FactorEntityId & "),'') AS FactorCode," &
-        '        " ISNULL((SELECT fe.Name FROM FactorEntities fe WHERE fe.FactorEntityId = " & m_FactorEntityId & "),'') AS EntityName" &
-        '        " FROM Clients AS c WHERE c.ClientId = " & m_ClientId
-        '    GetData(sSQL, dt)
-        '    cboFactorCode.Text = UnNullToString(dt.Rows(0).Item("FactorCode"))
-        '    Me.Text = "Client:  " & dt.Rows(0).Item("ClientName") & ", " & dt.Rows(0).Item("EntityName") & ", G/L Code:  " & m_GLCode
-        '    txtClientName.Text = dt.Rows(0).Item("ClientName")
-        '    txtEntity.Text = dt.Rows(0).Item("EntityName")
-
-        '    sSQL = "SELECT FactorCode FROM FactorEntityCodes WHERE FactorEntityId = " & m_FactorEntityId &
-        '        " AND TaxYear = " & m_TaxYear & " AND ISNULL(InactiveFl,0) = 0 ORDER BY FactorCode"
-        '    GetData(sSQL, dt)
-        '    For Each dr In dt.Rows
-        '        cboFactorCode.Items.Add(dr("FactorCode"))
-        '    Next
-
-        '    Return True
-
-
-        'Catch ex As Exception
-        '    MsgBox("Error in RefreshData:  " & ex.Message)
-        '    Return False
-        'End Try
+            Return True
+        Catch ex As Exception
+            MsgBox("Error in RefreshData:  " & ex.Message)
+            Return False
+        End Try
     End Function
 
-
-
-    Private Sub _GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEventDate.GotFocus, txtEventNote.GotFocus, txtEventValue.GotFocus
+    Private Sub _GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEventDate.GotFocus,
+            txtEventNote.GotFocus, txtEventValue.GotFocus, cboEvents.GotFocus
         sender.selectall()
     End Sub
 
-    Private Sub _TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEventDate.TextChanged, txtEventNote.TextChanged, txtEventValue.TextChanged
-        If bActivated Then bChanged = True
-    End Sub
-
-
-
-
-    Private Sub _LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEventDate.LostFocus, txtEventNote.LostFocus, txtEventValue.LostFocus
-        If bChanged Then
-            If TypeOf sender Is ComboBox Then
-                If sender.SelectedIndex >= 0 Then
-                    UpdateDB(sender, DBUpdate)
-                End If
+    Private Sub SaveData()
+        Try
+            If m_changed = False Then Exit Sub
+            If cboEvents.Text.Trim = "" Then Exit Sub
+            Dim eventid As Long = 0
+            If m_EventId > 0 Then
+                eventid = m_EventId
             Else
-                UpdateDB(sender, DBUpdate)
+                eventid = m_EventList(cboEvents.Text)
             End If
-            bChanged = False
-        End If
+            SaveEvent(m_tablename, eventid, txtEventDate.Text, txtEventValue.Text, txtEventNote.Text, m_ClientId, m_LocationId, m_AssessmentId, m_TaxYear)
+        Catch ex As Exception
+            MsgBox("Error saving data:  " & ex.Message)
+        End Try
     End Sub
-
     Private Sub cmdClose_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdClose.Click
+        SaveData()
         Me.Close()
     End Sub
 
+    Private Sub _TextChanged(sender As Object, e As EventArgs) Handles txtEventDate.TextChanged, txtEventNote.TextChanged, txtEventValue.TextChanged, cboEvents.TextChanged
+        If m_activated Then m_changed = True
+    End Sub
 End Class

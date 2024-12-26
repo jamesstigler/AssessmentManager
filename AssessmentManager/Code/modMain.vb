@@ -40,6 +40,7 @@ Module modMain
         Friend PrintServer As Boolean
         Friend ConsultantName As String
         Friend FullName As String
+        Friend IsAdministrator As Boolean
     End Structure
     Public Enum enumSavingsExclusionCd
         enumNone = 0
@@ -2331,7 +2332,7 @@ Module modMain
         Return True
 
     End Function
-    Public Function AddFactorCodeXRef(ByVal sStateCd As String, ByVal sStateFactorCode As String, ByVal lFactorEntityId As Long, _
+    Public Function AddFactorCodeXRef(ByVal sStateCd As String, ByVal sStateFactorCode As String, ByVal lFactorEntityId As Long,
                 ByVal iTaxYear As Integer, ByVal sEntityFactorCode As String, ByVal sOldStateFactorCode As String) As Boolean
         Dim sSQL As String
 
@@ -2340,23 +2341,23 @@ Module modMain
             sStateFactorCode = UCase(Trim(sStateFactorCode))
 
             If sStateFactorCode = "" Then
-                sSQL = "delete FactorCodeXRef where StateCd = " & QuoStr(sStateCd) & _
-                    " and FactorEntityId = " & lFactorEntityId & _
-                    " and TaxYear = " & iTaxYear & _
-                    " and EntityFactorCode = " & QuoStr(sEntityFactorCode) & _
+                sSQL = "delete FactorCodeXRef where StateCd = " & QuoStr(sStateCd) &
+                    " and FactorEntityId = " & lFactorEntityId &
+                    " and TaxYear = " & iTaxYear &
+                    " and EntityFactorCode = " & QuoStr(sEntityFactorCode) &
                     " and StateFactorCode = " & QuoStr(sOldStateFactorCode)
                 ExecuteSQL(sSQL)
             Else
-                sSQL = "update FactorCodeXRef set StateFactorCode = " & QuoStr(sStateFactorCode) & "," & _
-                    " ChangeDate = getdate(), ChangeUser = " & QuoStr(AppData.UserId) & _
-                    " where StateCd = " & QuoStr(sStateCd) & _
-                    " and FactorEntityId = " & lFactorEntityId & _
-                    " and TaxYear = " & iTaxYear & _
-                    " and EntityFactorCode = " & QuoStr(sEntityFactorCode) & _
+                sSQL = "update FactorCodeXRef set StateFactorCode = " & QuoStr(sStateFactorCode) & "," &
+                    " ChangeDate = getdate(), ChangeUser = " & QuoStr(AppData.UserId) &
+                    " where StateCd = " & QuoStr(sStateCd) &
+                    " and FactorEntityId = " & lFactorEntityId &
+                    " and TaxYear = " & iTaxYear &
+                    " and EntityFactorCode = " & QuoStr(sEntityFactorCode) &
                     " and StateFactorCode = " & QuoStr(sOldStateFactorCode)
                 If ExecuteSQL(sSQL) = 0 Then
-                    sSQL = "insert FactorCodeXRef (StateCd,StateFactorCode,FactorEntityId,TaxYear,EntityFactorCode,AddUser)" & _
-                        " select " & QuoStr(sStateCd) & "," & QuoStr(sStateFactorCode) & "," & lFactorEntityId & "," & iTaxYear & "," & _
+                    sSQL = "insert FactorCodeXRef (StateCd,StateFactorCode,FactorEntityId,TaxYear,EntityFactorCode,AddUser)" &
+                        " select " & QuoStr(sStateCd) & "," & QuoStr(sStateFactorCode) & "," & lFactorEntityId & "," & iTaxYear & "," &
                         QuoStr(sEntityFactorCode) & "," & QuoStr(AppData.UserId)
                     ExecuteSQL(sSQL)
                 End If
@@ -2364,6 +2365,54 @@ Module modMain
             Return True
         Catch ex As Exception
             MsgBox("Error saving data:  " & ex.Message)
+            Return False
+        End Try
+    End Function
+
+    Public Function SaveEvent(tablename As String, eventid As String, eventdate As String, eventvalue As String, eventnote As String,
+            clientid As Long, locationid As Long, assessmentid As Long, taxyear As Integer)
+        Try
+            Dim svalue As String = ""
+            If eventvalue.Trim = "" Then
+                svalue = "NULL"
+            Else
+                If IsNumeric(eventvalue) Then
+                    svalue = CDbl(eventvalue)
+                Else
+                    svalue = "NULL"
+                End If
+            End If
+
+            Dim sql As New StringBuilder
+            sql.Append("UPDATE ").Append(tablename).Append(" SET EventId = ").Append(eventid)
+            sql.Append(",EventDate=").Append(IIf(eventdate.Trim = "", "NULL", QuoStr(eventdate.Trim)))
+            sql.Append(",EventValue=").Append(svalue)
+            sql.Append(",EventNote=").Append(QuoStr(eventnote.Trim))
+            sql.Append(",ChangeDate=GETDATE()")
+            sql.Append(",ChangeUser=").Append(QuoStr(AppData.UserId))
+            sql.Append(",ChangeType=2")
+            sql.Append(" WHERE ClientId = ").Append(clientid)
+            sql.Append(" AND LocationId = ").Append(locationid)
+            sql.Append(" AND AssessmentId = ").Append(assessmentid)
+            sql.Append(" AND TaxYear = ").Append(taxyear)
+            sql.Append(" AND EventId = ").Append(eventid)
+            sql.Append(" IF @@ROWCOUNT=0 BEGIN")
+            sql.Append(" INSERT ").Append(tablename).Append("(ClientId,LocationId,AssessmentId,TaxYear,EventId,EventDate,EventValue,EventNote,AddUser)")
+            sql.Append(" SELECT ").Append(clientid)
+            sql.Append(",").Append(locationid)
+            sql.Append(",").Append(assessmentid)
+            sql.Append(",").Append(taxyear)
+            sql.Append(",").Append(eventid)
+            sql.Append(",").Append(IIf(eventdate.Trim = "", "NULL", QuoStr(eventdate.Trim)))
+            sql.Append(",").Append(svalue)
+            sql.Append(",").Append(QuoStr(eventnote.Trim))
+            sql.Append(",").Append(QuoStr(AppData.UserId))
+            sql.Append(" END ")
+
+            ExecuteSQL(sql.ToString)
+            Return True
+        Catch ex As Exception
+            MsgBox("Error saving event:" & ex.Message)
             Return False
         End Try
     End Function

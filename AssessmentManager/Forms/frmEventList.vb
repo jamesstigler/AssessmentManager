@@ -26,6 +26,11 @@
         Try
             sTable = IIf(m_PropType = enumTable.enumLocationBPP, "EventListBPP", "EventListRE")
             Me.Text = IIf(m_PropType = enumTable.enumLocationBPP, "BPP", "Real Estate") & " Event List"
+            If AppData.IsAdministrator = False Then
+                cmdNewEvent.Enabled = False
+                mnuContextDelete.Enabled = False
+                mnuContextRename.Enabled = False
+            End If
             LoadEvents()
 
             Return True
@@ -56,7 +61,12 @@
             dgEvents.DataSource = bind
             dgEvents.Columns("EventId").Visible = False
             dgEvents.Columns("EventName").HeaderText = "Event Name"
-            dgEvents.Columns("EventName").ReadOnly = True
+            dgEvents.Columns("EventName").ReadOnly = False
+            If AppData.IsAdministrator Then
+                dgEvents.ReadOnly = False
+            Else
+                dgEvents.ReadOnly = True
+            End If
 
             Return True
         Catch ex As Exception
@@ -68,6 +78,7 @@
 
     Private Sub mnuContextDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnuContextDelete.Click
         Try
+            If AppData.IsAdministrator = False Then Exit Sub
             If iMouseClickColIndex >= 0 Then
                 If dgEvents.SelectedRows.Count > 0 Then
                     If MsgBox("Are you sure you want to delete?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
@@ -88,6 +99,7 @@
 
     Private Sub dgEvents_CellEndEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgEvents.CellEndEdit
         Try
+            If AppData.IsAdministrator = False Then Exit Sub
             Dim sError As String = "", sId As String, sSQL As New StringBuilder, sName As String
             sId = dgEvents.Rows(e.RowIndex).Cells("EventId").Value.ToString
             sName = dgEvents.Rows(e.RowIndex).Cells("EventName").Value.ToString.Trim
@@ -119,6 +131,7 @@
 
     Private Sub cmdNewEvent_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdNewEvent.Click
         Try
+            If AppData.IsAdministrator = False Then Exit Sub
             Dim sName As String = Trim(InputBox("Enter name of event"))
             If sName = "" Then Exit Sub
             If sName.Length > 255 Then sName = sName.Substring(0, 255)

@@ -24,6 +24,7 @@
     Private colBusinessUnits As Collection
     Private colAgencies As Collection
     Private colTasks As Collection
+    Private colEvents As Collection
     Private lLastGridRow As Long = 0
     Private bHasLoadedAlready As Boolean
     Private eAllocationPctType As enumAllocationPctType
@@ -914,8 +915,10 @@
 
         If m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions Or m_ListType = enumListType.enumAssessmentRE Then
             mnuContextAddJurisdiction.Visible = True
+            mnuContextCreateEvent.Visible = True
         Else
             mnuContextAddJurisdiction.Visible = False
+            mnuContextCreateEvent.Visible = False
         End If
 
         If m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions Then
@@ -3418,6 +3421,63 @@
 
     Private Sub cmdAgencyCancel_Click(sender As Object, e As EventArgs) Handles cmdAgencyCancel.Click
         pnlAgency.Visible = False
+        dgList.Enabled = True
+    End Sub
+
+    Private Sub mnuContextCreateEvent_Click(sender As Object, e As EventArgs) Handles mnuContextCreateEvent.Click
+        Try
+            If m_ListType <> enumListType.enumAssessmentBPP And
+                    m_ListType <> enumListType.enumRenditions And
+                    m_ListType <> enumListType.enumAssessmentRE Then Exit Sub
+            If dgList.SelectedRows.Count = 0 Then Exit Sub
+
+            Dim proptype As String = IIf(m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions, "BPP", "RE")
+            cboEvents.Items.Clear()
+            cboEvents.Text = ""
+            txtEventDate.Text = ""
+            txtEventNote.Text = ""
+            txtEventValue.Text = ""
+
+            Dim sql As New StringBuilder
+            sql.Append("SELECT EventId, RTRIM(LTRIM(EventName)) AS EventName")
+            sql.Append(" FROM EventList").Append(proptype).Append(" ORDER BY EventName")
+            colEvents = New Collection
+            LoadComboBox(sql.ToString, cboEvents, colEvents)
+            dgList.Enabled = False
+            pnlEvent.Visible = True
+            pnlEvent.BringToFront()
+        Catch ex As Exception
+            MsgBox("Error creating event:  " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub cmdEventOK_Click(sender As Object, e As EventArgs) Handles cmdEventOK.Click
+        Try
+            Dim lId As Long = 0, sSQL As New StringBuilder, i As Integer, row As DataGridViewRow
+            If cboEvents.Text.Trim = "" Then Exit Sub
+
+            If colEvents.Contains(cboEvents.Text) Then
+                lId = colEvents(cboEvents.Text)
+            End If
+            sSQL.Clear()
+            i = 0
+            For Each row In dgList.SelectedRows
+                If row.Cells("AssessmentId").Value.ToString.Trim <> "" Then
+                    SaveEvent(IIf(m_ListType = enumListType.enumAssessmentBPP Or m_ListType = enumListType.enumRenditions, "AssessmentsBPPEvents", "AssessmentsREEvents"),
+                        lId.ToString, txtEventDate.Text, txtEventValue.Text, txtEventNote.Text,
+                        row.Cells("ClientId").Value, row.Cells("LocationId").Value, row.Cells("AssessmentId").Value, m_TaxYear)
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox("Error creating event:  " & ex.Message)
+        Finally
+            pnlEvent.Visible = False
+            dgList.Enabled = True
+        End Try
+    End Sub
+
+    Private Sub cmdEventCancel_Click(sender As Object, e As EventArgs) Handles cmdEventCancel.Click
+        pnlEvent.Visible = False
         dgList.Enabled = True
     End Sub
 

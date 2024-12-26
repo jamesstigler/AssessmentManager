@@ -27,20 +27,21 @@ Partial Class frmEventList
         Me.mnuContextDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdNewEvent = New System.Windows.Forms.Button()
         Me.dgEvents = New System.Windows.Forms.DataGridView()
+        Me.mnuContextRename = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.dgEvents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextDelete})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextDelete, Me.mnuContextRename})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(108, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 70)
         '
         'mnuContextDelete
         '
         Me.mnuContextDelete.Name = "mnuContextDelete"
-        Me.mnuContextDelete.Size = New System.Drawing.Size(107, 22)
+        Me.mnuContextDelete.Size = New System.Drawing.Size(180, 22)
         Me.mnuContextDelete.Text = "Delete"
         '
         'cmdNewEvent
@@ -73,6 +74,12 @@ Partial Class frmEventList
         Me.dgEvents.Size = New System.Drawing.Size(623, 307)
         Me.dgEvents.TabIndex = 27
         '
+        'mnuContextRename
+        '
+        Me.mnuContextRename.Name = "mnuContextRename"
+        Me.mnuContextRename.Size = New System.Drawing.Size(180, 22)
+        Me.mnuContextRename.Text = "Rename"
+        '
         'frmEventList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -92,4 +99,5 @@ Partial Class frmEventList
     Friend WithEvents mnuContextDelete As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmdNewEvent As System.Windows.Forms.Button
     Friend WithEvents dgEvents As System.Windows.Forms.DataGridView
+    Friend WithEvents mnuContextRename As ToolStripMenuItem
 End Class

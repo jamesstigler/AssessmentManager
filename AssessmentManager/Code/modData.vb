@@ -983,12 +983,17 @@
                     .FirmFax = row("Fax")
                 End With
             End If
-            sSQL = "SELECT ConsultantName, ISNULL(ConsultantId,'') AS ConsultantId, ISNULL(FullName,'') AS FullName FROM Consultants WHERE ConsultantId = " &
+            sSQL = "SELECT ConsultantName, ISNULL(ConsultantId,'') AS ConsultantId, ISNULL(FullName,'') AS FullName, AdministratorFl FROM Consultants WHERE ConsultantId = " &
                 QuoStr(AppData.UserId)
             If GetData(sSQL, dt) > 0 Then
                 row = dt.Rows(0)
                 AppData.ConsultantName = row("ConsultantName").ToString.Trim
                 AppData.FullName = row("FullName").ToString.Trim
+                If row("AdministratorFl").ToString = "True" Then
+                    AppData.IsAdministrator = True
+                Else
+                    AppData.IsAdministrator = False
+                End If
             End If
             dt.Dispose()
 

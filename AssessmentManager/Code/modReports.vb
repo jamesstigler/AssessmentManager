@@ -667,7 +667,7 @@
                 stmp.Append("Jurisdictions_Name varchar(255) null, TaxRate float null, FinalValue float null, AbatementReductionAmt float null,")
                 stmp.Append("ClientAbatementAmt float null,")
                 stmp.Append("FreeportReductionAmt float null, ClientFreeportAmt float null, NotifiedValue float null, SumOfFactoredAmount float null,")
-                stmp.Append("BusinessUnits_Name varchar(255) null")
+                stmp.Append("BusinessUnits_Name varchar(255) null, TaxDueDate datetime null")
                 stmp.Append(")")
                 ExecuteSQL(stmp.ToString)
                 stmp.Length = 0
@@ -736,7 +736,7 @@
                     sSQL = sSQL & " CONVERT(float,0) AS FreeportReductionAmt, CONVERT(float,0) AS ClientFreeportAmt," &
                         " CONVERT(float,ISNULL(CASE WHEN (ISNULL(ad.REImprovementValue,0) + ISNULL(ad.RELandValue,0)) = 0 THEN NULL" &
                         " ELSE (ISNULL(ad.REImprovementValue,0) + ISNULL(ad.RELandValue,0)) END,0)) AS NotifiedValue, CONVERT(float,0) AS SumOfFactoredAmount,"
-                    sSQL = sSQL & " ISNULL(bu.Name,'') AS BusinessUnits_Name"
+                    sSQL = sSQL & " ISNULL(bu.Name,'') AS BusinessUnits_Name, ISNULL(collect.REDueDate1,'1/1/1900') AS TaxDueDate"
 
                     sSQL = sSQL &
                         " FROM Clients AS c" &
@@ -747,6 +747,7 @@
                         " LEFT OUTER JOIN Jurisdictions AS j ON ad.JurisdictionId = j.JurisdictionId AND ad.TaxYear = j.TaxYear" &
                         " LEFT OUTER JOIN Assessors AS ass ON a.AssessorId = ass.AssessorId AND a.TaxYear = ass.TaxYear" &
                         " LEFT OUTER JOIN BusinessUnits bu ON a.ClientId = bu.ClientId AND a.BusinessUnitId = bu.BusinessUnitId" &
+                        " LEFT OUTER JOIN Collectors collect On j.CollectorId = collect.CollectorId And j.TaxYear = collect.TaxYear" &
                         " WHERE a.TaxYear = " & iTaxYear
                     If lClientId <> 0 Then sSQL = sSQL & " AND a.ClientId = " & lClientId
                     If lLocationId <> 0 Then sSQL = sSQL & " AND a.LocationId = " & lLocationId
@@ -800,7 +801,7 @@
                         " AND ad2.LocationId = ad.LocationId AND ad2.AssessmentId = ad.AssessmentId" &
                         " AND ad2.JurisdictionId = ad.JurisdictionId AND ad2.TaxYear = " & iTaxYear - 1 & ")),0)) AS ClientFreeportAmt,"
                     sSQL = sSQL & " CONVERT(float,ISNULL(ad.NotifiedValue,0)) AS NotifiedValue, CONVERT(float,tblValues.SumOfFactoredAmount) AS SumOfFactoredAmount,"
-                    sSQL = sSQL & " ISNULL(bu.Name,'') AS BusinessUnits_Name"
+                    sSQL = sSQL & " ISNULL(bu.Name,'') AS BusinessUnits_Name, ISNULL(c.BPPDueDate1,'1/1/1900') AS TaxDueDate"
 
                     sSQL = sSQL & " FROM (SELECT ClientId, LocationId, AssessmentId,TaxYear, Clients_Name, Locations_Address," &
                         " Locations_City, Locations_StateCd, Locations_ClientLocationId, Assessments_AcctNum," &
@@ -839,6 +840,7 @@
                         " And ad.AssessmentId=tblValues.AssessmentId And ad.TaxYear=tblValues.TaxYear" &
                         " LEFT JOIN Jurisdictions j On ad.JurisdictionId = j.JurisdictionId And ad.TaxYear = j.TaxYear"
                     sSQL = sSQL & " LEFT OUTER JOIN BusinessUnits bu On tblValues.ClientId = bu.ClientId And tblValues.BusinessUnitId = bu.BusinessUnitId"
+                    sSQL = sSQL & " LEFT OUTER JOIN Collectors c On j.CollectorId = c.CollectorId And j.TaxYear = c.TaxYear"
 
                     If iAccrualCounter > 5 Then
                         ExecuteSQL(sSQL)
@@ -1504,7 +1506,7 @@
                         Trim(UnNullToString(row("Locations_City")))
                     clsReport.Text07 = "Total For " & clsReport.Text02
                     clsReport.Text08 = UnNullToString(row("Assessors_Name"))
-                    clsReport.Text09 = IIf(row("PropertyType") = "BPP", "Business Personal Property", "Real Estate")
+                    clsReport.Text09 = IIf(row("PropertyType") = "BPP", "BPP", "Real")
                     clsReport.Text10 = UnNullToString(row("Jurisdictions_Name"))
                     clsReport.Text15 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
                         "  " & row("Assessments_AcctNum").ToString.Trim
@@ -1528,7 +1530,7 @@
                             UnNullToDouble(row("TaxRate"))
                     End If
                     If lNetTaxableValue < 0 Then lNetTaxableValue = 0
-                    If dTaxDue < 0 Then dTaxDue = 0
+                    If dTaxDue < 0 And UnNullToDouble(row("TaxRate")) > 0 Then dTaxDue = 0
                     clsReport.Number14 = Val(Format(dTaxDue, "0.00"))
                     clsReport.Number15 = row("Assessors_Ratio") * 100
                     clsReport.Number02 = Val(Format(dAbatement, "0.00"))
@@ -1541,6 +1543,7 @@
                     clsReport.Number18 = row("AssessmentId")
                     clsReport.Number19 = row("JurisdictionId")
                     clsReport.Number20 = row("NotifiedValue")
+                    clsReport.Date01 = row("TaxDueDate")
                     'Number01 is tax year
 
                     clsReport.WriteReportData()
@@ -2364,7 +2367,8 @@
             sql.Append("[Text04] [varchar](255) NULL,[Text05] [varchar](255) NULL,[Text06] [varchar](255) NULL,[Text07] [varchar](255) NULL,[Text08] [varchar](255) NULL,")
             sql.Append("[Text09] [varchar](255) NULL,[Text10] [varchar](255) NULL,[Text15] [varchar](255) NULL,[Number01] [float] NULL,[Number02] [float] NULL,")
             sql.Append("[Number03] [float] NULL,[Number04] [float] NULL,[Number09] [float] NULL,[Number10] [float] NULL,[Number11] [float] NULL,[Number14] [float] NULL,")
-            sql.Append("[Number15] [float] NULL,[Number16] [float] NULL,[Number17] [float] NULL,[Number18] [float] NULL,[Number19] [float] NULL,Number20 float null)")
+            sql.Append("[Number15] [float] NULL,[Number16] [float] NULL,[Number17] [float] NULL,[Number18] [float] NULL,[Number19] [float] NULL,Number20 float null")
+            sql.Append(",[Date01] [datetime] NULL)")
             ExecuteSQL(sql.ToString)
 
             'Copy contents of report class into temp table
@@ -2372,7 +2376,7 @@
             sqlins.Clear()
             sqlins.Append("INSERT INTO ").Append(sTempTable).Append(" ([Text01],[Text02],[Text03],[Text04],[Text05],[Text06],[Text07],[Text08],[Text09],[Text10],")
             sqlins.Append("[Text15],[Number01],[Number02],[Number03],[Number04],[Number09],[Number10],[Number11],[Number14],[Number15],[Number16],[Number17],")
-            sqlins.Append("[Number18],[Number19],Number20) VALUES ")
+            sqlins.Append("[Number18],[Number19],Number20,Date01) VALUES ")
             sql.Clear()
             For Each row In clsReport.ReportDataTable.Rows
                 If sql.Length > 0 Then
@@ -2405,6 +2409,7 @@
                 sql.Append(row("Number18")).Append(",")                     'assessmentid
                 sql.Append(row("Number19")).Append(",")                     'jurisdictionid
                 sql.Append(row("Number20"))                                 'notified value
+                sql.Append(",").Append(QuoStr(row("Date01")))               'tax due date     
                 sql.Append(")")
 
                 If lRows > 100 Then
@@ -2419,19 +2424,19 @@
             'query temp table to include prior year value and sum of values, etc., and dump into ReportData table
             sql.Clear()
             sql.Append(" INSERT INTO ReportData (UserName,ReportId,RowCounter,Text01,Text02,Text03, Text04, Text05, Text06, Text07, Text08, Text09, Text15, Number01,")
-            sql.Append(" Number04, Number09, Number10, Number11, Number14, Number15, Number16, Number17, Number18, Number20, Number05, Number06)")
+            sql.Append(" Number04, Number09, Number10, Number11, Number14, Number15, Number16, Number17, Number18, Date01, Number20, Number05, Number06)")
             sql.Append(" SELECT ").Append(QuoStr(AppData.UserId)).Append(",").Append(AppData.ReportId).Append(",1,").Append("Text01, Text02, Text03, Text04,")
             sql.Append(" Text05, Text06, Text07, Text08, Text09, Text15, Number01, MAX_Number04, SUM_Number09,")
-            sql.Append(" MAX_Number10, Number11, SUM_Number14, Number15, Number16, Number17, Number18, MAX_Number20, ")
+            sql.Append(" MAX_Number10, Number11, SUM_Number14, Number15, Number16, Number17, Number18, MIN_Date01, MAX_Number20, ")
             sql.Append(" MAX_Number02Number03,")
-            sql.Append(" CASE WHEN tmp1.Text09 = 'Business Personal Property'")
+            sql.Append(" CASE WHEN tmp1.Text09 = 'BPP'")
             sql.Append(" THEN (SELECT MAX(ISNULL(d.FinalValue,0)) FROM AssessmentDetailBPP d")
             sql.Append(" WHERE d.ClientId = tmp1.Number16 AND d.LocationId = tmp1.Number17 AND d.AssessmentId = tmp1.Number18 AND d.TaxYear = tmp1.Number01 - 1)")
             sql.Append(" ELSE (SELECT MAX(ISNULL(d.FinalValue,0)) FROM AssessmentDetailRE d")
             sql.Append(" WHERE d.ClientId = tmp1.Number16 AND d.LocationId = tmp1.Number17 AND d.AssessmentId = tmp1.Number18 AND d.TaxYear = tmp1.Number01 - 1)")
             sql.Append(" END AS PriorFinalValue")
             sql.Append(" FROM (SELECT Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09, Text15, Number01, MAX(Number04) AS MAX_Number04, SUM(Number09) AS SUM_Number09,")
-            sql.Append(" MAX(Number10) AS MAX_Number10, Number11, SUM(Number14) AS SUM_Number14, Number15, Number16, Number17, Number18, MAX(Number20) AS MAX_Number20,")
+            sql.Append(" MAX(Number10) AS MAX_Number10, Number11, SUM(Number14) AS SUM_Number14, Number15, Number16, Number17, Number18, MIN(Date01) AS MIN_Date01, MAX(Number20) AS MAX_Number20,")
             sql.Append(" MAX(Number02 + Number03) AS MAX_Number02Number03")
             sql.Append(" FROM ").Append(sTempTable)
             sql.Append(" GROUP BY Text01, Text02, Text03, Text04, Text05, Text06, Text07, Text08, Text09, Text15, Number01, Number11, Number15, Number16, Number17, Number18)")

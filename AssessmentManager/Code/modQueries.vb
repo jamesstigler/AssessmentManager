@@ -242,12 +242,16 @@
                 If sPropType = "BPP" And
                         (dr("QueryTable") = "LocationsRE" Or
                         dr("QueryTable") = "AssessmentsRE" Or
-                        dr("QueryTable") = "AssessmentDetailRE") Then
+                        dr("QueryTable") = "AssessmentDetailRE" Or
+                        dr("QueryTable") = "AssessmentsREEvents" Or
+                        dr("QueryTable") = "EventListRE") Then
                     sUserSELECT = sUserSELECT & " NULL AS " & dr("QueryTable") & "_" & dr("QueryField")
                 ElseIf sPropType = "RE" And
                         (dr("QueryTable") = "LocationsBPP" Or
                         dr("QueryTable") = "AssessmentsBPP" Or
-                        dr("QueryTable") = "AssessmentDetailBPP") Then
+                        dr("QueryTable") = "AssessmentDetailBPP" Or
+                        dr("QueryTable") = "AssessmentsBPPEvents" Or
+                        dr("QueryTable") = "EventListBPP") Then
                     sUserSELECT = sUserSELECT & " NULL AS " & dr("QueryTable") & "_" & dr("QueryField")
                 Else
                     sTable = dr("QueryTable")
@@ -379,13 +383,46 @@
                 End If
             Next
             sQuerySQL = sQuerySQL & " SELECT " & sSELECT & " " & cQuery.JoinStatement
+            Select Case enumQueryType
+                Case UserQueryType.BPPAssessment, UserQueryType.BPPTaxes
+                    If sSELECT.Contains("AssessmentsBPPEvents") Or sSELECT.Contains("EventListBPP") Or sORDERBY.Contains("AssessmentsBPPEvents") Or
+                            sWHERE.Contains("AssessmentsBPPEvents") Or sORDERBY.Contains("EventListBPP") Or sWHERE.Contains("EventListBPP") Then
+                        sQuerySQL = sQuerySQL & " LEFT OUTER JOIN AssessmentsBPPEvents ON AssessmentsBPP.TaxYear = AssessmentsBPPEvents.TaxYear" &
+                            " AND AssessmentsBPP.AssessmentId = AssessmentsBPPEvents.AssessmentId AND AssessmentsBPP.LocationId = AssessmentsBPPEvents.LocationId" &
+                            " AND AssessmentsBPP.ClientId = AssessmentsBPPEvents.ClientId" &
+                            " LEFT OUTER JOIN EventListBPP ON AssessmentsBPPEvents.EventId = EventListBPP.EventId"
+                    End If
+                Case UserQueryType.REAssessment, UserQueryType.RETaxes
+                    If sSELECT.Contains("AssessmentsREEvents") Or sSELECT.Contains("EventListRE") Or sORDERBY.Contains("AssessmentsREEvents") Or
+                            sWHERE.Contains("AssessmentsREEvents") Or sORDERBY.Contains("EventListRE") Or sWHERE.Contains("EventListRE") Then
+                        sQuerySQL = sQuerySQL & " LEFT OUTER JOIN AssessmentsREEvents ON AssessmentsRE.TaxYear = AssessmentsREEvents.TaxYear" &
+                            " AND AssessmentsRE.AssessmentId = AssessmentsREEvents.AssessmentId AND AssessmentsRE.LocationId = AssessmentsREEvents.LocationId" &
+                            " AND AssessmentsRE.ClientId = AssessmentsREEvents.ClientId" &
+                            " LEFT OUTER JOIN EventListRE ON AssessmentsREEvents.EventId = EventListRE.EventId"
+                    End If
+                Case UserQueryType.AllAssessment, UserQueryType.AllTaxes
+                    If sPropType = "BPP" And (sSELECT.Contains("AssessmentsBPPEvents") Or sSELECT.Contains("EventListBPP") Or sORDERBY.Contains("AssessmentsBPPEvents") Or
+                            sWHERE.Contains("AssessmentsBPPEvents") Or sORDERBY.Contains("EventListBPP") Or sWHERE.Contains("EventListBPP")) Then
+                        sQuerySQL = sQuerySQL & " LEFT OUTER JOIN AssessmentsBPPEvents ON AssessmentsBPP.TaxYear = AssessmentsBPPEvents.TaxYear" &
+                            " AND AssessmentsBPP.AssessmentId = AssessmentsBPPEvents.AssessmentId AND AssessmentsBPP.LocationId = AssessmentsBPPEvents.LocationId" &
+                            " AND AssessmentsBPP.ClientId = AssessmentsBPPEvents.ClientId" &
+                            " LEFT OUTER JOIN EventListBPP ON AssessmentsBPPEvents.EventId = EventListBPP.EventId"
+                    End If
+                    If sPropType = "RE" And (sSELECT.Contains("AssessmentsREEvents") Or sSELECT.Contains("EventListRE") Or sORDERBY.Contains("AssessmentsREEvents") Or
+                            sWHERE.Contains("AssessmentsREEvents") Or sORDERBY.Contains("EventListRE") Or sWHERE.Contains("EventListRE")) Then
+                        sQuerySQL = sQuerySQL & " LEFT OUTER JOIN AssessmentsREEvents ON AssessmentsRE.TaxYear = AssessmentsREEvents.TaxYear" &
+                            " AND AssessmentsRE.AssessmentId = AssessmentsREEvents.AssessmentId AND AssessmentsRE.LocationId = AssessmentsREEvents.LocationId" &
+                            " AND AssessmentsRE.ClientId = AssessmentsREEvents.ClientId" &
+                            " LEFT OUTER JOIN EventListRE ON AssessmentsREEvents.EventId = EventListRE.EventId"
+                    End If
+            End Select
 
             If bOnlyCurrentConsultant Then
                 If cQuery.JoinStatement.Contains("LocationsBPP.") And cQuery.JoinStatement.Contains("Clients.") Then
-                    sWHERE = sWHERE & " AND ISNULL(LocationsBPP.ConsultantName,Clients.BPPConsultantName) = " & QuoStr(AppData.ConsultantName)
+                    sWHERE = sWHERE & " And ISNULL(LocationsBPP.ConsultantName,Clients.BPPConsultantName) = " & QuoStr(AppData.ConsultantName)
                 End If
                 If cQuery.JoinStatement.Contains("LocationsRE.") And cQuery.JoinStatement.Contains("Clients.") Then
-                    sWHERE = sWHERE & " AND ISNULL(LocationsRE.ConsultantName,Clients.REConsultantName) = " & QuoStr(AppData.ConsultantName)
+                    sWHERE = sWHERE & " And ISNULL(LocationsRE.ConsultantName,Clients.REConsultantName) = " & QuoStr(AppData.ConsultantName)
                 End If
             End If
 
@@ -395,7 +432,7 @@
                 If bAllTaxYears Then
                     sWHERE = " WHERE " & sWHERE
                 Else
-                    sWHERE = cQuery.WhereClause & " AND " & sWHERE
+                    sWHERE = cQuery.WhereClause & " And " & sWHERE
                 End If
             End If
 
@@ -530,10 +567,10 @@
         cSelect = New clsQuerySelect
         cQuery.JoinStatement = "FROM Clients INNER JOIN LocationsBPP ON Clients.ClientId = LocationsBPP.ClientId" &
             " INNER JOIN AssessmentsBPP ON LocationsBPP.ClientId = AssessmentsBPP.ClientId" &
-            " AND LocationsBPP.LocationId = AssessmentsBPP.LocationId And LocationsBPP.TaxYear = AssessmentsBPP.TaxYear" &
+            " And LocationsBPP.LocationId = AssessmentsBPP.LocationId And LocationsBPP.TaxYear = AssessmentsBPP.TaxYear" &
             " LEFT OUTER JOIN Assessors ON AssessmentsBPP.AssessorId = Assessors.AssessorId" &
-            " AND AssessmentsBPP.TaxYear = Assessors.TaxYear" &
-            " LEFT OUTER JOIN BusinessUnits ON AssessmentsBPP.ClientId = BusinessUnits.ClientId AND AssessmentsBPP.BusinessUnitId = BusinessUnits.BusinessUnitId"
+            " And AssessmentsBPP.TaxYear = Assessors.TaxYear" &
+            " LEFT OUTER JOIN BusinessUnits ON AssessmentsBPP.ClientId = BusinessUnits.ClientId And AssessmentsBPP.BusinessUnitId = BusinessUnits.BusinessUnitId"
         cQuery.WhereClause = " WHERE LocationsBPP.TaxYear = [TaxYear]"
         cSelect.QueryTable = "Clients"
         cSelect.QueryField = "ClientId"
@@ -612,10 +649,10 @@
         cSelect = New clsQuerySelect
         cQuery.JoinStatement = "FROM Clients INNER JOIN LocationsRE ON Clients.ClientId = LocationsRE.ClientId" &
             " INNER JOIN AssessmentsRE ON LocationsRE.ClientId = AssessmentsRE.ClientId" &
-            " AND LocationsRE.LocationId = AssessmentsRE.LocationId And LocationsRE.TaxYear = AssessmentsRE.TaxYear" &
+            " And LocationsRE.LocationId = AssessmentsRE.LocationId And LocationsRE.TaxYear = AssessmentsRE.TaxYear" &
             " LEFT OUTER JOIN Assessors ON AssessmentsRE.AssessorId = Assessors.AssessorId" &
-            " AND AssessmentsRE.TaxYear = Assessors.TaxYear" &
-            " LEFT OUTER JOIN BusinessUnits ON AssessmentsRE.ClientId = BusinessUnits.ClientId AND AssessmentsRE.BusinessUnitId = BusinessUnits.BusinessUnitId"
+            " And AssessmentsRE.TaxYear = Assessors.TaxYear" &
+            " LEFT OUTER JOIN BusinessUnits ON AssessmentsRE.ClientId = BusinessUnits.ClientId And AssessmentsRE.BusinessUnitId = BusinessUnits.BusinessUnitId"
         cQuery.WhereClause = " WHERE LocationsRE.TaxYear = [TaxYear]"
         cSelect.QueryTable = "Clients"
         cSelect.QueryField = "ClientId"
@@ -695,10 +732,10 @@
         cSelect = New clsQuerySelect
         cQuery.JoinStatement = "FROM Clients INNER JOIN LocationsBPP ON Clients.ClientId = LocationsBPP.ClientId" &
             " INNER JOIN AssessmentsBPP ON LocationsBPP.ClientId = AssessmentsBPP.ClientId" &
-            " AND LocationsBPP.LocationId = AssessmentsBPP.LocationId And LocationsBPP.TaxYear = AssessmentsBPP.TaxYear" &
+            " And LocationsBPP.LocationId = AssessmentsBPP.LocationId And LocationsBPP.TaxYear = AssessmentsBPP.TaxYear" &
             " LEFT OUTER JOIN Assessors ON AssessmentsBPP.AssessorId = Assessors.AssessorId" &
-            " AND AssessmentsBPP.TaxYear = Assessors.TaxYear" &
-            " LEFT OUTER JOIN BusinessUnits ON AssessmentsBPP.ClientId = BusinessUnits.ClientId AND AssessmentsBPP.BusinessUnitId = BusinessUnits.BusinessUnitId"
+            " And AssessmentsBPP.TaxYear = Assessors.TaxYear" &
+            " LEFT OUTER JOIN BusinessUnits ON AssessmentsBPP.ClientId = BusinessUnits.ClientId And AssessmentsBPP.BusinessUnitId = BusinessUnits.BusinessUnitId"
         cQuery.WhereClause = " WHERE LocationsBPP.TaxYear = [TaxYear]"
         cSelect.QueryTable = "Clients"
         cSelect.QueryField = "ClientId"

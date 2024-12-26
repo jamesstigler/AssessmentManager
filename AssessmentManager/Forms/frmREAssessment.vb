@@ -152,6 +152,7 @@
             LoadComments()
             LoadJurisdictions()
             LoadECU(lParentAssessmentId)
+            LoadEvents()
 
             Return True
         Catch ex As Exception
@@ -818,9 +819,11 @@
     Private Sub cmdTaxBillDetail_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdTaxBillDetail.Click
         If fraCollectors.Visible Then
             fraCollectors.Visible = False
+            SplitContainer4.SplitterDistance = 30
         Else
             fraCollectors.BringToFront()
             fraCollectors.Visible = True
+            SplitContainer4.SplitterDistance = 180
         End If
     End Sub
 
@@ -974,18 +977,132 @@
     End Function
 
     Private Sub mnuContextDeleteComment_Click(sender As Object, e As EventArgs) Handles mnuContextDeleteComment.Click
+        ''also for deleting events
         Try
-            If iMouseClickColIndex >= 0 Then
-                If dgComments.SelectedRows.Count > 0 Then
-                    If MsgBox("Are you sure you want to delete?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
-                    Dim sSQL As String = ""
-                    Dim row As DataGridViewRow
-                    For Each row In dgComments.SelectedRows
-                        sSQL = "DELETE AssessmentsREComments WHERE ID = " & row.Cells("ID").Value
-                        If sSQL <> "" Then ExecuteSQL(sSQL)
-                        LoadComments()
-                    Next
+            If dgComments.SelectedRows.Count > 0 Then
+                If MsgBox("Are you sure you want to delete?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
+                Dim sSQL As String = ""
+                Dim row As DataGridViewRow
+                For Each row In dgComments.SelectedRows
+                    sSQL = "DELETE AssessmentsREComments WHERE ID = " & row.Cells("ID").Value
+                    If sSQL <> "" Then ExecuteSQL(sSQL)
+                    LoadComments()
+                Next
+            End If
+        Catch ex As Exception
+            MsgBox("Error deleting:  " & ex.Message)
+        End Try
+    End Sub
+
+    Private Function LoadEvents() As Boolean
+        Dim sError As String = "", lRows As Long = 0, sSQL As String = ""
+        Dim dtList As New DataTable, bind As New BindingSource
+
+        Try
+            sSQL = "SELECT ae.EventId, e.EventName, ae.EventDate, ae.EventValue, ae.EventNote" &
+                " FROM AssessmentsREEvents AS ae" &
+                " INNER JOIN EventListRE AS e ON ae.EventId = e.EventId" &
+                " WHERE ae.ClientId = " & m_ClientId &
+                " AND ae.LocationId = " & m_LocationId &
+                " AND ae.AssessmentId = " & m_AssessmentId &
+                " AND ae.TaxYear = " & m_TaxYear &
+                " ORDER BY ae.EventDate DESC"
+            lRows = GetData(sSQL, dtList)
+
+            dgEvents.Columns.Clear()
+            bind.DataSource = dtList
+            dgEvents.DataSource = bind
+
+            For Each column As DataGridViewTextBoxColumn In dgEvents.Columns
+                column.ReadOnly = True
+                If IsIndexField(column.Name) Then column.Visible = False
+                If column.Name = "EventName" Then
+                    column.HeaderText = "Event"
+                    column.Width = 150
                 End If
+                If column.Name = "EventDate" Then
+                    column.HeaderText = "Date/Time"
+                    column.Width = 140
+                    column.DefaultCellStyle.Format = csDateTime
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End If
+                If column.Name = "EventValue" Then
+                    column.HeaderText = "Value"
+                    column.Width = 100
+                    column.DefaultCellStyle.Format = csDol
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                End If
+                If column.Name = "EventNote" Then
+                    column.HeaderText = "Note"
+                    column.Width = dgEvents.Width - 150 - 140 - 100 - 20
+                    column.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+                End If
+            Next
+
+            Return True
+        Catch ex As Exception
+            MsgBox("Error in LoadEvents:  " & ex.Message)
+            Return False
+        End Try
+    End Function
+
+    Private Sub dgEvents_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgEvents.CellDoubleClick
+        Try
+            If e.RowIndex >= 0 Then
+                Dim row As DataGridViewRow = sender.Rows(e.RowIndex)
+                OpenEvent(row.Cells("EventId").Value)
+            End If
+        Catch ex As Exception
+            MsgBox("Error:  " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub OpenEvent(eventid As Long)
+        Try
+            Dim frme As New frmEvent With {
+                .EventId = eventid,
+                .ClientId = m_ClientId,
+                .LocationId = m_LocationId,
+                .AssessmentId = m_AssessmentId,
+                .TaxYear = m_TaxYear,
+                .PropType = enumTable.enumLocationRE
+            }
+            frme.ShowDialog()
+            frme = Nothing
+            LoadEvents()
+        Catch ex As Exception
+            MsgBox("Error:  " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub cmdNewEvent_Click(sender As Object, e As EventArgs) Handles cmdNewEvent.Click
+        OpenEvent(0)
+    End Sub
+
+    Private Sub mnuContextDeleteEvent_Click(sender As Object, e As EventArgs) Handles mnuContextDeleteEvent.Click
+        Try
+            If dgEvents.SelectedRows.Count > 0 Then
+                If MsgBox("Are you sure you want to delete?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
+                Dim sSQL As String = ""
+                Dim row As DataGridViewRow
+                For Each row In dgEvents.SelectedRows
+                    sSQL = "DELETE AssessmentsREEvents WHERE ClientId = " & m_ClientId &
+                            " AND LocationId = " & m_LocationId &
+                            " AND AssessmentId = " & m_AssessmentId &
+                            " AND EventId = " & row.Cells("EventId").Value &
+                            " AND TaxYear = " & m_TaxYear
+                    If sSQL <> "" Then
+                        ExecuteSQL(sSQL)
+                        WriteSQLToHistory("DeleteAssessmentREEvents", sSQL)
+                    End If
+                Next
+                sSQL = "UPDATE AssessmentsRE SET ChangeDate = GETDATE(), ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeType = 2" &
+                        " WHERE ClientId = " & m_ClientId & " AND LocationId = " & m_LocationId &
+                        " AND AssessmentId = " & m_AssessmentId & " AND TaxYear = " & m_TaxYear
+                ExecuteSQL(sSQL)
+                LoadEvents()
             End If
         Catch ex As Exception
             MsgBox("Error deleting:  " & ex.Message)

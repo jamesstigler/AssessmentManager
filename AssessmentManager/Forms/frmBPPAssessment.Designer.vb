@@ -29,7 +29,6 @@ Partial Class frmBPPAssessment
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuContextPrint = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContextDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtValueProtestDeadlineDate = New System.Windows.Forms.TextBox()
         Me.txtValueProtestHearingDate = New System.Windows.Forms.TextBox()
@@ -43,8 +42,6 @@ Partial Class frmBPPAssessment
         Me.txtFreeportProtestCMRRR = New System.Windows.Forms.TextBox()
         Me.cboFreeportProtestStatus = New System.Windows.Forms.ComboBox()
         Me.txtFreeportProtestMailedDate = New System.Windows.Forms.TextBox()
-        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuContextImportTaxBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.chkInactiveFl = New System.Windows.Forms.CheckBox()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.txtClientLocationId = New System.Windows.Forms.TextBox()
@@ -82,7 +79,6 @@ Partial Class frmBPPAssessment
         Me.cmdNewEvent = New System.Windows.Forms.Button()
         Me.dgEvents = New System.Windows.Forms.DataGridView()
         Me.ContextMenuStrip1.SuspendLayout()
-        Me.ContextMenuStrip2.SuspendLayout()
         Me.grpEvents.SuspendLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -132,15 +128,9 @@ Partial Class frmBPPAssessment
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextPrint, Me.mnuContextDelete})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextDelete})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(108, 48)
-        '
-        'mnuContextPrint
-        '
-        Me.mnuContextPrint.Name = "mnuContextPrint"
-        Me.mnuContextPrint.Size = New System.Drawing.Size(107, 22)
-        Me.mnuContextPrint.Text = "Print"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(108, 26)
         '
         'mnuContextDelete
         '
@@ -273,18 +263,6 @@ Partial Class frmBPPAssessment
         Me.txtFreeportProtestMailedDate.Size = New System.Drawing.Size(72, 20)
         Me.txtFreeportProtestMailedDate.TabIndex = 10
         Me.txtFreeportProtestMailedDate.Tag = "@DB=AssessmentsBPP.FreeportProtestMailedDate;@fmt=date"
-        '
-        'ContextMenuStrip2
-        '
-        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextImportTaxBill})
-        Me.ContextMenuStrip2.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(150, 26)
-        '
-        'mnuContextImportTaxBill
-        '
-        Me.mnuContextImportTaxBill.Name = "mnuContextImportTaxBill"
-        Me.mnuContextImportTaxBill.Size = New System.Drawing.Size(149, 22)
-        Me.mnuContextImportTaxBill.Text = "Import Tax Bill"
         '
         'chkInactiveFl
         '
@@ -607,7 +585,6 @@ Partial Class frmBPPAssessment
         Me.grpEvents.TabIndex = 259
         Me.grpEvents.TabStop = False
         Me.grpEvents.Text = "Events"
-        Me.grpEvents.Visible = False
         '
         'SplitContainer2
         '
@@ -645,6 +622,7 @@ Partial Class frmBPPAssessment
         Me.dgEvents.AllowUserToOrderColumns = True
         Me.dgEvents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgEvents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        Me.dgEvents.ContextMenuStrip = Me.ContextMenuStrip1
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -724,7 +702,6 @@ Partial Class frmBPPAssessment
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "BPP Assessment"
         Me.ContextMenuStrip1.ResumeLayout(False)
-        Me.ContextMenuStrip2.ResumeLayout(False)
         Me.grpEvents.ResumeLayout(False)
         Me.SplitContainer2.Panel1.ResumeLayout(False)
         Me.SplitContainer2.Panel2.ResumeLayout(False)
@@ -753,10 +730,7 @@ Partial Class frmBPPAssessment
     Friend WithEvents txtFreeportProtestCMRRR As System.Windows.Forms.TextBox
     Friend WithEvents cboFreeportProtestStatus As System.Windows.Forms.ComboBox
     Friend WithEvents txtFreeportProtestMailedDate As System.Windows.Forms.TextBox
-    Friend WithEvents mnuContextPrint As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents chkInactiveFl As System.Windows.Forms.CheckBox
-    Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
-    Friend WithEvents mnuContextImportTaxBill As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents txtClientLocationId As System.Windows.Forms.TextBox
     Friend WithEvents txtRenditionExtCMRRR As System.Windows.Forms.TextBox

@@ -1,0 +1,6 @@
+Steps to load up HCAD access database from text files (downloaded from HCAD website)  
+Access will no longer work because of 2GB file size limit.  Use MSSQL.
+
+Download all zip files from HCAD and unzip into c:\ourfolders\vantageone\hcad\flatfiles folder
+Run scripts in HCADQuery in MSSQL
+Send results to V1

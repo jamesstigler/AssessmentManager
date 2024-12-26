@@ -1,4 +1,6 @@
-﻿Public Class frmBPPAssessment
+﻿Imports System.Net
+
+Public Class frmBPPAssessment
 
     '' child/parent notified values in group box for bpp (notified) and re (land/improve/total)
 
@@ -13,7 +15,6 @@
     Private bChanged As Boolean
     Private sStateCd As String
     Private colAssessors As Collection
-    Private iMouseClickColIndex As Integer = 0
 
     Public Property TaxYear() As Integer
         Get
@@ -265,47 +266,8 @@
     End Sub
 
     Private Sub cmdNewEvent_Click(sender As Object, e As EventArgs) Handles cmdNewEvent.Click
-        Dim sDate As String = Trim(InputBox("Enter date/time MM/DD/YYYY hh:mm"))
-        Dim sValue As String = Trim(InputBox("Enter value, if applicable"))
-        Dim sNote As String = Trim(InputBox("Enter note"))
-        If sDate = "" Then Exit Sub
-        If Not IsDate(sDate) Then Exit Sub
-        If sValue <> "" Then
-            If Not IsNumeric(sValue) Then sValue = ""
-        End If
-        Dim sError As String = ""
-        If UpdateEvent("", sDate, sValue, sNote, sError) Then
-            LoadEvents()
-        Else
-            MsgBox(sError)
-        End If
+        OpenEvent(0)
     End Sub
-
-    Private Function UpdateEvent(ByVal sID As String, ByVal sDate As String, ByVal sValue As String, ByVal sNote As String, ByRef sError As String) As Boolean
-        Try
-            sError = "" : sID = Trim(sID) : sNote = Trim(sNote)
-            Dim sSQL As String = ""
-            If sID = "" Then
-                sSQL = "INSERT AssessmentsBPPEvents (ClientId,LocationId,AssessmentId,TaxYear,EventId,EventDate,EventValue,EventNote,AddUser)" &
-                    " SELECT " & m_ClientId & "," &
-                    m_LocationId & "," & m_AssessmentId & ",1," & m_TaxYear & "," &
-                    QuoStr(sNote) & "," & QuoStr(AppData.UserId)
-            Else
-                sSQL = "UPDATE AssessmentsBPPEvents SET EventNote = " & QuoStr(sNote) & "," &
-                    " ChangeType = 2, ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeDate = GETDATE()" &
-                    " WHERE ID = " & sID
-            End If
-            If ExecuteSQL(sSQL) <> 1 Then
-                sError = "Error saving event"
-                Return False
-            End If
-
-            Return True
-        Catch ex As Exception
-            sError = "Error saving event:  " & ex.Message
-            Return False
-        End Try
-    End Function
 
     Private Function LoadEvents() As Boolean
         Dim sError As String = "", lRows As Long = 0, sSQL As String = ""
@@ -361,76 +323,60 @@
         End Try
     End Function
 
-    Private Sub dgEvents_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgEvents.CellEndEdit
-        'Dim sError As String = ""
-
-        'If Not Updateevent(dgEvents.Rows(e.RowIndex).Cells("ID").Value, UnNullToString(dgEvents.Rows(e.RowIndex).Cells("Comment").Value), sError) Then
-        '    MsgBox(sError)
-        'End If
-        'dgEvents.Rows(e.RowIndex).ErrorText = String.Empty
+    Private Sub dgEvents_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgEvents.CellDoubleClick
+        Try
+            If e.RowIndex >= 0 Then
+                Dim row As DataGridViewRow = sender.Rows(e.RowIndex)
+                OpenEvent(row.Cells("EventId").Value)
+            End If
+        Catch ex As Exception
+            MsgBox("Error:  " & ex.Message)
+        End Try
     End Sub
 
-    Private Sub dgEvents_CellMouseDown(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgEvents.CellMouseDown
-        Select Case e.Button
-            Case MouseButtons.Left
-            Case MouseButtons.Right
-                iMouseClickColIndex = e.ColumnIndex
-            Case MouseButtons.Middle
-            Case MouseButtons.XButton1
-            Case MouseButtons.XButton2
-            Case MouseButtons.None
-        End Select
+    Private Sub OpenEvent(eventid As Long)
+        Try
+            Dim frme As New frmEvent With {
+                .EventId = eventid,
+                .ClientId = m_ClientId,
+                .LocationId = m_LocationId,
+                .AssessmentId = m_AssessmentId,
+                .TaxYear = m_TaxYear,
+                .PropType = enumTable.enumLocationBPP
+            }
+            frme.ShowDialog()
+            frme = Nothing
+            LoadEvents()
+        Catch ex As Exception
+            MsgBox("Error:  " & ex.Message)
+        End Try
     End Sub
 
     Private Sub mnuContextDelete_Click(sender As Object, e As EventArgs) Handles mnuContextDelete.Click
-
+        Try
+            If dgEvents.SelectedRows.Count > 0 Then
+                If MsgBox("Are you sure you want to delete?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
+                Dim sSQL As String = ""
+                Dim row As DataGridViewRow
+                For Each row In dgEvents.SelectedRows
+                    sSQL = "DELETE AssessmentsBPPEvents WHERE ClientId = " & m_ClientId &
+                        " AND LocationId = " & m_LocationId &
+                        " AND AssessmentId = " & m_AssessmentId &
+                        " AND EventId = " & row.Cells("EventId").Value &
+                        " AND TaxYear = " & m_TaxYear
+                    If sSQL <> "" Then
+                        ExecuteSQL(sSQL)
+                        WriteSQLToHistory("DeleteAssessmentBPPEvents", sSQL)
+                    End If
+                Next
+                sSQL = "UPDATE AssessmentsBPP SET ChangeDate = GETDATE(), ChangeUser = " & QuoStr(AppData.UserId) & ", ChangeType = 2" &
+                    " WHERE ClientId = " & m_ClientId & " AND LocationId = " & m_LocationId &
+                    " AND AssessmentId = " & m_AssessmentId & " AND TaxYear = " & m_TaxYear
+                ExecuteSQL(sSQL)
+                LoadEvents()
+            End If
+        Catch ex As Exception
+            MsgBox("Error deleting:  " & ex.Message)
+        End Try
     End Sub
-
-    'Private Sub mnuContextDeleteComment_Click(sender As System.Object, e As System.EventArgs) Handles mnuContextDeleteComment.Click
-    '    Try
-    '        If iMouseClickColIndex >= 0 Then
-    '            If dgComments.SelectedRows.Count > 0 Then
-    '                If MsgBox("Are you sure you want to delete?", MsgBoxStyle.YesNo) <> MsgBoxResult.Yes Then Exit Sub
-    '                Dim sSQL As String = ""
-    '                Dim row As DataGridViewRow
-    '                For Each row In dgComments.SelectedRows
-    '                    sSQL = "DELETE AssessmentsBPPComments WHERE ID = " & row.Cells("ID").Value
-    '                    If sSQL <> "" Then ExecuteSQL(sSQL)
-    '                    LoadComments()
-    '                Next
-    '            End If
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox("Error deleting:  " & ex.Message)
-    '    End Try
-    'End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 End Class

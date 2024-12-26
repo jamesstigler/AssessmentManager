@@ -27,11 +27,12 @@ Partial Class frmREAssessment
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -78,6 +79,12 @@ Partial Class frmREAssessment
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.grpEvents = New System.Windows.Forms.GroupBox()
+        Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
+        Me.cmdNewEvent = New System.Windows.Forms.Button()
+        Me.dgEvents = New System.Windows.Forms.DataGridView()
+        Me.ContextMenuStrip4 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuContextDeleteEvent = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
         Me.txtFinalMarketValue = New System.Windows.Forms.TextBox()
@@ -161,6 +168,7 @@ Partial Class frmREAssessment
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.SplitContainer4 = New System.Windows.Forms.SplitContainer()
         Me.fraCollectors = New System.Windows.Forms.GroupBox()
         Me.dgCollectors = New System.Windows.Forms.DataGridView()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -176,6 +184,13 @@ Partial Class frmREAssessment
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.grpEvents.SuspendLayout()
+        CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer3.Panel1.SuspendLayout()
+        Me.SplitContainer3.Panel2.SuspendLayout()
+        Me.SplitContainer3.SuspendLayout()
+        CType(Me.dgEvents, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip4.SuspendLayout()
         Me.fraECU.SuspendLayout()
         CType(Me.dgECU, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
@@ -190,6 +205,10 @@ Partial Class frmREAssessment
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.SplitContainer4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer4.Panel1.SuspendLayout()
+        Me.SplitContainer4.Panel2.SuspendLayout()
+        Me.SplitContainer4.SuspendLayout()
         Me.fraCollectors.SuspendLayout()
         CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -421,7 +440,7 @@ Partial Class frmREAssessment
         '
         'cmdRefresh
         '
-        Me.cmdRefresh.Location = New System.Drawing.Point(115, 5)
+        Me.cmdRefresh.Location = New System.Drawing.Point(108, 4)
         Me.cmdRefresh.Name = "cmdRefresh"
         Me.cmdRefresh.Size = New System.Drawing.Size(99, 23)
         Me.cmdRefresh.TabIndex = 195
@@ -437,8 +456,8 @@ Partial Class frmREAssessment
         Me.dgJurisdictions.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgJurisdictions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgJurisdictions.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.dgJurisdictions.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dgJurisdictions.Location = New System.Drawing.Point(0, 32)
+        Me.dgJurisdictions.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgJurisdictions.Location = New System.Drawing.Point(0, 0)
         Me.dgJurisdictions.Margin = New System.Windows.Forms.Padding(0)
         Me.dgJurisdictions.Name = "dgJurisdictions"
         Me.dgJurisdictions.RowHeadersVisible = False
@@ -447,7 +466,7 @@ Partial Class frmREAssessment
         Me.dgJurisdictions.ShowCellToolTips = False
         Me.dgJurisdictions.ShowEditingIcon = False
         Me.dgJurisdictions.ShowRowErrors = False
-        Me.dgJurisdictions.Size = New System.Drawing.Size(1302, 398)
+        Me.dgJurisdictions.Size = New System.Drawing.Size(1302, 329)
         Me.dgJurisdictions.TabIndex = 133
         '
         'Label11
@@ -472,7 +491,7 @@ Partial Class frmREAssessment
         '
         'lblTaxBillTotal
         '
-        Me.lblTaxBillTotal.Location = New System.Drawing.Point(220, 5)
+        Me.lblTaxBillTotal.Location = New System.Drawing.Point(216, 5)
         Me.lblTaxBillTotal.Name = "lblTaxBillTotal"
         Me.lblTaxBillTotal.Size = New System.Drawing.Size(125, 20)
         Me.lblTaxBillTotal.TabIndex = 217
@@ -483,7 +502,7 @@ Partial Class frmREAssessment
         '
         Me.txtTaxBillTotal.BackColor = System.Drawing.SystemColors.Window
         Me.txtTaxBillTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtTaxBillTotal.Location = New System.Drawing.Point(351, 5)
+        Me.txtTaxBillTotal.Location = New System.Drawing.Point(347, 5)
         Me.txtTaxBillTotal.Name = "txtTaxBillTotal"
         Me.txtTaxBillTotal.ReadOnly = True
         Me.txtTaxBillTotal.Size = New System.Drawing.Size(115, 20)
@@ -495,7 +514,7 @@ Partial Class frmREAssessment
         '
         'cmdTaxBillDetail
         '
-        Me.cmdTaxBillDetail.Location = New System.Drawing.Point(467, 5)
+        Me.cmdTaxBillDetail.Location = New System.Drawing.Point(463, 5)
         Me.cmdTaxBillDetail.Name = "cmdTaxBillDetail"
         Me.cmdTaxBillDetail.Size = New System.Drawing.Size(26, 20)
         Me.cmdTaxBillDetail.TabIndex = 214
@@ -542,7 +561,7 @@ Partial Class frmREAssessment
         Me.fraHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.fraHistory.Location = New System.Drawing.Point(1060, 4)
         Me.fraHistory.Name = "fraHistory"
-        Me.fraHistory.Size = New System.Drawing.Size(228, 236)
+        Me.fraHistory.Size = New System.Drawing.Size(228, 112)
         Me.fraHistory.TabIndex = 249
         Me.fraHistory.TabStop = False
         Me.fraHistory.Text = "History"
@@ -672,15 +691,9 @@ Partial Class frmREAssessment
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.dgJurisdictions)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.cmdNewJurisdiction)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.txtTaxBillTotal)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.cmdTaxBillDetail)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.lblTaxBillTotal)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.cmdRefresh)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.fraCollectors)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.SplitContainer4)
         Me.SplitContainer1.Size = New System.Drawing.Size(1302, 735)
-        Me.SplitContainer1.SplitterDistance = 302
+        Me.SplitContainer1.SplitterDistance = 366
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 250
         '
@@ -693,7 +706,7 @@ Partial Class frmREAssessment
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1302, 302)
+        Me.TabControl1.Size = New System.Drawing.Size(1302, 366)
         Me.TabControl1.TabIndex = 270
         '
         'TabPage1
@@ -702,13 +715,14 @@ Partial Class frmREAssessment
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1294, 273)
+        Me.TabPage1.Size = New System.Drawing.Size(1294, 337)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Account"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.grpEvents)
         Me.Panel1.Controls.Add(Me.Label46)
         Me.Panel1.Controls.Add(Me.Label45)
         Me.Panel1.Controls.Add(Me.txtFinalMarketValue)
@@ -737,8 +751,91 @@ Partial Class frmREAssessment
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1288, 267)
+        Me.Panel1.Size = New System.Drawing.Size(1288, 331)
         Me.Panel1.TabIndex = 0
+        '
+        'grpEvents
+        '
+        Me.grpEvents.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.grpEvents.Controls.Add(Me.SplitContainer3)
+        Me.grpEvents.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grpEvents.Location = New System.Drawing.Point(672, 116)
+        Me.grpEvents.Name = "grpEvents"
+        Me.grpEvents.Size = New System.Drawing.Size(612, 208)
+        Me.grpEvents.TabIndex = 275
+        Me.grpEvents.TabStop = False
+        Me.grpEvents.Text = "Events"
+        '
+        'SplitContainer3
+        '
+        Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
+        Me.SplitContainer3.Location = New System.Drawing.Point(3, 16)
+        Me.SplitContainer3.Name = "SplitContainer3"
+        Me.SplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer3.Panel1
+        '
+        Me.SplitContainer3.Panel1.Controls.Add(Me.cmdNewEvent)
+        '
+        'SplitContainer3.Panel2
+        '
+        Me.SplitContainer3.Panel2.Controls.Add(Me.dgEvents)
+        Me.SplitContainer3.Size = New System.Drawing.Size(606, 189)
+        Me.SplitContainer3.SplitterDistance = 25
+        Me.SplitContainer3.TabIndex = 233
+        '
+        'cmdNewEvent
+        '
+        Me.cmdNewEvent.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdNewEvent.Location = New System.Drawing.Point(0, 4)
+        Me.cmdNewEvent.Name = "cmdNewEvent"
+        Me.cmdNewEvent.Size = New System.Drawing.Size(84, 20)
+        Me.cmdNewEvent.TabIndex = 231
+        Me.cmdNewEvent.Text = "New Event"
+        Me.cmdNewEvent.UseVisualStyleBackColor = True
+        '
+        'dgEvents
+        '
+        Me.dgEvents.AllowDrop = True
+        Me.dgEvents.AllowUserToAddRows = False
+        Me.dgEvents.AllowUserToDeleteRows = False
+        Me.dgEvents.AllowUserToOrderColumns = True
+        Me.dgEvents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgEvents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        Me.dgEvents.ContextMenuStrip = Me.ContextMenuStrip4
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgEvents.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgEvents.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgEvents.Location = New System.Drawing.Point(0, 0)
+        Me.dgEvents.Margin = New System.Windows.Forms.Padding(0)
+        Me.dgEvents.Name = "dgEvents"
+        Me.dgEvents.RowHeadersVisible = False
+        Me.dgEvents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgEvents.ShowCellErrors = False
+        Me.dgEvents.ShowCellToolTips = False
+        Me.dgEvents.ShowEditingIcon = False
+        Me.dgEvents.ShowRowErrors = False
+        Me.dgEvents.Size = New System.Drawing.Size(606, 160)
+        Me.dgEvents.TabIndex = 230
+        '
+        'ContextMenuStrip4
+        '
+        Me.ContextMenuStrip4.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContextDeleteEvent})
+        Me.ContextMenuStrip4.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip4.Size = New System.Drawing.Size(108, 26)
+        '
+        'mnuContextDeleteEvent
+        '
+        Me.mnuContextDeleteEvent.Name = "mnuContextDeleteEvent"
+        Me.mnuContextDeleteEvent.Size = New System.Drawing.Size(107, 22)
+        Me.mnuContextDeleteEvent.Text = "Delete"
         '
         'Label46
         '
@@ -804,7 +901,7 @@ Partial Class frmREAssessment
         Me.fraECU.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.fraECU.Location = New System.Drawing.Point(672, 4)
         Me.fraECU.Name = "fraECU"
-        Me.fraECU.Size = New System.Drawing.Size(388, 232)
+        Me.fraECU.Size = New System.Drawing.Size(388, 112)
         Me.fraECU.TabIndex = 252
         Me.fraECU.TabStop = False
         Me.fraECU.Text = "ECU"
@@ -816,29 +913,29 @@ Partial Class frmREAssessment
         Me.dgECU.AllowUserToDeleteRows = False
         Me.dgECU.AllowUserToOrderColumns = True
         Me.dgECU.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.Format = "N0"
-        DataGridViewCellStyle3.NullValue = Nothing
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.Format = "N0"
+        DataGridViewCellStyle4.NullValue = Nothing
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgECU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgECU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgECU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgECU.Location = New System.Drawing.Point(3, 16)
         Me.dgECU.Name = "dgECU"
         Me.dgECU.ReadOnly = True
         Me.dgECU.RowHeadersVisible = False
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgECU.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgECU.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgECU.ShowCellErrors = False
         Me.dgECU.ShowCellToolTips = False
         Me.dgECU.ShowEditingIcon = False
         Me.dgECU.ShowRowErrors = False
-        Me.dgECU.Size = New System.Drawing.Size(382, 213)
+        Me.dgECU.Size = New System.Drawing.Size(382, 93)
         Me.dgECU.TabIndex = 247
         '
         'txtSICCode
@@ -937,7 +1034,7 @@ Partial Class frmREAssessment
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1294, 273)
+        Me.TabPage2.Size = New System.Drawing.Size(1294, 337)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Property"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -962,7 +1059,7 @@ Partial Class frmREAssessment
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1288, 267)
+        Me.Panel2.Size = New System.Drawing.Size(1288, 331)
         Me.Panel2.TabIndex = 1
         '
         'grpComments
@@ -1016,20 +1113,20 @@ Partial Class frmREAssessment
         Me.dgComments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgComments.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.ChangeDate, Me.Comment})
         Me.dgComments.ContextMenuStrip = Me.ContextMenuStrip3
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgComments.DefaultCellStyle = DataGridViewCellStyle9
         Me.dgComments.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgComments.Location = New System.Drawing.Point(0, 0)
         Me.dgComments.Margin = New System.Windows.Forms.Padding(0)
         Me.dgComments.Name = "dgComments"
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgComments.RowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgComments.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.dgComments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgComments.ShowCellErrors = False
         Me.dgComments.ShowCellToolTips = False
@@ -1040,8 +1137,8 @@ Partial Class frmREAssessment
         '
         'ID
         '
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ID.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ID.DefaultCellStyle = DataGridViewCellStyle6
         Me.ID.HeaderText = "Column1"
         Me.ID.Name = "ID"
         Me.ID.ReadOnly = True
@@ -1049,8 +1146,8 @@ Partial Class frmREAssessment
         '
         'ChangeDate
         '
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChangeDate.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChangeDate.DefaultCellStyle = DataGridViewCellStyle7
         Me.ChangeDate.FillWeight = 142.132!
         Me.ChangeDate.HeaderText = "Date/Time"
         Me.ChangeDate.MinimumWidth = 100
@@ -1059,8 +1156,8 @@ Partial Class frmREAssessment
         '
         'Comment
         '
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Comment.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Comment.DefaultCellStyle = DataGridViewCellStyle8
         Me.Comment.FillWeight = 57.86803!
         Me.Comment.HeaderText = "Comment"
         Me.Comment.MinimumWidth = 250
@@ -1752,10 +1849,34 @@ Partial Class frmREAssessment
         Me.Label13.Text = "Eff Yr Built"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'SplitContainer4
+        '
+        Me.SplitContainer4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer4.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
+        Me.SplitContainer4.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer4.Name = "SplitContainer4"
+        Me.SplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer4.Panel1
+        '
+        Me.SplitContainer4.Panel1.Controls.Add(Me.txtTaxBillTotal)
+        Me.SplitContainer4.Panel1.Controls.Add(Me.cmdNewJurisdiction)
+        Me.SplitContainer4.Panel1.Controls.Add(Me.fraCollectors)
+        Me.SplitContainer4.Panel1.Controls.Add(Me.cmdRefresh)
+        Me.SplitContainer4.Panel1.Controls.Add(Me.cmdTaxBillDetail)
+        Me.SplitContainer4.Panel1.Controls.Add(Me.lblTaxBillTotal)
+        '
+        'SplitContainer4.Panel2
+        '
+        Me.SplitContainer4.Panel2.Controls.Add(Me.dgJurisdictions)
+        Me.SplitContainer4.Size = New System.Drawing.Size(1302, 366)
+        Me.SplitContainer4.SplitterDistance = 33
+        Me.SplitContainer4.TabIndex = 269
+        '
         'fraCollectors
         '
         Me.fraCollectors.Controls.Add(Me.dgCollectors)
-        Me.fraCollectors.Location = New System.Drawing.Point(496, 4)
+        Me.fraCollectors.Location = New System.Drawing.Point(492, 4)
         Me.fraCollectors.Name = "fraCollectors"
         Me.fraCollectors.Size = New System.Drawing.Size(760, 136)
         Me.fraCollectors.TabIndex = 268
@@ -1800,13 +1921,19 @@ Partial Class frmREAssessment
         CType(Me.dgHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.grpEvents.ResumeLayout(False)
+        Me.SplitContainer3.Panel1.ResumeLayout(False)
+        Me.SplitContainer3.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer3.ResumeLayout(False)
+        CType(Me.dgEvents, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip4.ResumeLayout(False)
         Me.fraECU.ResumeLayout(False)
         CType(Me.dgECU, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
@@ -1825,6 +1952,11 @@ Partial Class frmREAssessment
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.SplitContainer4.Panel1.ResumeLayout(False)
+        Me.SplitContainer4.Panel1.PerformLayout()
+        Me.SplitContainer4.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer4.ResumeLayout(False)
         Me.fraCollectors.ResumeLayout(False)
         CType(Me.dgCollectors, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -1961,4 +2093,11 @@ Partial Class frmREAssessment
     Friend WithEvents Label45 As Label
     Friend WithEvents txtFinalMarketValue As TextBox
     Friend WithEvents txtValueLimitation As TextBox
+    Friend WithEvents grpEvents As GroupBox
+    Friend WithEvents SplitContainer3 As SplitContainer
+    Friend WithEvents cmdNewEvent As Button
+    Friend WithEvents dgEvents As DataGridView
+    Friend WithEvents ContextMenuStrip4 As ContextMenuStrip
+    Friend WithEvents mnuContextDeleteEvent As ToolStripMenuItem
+    Friend WithEvents SplitContainer4 As SplitContainer
 End Class
