@@ -937,6 +937,7 @@ Partial Class frmReportSelection
         Me.Button1.TabIndex = 47
         Me.Button1.Text = "Browse"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'TextBox1
         '
@@ -944,6 +945,7 @@ Partial Class frmReportSelection
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(332, 20)
         Me.TextBox1.TabIndex = 48
+        Me.TextBox1.Visible = False
         '
         'CheckBox1
         '
@@ -954,6 +956,7 @@ Partial Class frmReportSelection
         Me.CheckBox1.TabIndex = 46
         Me.CheckBox1.Text = "Export to flat file"
         Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.CheckBox1.Visible = False
         '
         'frmReportSelection
         '

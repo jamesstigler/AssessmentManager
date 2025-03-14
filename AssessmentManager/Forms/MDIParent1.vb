@@ -732,6 +732,7 @@ Public Class MDIParent1
                 sServer = Trim(InputBox("Please enter name of server.  It is currently set to " & sServer, "Server Name"))
             End If
             If sServer <> "" Then
+                sServer = UCase(sServer)
                 SaveSetting(AppData.AppName, "Configuration", "Server", sServer)
                 ConnectToDB()
             End If

@@ -23,8 +23,11 @@ Public Class clsData
                 Return False
             End If
             cn = New SqlConnection
-            'cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;Integrated Security=SSPI;connect timeout=30"
-            cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;connect timeout=30;user id=vantageapp;password=vantage2012"
+            If AppData.UserId = "JAMESSTIGLER" And AppData.Server = "MSI" Then
+                cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;Integrated Security=SSPI;connect timeout=30"
+            Else
+                cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;connect timeout=30;user id=vantageapp;password=vantage2012"
+            End If
             cn.Open()
             ExecuteSQL("set arithabort on")
 
