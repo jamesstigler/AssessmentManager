@@ -2452,7 +2452,6 @@
 
             Return True
         Catch ex As Exception
-            LogMsg("Error printing Tax Accrual Summary:  " & ex.Message)
             Return False
         End Try
     End Function
