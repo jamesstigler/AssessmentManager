@@ -45,11 +45,12 @@
         Dim eContactType As enumContactTypes
         Dim eBarCodeType As enumBarCodeTypes
         Dim bIncludeZeroAmounts As Boolean = chkIncludeZero.Checked
-        Dim identifyfields As Boolean
+        Dim identifyfields As Boolean, bexporttoreporting As Boolean
 
         Try
 
             identifyfields = chkIdentifyFields.Checked
+            bexporttoreporting = chkExportToClientReporting.Checked
 
             If m_ReportType = enumReport.enumFixedAssetReconByDeprCode Or m_ReportType = enumReport.enumFixedAssetReconByGLCode Then
                 If radioFixedAssetReconDepr.Checked Then
@@ -232,7 +233,7 @@
                                             enumTable.enumLocationBPP, sTempFolder, "5", True, identifyfields, "")
                                 If chkBatchRenditionBarCode.Checked Then _
                                         PrintAccount(enumReport.enumBarCode, structAssess, lFactorEntityId, bPrintClientScheduleOnly,
-                                        iSuppress, sTempFolder, eContactType, enumBarCodeTypes.Rendition, False, False, True, "6", identifyfields)
+                                        iSuppress, sTempFolder, eContactType, enumBarCodeTypes.Rendition, False, False, True, "6", identifyfields, False)
                                 Dim sCombinedFile As String = sTempFolder & "\" & CleanFileName(structAssess.Description & "_RenditionBatch.pdf")
                                 Dim listFiles As List(Of String) = IO.Directory.GetFiles(sTempFolder, "*.pdf", IO.SearchOption.TopDirectoryOnly).ToList
                                 If ConcatPages(listFiles, sCombinedFile) Then
@@ -264,7 +265,7 @@
                                 End If
                             Case Else
                                 PrintAccount(m_ReportType, structAssess, lFactorEntityId, bPrintClientScheduleOnly, iSuppress, sExportFolder, eContactType,
-                                    eBarCodeType, chkCover.Checked, chkPrint.Checked, False, chkIncludeZero.Checked, chkShowCostAndFactors.Checked, identifyfields)
+                                    eBarCodeType, chkCover.Checked, chkPrint.Checked, False, chkIncludeZero.Checked, chkShowCostAndFactors.Checked, identifyfields, bexporttoreporting)
                         End Select
                     Next
                     MDIParent1.ShowStatus()
@@ -279,21 +280,22 @@
     Private Sub PrintAccount(eReportType As enumReport, structAssess As structAssessment, lFactorEntityId As Long,
             bPrintClientScheduleOnly As Boolean, iSuppress As Integer, sExportFolder As String,
             eContactType As enumContactTypes, eBarCodeType As enumBarCodeTypes, bPrintCoverPage As Boolean, bSendToPrinter As Boolean,
-            bJustCreatePDF As Boolean, bIncludeZeroAmounts As Boolean, bShowCostAndFactors As Boolean, identifyfields As Boolean)
+            bJustCreatePDF As Boolean, bIncludeZeroAmounts As Boolean, bShowCostAndFactors As Boolean, identifyfields As Boolean, exporttoclientreporting As Boolean)
         PrintAccount(eReportType, structAssess, lFactorEntityId, bPrintClientScheduleOnly, iSuppress, sExportFolder,
-            eContactType, eBarCodeType, bPrintCoverPage, bSendToPrinter, bJustCreatePDF, "", bIncludeZeroAmounts, bShowCostAndFactors, identifyfields)
+            eContactType, eBarCodeType, bPrintCoverPage, bSendToPrinter, bJustCreatePDF, "", bIncludeZeroAmounts, bShowCostAndFactors, identifyfields, exporttoclientreporting)
     End Sub
     Private Sub PrintAccount(eReportType As enumReport, structAssess As structAssessment, lFactorEntityId As Long,
             bPrintClientScheduleOnly As Boolean, iSuppress As Integer, sExportFolder As String,
             eContactType As enumContactTypes, eBarCodeType As enumBarCodeTypes, bPrintCoverPage As Boolean, bSendToPrinter As Boolean,
-            bJustCreatePDF As Boolean, sFileNamePrefix As String, identifyfields As Boolean)
+            bJustCreatePDF As Boolean, sFileNamePrefix As String, identifyfields As Boolean, exporttoclientreporting As Boolean)
         PrintAccount(eReportType, structAssess, lFactorEntityId, bPrintClientScheduleOnly, iSuppress, sExportFolder,
-            eContactType, eBarCodeType, bPrintCoverPage, bSendToPrinter, bJustCreatePDF, sFileNamePrefix, False, False, identifyfields)
+            eContactType, eBarCodeType, bPrintCoverPage, bSendToPrinter, bJustCreatePDF, sFileNamePrefix, False, False, identifyfields, exporttoclientreporting)
     End Sub
     Private Sub PrintAccount(eReportType As enumReport, structAssess As structAssessment, lFactorEntityId As Long,
             bPrintClientScheduleOnly As Boolean, iSuppress As Integer, sExportFolder As String,
             eContactType As enumContactTypes, eBarCodeType As enumBarCodeTypes, bPrintCoverPage As Boolean, bSendToPrinter As Boolean,
-            bJustCreatePDF As Boolean, sFileNamePrefix As String, ByVal bIncludeZeroAmounts As Boolean, ByVal bShowCostAndFactors As Boolean,byval identifyfields As Boolean)
+            bJustCreatePDF As Boolean, sFileNamePrefix As String, ByVal bIncludeZeroAmounts As Boolean, ByVal bShowCostAndFactors As Boolean,
+            ByVal identifyfields As Boolean, ByVal exporttoclientreporting As Boolean)
         Dim ePropType As enumTable = enumTable.enumUnknown
         Dim sError As String = ""
 
@@ -491,8 +493,10 @@
         End If
         If AppData.UserId.ToLower.Contains("016445") Or AppData.UserId.ToLower.Contains("stigler") Then
             chkIdentifyFields.Visible = True
+            chkExportToClientReporting.Visible = True
         Else
             chkIdentifyFields.Visible = False
+            chkExportToClientReporting.Visible = False
         End If
     End Sub
 

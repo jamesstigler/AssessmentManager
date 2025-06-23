@@ -22,9 +22,9 @@ Partial Class frmAddJurisdictions
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.dgJurisdictions = New System.Windows.Forms.DataGridView
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdOK = New System.Windows.Forms.Button
+        Me.dgJurisdictions = New System.Windows.Forms.DataGridView()
+        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.cmdOK = New System.Windows.Forms.Button()
         CType(Me.dgJurisdictions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -40,12 +40,12 @@ Partial Class frmAddJurisdictions
         Me.dgJurisdictions.ReadOnly = True
         Me.dgJurisdictions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.dgJurisdictions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgJurisdictions.Size = New System.Drawing.Size(264, 301)
+        Me.dgJurisdictions.Size = New System.Drawing.Size(440, 301)
         Me.dgJurisdictions.TabIndex = 73
         '
         'cmdCancel
         '
-        Me.cmdCancel.Location = New System.Drawing.Point(140, 313)
+        Me.cmdCancel.Location = New System.Drawing.Point(224, 312)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(75, 23)
         Me.cmdCancel.TabIndex = 74
@@ -54,7 +54,7 @@ Partial Class frmAddJurisdictions
         '
         'cmdOK
         '
-        Me.cmdOK.Location = New System.Drawing.Point(59, 313)
+        Me.cmdOK.Location = New System.Drawing.Point(144, 312)
         Me.cmdOK.Name = "cmdOK"
         Me.cmdOK.Size = New System.Drawing.Size(75, 23)
         Me.cmdOK.TabIndex = 75
@@ -65,7 +65,7 @@ Partial Class frmAddJurisdictions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(264, 514)
+        Me.ClientSize = New System.Drawing.Size(440, 342)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.dgJurisdictions)

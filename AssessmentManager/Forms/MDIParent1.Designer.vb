@@ -23,7 +23,6 @@ Partial Class MDIParent1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MDIParent1))
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
         Me.mnuFile = New System.Windows.Forms.ToolStripMenuItem()
@@ -147,6 +146,7 @@ Partial Class MDIParent1
         Me.mnuOptionsTaxYear2022 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsTaxYear2023 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsTaxYear2024 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOptionsTaxYear2025 = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsDB = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsIncludeInactive = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOptionsAgency = New System.Windows.Forms.ToolStripMenuItem()
@@ -200,8 +200,6 @@ Partial Class MDIParent1
         Me.buttonRETaxBills = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator20 = New System.Windows.Forms.ToolStripSeparator()
         Me.buttonImportAssets = New System.Windows.Forms.ToolStripButton()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.mnuOptionsTaxYear2025 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
@@ -368,161 +366,161 @@ Partial Class MDIParent1
         'mnuFileOpenQueries
         '
         Me.mnuFileOpenQueries.Name = "mnuFileOpenQueries"
-        Me.mnuFileOpenQueries.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenQueries.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenQueries.Text = "Queries"
         '
         'ToolStripSeparator22
         '
         Me.ToolStripSeparator22.Name = "ToolStripSeparator22"
-        Me.ToolStripSeparator22.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator22.Size = New System.Drawing.Size(207, 6)
         '
         'mnuFileOpenClients
         '
         Me.mnuFileOpenClients.Name = "mnuFileOpenClients"
-        Me.mnuFileOpenClients.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenClients.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenClients.Text = "Clients"
         '
         'ToolStripSeparator15
         '
         Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
-        Me.ToolStripSeparator15.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator15.Size = New System.Drawing.Size(207, 6)
         '
         'mnuFileOpenBPPLocations
         '
         Me.mnuFileOpenBPPLocations.Name = "mnuFileOpenBPPLocations"
-        Me.mnuFileOpenBPPLocations.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenBPPLocations.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenBPPLocations.Text = "BPP Locations"
         '
         'mnuFileOpenRELocations
         '
         Me.mnuFileOpenRELocations.Name = "mnuFileOpenRELocations"
-        Me.mnuFileOpenRELocations.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenRELocations.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenRELocations.Text = "Real Estate Locations"
         '
         'ToolStripSeparator16
         '
         Me.ToolStripSeparator16.Name = "ToolStripSeparator16"
-        Me.ToolStripSeparator16.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator16.Size = New System.Drawing.Size(207, 6)
         '
         'mnuFileOpenRenditions
         '
         Me.mnuFileOpenRenditions.Name = "mnuFileOpenRenditions"
-        Me.mnuFileOpenRenditions.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenRenditions.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenRenditions.Text = "Renditions"
         '
         'mnuFileOpenFixedAssetRecon
         '
         Me.mnuFileOpenFixedAssetRecon.Name = "mnuFileOpenFixedAssetRecon"
-        Me.mnuFileOpenFixedAssetRecon.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenFixedAssetRecon.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenFixedAssetRecon.Text = "Fixed Asset Reconciliation"
         Me.mnuFileOpenFixedAssetRecon.Visible = False
         '
         'mnuFileOpenBPPAssessments
         '
         Me.mnuFileOpenBPPAssessments.Name = "mnuFileOpenBPPAssessments"
-        Me.mnuFileOpenBPPAssessments.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenBPPAssessments.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenBPPAssessments.Text = "BPP Assessments"
         '
         'mnuFileOpenBPPTaxBills
         '
         Me.mnuFileOpenBPPTaxBills.Name = "mnuFileOpenBPPTaxBills"
-        Me.mnuFileOpenBPPTaxBills.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenBPPTaxBills.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenBPPTaxBills.Text = "BPP Tax Bills"
         '
         'mnuFileOpenBPPTaxBillTotals
         '
         Me.mnuFileOpenBPPTaxBillTotals.Name = "mnuFileOpenBPPTaxBillTotals"
-        Me.mnuFileOpenBPPTaxBillTotals.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenBPPTaxBillTotals.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenBPPTaxBillTotals.Text = "BPP Tax Bill Totals"
         '
         'ToolStripSeparator17
         '
         Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
-        Me.ToolStripSeparator17.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator17.Size = New System.Drawing.Size(207, 6)
         '
         'mnuFileOpenREAssessments
         '
         Me.mnuFileOpenREAssessments.Name = "mnuFileOpenREAssessments"
-        Me.mnuFileOpenREAssessments.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenREAssessments.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenREAssessments.Text = "Real Estate Assessments"
         '
         'mnuFileOpenRETaxBills
         '
         Me.mnuFileOpenRETaxBills.Name = "mnuFileOpenRETaxBills"
-        Me.mnuFileOpenRETaxBills.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenRETaxBills.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenRETaxBills.Text = "Real Estate Tax Bills"
         '
         'mnuFileOpenRETaxBillTotals
         '
         Me.mnuFileOpenRETaxBillTotals.Name = "mnuFileOpenRETaxBillTotals"
-        Me.mnuFileOpenRETaxBillTotals.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenRETaxBillTotals.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenRETaxBillTotals.Text = "Real Estate Tax Bill Totals"
         '
         'ToolStripSeparator10
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(207, 6)
         '
         'mnuFileOpenAssessors
         '
         Me.mnuFileOpenAssessors.Name = "mnuFileOpenAssessors"
-        Me.mnuFileOpenAssessors.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenAssessors.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenAssessors.Text = "Assessors"
         '
         'mnuFileOpenJurisdictions
         '
         Me.mnuFileOpenJurisdictions.Name = "mnuFileOpenJurisdictions"
-        Me.mnuFileOpenJurisdictions.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenJurisdictions.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenJurisdictions.Text = "Jurisdictions"
         '
         'mnuFileOpenCollectors
         '
         Me.mnuFileOpenCollectors.Name = "mnuFileOpenCollectors"
-        Me.mnuFileOpenCollectors.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenCollectors.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenCollectors.Text = "Collectors"
         '
         'mnuFileOpenFactoringEntities
         '
         Me.mnuFileOpenFactoringEntities.Name = "mnuFileOpenFactoringEntities"
-        Me.mnuFileOpenFactoringEntities.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenFactoringEntities.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenFactoringEntities.Text = "Factoring Entities"
         '
         'mnuFileOpenStateFactorCodes
         '
         Me.mnuFileOpenStateFactorCodes.Name = "mnuFileOpenStateFactorCodes"
-        Me.mnuFileOpenStateFactorCodes.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenStateFactorCodes.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenStateFactorCodes.Text = "State Factor Codes"
         Me.mnuFileOpenStateFactorCodes.Visible = False
         '
         'mnuFileOpenClientGLCodes
         '
         Me.mnuFileOpenClientGLCodes.Name = "mnuFileOpenClientGLCodes"
-        Me.mnuFileOpenClientGLCodes.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenClientGLCodes.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenClientGLCodes.Text = "Client G/L Codes"
         '
         'mnuFileOpenFactorCodeXRef
         '
         Me.mnuFileOpenFactorCodeXRef.Name = "mnuFileOpenFactorCodeXRef"
-        Me.mnuFileOpenFactorCodeXRef.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenFactorCodeXRef.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenFactorCodeXRef.Text = "Factor Code XRef"
         Me.mnuFileOpenFactorCodeXRef.Visible = False
         '
         'ToolStripSeparator14
         '
         Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(207, 6)
         '
         'mnuFileOpenTaxSavings
         '
         Me.mnuFileOpenTaxSavings.Name = "mnuFileOpenTaxSavings"
-        Me.mnuFileOpenTaxSavings.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenTaxSavings.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenTaxSavings.Text = "Tax Savings"
         Me.mnuFileOpenTaxSavings.Visible = False
         '
         'mnuFileOpenRenditionDueDates
         '
         Me.mnuFileOpenRenditionDueDates.Name = "mnuFileOpenRenditionDueDates"
-        Me.mnuFileOpenRenditionDueDates.Size = New System.Drawing.Size(211, 22)
+        Me.mnuFileOpenRenditionDueDates.Size = New System.Drawing.Size(210, 22)
         Me.mnuFileOpenRenditionDueDates.Text = "Rendition Due Dates"
         '
         'ToolStripSeparator3
@@ -795,25 +793,25 @@ Partial Class MDIParent1
         'mnuProspectsOpenProspects
         '
         Me.mnuProspectsOpenProspects.Name = "mnuProspectsOpenProspects"
-        Me.mnuProspectsOpenProspects.Size = New System.Drawing.Size(135, 22)
+        Me.mnuProspectsOpenProspects.Size = New System.Drawing.Size(136, 22)
         Me.mnuProspectsOpenProspects.Text = "Prospects"
         '
         'mnuProspectsOpenLocations
         '
         Me.mnuProspectsOpenLocations.Name = "mnuProspectsOpenLocations"
-        Me.mnuProspectsOpenLocations.Size = New System.Drawing.Size(135, 22)
+        Me.mnuProspectsOpenLocations.Size = New System.Drawing.Size(136, 22)
         Me.mnuProspectsOpenLocations.Text = "Locations"
         '
         'mnuProspectsOpenValues
         '
         Me.mnuProspectsOpenValues.Name = "mnuProspectsOpenValues"
-        Me.mnuProspectsOpenValues.Size = New System.Drawing.Size(135, 22)
+        Me.mnuProspectsOpenValues.Size = New System.Drawing.Size(136, 22)
         Me.mnuProspectsOpenValues.Text = "Values"
         '
         'mnuProspectsOpenTotalValues
         '
         Me.mnuProspectsOpenTotalValues.Name = "mnuProspectsOpenTotalValues"
-        Me.mnuProspectsOpenTotalValues.Size = New System.Drawing.Size(135, 22)
+        Me.mnuProspectsOpenTotalValues.Size = New System.Drawing.Size(136, 22)
         Me.mnuProspectsOpenTotalValues.Text = "Total Values"
         '
         'NewToolStripMenuItem
@@ -845,32 +843,32 @@ Partial Class MDIParent1
         '
         Me.mnuTasks.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTasksNewTask, Me.mnuTasksTaskMasterList, Me.mnuTasksAssignTask, Me.mnuTasksOpenAssignments})
         Me.mnuTasks.Name = "mnuTasks"
-        Me.mnuTasks.Size = New System.Drawing.Size(46, 20)
+        Me.mnuTasks.Size = New System.Drawing.Size(47, 20)
         Me.mnuTasks.Text = "Tasks"
         Me.mnuTasks.Visible = False
         '
         'mnuTasksNewTask
         '
         Me.mnuTasksNewTask.Name = "mnuTasksNewTask"
-        Me.mnuTasksNewTask.Size = New System.Drawing.Size(188, 22)
+        Me.mnuTasksNewTask.Size = New System.Drawing.Size(189, 22)
         Me.mnuTasksNewTask.Text = "Create Task"
         '
         'mnuTasksTaskMasterList
         '
         Me.mnuTasksTaskMasterList.Name = "mnuTasksTaskMasterList"
-        Me.mnuTasksTaskMasterList.Size = New System.Drawing.Size(188, 22)
+        Me.mnuTasksTaskMasterList.Size = New System.Drawing.Size(189, 22)
         Me.mnuTasksTaskMasterList.Text = "Open Task Master List"
         '
         'mnuTasksAssignTask
         '
         Me.mnuTasksAssignTask.Name = "mnuTasksAssignTask"
-        Me.mnuTasksAssignTask.Size = New System.Drawing.Size(188, 22)
+        Me.mnuTasksAssignTask.Size = New System.Drawing.Size(189, 22)
         Me.mnuTasksAssignTask.Text = "Assign Task"
         '
         'mnuTasksOpenAssignments
         '
         Me.mnuTasksOpenAssignments.Name = "mnuTasksOpenAssignments"
-        Me.mnuTasksOpenAssignments.Size = New System.Drawing.Size(188, 22)
+        Me.mnuTasksOpenAssignments.Size = New System.Drawing.Size(189, 22)
         Me.mnuTasksOpenAssignments.Text = "Open Assignments"
         '
         'mnuOptions
@@ -890,112 +888,118 @@ Partial Class MDIParent1
         'mnuOptionsTaxYear2008
         '
         Me.mnuOptionsTaxYear2008.Name = "mnuOptionsTaxYear2008"
-        Me.mnuOptionsTaxYear2008.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2008.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2008.Text = "2008"
         Me.mnuOptionsTaxYear2008.Visible = False
         '
         'mnuOptionsTaxYear2009
         '
         Me.mnuOptionsTaxYear2009.Name = "mnuOptionsTaxYear2009"
-        Me.mnuOptionsTaxYear2009.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2009.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2009.Text = "2009"
         Me.mnuOptionsTaxYear2009.Visible = False
         '
         'mnuOptionsTaxYear2010
         '
         Me.mnuOptionsTaxYear2010.Name = "mnuOptionsTaxYear2010"
-        Me.mnuOptionsTaxYear2010.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2010.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2010.Text = "2010"
         Me.mnuOptionsTaxYear2010.Visible = False
         '
         'mnuOptionsTaxYear2011
         '
         Me.mnuOptionsTaxYear2011.Name = "mnuOptionsTaxYear2011"
-        Me.mnuOptionsTaxYear2011.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2011.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2011.Text = "2011"
         Me.mnuOptionsTaxYear2011.Visible = False
         '
         'mnuOptionsTaxYear2012
         '
         Me.mnuOptionsTaxYear2012.Name = "mnuOptionsTaxYear2012"
-        Me.mnuOptionsTaxYear2012.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2012.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2012.Text = "2012"
         Me.mnuOptionsTaxYear2012.Visible = False
         '
         'mnuOptionsTaxYear2013
         '
         Me.mnuOptionsTaxYear2013.Name = "mnuOptionsTaxYear2013"
-        Me.mnuOptionsTaxYear2013.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2013.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2013.Text = "2013"
         Me.mnuOptionsTaxYear2013.Visible = False
         '
         'mnuOptionsTaxYear2014
         '
         Me.mnuOptionsTaxYear2014.Name = "mnuOptionsTaxYear2014"
-        Me.mnuOptionsTaxYear2014.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2014.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2014.Text = "2014"
         Me.mnuOptionsTaxYear2014.Visible = False
         '
         'mnuOptionsTaxYear2015
         '
         Me.mnuOptionsTaxYear2015.Name = "mnuOptionsTaxYear2015"
-        Me.mnuOptionsTaxYear2015.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2015.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2015.Text = "2015"
         Me.mnuOptionsTaxYear2015.Visible = False
         '
         'mnuOptionsTaxYear2016
         '
         Me.mnuOptionsTaxYear2016.Name = "mnuOptionsTaxYear2016"
-        Me.mnuOptionsTaxYear2016.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2016.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2016.Text = "2016"
         '
         'mnuOptionsTaxYear2017
         '
         Me.mnuOptionsTaxYear2017.Name = "mnuOptionsTaxYear2017"
-        Me.mnuOptionsTaxYear2017.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2017.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2017.Text = "2017"
         '
         'mnuOptionsTaxYear2018
         '
         Me.mnuOptionsTaxYear2018.Name = "mnuOptionsTaxYear2018"
-        Me.mnuOptionsTaxYear2018.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2018.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2018.Text = "2018"
         '
         'mnuOptionsTaxYear2019
         '
         Me.mnuOptionsTaxYear2019.Name = "mnuOptionsTaxYear2019"
-        Me.mnuOptionsTaxYear2019.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2019.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2019.Text = "2019"
         '
         'mnuOptionsTaxYear2020
         '
         Me.mnuOptionsTaxYear2020.Name = "mnuOptionsTaxYear2020"
-        Me.mnuOptionsTaxYear2020.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2020.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2020.Text = "2020"
         '
         'mnuOptionsTaxYear2021
         '
         Me.mnuOptionsTaxYear2021.Name = "mnuOptionsTaxYear2021"
-        Me.mnuOptionsTaxYear2021.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2021.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2021.Text = "2021"
         '
         'mnuOptionsTaxYear2022
         '
         Me.mnuOptionsTaxYear2022.Name = "mnuOptionsTaxYear2022"
-        Me.mnuOptionsTaxYear2022.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2022.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2022.Text = "2022"
         '
         'mnuOptionsTaxYear2023
         '
         Me.mnuOptionsTaxYear2023.Name = "mnuOptionsTaxYear2023"
-        Me.mnuOptionsTaxYear2023.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2023.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2023.Text = "2023"
         '
         'mnuOptionsTaxYear2024
         '
         Me.mnuOptionsTaxYear2024.Name = "mnuOptionsTaxYear2024"
-        Me.mnuOptionsTaxYear2024.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2024.Size = New System.Drawing.Size(98, 22)
         Me.mnuOptionsTaxYear2024.Text = "2024"
+        '
+        'mnuOptionsTaxYear2025
+        '
+        Me.mnuOptionsTaxYear2025.Name = "mnuOptionsTaxYear2025"
+        Me.mnuOptionsTaxYear2025.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2025.Text = "2025"
         '
         'mnuOptionsDB
         '
@@ -1119,7 +1123,7 @@ Partial Class MDIParent1
         '
         Me.mnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuToolsRoll})
         Me.mnuTools.Name = "mnuTools"
-        Me.mnuTools.Size = New System.Drawing.Size(46, 20)
+        Me.mnuTools.Size = New System.Drawing.Size(47, 20)
         Me.mnuTools.Text = "&Tools"
         '
         'mnuToolsRoll
@@ -1138,37 +1142,37 @@ Partial Class MDIParent1
         'NewWindowToolStripMenuItem
         '
         Me.NewWindowToolStripMenuItem.Name = "NewWindowToolStripMenuItem"
-        Me.NewWindowToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.NewWindowToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.NewWindowToolStripMenuItem.Text = "&New Window"
         '
         'CascadeToolStripMenuItem
         '
         Me.CascadeToolStripMenuItem.Name = "CascadeToolStripMenuItem"
-        Me.CascadeToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.CascadeToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.CascadeToolStripMenuItem.Text = "&Cascade"
         '
         'TileVerticalToolStripMenuItem
         '
         Me.TileVerticalToolStripMenuItem.Name = "TileVerticalToolStripMenuItem"
-        Me.TileVerticalToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.TileVerticalToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.TileVerticalToolStripMenuItem.Text = "Tile &Vertical"
         '
         'TileHorizontalToolStripMenuItem
         '
         Me.TileHorizontalToolStripMenuItem.Name = "TileHorizontalToolStripMenuItem"
-        Me.TileHorizontalToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.TileHorizontalToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.TileHorizontalToolStripMenuItem.Text = "Tile &Horizontal"
         '
         'CloseAllToolStripMenuItem
         '
         Me.CloseAllToolStripMenuItem.Name = "CloseAllToolStripMenuItem"
-        Me.CloseAllToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.CloseAllToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.CloseAllToolStripMenuItem.Text = "C&lose All"
         '
         'ArrangeIconsToolStripMenuItem
         '
         Me.ArrangeIconsToolStripMenuItem.Name = "ArrangeIconsToolStripMenuItem"
-        Me.ArrangeIconsToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.ArrangeIconsToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.ArrangeIconsToolStripMenuItem.Text = "&Arrange Icons"
         '
         'mnuHelp
@@ -1366,16 +1370,6 @@ Partial Class MDIParent1
         Me.buttonImportAssets.Size = New System.Drawing.Size(83, 22)
         Me.buttonImportAssets.Text = "Import Assets"
         '
-        'Timer1
-        '
-        Me.Timer1.Interval = 5000
-        '
-        'mnuOptionsTaxYear2025
-        '
-        Me.mnuOptionsTaxYear2025.Name = "mnuOptionsTaxYear2025"
-        Me.mnuOptionsTaxYear2025.Size = New System.Drawing.Size(180, 22)
-        Me.mnuOptionsTaxYear2025.Text = "2025"
-        '
         'MDIParent1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1564,7 +1558,6 @@ Partial Class MDIParent1
     Friend WithEvents mnuOptionsTaxYear2016 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuOptionsConsultants As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuOptionsTaxYear2017 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents mnuOptionsTaxYear2018 As ToolStripMenuItem
     Friend WithEvents mnuOptionsTaxYear2019 As ToolStripMenuItem
     Friend WithEvents mnuOptionsTaxYear2020 As ToolStripMenuItem

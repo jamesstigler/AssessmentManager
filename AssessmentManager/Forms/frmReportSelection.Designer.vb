@@ -99,6 +99,7 @@ Partial Class frmReportSelection
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.chkExportToClientReporting = New System.Windows.Forms.CheckBox()
         Me.grpBatchRendition.SuspendLayout()
         Me.grpBatchValue.SuspendLayout()
         Me.grpBatchTaxBill.SuspendLayout()
@@ -958,11 +959,23 @@ Partial Class frmReportSelection
         Me.CheckBox1.UseVisualStyleBackColor = True
         Me.CheckBox1.Visible = False
         '
+        'chkExportToClientReporting
+        '
+        Me.chkExportToClientReporting.AutoSize = True
+        Me.chkExportToClientReporting.Location = New System.Drawing.Point(736, 520)
+        Me.chkExportToClientReporting.Name = "chkExportToClientReporting"
+        Me.chkExportToClientReporting.Size = New System.Drawing.Size(117, 17)
+        Me.chkExportToClientReporting.TabIndex = 49
+        Me.chkExportToClientReporting.Text = "Export to Reporting"
+        Me.chkExportToClientReporting.UseVisualStyleBackColor = True
+        Me.chkExportToClientReporting.Visible = False
+        '
         'frmReportSelection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1022, 593)
+        Me.Controls.Add(Me.chkExportToClientReporting)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.CheckBox1)
@@ -1114,4 +1127,5 @@ Partial Class frmReportSelection
     Friend WithEvents Button1 As Button
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents chkExportToClientReporting As CheckBox
 End Class

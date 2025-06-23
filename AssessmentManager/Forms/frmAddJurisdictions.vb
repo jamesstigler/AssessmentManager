@@ -60,7 +60,7 @@
         Dim bind As New BindingSource
 
         Try
-            sSQL = "SELECT j.JurisdictionId, j.Name, j.StateCd FROM Jurisdictions AS j" & _
+            sSQL = "SELECT j.JurisdictionId, j.Name, j.TaxDistrictCd, j.StateCd FROM Jurisdictions AS j" &
                 " WHERE j.TaxYear = " & m_TaxYear & " AND j.StateCd = " & QuoStr(m_StateCd) & " ORDER BY j.Name"
             Dim lRows As Long = GetData(sSQL, dt)
             bind.DataSource = dt
@@ -69,7 +69,11 @@
                 If IsIndexField(column.Name) Or column.Name = "TaxYear" Then
                     column.Visible = False
                 End If
-                If column.Name = "Name" Then column.Width = 155
+                If column.Name = "Name" Then column.Width = 170
+                If column.Name = "TaxDistrictCd" Then
+                    column.Width = 150
+                    column.HeaderText = "District Code"
+                End If
                 If column.Name = "StateCd" Then column.Width = 50
             Next
             Return True

@@ -1,4 +1,8 @@
-﻿Module modReports
+﻿Imports System.IO
+Imports System.Web.UI
+Imports iTextSharp.text
+
+Module modReports
 
     Public Function BuildBarCode1(DocType As enumBarCodeTypes, ClientId As Long, TaxYear As Integer, PropType As enumTable,
             LocationId As Long, AssessmentId As Long, JurisdictionId As Long, CollectorId As Long, lCompID As Long) As String
@@ -195,9 +199,7 @@
             ByVal eContactType As enumContactTypes, eBarCodeType As enumBarCodeTypes, ByVal bPrintCoverPage As Boolean, dtParm As DataTable,
             ByVal bJustCreatePDF As Boolean, ByVal bIncludeInactive As Boolean,
             ByVal lBusinessUnitId As Long, sStateCd As String, ByVal bIncludeZeroAmounts As Boolean, ByVal bShowCostAndFactors As Boolean) As Boolean
-
         MDIParent1.ShowStatus("Running report")
-
         Dim sSQL As String = "", sFactoringEntityNames(4) As String
         Dim dt As New DataTable, row As DataRow
         Dim sName As String = "", dFactoredAmt As Double, dOriginalAmt As Double, dFactor As Double
@@ -858,7 +860,6 @@
                     End If
                 Next
 
-
                 If sSQL <> "" Then ExecuteSQL(sSQL)
                 sSQL = "Select * FROM " & sTempTable
             ElseIf eType = enumReport.enumBarCode Then
@@ -1006,13 +1007,13 @@
             End If
             If lRows = 0 Then
                 If eType = enumReport.enumTaxAccrual Or
-                        eType = enumReport.enumBPPCompBarCode Or
-                        eType = enumReport.enumTaxSavings Or
-                        eType = enumReport.enumBarCode Or
-                        eType = enumReport.enumMissingTaxBills Or eType = enumReport.enumTaxBill Or
-                        eType = enumReport.enumCompletedRenditions Or
-                        eType = enumReport.enumValueComparison Or
-                        eType = enumReport.enumREComp Or eType = enumReport.enumFixedAssetReconByDeprCode Or eType = enumReport.enumFixedAssetReconByGLCode Then
+                    eType = enumReport.enumBPPCompBarCode Or
+                    eType = enumReport.enumTaxSavings Or
+                    eType = enumReport.enumBarCode Or
+                    eType = enumReport.enumMissingTaxBills Or eType = enumReport.enumTaxBill Or
+                    eType = enumReport.enumCompletedRenditions Or
+                    eType = enumReport.enumValueComparison Or
+                    eType = enumReport.enumREComp Or eType = enumReport.enumFixedAssetReconByDeprCode Or eType = enumReport.enumFixedAssetReconByGLCode Then
                     clsReport = New clsReportData
                     clsReport.NoRows = "No records found"
                     clsReport.WriteReportData()
@@ -1396,13 +1397,16 @@
                     clsReport.Text10 = IIf(row("PropertyType") = "R", "Real Estate", "Business Personal Property")
                     clsReport.Text11 = row("Jurisdictions_Name").ToString.Trim
                     clsReport.Text13 = row("Assessors_Name").ToString.Trim
-                    clsReport.Text14 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " & row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
+                    clsReport.Text14 = row("BusinessUnits_Name").ToString & "  " & row("Locations_StateCd") & "  " &
+                        row("Assessors_Name").ToString.Trim & "  " & row("Locations_Address").ToString.Trim &
                         "  " & row("AcctNum").ToString.Trim
                     clsReport.Text15 = IIf(row("ClientLocationId").ToString.Length > 0, "Loc " & row("ClientLocationId").ToString.Trim, "")
                     If row("PropertyType") = "P" Then
                         clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("BPPRatio")), csPct)
+                        clsReport.Number14 = UnNullToDouble(row("BPPRatio"))
                     Else
                         clsReport.Text16 = "State ratio:  " & Format(UnNullToDouble(row("RERatio")), csPct)
+                        clsReport.Number14 = UnNullToDouble(row("RERatio"))
                     End If
                     If row("PropertyType") = "R" Then
                         clsReport.Text17 = "Last year value:  " & Format(row("PriorYearTotalFinalValue"), csInt)
@@ -1416,6 +1420,7 @@
 
                     clsReport.Text18 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
                     clsReport.Text19 = "Total For " & clsReport.Text18
+                    clsReport.Text20 = IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
                     clsReport.Number01 = UnNullToDouble(row("TaxRate"))
                     clsReport.Number02 = UnNullToDouble(row("TotalAssessedValue"))
                     clsReport.Number03 = UnNullToDouble(row("FinalValue"))
@@ -1426,6 +1431,8 @@
                     clsReport.Number08 = UnNullToDouble(row("SavingsAmt"))
                     'suppress business units if not business units, suppress=1
                     clsReport.Number11 = IIf(bHasBusinessUnits, 0, 1)
+                    clsReport.Number12 = UnNullToDouble(row("PriorYearTotalFinalValue"))
+                    clsReport.Number13 = UnNullToDouble(row("ValueLimitation"))
                     clsReport.WriteReportData()
                 Next
             ElseIf eType = enumReport.enumAssessorCover Then
@@ -1492,12 +1499,13 @@
                                 End Select
                             End If
                         End If
-                        dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
-                        dFreeport = UnNullToDouble(row("ClientFreeportAmt"))
+                        dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
+                        dFreeport = UnNullToDouble(row("FreeportReductionAmt"))
                     Else
                         dValue = UnNullToDouble(row("FinalValue"))
-                        dAbatement = UnNullToDouble(row("ClientAbatementAmt"))
+                        dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
                     End If
+                    clsReport.Text18 = Trim(row("Clients_Name"))
                     clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"
                     clsReport.Text02 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)
                     clsReport.Text03 = iTaxYear - 1 & " Tax Rate"
@@ -2085,19 +2093,18 @@
                 '    End If
                 'End If
             ElseIf eType = enumReport.enumAssessorEnvelope Or eType = enumReport.enumAssessorValueProtestEnvelope Or eType = enumReport.enumClientEnvelope Or
-                    eType = enumReport.enumMissingNotice Or
-                    eType = enumReport.enumAssessorCover Or
-                    eType = enumReport.enumRenditionDueDate Or eType = enumReport.enumClientLocationListing Or eType = enumReport.enumTaxAccrualSummary Then
+                        eType = enumReport.enumMissingNotice Or
+                        eType = enumReport.enumAssessorCover Or
+                        eType = enumReport.enumRenditionDueDate Or eType = enumReport.enumClientLocationListing Or eType = enumReport.enumTaxAccrualSummary Then
                 OpenReport(eType, sReportText, bSendToPrinter, sPDFFileName, sExportFolder, False, bJustCreatePDF)
             End If
 
         Catch ex As Exception
-            If AppData.PrintServer = False Then MsgBox("Error running report:  " & ex.Message)
+            MsgBox("Error running report:  " & ex.Message)
         End Try
 
         MDIParent1.ShowStatus()
         Return True
-
 
     End Function
     Public Function OpenReport(ByVal eType As enumReport, ByVal sText As String,
@@ -2302,51 +2309,8 @@
             Return False
         End If
         Return True
-
     End Function
-    Public Sub RunPrintJobs()
-        Try
-            Dim dt As New DataTable
-            Dim eType As enumReport, lClientId As Long, lLocationId As Long, lAssessmentId As Long, sJurisdictionList As String = "", iTaxYear As Integer = 0
-            Dim ePropType As enumTable, lAssessorId As Long = 0, iSuppressOriginalCost As Integer = 0, lFactorEntityId As Long = 0, bPrintClientScheduleOnly As Boolean = False
-            Dim eContactType As enumContactTypes, eBarCodeType As enumBarCodeTypes, bPrintCoverPage As Boolean = False, bIncludeInactive As Boolean = False
-            Dim listofJurisdictions As List(Of Long) = New List(Of Long)
-            ExecuteSQL("UPDATE PrintQueue SET PrintingFl = 1")
-            Dim lRows As Long = GetData("SELECT * FROM PrintQueue WHERE PrintingFl = 1", dt)
-            If lRows > 0 Then
-                For Each dr As DataRow In dt.Rows
-                    eType = dr("ReportType").ToString : lClientId = UnNullToDouble(dr("ClientId")) : lLocationId = UnNullToDouble(dr("LocationId")) : sJurisdictionList = dr("JurisdictionList").ToString
-                    lAssessmentId = UnNullToDouble(dr("AssessmentId"))
-                    iTaxYear = UnNullToDouble(dr("TaxYear")) : ePropType = IIf(dr("PropType").ToString = "P", enumTable.enumLocationBPP, enumTable.enumLocationRE) : lAssessorId = UnNullToDouble(dr("AssessorId"))
-                    iSuppressOriginalCost = UnNullToDouble(dr("SuppressOriginalCost")) : lFactorEntityId = UnNullToDouble(dr("FactorEntityId"))
-                    bPrintClientScheduleOnly = IIf(dr("PrintClientScheduleOnly").ToString = "1", True, False) : eContactType = UnNullToDouble(dr("ContactType"))
-                    eBarCodeType = UnNullToDouble(dr("BarCodeType")) : bPrintCoverPage = IIf(dr("PrintCoverPage").ToString = "1", True, False)
-                    bIncludeInactive = IIf(dr("IncludeInactive").ToString = "1", True, False)
-                    If sJurisdictionList.Length > 0 Then
-                        Dim saryjurlist As String() = sJurisdictionList.Split(",")
-                        For Each jur As String In saryjurlist
-                            listofJurisdictions.Add(Convert.ToInt32(jur))
-                        Next
-                    End If
-                    RunReport(eType, lClientId, lLocationId, lAssessmentId, listofJurisdictions, iTaxYear, ePropType, lAssessorId, iSuppressOriginalCost,
-                        True, "", "", lFactorEntityId, bPrintClientScheduleOnly, eContactType, eBarCodeType, bPrintCoverPage, New DataTable, False, bIncludeInactive, 0, "")
-                    System.Threading.Thread.Sleep(2000)
-                Next
-                ExecuteSQL("DELETE PrintQueue WHERE PrintingFl = 1")
-            ElseIf lRows < 0 Then
-                Throw New Exception("Error selecting record in RunPrintJobs")
-            End If
-            dt.Dispose()
-        Catch ex As Exception
-            LogMsg("Error running print jobs:  " & ex.Message)
-        End Try
-    End Sub
-    Public Sub LogMsg(sMsg As String)
-        Try
-            My.Computer.FileSystem.WriteAllText(AppData.AppPath & "\PrintServerErrors.LOG", Now & ":  " & sMsg & vbCrLf & vbCrLf, True)
-        Catch ex As Exception
-        End Try
-    End Sub
+
     Private Function RunTaxAccrualSummaryReport(clsReport As clsReportData) As Boolean
         Dim sTempTable As String = ""
         Dim sql As New StringBuilder, sqlins As New StringBuilder
@@ -2359,7 +2323,7 @@
                 sTempTable = "#tmpAccrualSummary" & AppData.UserId & Date.Now.Ticks.ToString
                 ''sTempTable = "tempdb..accrualSummarytmp"
                 sql.Clear()
-                sql.Append("SELECT 1 WHERE EXISTS (SELECT Name FROM sys.objects where name LIKE '%").Append(sTempTable).Append("%')")
+                sql.Append("SELECT 1 WHERE EXISTS (SELECT Name FROM sys.objects where name Like '%").Append(sTempTable).Append("%')")
                 lRows = GetData(sql.ToString, dt)
                 If lRows = 0 Then Exit Do
             Loop
@@ -2371,7 +2335,7 @@
             sql.Append("[Number03] [float] NULL,[Number04] [float] NULL,[Number09] [float] NULL,[Number10] [float] NULL,[Number11] [float] NULL,[Number14] [float] NULL,")
             sql.Append("[Number15] [float] NULL,[Number16] [float] NULL,[Number17] [float] NULL,[Number18] [float] NULL,[Number19] [float] NULL,Number20 float null")
             sql.Append(",[Date01] [datetime] NULL, Number12 float null")
-            sql.append(")")
+            sql.Append(")")
             ExecuteSQL(sql.ToString)
 
             'Copy contents of report class into temp table
@@ -2465,9 +2429,9 @@
             GetData(sql.ToString, dt)
             Return dt
         Catch ex As Exception
-            LogMsg("Error getting installments:  " & ex.Message)
             Return dt
         End Try
     End Function
+
 End Module
 

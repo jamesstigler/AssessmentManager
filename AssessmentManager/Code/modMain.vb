@@ -37,7 +37,6 @@ Module modMain
         Friend FirmFax As String
         Friend AppCompanyName As String
         Friend ColumnWidthChanged As Boolean
-        Friend PrintServer As Boolean
         Friend ConsultantName As String
         Friend FullName As String
         Friend IsAdministrator As Boolean
@@ -230,15 +229,7 @@ Module modMain
         AppData.UserPath = Application.LocalUserAppDataPath
         AppData.AppPath = Trim(Application.StartupPath)
         AppData.AppCompanyName = Trim(Application.CompanyName)
-        AppData.PrintServer = False
-        If Environment.GetCommandLineArgs.Length > 1 Then
-            If Environment.GetCommandLineArgs(1).ToString = "P" Then
-                AppData.PrintServer = True
-            End If
-        End If
-
         AppData.ReportId = 1
-
         AppData.TaxYear = GetSetting(AppData.AppName, "Configuration", "TaxYear", CStr(Year(Now)))
         AppData.UserId = Microsoft.VisualBasic.Left(Trim(UCase(Environ("username"))), 30)
 

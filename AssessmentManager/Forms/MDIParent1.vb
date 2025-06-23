@@ -1,7 +1,6 @@
 ﻿Imports System.Windows.Forms
 
 Public Class MDIParent1
-    Private _Printing As Boolean = False
 
     Private Sub OpenFile(ByVal sender As Object, ByVal e As EventArgs) Handles OpenToolStripMenuItem.Click
         'Dim OpenFileDialog As New OpenFileDialog
@@ -330,7 +329,7 @@ Public Class MDIParent1
 
     Private Sub MDIParent1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not StartApp() Then End
-        Me.Text = AppData.AppName & " version:  " & AppData.Version & IIf(AppData.PrintServer, " (Print Server)", "") & ", datebase:  " & AppData.Server & "          " & AppData.TaxYear
+        Me.Text = AppData.AppName & " version:  " & AppData.Version & ", datebase:  " & AppData.Server & "          " & AppData.TaxYear
 
         mnuOptionsTaxYear2008.Checked = False
         mnuOptionsTaxYear2009.Checked = False
@@ -389,7 +388,6 @@ Public Class MDIParent1
             mnuOptionsTaxYear2025.Checked = True
         End If
         If AppData.IncludeInactive Then mnuOptionsIncludeInactive.Checked = True Else mnuOptionsIncludeInactive.Checked = False
-        If AppData.PrintServer = True Then Timer1.Enabled = True
         If AppData.IsAdministrator = False Then mnuToolsRoll.Enabled = False
         ShowStatus()
         StatusLabel.Text = "Tax year:  " & AppData.TaxYear
@@ -701,7 +699,7 @@ Public Class MDIParent1
             sender.checked = True
             AppData.TaxYear = Val(Microsoft.VisualBasic.Right(sender.name, 4))
             SaveSetting(AppData.AppName, "Configuration", "TaxYear", AppData.TaxYear)
-            Me.Text = AppData.AppName & " version:  " & AppData.Version & IIf(AppData.PrintServer, " (Print Server)", "") & ", datebase:  " & AppData.Server & "          " & AppData.TaxYear
+            Me.Text = AppData.AppName & " version:  " & AppData.Version & ", datebase:  " & AppData.Server & "          " & AppData.TaxYear
             CloseMDIChildren()
             ShowStatus()
         Catch ex As Exception
@@ -1355,14 +1353,6 @@ Public Class MDIParent1
         Catch ex As Exception
 
         End Try
-    End Sub
-
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If _Printing = False Then
-            _Printing = True
-            RunPrintJobs()
-            _Printing = False
-        End If
     End Sub
 
     Private Sub mnuRECompsImportCounty_Click(sender As Object, e As EventArgs) Handles mnuRECompsImportCounty.Click
