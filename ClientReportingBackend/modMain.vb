@@ -1,6 +1,4 @@
 ﻿Imports System.IO
-Imports System.Security.Cryptography
-Imports System.Threading
 
 Module modMain
     Public Const FORMATDATETIME As String = "MM/dd/yyyy hh:mm:ss"

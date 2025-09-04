@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports iTextSharp.text
 
 '**************************************************************************************************
 '**************** MUST COPY ASSESSMENTMANAGERDATA.MODREPORTS TO THIS PROJECT **********************
@@ -622,7 +621,7 @@ Module modReports
                         If IsDBNull(rowAssessments("FactorEntityId1")) Then
                             lClientRenditionTotal = 0
                         Else
-                            Dim dsassets As DataSet = GetAssetList(rowAssessments("ClientId"), rowAssessments("LocationId"), rowAssessments("AssessmentId"), AppData.TaxYear, 0, True, False, True, False, False, False)
+                            Dim dsassets As DataSet = GetAssetList(rowAssessments("ClientId"), rowAssessments("LocationId"), rowAssessments("AssessmentId"), iTaxYear, rowAssessments("FactorEntityId1"), True, False, True, False, False, False)
                             lClientRenditionTotal = dsassets.Tables("ReturnTypeSumOfValues").Rows(0)("SumOfClientValue1")
                         End If
                         'for each BPP assessment, get tax bill amounts with savings
@@ -2342,7 +2341,10 @@ Module modReports
     Public Sub RunClientReporting()
         Dim msg As String
         Try
-            If Hour(Now) <> 2 Then Return
+            'If Hour(Now) <> 2 Then
+            '    LogMsg("Outside timeframe to run update.  Ending.")
+            '    Return
+            'End If
 
             Dim starttime As String = Now.ToString("f")
             msg = "Starting client reporting process, " + starttime
@@ -2385,6 +2387,7 @@ Module modReports
             sql.Append(" WHERE LocationsBPP.TaxYear >= ").Append(Year(Now) - 1)
             sql.Append(" AND ISNULL(Clients.ProspectFl,0)=0 AND ISNULL(Clients.InactiveFl,0)=0")
             sql.Append(" AND ISNULL(LocationsBPP.InactiveFl,0)= 0 And ISNULL(AssessmentsBPP.InactiveFl, 0) = 0")
+            'sql.Append(" AND Clients.ClientId = 2")     '2 hajoca
             GetData(sql.ToString, dt)
 
             rowcount = dt.Rows.Count
@@ -2435,6 +2438,7 @@ Module modReports
             sql.Append(" WHERE LocationsRE.TaxYear >= ").Append(Year(Now) - 1)
             sql.Append(" And ISNULL(Clients.ProspectFl,0)=0 And ISNULL(Clients.InactiveFl,0)=0")
             sql.Append(" And ISNULL(LocationsRE.InactiveFl,0)= 0 And ISNULL(AssessmentsRE.InactiveFl, 0) = 0")
+            'sql.Append(" AND Clients.ClientId = 2")     '2 hajoca
             GetData(sql.ToString, dt)
 
             rowcount = dt.Rows.Count
