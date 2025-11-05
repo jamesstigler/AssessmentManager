@@ -495,6 +495,12 @@
       <DependentUpon>rptAssessorEnvelope.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\rptInventoryTotalForSummary.vb">
+      <DependentUpon>rptInventoryTotalForSummary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\rptInventoryTotal.vb">
       <DependentUpon>rptInventoryTotal.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -801,6 +807,10 @@
     <EmbeddedResource Include="Reports\rptAssessorEnvelope.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptAssessorEnvelope.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptInventoryTotalForSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptInventoryTotalForSummary.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptInventoryTotal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

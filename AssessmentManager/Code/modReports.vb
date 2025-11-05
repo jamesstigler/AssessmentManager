@@ -1838,9 +1838,9 @@ Module modReports
                                             sSQL = sSQL & lFactoredAmtBeforeInterstateAllocationPct & ","
                                             'Text05, Number11
                                             If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
-                                                sSQL = sSQL & "'" & iTaxYear & " Inventory',1,"
+                                                sSQL = sSQL & "'" & iTaxYear & " Inventory',0,"
                                             Else
-                                                sSQL = sSQL & "'Fixed Assets',0,"
+                                                sSQL = sSQL & "'Fixed Assets',1,"
                                             End If
                                             'BarCode1,BarCode2,BarCodeDesc
                                             If bPrintCoverPage Then
@@ -2214,7 +2214,7 @@ Module modReports
                     " BarCode1,BarCode2,BarCodeDesc," &
                     " Sum(Number01) AS Number01, Sum(Number02) AS Number02, SUM(Number10) AS Number10" &
                     " FROM ReportData" & sWHERE & "  GROUP BY Title01, Text02, Text05, Text03, Text10, Number04, Number03, Number05," &
-                    " Number06, Number07, Text04, Number15, Number16, Number08, Text09, Number09, Number11, BarCode1, BarCode2, BarCodeDesc ORDER BY Text02, Text05 DESC, Text03, Number04 DESC"
+                    " Number06, Number07, Text04, Number15, Number16, Number08, Text09, Number09, Number11, BarCode1, BarCode2, BarCodeDesc ORDER BY Text02, Number11, Text03, Number04 DESC"
                 ''sSQL = "select * from ReportData" & sWHERE
                 sReportFile = "rptAssetSummary.rpt"
             Case enumReport.enumAssetDetailExempt, enumReport.enumAssetDetailNon
