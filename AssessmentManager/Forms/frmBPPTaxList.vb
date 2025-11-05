@@ -183,7 +183,7 @@
             sqlselect.Append("SELECT CASE WHEN ISNULL(a.ParentAssessmentId,0) = 0 THEN 1 WHEN ISNULL(a.ParentAssessmentId,0) = a.AssessmentId THEN 1 ELSE 0 END AS IsParent,")
             sqlselect.Append(" a.AcctNum, a.AssessmentId, a.TaxYear, ISNULL(d.NotifiedValue,0) AS NotifiedValue")
             sqlselect.Append(" FROM AssessmentsBPP a INNER JOIN AssessmentDetailBPP d")
-            sqlselect.Append(" ON a.AssessmentId = d.AssessmentId AND a.TaxYear = d.TaxYear")
+            sqlselect.Append(" ON a.ClientId = d.ClientId AND a.AssessmentId = d.AssessmentId AND a.TaxYear = d.TaxYear")
             'this account is parent, get children
             sqlselect.Append(" WHERE ( (a.ParentAssessmentId = ").Append(m_AssessmentId).Append(" AND a.TaxYear = ").Append(m_TaxYear).Append(")")
             'this account is a child, get parent

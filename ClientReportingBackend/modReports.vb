@@ -792,6 +792,7 @@ Module modReports
                         " CONVERT(float,ISNULL(tblValues.BPPRatio,0)) AS Assessors_Ratio," &
                         " CONVERT(float,tblValues.ClientRenditionValue) AS ClientRenditionValue, j.Name as Jurisdictions_Name, CONVERT(float,j.TaxRate) AS TaxRate,"
                     sSQL = sSQL & " CASE WHEN ISNULL(ad.FinalValue,0)>0 THEN ad.FinalValue" &
+                        " WHEN ad.FinalValue = 0 THEN ad.FinalValue" &
                         " WHEN tblValues.SumOfFactoredAmount > ISNULL(ISNULL(ad.NotifiedValue,tblValues.SumOfFactoredAmount),0)" &
                         " THEN tblValues.SumOfFactoredAmount ELSE ISNULL(ISNULL(ad.NotifiedValue,tblValues.SumOfFactoredAmount),0) END AS FinalValue,"
                     sSQL = sSQL & "ISNULL(ad.FinalValue,0) AS CYFinalValue,"
@@ -1882,9 +1883,9 @@ Module modReports
                                                 Year(row("PurchaseDate")) & "," & dFactor & "," & QuoStr(sFactorCode) & ","     'number04, number05, text10
                                             'Number06,Text02
                                             If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
-                                                sSQL = sSQL & "1, 'Inventory',"
+                                                sSQL = sSQL & "0, " & QuoStr(iTaxYear & " Inventory") & ","
                                             Else
-                                                sSQL = sSQL & "0,'Fixed Assets',"
+                                                sSQL = sSQL & "1,'Fixed Assets',"
                                             End If
                                             'Text06
                                             LesseeInfo.Clear()

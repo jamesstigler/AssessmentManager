@@ -276,6 +276,8 @@
                     " FROM Jurisdictions jLast WHERE jLast.JurisdictionId = ad.JurisdictionId" &
                     " AND jLast.TaxYear = " & iTaxYear & "),ISNULL(j.TaxRate,0)) / 100 + ISNULL(ad.TaxBillAdjAmt1,0), 2))" &
                     " AS TaxDueBeforeSavings,"
+                '' if final value is null, savings amount should be 0
+                sSQL = sSQL & " CASE WHEN ad.FinalValue IS NULL THEN 0 ELSE "
                 sSQL = sSQL & " ROUND(ROUND(ROUND(("
                 sSQL = sSQL & " CASE WHEN ISNULL(c.ExcludeNotified,0) <> 0 THEN " & lClientRenditionValue &
                     " ELSE CASE WHEN ISNULL(c.ExcludeClient,0) <> 0 THEN ISNULL(ad.NotifiedValue,0)" &
@@ -297,7 +299,7 @@
                     " WHERE jLast.JurisdictionId = ad.JurisdictionId" &
                     " AND jLast.TaxYear = " & iTaxYear & "),ISNULL(j.TaxRate,0)) / 100 + ISNULL(ad.TaxBillAdjAmt1,0), 2)" &
                     " ,2),2)" &
-                    " AS SavingsAmt,"
+                    " END AS SavingsAmt,"
             Else
                 sSQL = sSQL & " CASE WHEN ISNULL(c.ExcludeNotified,0) <> 0 OR ISNULL(asmt.SavingsExclusionCd,0) IN " & sInNotified
                 sSQL = sSQL & " THEN round(round(round(round(isnull(ad.FinalValue,0)-isnull(ad.AbatementReductionAmt,0)" &
@@ -307,6 +309,8 @@
                     " ISNULL(asr.RERatio,0),0) * ISNULL((SELECT jLast.TaxRate FROM Jurisdictions jLast" &
                     " WHERE jLast.JurisdictionId = ad.JurisdictionId AND jLast.TaxYear = " & iTaxYear & "),ISNULL(j.TaxRate,0)) / 100 + ISNULL(ad.TaxBillAdjAmt1,0), 2)" &
                     " END AS TaxDueBeforeSavings,"
+                '' if final value is null, savings should be 0
+                sSQL = sSQL & " CASE WHEN ad.FinalValue IS NULL THEN 0 ELSE "
                 sSQL = sSQL & " CASE WHEN ISNULL(c.ExcludeNotified,0) <> 0 OR ISNULL(asmt.SavingsExclusionCd,0) IN " & sInNotified
                 sSQL = sSQL & " THEN 0 ELSE ROUND(ROUND(ROUND((ISNULL(ad.TotalAssessedValue, ISNULL(ad.RELandValue,0) + ISNULL(ad.REImprovementValue,0)) - ISNULL(ad.ClientAbatementAmt,0)) * " &
                     " ISNULL(asr.RERatio,0),0) * ISNULL((SELECT jLast.TaxRate FROM Jurisdictions jLast" &
@@ -317,7 +321,7 @@
                     " isnull(ad.AdjAmt1,0),0) * isnull(asr.RERatio,0),0) * " &
                     " ISNULL((SELECT jLast.TaxRate FROM Jurisdictions jLast" &
                     " WHERE jLast.JurisdictionId = ad.JurisdictionId AND jLast.TaxYear = " & iTaxYear & "),ISNULL(j.TaxRate,0)) / 100 + ISNULL(ad.TaxBillAdjAmt1,0), 2)" &
-                    " ,2),2) END AS SavingsAmt,"
+                    " ,2),2) END END AS SavingsAmt,"
             End If
         End If
 

@@ -11,6 +11,7 @@
     Private bChanged As Boolean
     Private sStateCd As String
     Private colAssessors As Collection
+    Private bValuePrompt As Boolean = True
 
     Private Structure structHistory
         Friend iTaxYear As Integer
@@ -736,7 +737,10 @@
     Private Sub dgJurisdictions_CellEndEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgJurisdictions.CellEndEdit
         Dim sError As String = "", bApplyToAll As Boolean
 
+
+        'If bValuePrompt Then
         bApplyToAll = IIf(MsgBox("Apply to all jurisdictions?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes, True, False)
+        'End If
         If Not UpdateAssessmentDetailRE(m_ClientId, m_LocationId, m_AssessmentId, dgJurisdictions.Rows(e.RowIndex).Cells("JurisdictionId").Value, m_TaxYear, dgJurisdictions.Columns(e.ColumnIndex).Name, Trim(UnNullToString(dgJurisdictions.Rows(e.RowIndex).Cells(e.ColumnIndex).Value)), bApplyToAll, sError) Then
             MsgBox(sError)
         End If

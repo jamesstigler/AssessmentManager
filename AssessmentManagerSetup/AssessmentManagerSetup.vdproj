@@ -363,6 +363,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7EFF27C13AAE449BACEA201CF6EF4ECF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_80E9F2544B4F4361A364BE9E7D53CADE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1458,6 +1464,26 @@
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7EFF27C13AAE449BACEA201CF6EF4ECF"
+            {
+            "SourcePath" = "8:..\\AssessmentManager\\Reports\\rptInventoryTotal.rpt"
+            "TargetName" = "8:rptInventoryTotal.rpt"
+            "Tag" = "8:"
+            "Folder" = "8:_E70AA5A709FF4B129ACE26AFD87F02D5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_80E9F2544B4F4361A364BE9E7D53CADE"
