@@ -1463,7 +1463,7 @@ Module modReports
                 Next
             ElseIf eType = enumReport.enumTaxAccrual Or eType = enumReport.enumTaxAccrualSummary Then
                 Dim bHasBusinessUnits As Boolean = True
-                Dim excludecode As enumSavingsExclusionCd
+                ''''Dim excludecode As enumSavingsExclusionCd
                 Dim dValue As Double = 0
                 Dim dAbatement As Double = 0
                 Dim dFreeport As Double = 0
@@ -1479,43 +1479,43 @@ Module modReports
                 ''need to add abatement and freeport and taxable values to report
                 clsReport = New clsReportData
                 For Each row In dt.Rows
-                    excludecode = row("Assessments_SavingsExclusionCd")
+                    ''''excludecode = row("Assessments_SavingsExclusionCd")
                     dValue = 0
                     dAbatement = 0
                     dFreeport = 0
                     lNetTaxableValue = 0
 
-                    If row("PropertyType") = "BPP" Then
-                        If row("Clients_ExcludeNotified") And row("Clients_ExcludeClient") Then
-                            dValue = 0
-                        Else
-                            If row("Clients_ExcludeNotified") Then
-                                dValue = UnNullToDouble(row("SumOfFactoredAmount"))
-                            ElseIf row("Clients_ExcludeClient") Then
-                                dValue = UnNullToDouble(row("NotifiedValue"))
-                            Else
-                                Select Case excludecode
-                                    Case enumSavingsExclusionCd.enumNotified,
-                                            enumSavingsExclusionCd.enumNotifiedAbatements,
-                                            enumSavingsExclusionCd.enumNotifiedAbatementsFreeport,
-                                            enumSavingsExclusionCd.enumNotifiedFreeport
-                                        dValue = UnNullToDouble(row("SumOfFactoredAmount"))
-                                    Case enumSavingsExclusionCd.enumClient,
-                                            enumSavingsExclusionCd.enumClientAbatements,
-                                            enumSavingsExclusionCd.enumClientAbatementsFreeport,
-                                            enumSavingsExclusionCd.enumClientFreeport
-                                        dValue = UnNullToDouble(row("NotifiedValue"))
-                                    Case Else
-                                        dValue = UnNullToDouble(row("FinalValue"))
-                                End Select
-                            End If
-                        End If
-                        dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
-                        dFreeport = UnNullToDouble(row("FreeportReductionAmt"))
-                    Else
-                        dValue = UnNullToDouble(row("FinalValue"))
-                        dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
-                    End If
+                    ''''If row("PropertyType") = "BPP" Then
+                    ''''    If row("Clients_ExcludeNotified") And row("Clients_ExcludeClient") Then
+                    ''''        dValue = 0
+                    ''''    Else
+                    ''''        If row("Clients_ExcludeNotified") Then
+                    ''''            dValue = UnNullToDouble(row("SumOfFactoredAmount"))
+                    ''''        ElseIf row("Clients_ExcludeClient") Then
+                    ''''            dValue = UnNullToDouble(row("NotifiedValue"))
+                    ''''        Else
+                    ''''            Select Case excludecode
+                    ''''                Case enumSavingsExclusionCd.enumNotified,
+                    ''''                        enumSavingsExclusionCd.enumNotifiedAbatements,
+                    ''''                        enumSavingsExclusionCd.enumNotifiedAbatementsFreeport,
+                    ''''                        enumSavingsExclusionCd.enumNotifiedFreeport
+                    ''''                    dValue = UnNullToDouble(row("SumOfFactoredAmount"))
+                    ''''                Case enumSavingsExclusionCd.enumClient,
+                    ''''                        enumSavingsExclusionCd.enumClientAbatements,
+                    ''''                        enumSavingsExclusionCd.enumClientAbatementsFreeport,
+                    ''''                        enumSavingsExclusionCd.enumClientFreeport
+                    ''''                    dValue = UnNullToDouble(row("NotifiedValue"))
+                    ''''                Case Else
+                    ''''                    dValue = UnNullToDouble(row("FinalValue"))
+                    ''''            End Select
+                    ''''        End If
+                    ''''    End If
+                    ''''    dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
+                    ''''    dFreeport = UnNullToDouble(row("FreeportReductionAmt"))
+                    ''''Else
+                    dValue = UnNullToDouble(row("FinalValue"))
+                    dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
+                    ''''End If
                     clsReport.Text18 = Trim(row("Clients_Name"))
                     clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"
                     clsReport.Text02 = "Business Unit:  " & IIf(row("BusinessUnits_Name").ToString.Length = 0, "N/A", row("BusinessUnits_Name").ToString)

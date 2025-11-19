@@ -1,4 +1,6 @@
 ﻿Imports System.IO
+Imports System.Reflection
+Imports System.Windows.Forms
 
 Module modMain
     Public Const FORMATDATETIME As String = "MM/dd/yyyy hh:mm:ss"
@@ -221,7 +223,7 @@ Module modMain
                 AppData.Server = "10.10.1.4\SQLEXPRESS"
             End If
             Console.Title = "Client Reporting Application"
-            LogMsg("Starting")
+            LogMsg("Starting, version=" & Application.ProductVersion)
             ConnectToDB()
             RunClientReporting()
 
