@@ -349,6 +349,7 @@ Public Class MDIParent1
         mnuOptionsTaxYear2023.Checked = False
         mnuOptionsTaxYear2024.Checked = False
         mnuOptionsTaxYear2025.Checked = False
+        mnuOptionsTaxYear2026.Checked = False
 
         If AppData.TaxYear = 2008 Then
             mnuOptionsTaxYear2008.Checked = True
@@ -386,6 +387,8 @@ Public Class MDIParent1
             mnuOptionsTaxYear2024.Checked = True
         ElseIf AppData.TaxYear = 2025 Then
             mnuOptionsTaxYear2025.Checked = True
+        ElseIf AppData.TaxYear = 2026 Then
+            mnuOptionsTaxYear2026.Checked = True
         End If
         If AppData.IncludeInactive Then mnuOptionsIncludeInactive.Checked = True Else mnuOptionsIncludeInactive.Checked = False
         If AppData.IsAdministrator = False Then mnuToolsRoll.Enabled = False
@@ -671,7 +674,7 @@ Public Class MDIParent1
             mnuOptionsTaxYear2013.Click, mnuOptionsTaxYear2014.Click, mnuOptionsTaxYear2015.Click, mnuOptionsTaxYear2016.Click,
             mnuOptionsTaxYear2017.Click, mnuOptionsTaxYear2018.Click, mnuOptionsTaxYear2019.Click, mnuOptionsTaxYear2020.Click,
             mnuOptionsTaxYear2021.Click, mnuOptionsTaxYear2022.Click, mnuOptionsTaxYear2023.Click, mnuOptionsTaxYear2024.Click,
-            mnuOptionsTaxYear2025.Click
+            mnuOptionsTaxYear2025.Click, mnuOptionsTaxYear2026.Click
 
         ''   *********     WHEN ADDING TAX YEAR, SEARCH FOR mnuOptionsTaxYear2016 AND ADD YEAR.  NO VALIDTAXYEARS ARRAY.     ************
 
@@ -695,6 +698,7 @@ Public Class MDIParent1
             mnuOptionsTaxYear2023.Checked = False
             mnuOptionsTaxYear2024.Checked = False
             mnuOptionsTaxYear2025.Checked = False
+            mnuOptionsTaxYear2026.Checked = False
 
             sender.checked = True
             AppData.TaxYear = Val(Microsoft.VisualBasic.Right(sender.name, 4))

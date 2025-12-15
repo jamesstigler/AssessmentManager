@@ -200,6 +200,7 @@ Partial Class MDIParent1
         Me.buttonRETaxBills = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator20 = New System.Windows.Forms.ToolStripSeparator()
         Me.buttonImportAssets = New System.Windows.Forms.ToolStripButton()
+        Me.mnuOptionsTaxYear2026 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
@@ -880,7 +881,7 @@ Partial Class MDIParent1
         '
         'mnuOptionsTaxYear
         '
-        Me.mnuOptionsTaxYear.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOptionsTaxYear2008, Me.mnuOptionsTaxYear2009, Me.mnuOptionsTaxYear2010, Me.mnuOptionsTaxYear2011, Me.mnuOptionsTaxYear2012, Me.mnuOptionsTaxYear2013, Me.mnuOptionsTaxYear2014, Me.mnuOptionsTaxYear2015, Me.mnuOptionsTaxYear2016, Me.mnuOptionsTaxYear2017, Me.mnuOptionsTaxYear2018, Me.mnuOptionsTaxYear2019, Me.mnuOptionsTaxYear2020, Me.mnuOptionsTaxYear2021, Me.mnuOptionsTaxYear2022, Me.mnuOptionsTaxYear2023, Me.mnuOptionsTaxYear2024, Me.mnuOptionsTaxYear2025})
+        Me.mnuOptionsTaxYear.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOptionsTaxYear2008, Me.mnuOptionsTaxYear2009, Me.mnuOptionsTaxYear2010, Me.mnuOptionsTaxYear2011, Me.mnuOptionsTaxYear2012, Me.mnuOptionsTaxYear2013, Me.mnuOptionsTaxYear2014, Me.mnuOptionsTaxYear2015, Me.mnuOptionsTaxYear2016, Me.mnuOptionsTaxYear2017, Me.mnuOptionsTaxYear2018, Me.mnuOptionsTaxYear2019, Me.mnuOptionsTaxYear2020, Me.mnuOptionsTaxYear2021, Me.mnuOptionsTaxYear2022, Me.mnuOptionsTaxYear2023, Me.mnuOptionsTaxYear2024, Me.mnuOptionsTaxYear2025, Me.mnuOptionsTaxYear2026})
         Me.mnuOptionsTaxYear.Name = "mnuOptionsTaxYear"
         Me.mnuOptionsTaxYear.Size = New System.Drawing.Size(204, 22)
         Me.mnuOptionsTaxYear.Text = "Tax Year"
@@ -888,117 +889,117 @@ Partial Class MDIParent1
         'mnuOptionsTaxYear2008
         '
         Me.mnuOptionsTaxYear2008.Name = "mnuOptionsTaxYear2008"
-        Me.mnuOptionsTaxYear2008.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2008.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2008.Text = "2008"
         Me.mnuOptionsTaxYear2008.Visible = False
         '
         'mnuOptionsTaxYear2009
         '
         Me.mnuOptionsTaxYear2009.Name = "mnuOptionsTaxYear2009"
-        Me.mnuOptionsTaxYear2009.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2009.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2009.Text = "2009"
         Me.mnuOptionsTaxYear2009.Visible = False
         '
         'mnuOptionsTaxYear2010
         '
         Me.mnuOptionsTaxYear2010.Name = "mnuOptionsTaxYear2010"
-        Me.mnuOptionsTaxYear2010.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2010.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2010.Text = "2010"
         Me.mnuOptionsTaxYear2010.Visible = False
         '
         'mnuOptionsTaxYear2011
         '
         Me.mnuOptionsTaxYear2011.Name = "mnuOptionsTaxYear2011"
-        Me.mnuOptionsTaxYear2011.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2011.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2011.Text = "2011"
         Me.mnuOptionsTaxYear2011.Visible = False
         '
         'mnuOptionsTaxYear2012
         '
         Me.mnuOptionsTaxYear2012.Name = "mnuOptionsTaxYear2012"
-        Me.mnuOptionsTaxYear2012.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2012.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2012.Text = "2012"
         Me.mnuOptionsTaxYear2012.Visible = False
         '
         'mnuOptionsTaxYear2013
         '
         Me.mnuOptionsTaxYear2013.Name = "mnuOptionsTaxYear2013"
-        Me.mnuOptionsTaxYear2013.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2013.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2013.Text = "2013"
         Me.mnuOptionsTaxYear2013.Visible = False
         '
         'mnuOptionsTaxYear2014
         '
         Me.mnuOptionsTaxYear2014.Name = "mnuOptionsTaxYear2014"
-        Me.mnuOptionsTaxYear2014.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2014.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2014.Text = "2014"
         Me.mnuOptionsTaxYear2014.Visible = False
         '
         'mnuOptionsTaxYear2015
         '
         Me.mnuOptionsTaxYear2015.Name = "mnuOptionsTaxYear2015"
-        Me.mnuOptionsTaxYear2015.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2015.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2015.Text = "2015"
         Me.mnuOptionsTaxYear2015.Visible = False
         '
         'mnuOptionsTaxYear2016
         '
         Me.mnuOptionsTaxYear2016.Name = "mnuOptionsTaxYear2016"
-        Me.mnuOptionsTaxYear2016.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2016.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2016.Text = "2016"
         '
         'mnuOptionsTaxYear2017
         '
         Me.mnuOptionsTaxYear2017.Name = "mnuOptionsTaxYear2017"
-        Me.mnuOptionsTaxYear2017.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2017.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2017.Text = "2017"
         '
         'mnuOptionsTaxYear2018
         '
         Me.mnuOptionsTaxYear2018.Name = "mnuOptionsTaxYear2018"
-        Me.mnuOptionsTaxYear2018.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2018.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2018.Text = "2018"
         '
         'mnuOptionsTaxYear2019
         '
         Me.mnuOptionsTaxYear2019.Name = "mnuOptionsTaxYear2019"
-        Me.mnuOptionsTaxYear2019.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2019.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2019.Text = "2019"
         '
         'mnuOptionsTaxYear2020
         '
         Me.mnuOptionsTaxYear2020.Name = "mnuOptionsTaxYear2020"
-        Me.mnuOptionsTaxYear2020.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2020.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2020.Text = "2020"
         '
         'mnuOptionsTaxYear2021
         '
         Me.mnuOptionsTaxYear2021.Name = "mnuOptionsTaxYear2021"
-        Me.mnuOptionsTaxYear2021.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2021.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2021.Text = "2021"
         '
         'mnuOptionsTaxYear2022
         '
         Me.mnuOptionsTaxYear2022.Name = "mnuOptionsTaxYear2022"
-        Me.mnuOptionsTaxYear2022.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2022.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2022.Text = "2022"
         '
         'mnuOptionsTaxYear2023
         '
         Me.mnuOptionsTaxYear2023.Name = "mnuOptionsTaxYear2023"
-        Me.mnuOptionsTaxYear2023.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2023.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2023.Text = "2023"
         '
         'mnuOptionsTaxYear2024
         '
         Me.mnuOptionsTaxYear2024.Name = "mnuOptionsTaxYear2024"
-        Me.mnuOptionsTaxYear2024.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2024.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2024.Text = "2024"
         '
         'mnuOptionsTaxYear2025
         '
         Me.mnuOptionsTaxYear2025.Name = "mnuOptionsTaxYear2025"
-        Me.mnuOptionsTaxYear2025.Size = New System.Drawing.Size(98, 22)
+        Me.mnuOptionsTaxYear2025.Size = New System.Drawing.Size(180, 22)
         Me.mnuOptionsTaxYear2025.Text = "2025"
         '
         'mnuOptionsDB
@@ -1370,6 +1371,12 @@ Partial Class MDIParent1
         Me.buttonImportAssets.Size = New System.Drawing.Size(83, 22)
         Me.buttonImportAssets.Text = "Import Assets"
         '
+        'mnuOptionsTaxYear2026
+        '
+        Me.mnuOptionsTaxYear2026.Name = "mnuOptionsTaxYear2026"
+        Me.mnuOptionsTaxYear2026.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOptionsTaxYear2026.Text = "2026"
+        '
         'MDIParent1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1570,4 +1577,5 @@ Partial Class MDIParent1
     Friend WithEvents mnuOptionsEventsBPP As ToolStripMenuItem
     Friend WithEvents mnuOptionsEventsRE As ToolStripMenuItem
     Friend WithEvents mnuOptionsTaxYear2025 As ToolStripMenuItem
+    Friend WithEvents mnuOptionsTaxYear2026 As ToolStripMenuItem
 End Class

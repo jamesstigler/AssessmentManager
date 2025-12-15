@@ -1827,8 +1827,14 @@ Module modReports
                                                     QuoStr(row("AssetId")) & "," &                          'text01
                                                     QuoStr(LesseeInfo.ToString) & "," &                     'text02
                                                     QuoStr(sFactorDescription) & "," &                      'text03
-                                                    dFactoredAmt & "," & dOriginalAmt & "," & iSuppressOriginalCost & "," &     'number01,number02,number03
-                                                    Year(row("PurchaseDate")) & "," & dFactor & "," &       'number04,number05
+                                                    dFactoredAmt & "," & dOriginalAmt & "," & iSuppressOriginalCost & ","      'number01,number02,number03
+                                            If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
+                                                sSQL = sSQL & iINVYear & ","        'number04
+                                            Else
+                                                sSQL = sSQL & Year(row("PurchaseDate")) & ","        'number04
+                                            End If
+                                            sSQL = sSQL & dFactor & ","             'number05
+                                            sSQL = sSQL &
                                                     IIf(iScheduleCounter = 1 And bPrintingClientValue = True, dClientINV, dINV) & "," &     'number06
                                                     row("BPPRatio") & "," &                                 'number07
                                                     QuoStr(sFactorCode) & "," &                             'text10
