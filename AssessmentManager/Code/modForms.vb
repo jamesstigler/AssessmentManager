@@ -141,7 +141,7 @@ Module modForms
             ElseIf eType = enumReport.enumRenditionForm Then
                 ReDim structFields(12)
                 structFields(0).sPDFField = "Appraisal District Account Number" : structFields(0).sTable = "Assessments" : structFields(0).sField = "AcctNum"
-                structFields(1).sPDFField = "Appraisal District’s Name" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Name"
+                structFields(1).sPDFField = "ADN" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Name"
                 structFields(2).sPDFField = "" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Phone"
                 structFields(3).sPDFField = "" : structFields(3).sTable = "Assessors" : structFields(3).sField = "Address"
                 structFields(4).sPDFField = "Tax Year" : structFields(4).sTable = "Assessments" : structFields(4).sField = "TaxYear"
@@ -310,16 +310,16 @@ Module modForms
                         structFields(1).sPDFField = "Name of Property Owner or Lessee" : structFields(1).sTable = "Locations" : structFields(1).sField = "OwnerName"
                         structFields(2).sPDFField = "Mailing Address City State ZIP Code" : structFields(2).sTable = "Clients" : structFields(2).sField = "FullAddress"
                         structFields(3).sPDFField = "Phone Number area code and number" : structFields(3).sTable = "Clients" : structFields(3).sField = "Phone"
-                        structFields(4).sPDFField = "Appraisal District Account Number" : structFields(4).sTable = "Assessments" : structFields(4).sField = "AcctNum"
-                        structFields(5).sPDFField = "Physical Address" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
+                        structFields(4).sPDFField = "ADAN" : structFields(4).sTable = "Assessments" : structFields(4).sField = "AcctNum"
+                        structFields(5).sPDFField = "Physical Address City State ZIP Code if different than above" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
                         structFields(6).sPDFField = "Tax Year" : structFields(6).sTable = "Assessments" : structFields(6).sField = "TaxYear"
-                        structFields(7).sPDFField = "Legal description" : structFields(7).sTable = "Locations" : structFields(7).sField = "LegalDescription"
-                        structFields(8).sPDFField = "day signed" : structFields(9).sTable = "Calculated" : structFields(8).sField = "Day" : structFields(8).sValue = CStr(Now.Day)
-                        structFields(9).sPDFField = "month signed" : structFields(9).sTable = "Calculated" : structFields(9).sField = "Month" : structFields(9).sValue = Format(Now, "MMMM")
-                        structFields(10).sPDFField = "year signed" : structFields(10).sTable = "Calculated" : structFields(10).sField = "Year" : structFields(10).sValue = Right(CStr(Now.Year), 2)
-                        structFields(11).sPDFField = "day sworn" : structFields(11).sTable = "Calculated" : structFields(11).sField = "Day" : structFields(11).sValue = CStr(Now.Day)
-                        structFields(12).sPDFField = "month sworn" : structFields(12).sTable = "Calculated" : structFields(12).sField = "Month" : structFields(12).sValue = Format(Now, "MMMM")
-                        structFields(13).sPDFField = "year sworn" : structFields(13).sTable = "Calculated" : structFields(13).sField = "Year" : structFields(13).sValue = Right(CStr(Now.Year), 2)
+                        structFields(7).sPDFField = "If no street address provide legal description 1" : structFields(7).sTable = "Locations" : structFields(7).sField = "LegalDescription"
+                        structFields(8).sPDFField = "day of" : structFields(9).sTable = "Calculated" : structFields(8).sField = "Day" : structFields(8).sValue = CStr(Now.Day)
+                        structFields(9).sPDFField = "Sig Month" : structFields(9).sTable = "Calculated" : structFields(9).sField = "Month" : structFields(9).sValue = Format(Now, "MMMM")
+                        structFields(10).sPDFField = "Sig Year" : structFields(10).sTable = "Calculated" : structFields(10).sField = "Year" : structFields(10).sValue = Right(CStr(Now.Year), 2)
+                        structFields(11).sPDFField = "day of_2" : structFields(11).sTable = "Calculated" : structFields(11).sField = "Day" : structFields(11).sValue = CStr(Now.Day)
+                        structFields(12).sPDFField = "Sworn month" : structFields(12).sTable = "Calculated" : structFields(12).sField = "Month" : structFields(12).sValue = Format(Now, "MMMM")
+                        structFields(13).sPDFField = "Sworn Year" : structFields(13).sTable = "Calculated" : structFields(13).sField = "Year" : structFields(13).sValue = Right(CStr(Now.Year), 2)
                     Case enumReport.enumCorrection
                         ReDim structFields(13)
                         structFields(0).sPDFField = "3" : structFields(0).sTable = "Locations" : structFields(0).sField = "OwnerName"

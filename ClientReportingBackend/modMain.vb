@@ -14,7 +14,7 @@ Module modMain
         Friend AppName As String
         Friend AppPath As String
         Friend myRandom As Random
-        Friend Server As String
+        'Friend Server As String
         Friend TempPath As String
         Friend TaxYear As Integer
         Friend UserPath As String
@@ -217,16 +217,18 @@ Module modMain
     Sub Main()
         Try
             AppData.UserId = Microsoft.VisualBasic.Left(Trim(UCase(Environ("username"))), 30)
-            If AppData.UserId = "JAMESSTIGLER" Then
-                AppData.Server = "MSI"
-            Else
-                AppData.Server = "10.10.1.4\SQLEXPRESS"
-            End If
+            'If AppData.UserId = "JAMESSTIGLER" Then
+            '    AppData.Server = "MSI"
+            'Else
+            '    AppData.Server = "10.10.1.4\SQLEXPRESS"
+            'End If
             Console.Title = "Client Reporting Application"
+            LogMsg("-------------- START -------------")
             LogMsg("Starting, version=" & Application.ProductVersion)
-            ConnectToDB()
-            RunClientReporting()
-
+            If ConnectToDB() Then
+                RunClientReporting()
+            End If
+            LogMsg("--------------  END  -------------")
         Catch ex As Exception
             LogMsg("Error:  " & ex.Message)
         End Try
@@ -237,12 +239,7 @@ Module modMain
     Public Sub LogMsg(msg As String)
         Try
             Console.WriteLine(Now.ToString("G") & "  " & msg)
-            Dim logfile
-            If AppData.UserId = "JAMESSTIGLER" Then
-                logfile = "C:\MyTempFolder\vantageone\temp\ClientReportingStatus.LOG"
-            Else
-                logfile = "\\vot-file\Vantage\Assessment Manager\AssessmentManagerLogs\ClientReportingStatus.LOG"
-            End If
+            Dim logfile = My.Settings("LogFilePath") & "\ClientReportingStatus.LOG"
             If Directory.Exists(Path.GetDirectoryName(logfile)) = False Then Directory.CreateDirectory(Path.GetDirectoryName(logfile))
             My.Computer.FileSystem.WriteAllText(logfile, Now.ToString("G") & "  " & msg & vbCrLf, True)
         Catch ex As Exception

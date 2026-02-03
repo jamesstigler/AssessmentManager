@@ -577,15 +577,13 @@
     Public Function ConnectToDB() As Boolean
         Dim sError As String = ""
 
-        cData = New clsData With {
-            .Server = AppData.Server
-        }
+        cData = New clsData()
         If cData.MakeConnection(sError) Then
             LoadStates()
             ExecuteSQL("delete ReportData WHERE UserName = " & QuoStr(AppData.UserId))
             Return True
         Else
-            MsgBox("Error connecting to database:  " & sError, MsgBoxStyle.Critical, AppData.AppName)
+            LogMsg("Error connecting to database:  " & sError)
             Return False
         End If
 

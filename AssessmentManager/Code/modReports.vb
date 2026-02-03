@@ -1507,6 +1507,7 @@ Module modReports
                     ''''Else
                     dValue = UnNullToDouble(row("FinalValue"))
                     dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
+                    dFreeport = UnNullToDouble(row("FreeportReductionAmt"))
                     ''''End If
                     clsReport.Text18 = Trim(row("Clients_Name"))
                     clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"

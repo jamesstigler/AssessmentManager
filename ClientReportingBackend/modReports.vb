@@ -1515,6 +1515,7 @@ Module modReports
                     ''''Else
                     dValue = UnNullToDouble(row("FinalValue"))
                     dAbatement = UnNullToDouble(row("AbatementReductionAmt"))
+                    dFreeport = UnNullToDouble(row("FreeportReductionAmt"))
                     ''''End If
                     clsReport.Text18 = Trim(row("Clients_Name"))
                     clsReport.Text01 = Trim(row("Clients_Name")) & vbCrLf & iTaxYear & " Estimated Tax Accrual"
@@ -2388,7 +2389,7 @@ Module modReports
             sql.Append(" WHERE LocationsBPP.TaxYear >= ").Append(Year(Now) - 1)
             sql.Append(" AND ISNULL(Clients.ProspectFl,0)=0 AND ISNULL(Clients.InactiveFl,0)=0")
             sql.Append(" AND ISNULL(LocationsBPP.InactiveFl,0)= 0 And ISNULL(AssessmentsBPP.InactiveFl, 0) = 0")
-            'sql.Append(" AND Clients.ClientId = 2")     '2 hajoca
+            'sql.Append(" AND Clients.ClientId = 1")     '2 hajoca
             GetData(sql.ToString, dt)
 
             rowcount = dt.Rows.Count
@@ -2427,7 +2428,7 @@ Module modReports
 
             ''get re accounts
             starttime = Now.ToString("f")
-            msg = "Starting client reporting process for RE, " + starttime
+            msg = "Starting client reporting process for RE"
             MDIParent1.ShowStatus(msg)
             LogMsg(msg)
             sql.Clear()
@@ -2439,7 +2440,7 @@ Module modReports
             sql.Append(" WHERE LocationsRE.TaxYear >= ").Append(Year(Now) - 1)
             sql.Append(" And ISNULL(Clients.ProspectFl,0)=0 And ISNULL(Clients.InactiveFl,0)=0")
             sql.Append(" And ISNULL(LocationsRE.InactiveFl,0)= 0 And ISNULL(AssessmentsRE.InactiveFl, 0) = 0")
-            'sql.Append(" AND Clients.ClientId = 2")     '2 hajoca
+            'sql.Append(" AND Clients.ClientId = 1")     '2 hajoca
             GetData(sql.ToString, dt)
 
             rowcount = dt.Rows.Count

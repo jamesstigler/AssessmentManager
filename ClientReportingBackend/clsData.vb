@@ -1,34 +1,37 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Configuration
+Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Windows.Forms
 
 Public Class clsData
-    Private m_Server As String
-    Private m_LocalServer As String
+    'Private m_Server As String
     Private cn As SqlConnection
-    Public Property Server() As String
-        Get
-            Return m_Server
-        End Get
-        Set(ByVal value As String)
-            m_Server = value
-        End Set
-    End Property
+    'Public Property Server() As String
+    '    Get
+    '        Return m_Server
+    '    End Get
+    '    Set(ByVal value As String)
+    '        m_Server = value
+    '    End Set
+    'End Property
     Public Function MakeConnection(ByRef sError As String) As Boolean
         sError = ""
         Try
-            If m_Server = "" Then
-                sError = "Server not defined"
-                Return False
-            End If
+            'If m_Server = "" Then
+            '    sError = "Server not defined"
+            '    Return False
+            'End If
             cn = New SqlConnection
-            If AppData.UserId = "JAMESSTIGLER" And AppData.Server = "MSI" Then
-                cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;Integrated Security=SSPI;connect timeout=30"
-            Else
-                cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;connect timeout=30;user id=vantageapp;password=vantage2012"
-            End If
+            cn.ConnectionString = My.Settings("DBConnectionString")
+            LogMsg("Connecting to " & cn.ConnectionString)
+            'If AppData.UserId = "JAMESSTIGLER" And AppData.Server = "MSI" Then
+            '    cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;Integrated Security=SSPI;connect timeout=30"
+            'Else
+            '    cn.ConnectionString = "data source=" & m_Server & ";initial catalog=AssessmentManagerData;connect timeout=30;user id=vantageapp;password=vantage2012"
+            'End If
             cn.Open()
             ExecuteSQL("set arithabort on")
-
+            LogMsg("Connected")
             Return True
         Catch ex As Exception
             sError = "Error logging in:  Error = " & ex.Message
