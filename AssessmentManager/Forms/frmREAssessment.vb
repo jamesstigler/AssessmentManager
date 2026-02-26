@@ -143,6 +143,7 @@
             txtConsultantName.Text = dr("ConsultantName").ToString.Trim
             txtSICCode.Text = dr("SICCode").ToString.Trim
             txtClientLocationId.Text = dr("ClientLocationId").ToString
+            txtSavingsExclusion.Text = LoadExclusions()
             m_AssessorId = dr("AssessorId")
             lParentAssessmentId = dr("ParentAssessmentId")
             Me.Text = m_TaxYear & " " & "Real Estate Assessment:  " & Trim(dr("Name")) & "   " & Trim(dr("Address")) & "   " &
@@ -161,6 +162,64 @@
             Return False
         Finally
             MDIParent1.ShowStatus()
+        End Try
+    End Function
+
+    Private Function LoadExclusions() As String
+        Try
+            Dim ret As New StringBuilder
+            Dim sql As New StringBuilder
+            sql.Append("SELECT ISNULL(a.SavingsExclusionCd,0) AS SavingsExclusionCd, ISNULL(c.ExcludeNotified,0) AS ExcludeNotified, ISNULL(c.ExcludeClient,0) AS ExcludeClient" &
+                " FROM AssessmentsRE a" &
+                " INNER JOIN LocationsRE l ON l.ClientId = a.ClientId AND l.LocationId = a.LocationId" &
+                " AND l.TaxYear = a.TaxYear" &
+                " INNER JOIN Clients c ON c.ClientId = l.ClientId")
+            sql.Append(" WHERE a.ClientId = ").Append(m_ClientId)
+            sql.Append(" AND a.LocationId = ").Append(m_LocationId)
+            sql.Append(" AND a.AssessmentId = ").Append(m_AssessmentId)
+            sql.Append(" AND a.TaxYear = ").Append(m_TaxYear)
+            Dim dt As New DataTable
+            Dim lRows As Long = GetData(sql.ToString, dt)
+            For Each dr As DataRow In dt.Rows
+                If dr("ExcludeClient") Then ret.Append("Exclude All Client")
+                If dr("ExcludeNotified") Then ret.Append(IIf(ret.Length > 1, " / ", "")).Append("Exclude All Notified")
+                Dim excl = ""
+                Select Case dr("SavingsExclusionCd")
+                    Case enumSavingsExclusionCd.enumAbatements
+                        excl = "Abatements"
+                    Case enumSavingsExclusionCd.enumEntire
+                        excl = "Entire Account"
+                    Case enumSavingsExclusionCd.enumFreeport
+                        excl = "Freeport"
+                    Case enumSavingsExclusionCd.enumNotified
+                        excl = "Notified"
+                    Case enumSavingsExclusionCd.enumAbatementsFreeport
+                        excl = "Abatements and Freeport"
+                    Case enumSavingsExclusionCd.enumNotifiedAbatements
+                        excl = "Notified and Abatements"
+                    Case enumSavingsExclusionCd.enumNotifiedAbatementsFreeport
+                        excl = "Notified, Abatements and Freeport"
+                    Case enumSavingsExclusionCd.enumNotifiedFreeport
+                        excl = "Notified and Freeport"
+                    Case enumSavingsExclusionCd.enumClient
+                        excl = "Client"
+                    Case enumSavingsExclusionCd.enumClientAbatements
+                        excl = "Client and Abatements"
+                    Case enumSavingsExclusionCd.enumClientAbatementsFreeport
+                        excl = "Client, Abatements and Freeport"
+                    Case enumSavingsExclusionCd.enumClientFreeport
+                        excl = "Client and Freeport"
+                End Select
+                If excl <> "" Then
+                    If ret.Length > 0 Then ret.Append(" / ")
+                    ret.Append(excl)
+                End If
+            Next
+            If ret.Length = 0 Then ret.Append("None")
+            Return ret.ToString
+        Catch ex As Exception
+            MsgBox("Error loading exclusions:  " & ex.Message)
+            Return ""
         End Try
     End Function
 

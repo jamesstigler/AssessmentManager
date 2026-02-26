@@ -171,6 +171,8 @@ Partial Class frmREAssessment
         Me.SplitContainer4 = New System.Windows.Forms.SplitContainer()
         Me.fraCollectors = New System.Windows.Forms.GroupBox()
         Me.dgCollectors = New System.Windows.Forms.DataGridView()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.txtSavingsExclusion = New System.Windows.Forms.TextBox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
@@ -526,7 +528,7 @@ Partial Class frmREAssessment
         '
         Me.chkInactiveFl.AutoSize = True
         Me.chkInactiveFl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkInactiveFl.Location = New System.Drawing.Point(7, 217)
+        Me.chkInactiveFl.Location = New System.Drawing.Point(8, 272)
         Me.chkInactiveFl.Name = "chkInactiveFl"
         Me.chkInactiveFl.Size = New System.Drawing.Size(64, 17)
         Me.chkInactiveFl.TabIndex = 218
@@ -722,6 +724,8 @@ Partial Class frmREAssessment
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.txtSavingsExclusion)
+        Me.Panel1.Controls.Add(Me.Label47)
         Me.Panel1.Controls.Add(Me.grpEvents)
         Me.Panel1.Controls.Add(Me.Label46)
         Me.Panel1.Controls.Add(Me.Label45)
@@ -806,7 +810,7 @@ Partial Class frmREAssessment
         Me.dgEvents.ContextMenuStrip = Me.ContextMenuStrip4
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -944,7 +948,7 @@ Partial Class frmREAssessment
         Me.txtSICCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSICCode.Enabled = False
         Me.txtSICCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSICCode.Location = New System.Drawing.Point(357, 215)
+        Me.txtSICCode.Location = New System.Drawing.Point(356, 216)
         Me.txtSICCode.Name = "txtSICCode"
         Me.txtSICCode.Size = New System.Drawing.Size(160, 20)
         Me.txtSICCode.TabIndex = 265
@@ -1001,7 +1005,7 @@ Partial Class frmREAssessment
         Me.txtConsultantName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtConsultantName.Enabled = False
         Me.txtConsultantName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtConsultantName.Location = New System.Drawing.Point(145, 215)
+        Me.txtConsultantName.Location = New System.Drawing.Point(104, 216)
         Me.txtConsultantName.Name = "txtConsultantName"
         Me.txtConsultantName.Size = New System.Drawing.Size(154, 20)
         Me.txtConsultantName.TabIndex = 261
@@ -1020,7 +1024,7 @@ Partial Class frmREAssessment
         'Label9
         '
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(81, 215)
+        Me.Label9.Location = New System.Drawing.Point(40, 216)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(62, 20)
         Me.Label9.TabIndex = 262
@@ -1903,6 +1907,28 @@ Partial Class frmREAssessment
         Me.dgCollectors.Size = New System.Drawing.Size(754, 117)
         Me.dgCollectors.TabIndex = 212
         '
+        'Label47
+        '
+        Me.Label47.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label47.Location = New System.Drawing.Point(2, 240)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(100, 20)
+        Me.Label47.TabIndex = 277
+        Me.Label47.Text = "Savings Exclusion"
+        Me.Label47.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtSavingsExclusion
+        '
+        Me.txtSavingsExclusion.AllowDrop = True
+        Me.txtSavingsExclusion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSavingsExclusion.Enabled = False
+        Me.txtSavingsExclusion.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSavingsExclusion.Location = New System.Drawing.Point(104, 240)
+        Me.txtSavingsExclusion.Name = "txtSavingsExclusion"
+        Me.txtSavingsExclusion.Size = New System.Drawing.Size(200, 20)
+        Me.txtSavingsExclusion.TabIndex = 278
+        Me.txtSavingsExclusion.Tag = ""
+        '
         'frmREAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -2100,4 +2126,6 @@ Partial Class frmREAssessment
     Friend WithEvents ContextMenuStrip4 As ContextMenuStrip
     Friend WithEvents mnuContextDeleteEvent As ToolStripMenuItem
     Friend WithEvents SplitContainer4 As SplitContainer
+    Friend WithEvents txtSavingsExclusion As TextBox
+    Friend WithEvents Label47 As Label
 End Class

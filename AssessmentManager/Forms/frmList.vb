@@ -1835,7 +1835,8 @@
                     Dim row As DataGridViewRow
                     Dim colAssessments As New Collection, structAssess As New structAssessment
 
-                    For Each row In dgList.SelectedRows
+                    ''For Each row In dgList.SelectedRows
+                    For Each row In dgList.SelectedRows.Cast(Of DataGridViewRow).Reverse()      ''selected rows are in reverse order of what's shown in grid
                         'for bpp assess and rendtion lists, get list of all factorentityids to pass to print screen
                         'print screen will then show dropdown list of entities so user can select which entity to print
                         For i = 1 To 5
@@ -3479,6 +3480,10 @@
     Private Sub cmdEventCancel_Click(sender As Object, e As EventArgs) Handles cmdEventCancel.Click
         pnlEvent.Visible = False
         dgList.Enabled = True
+    End Sub
+
+    Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
+
     End Sub
 
 

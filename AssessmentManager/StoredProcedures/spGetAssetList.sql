@@ -602,7 +602,10 @@ AS
 			IF @Accrual = 1
 			BEGIN
 				UPDATE #temptbl SET ClientValue1 = OriginalCost, EntityValue1 = OriginalCost
-					WHERE GLCode IN('INV','Inventory') OR AssetId IN('INV','Inventory') OR [Description] IN('INV','Inventory')
+					WHERE 
+						(GLCode IN('INV','Inventory') OR AssetId IN('INV','Inventory') OR [Description] IN('INV','Inventory'))
+					AND 
+						(ClientFactorCode1 NOT IN('EXEMPT','NON'))
 			END 
 
 			IF @NeedTotalValues = 1

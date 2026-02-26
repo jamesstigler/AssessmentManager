@@ -78,6 +78,8 @@ Partial Class frmBPPAssessment
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.cmdNewEvent = New System.Windows.Forms.Button()
         Me.dgEvents = New System.Windows.Forms.DataGridView()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtSavingsExclusion = New System.Windows.Forms.TextBox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.grpEvents.SuspendLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -511,7 +513,7 @@ Partial Class frmBPPAssessment
         '
         Me.Label3.Location = New System.Drawing.Point(464, 516)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(62, 20)
+        Me.Label3.Size = New System.Drawing.Size(96, 20)
         Me.Label3.TabIndex = 241
         Me.Label3.Text = "Consultant"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -520,7 +522,7 @@ Partial Class frmBPPAssessment
         '
         Me.txtConsultantName.AllowDrop = True
         Me.txtConsultantName.Enabled = False
-        Me.txtConsultantName.Location = New System.Drawing.Point(532, 516)
+        Me.txtConsultantName.Location = New System.Drawing.Point(564, 516)
         Me.txtConsultantName.Name = "txtConsultantName"
         Me.txtConsultantName.Size = New System.Drawing.Size(152, 20)
         Me.txtConsultantName.TabIndex = 28
@@ -549,9 +551,9 @@ Partial Class frmBPPAssessment
         '
         'Label6
         '
-        Me.Label6.Location = New System.Drawing.Point(464, 544)
+        Me.Label6.Location = New System.Drawing.Point(464, 540)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(62, 20)
+        Me.Label6.Size = New System.Drawing.Size(96, 20)
         Me.Label6.TabIndex = 245
         Me.Label6.Text = "SIC Code"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -560,7 +562,7 @@ Partial Class frmBPPAssessment
         '
         Me.txtSICCode.AllowDrop = True
         Me.txtSICCode.Enabled = False
-        Me.txtSICCode.Location = New System.Drawing.Point(532, 544)
+        Me.txtSICCode.Location = New System.Drawing.Point(564, 540)
         Me.txtSICCode.Name = "txtSICCode"
         Me.txtSICCode.Size = New System.Drawing.Size(152, 20)
         Me.txtSICCode.TabIndex = 244
@@ -644,11 +646,32 @@ Partial Class frmBPPAssessment
         Me.dgEvents.Size = New System.Drawing.Size(806, 196)
         Me.dgEvents.TabIndex = 230
         '
+        'Label7
+        '
+        Me.Label7.Location = New System.Drawing.Point(452, 564)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(108, 20)
+        Me.Label7.TabIndex = 261
+        Me.Label7.Text = "Savings Exclusion"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtSavingsExclusion
+        '
+        Me.txtSavingsExclusion.AllowDrop = True
+        Me.txtSavingsExclusion.Enabled = False
+        Me.txtSavingsExclusion.Location = New System.Drawing.Point(564, 564)
+        Me.txtSavingsExclusion.Name = "txtSavingsExclusion"
+        Me.txtSavingsExclusion.Size = New System.Drawing.Size(252, 20)
+        Me.txtSavingsExclusion.TabIndex = 260
+        Me.txtSavingsExclusion.Tag = ""
+        '
         'frmBPPAssessment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(828, 639)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.txtSavingsExclusion)
         Me.Controls.Add(Me.grpEvents)
         Me.Controls.Add(Me.cmdOpenAssessor)
         Me.Controls.Add(Me.Label6)
@@ -766,4 +789,6 @@ Partial Class frmBPPAssessment
     Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents cmdNewEvent As Button
     Friend WithEvents dgEvents As DataGridView
+    Friend WithEvents Label7 As Label
+    Friend WithEvents txtSavingsExclusion As TextBox
 End Class
