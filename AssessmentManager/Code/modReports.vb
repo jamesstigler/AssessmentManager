@@ -1871,7 +1871,7 @@ Module modReports
                                             sSQL = "insert into ReportData (UserName,ReportId,RowCounter,Title01,Text01,Date01," &
                                                 "Text03,Text04,Number01," &
                                                 "Number02,Number03,Number04,Number05,Text10,Number06,Text02,Text06,Number07,Text05," &
-                                                " Number09,BarCode1,BarCode2,BarCodeDesc,Number10,Number11,Number12,Number13)" &
+                                                " Number09,BarCode1,BarCode2,BarCodeDesc,Number10,Number11,Number12,Number13,Number14)" &
                                                 " SELECT " &
                                                 QuoStr(AppData.UserId) & "," & AppData.ReportId & "," &         'username, reportid
                                                 lRowCounter & "," & QuoStr(sTitle) & "," &                      'rowcounter, title01
@@ -1930,6 +1930,12 @@ Module modReports
                                                 sSQL = sSQL & ",0"
                                             Else
                                                 sSQL = sSQL & ",1"
+                                            End If
+                                            'number 14, inventory contains lease info
+                                            If eType = enumReport.enumAssetDetailCost Then
+                                                sSQL = sSQL & ",0"
+                                            Else
+                                                sSQL = sSQL & ",0"
                                             End If
                                             ExecuteSQL(sSQL)
                                         ElseIf eType = enumReport.enumAssetDetailLeasedProperty Or
