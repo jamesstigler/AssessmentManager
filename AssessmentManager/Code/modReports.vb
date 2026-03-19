@@ -1828,7 +1828,7 @@ Module modReports
                                                     QuoStr(row("AssetId")) & "," &                          'text01
                                                     QuoStr(LesseeInfo.ToString) & "," &                     'text02
                                                     QuoStr(sFactorDescription) & "," &                      'text03
-                                                    dFactoredAmt & "," & dOriginalAmt & "," & iSuppressOriginalCost & ","      'number01,number02,number03
+                                                    dFactoredAmt & "," & IIf(sFactorCode = "INV" Or sFactorCode = "INVENTORY", dFactoredAmt, dOriginalAmt) & "," & iSuppressOriginalCost & ","      'number01,number02,number03
                                             If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
                                                 sSQL = sSQL & iINVYear & ","        'number04
                                             Else
@@ -1848,9 +1848,9 @@ Module modReports
                                             sSQL = sSQL & lFactoredAmtBeforeInterstateAllocationPct & ","
                                             'Text05, Number11
                                             If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
-                                                sSQL = sSQL & "'" & iTaxYear & " Inventory',0,"
+                                                sSQL = sSQL & "'" & iTaxYear & " Inventory',1,"
                                             Else
-                                                sSQL = sSQL & "'Fixed Assets',1,"
+                                                sSQL = sSQL & "'Fixed Assets',0,"
                                             End If
                                             'BarCode1,BarCode2,BarCodeDesc
                                             If bPrintCoverPage Then
@@ -1879,14 +1879,14 @@ Module modReports
                                                 QuoStr(row("Description") &                                     'text03
                                                 IIf(sVIN = "", "", vbCrLf & "VIN: " & sVIN)) & "," &
                                                 QuoStr(sFactorDescription) & "," & dFactoredAmt & "," &         'text04, number01
-                                                dOriginalAmt & "," & iSuppressOriginalCost & "," &              'number02, number03
+                                                IIf(sFactorCode = "INV" Or sFactorCode = "INVENTORY", dFactoredAmt, dOriginalAmt) & "," & iSuppressOriginalCost & "," &              'number02, number03
                                                 Year(row("PurchaseDate")) & "," & dFactor & "," & QuoStr(sFactorCode) & ","     'number04, number05, text10
                                             'Number06,Text02
                                             'put inventory at the top of the report
                                             If sFactorCode = "INV" Or sFactorCode = "INVENTORY" Then
-                                                sSQL = sSQL & "0, " & QuoStr(iTaxYear & " Inventory") & ","
+                                                sSQL = sSQL & "1, " & QuoStr(iTaxYear & " Inventory") & ","
                                             Else
-                                                sSQL = sSQL & "1,'Fixed Assets',"
+                                                sSQL = sSQL & "0,'Fixed Assets',"
                                             End If
                                             'Text06
                                             LesseeInfo.Clear()
