@@ -30,7 +30,8 @@
             If ValidateFolder Then
                 fraFile.Visible = False
                 cmdBack.Enabled = True
-                cmdFinish.Enabled=True
+                cmdFinish.Enabled = True
+                cmdNext.Enabled = False
             End If
         End If
     End Sub
@@ -74,7 +75,8 @@
             cmdNext.Enabled = True
         Else
             fraFile.Visible = True
-            'fraColumns.Visible = False
+            cmdNext.Enabled = True
+            cmdFinish.Enabled = False
         End If
 
     End Sub

@@ -11,6 +11,7 @@
     Private eListOfCodes As enumRECompCodes
     Private sSearchSQL As String
     Private dtResults As DataTable
+    Private bGridLoading As Boolean
 
     Private Sub cmdClose_Click(sender As Object, e As System.EventArgs) Handles cmdClose.Click
         Me.Close()
@@ -57,6 +58,7 @@
             Dim sIN As String
             Static bGridFormatted As Boolean = False
 
+            bGridLoading = True
             dtResults = New DataTable
             cmdPrint.Enabled = False
             txtCount.Text = "" : sSELECT.Length = 0 : sWHERE.Length = 0
@@ -163,6 +165,13 @@
             If txtLandBldgRatioFrom.Text <> "" And txtLandBldgRatioTo.Text <> "" Then
                 sWHERE.Append(" AND LandBuildingRatio BETWEEN " & txtLandBldgRatioFrom.Text & " AND " & txtLandBldgRatioTo.Text)
             End If
+            If txtAgentName.Text.Trim = "" Then
+                If chkAgentEmpty.Checked Then
+                    sWHERE.Append(" AND ISNULL(AgentName,'') = ''")
+                End If
+            Else
+                sWHERE.Append(" AND AgentName LIKE " & QuoStr("%" & txtAgentName.Text & "%"))
+            End If
 
             lRows = GetData("SELECT COUNT(AcctNum) FROM REComps " & sWHERE.ToString, dtResults)
             If lRows > 0 Then
@@ -172,6 +181,7 @@
             End If
             If lRows > 500 Then
                 If MsgBox(lRows.ToString("#,##0") & " rows found.  Do you wish to continue?", MsgBoxStyle.YesNo) = vbNo Then
+                    bGridLoading = False
                     Exit Sub
                 End If
             End If
@@ -179,7 +189,7 @@
             sSELECT.Length = 0
             For i = 0 To 1
                 If sSELECT.Length > 0 Then sSELECT.Append(" UNION ")
-                sSELECT.Append(" SELECT " & i & " AS SortField, AcctNum, StreetName, BusinessName, BuildingClass, ConstructionType, LandMarketArea,")
+                sSELECT.Append(" SELECT " & i & " AS SortField, AcctNum, StreetName, BusinessName,ISNULL(AgentName,'') AS AgentName, BuildingClass, ConstructionType, LandMarketArea,")
                 sSELECT.Append(" ImprovementMarketArea, NeighborhoodGroup, EconomicArea, ComparabilityCode,")
                 sSELECT.Append(" BuildingSqFt, LandSqFt, YearBuilt, EffectiveYear,")
                 sSELECT.Append(" LandValue, ImprovementValue, TotalValue, LandValuePerSqFt, ImprovementValuePerSqFt, TotalValuePerSqFt, LandBuildingRatio,")
@@ -249,7 +259,10 @@
             cmdPrint.Enabled = True
             gridResults.Columns("SortField").Visible = False
 
-            If bGridFormatted Then Exit Sub
+            If bGridFormatted Then
+                bGridLoading = False
+                Exit Sub
+            End If
 
             With gridResults
                 With .Columns("AcctNum")
@@ -261,6 +274,7 @@
                 With .Columns("BusinessName")
                     .HeaderText = "Biz Name"
                 End With
+                .Columns("AgentName").HeaderText = "Agent"
                 With .Columns("BuildingClass")
                     .HeaderText = "Bldg Class"
                 End With
@@ -391,8 +405,10 @@
             Next
 
             bGridFormatted = True
+            bGridLoading = False
 
         Catch ex As Exception
+            bGridLoading = False
             MsgBox("Error loading results:  " & ex.Message)
         End Try
     End Sub
@@ -494,13 +510,14 @@
         End Select
     End Sub
 
-    Private Sub TexBoxGotFocus(sender As Object, e As System.EventArgs) Handles txtAcctNum.GotFocus, txtBldgSqFtFrom.GotFocus, txtBldgSqFtTo.GotFocus,
+    Private Sub TextBoxGotFocus(sender As Object, e As System.EventArgs) Handles txtAcctNum.GotFocus, txtBldgSqFtFrom.GotFocus, txtBldgSqFtTo.GotFocus,
             txtBusinessName.GotFocus, txtEconomicArea.GotFocus, txtImprovementMarketArea.GotFocus, txtImprovementValueFrom.GotFocus, txtImprovementValueSqFtFrom.GotFocus,
             txtImprovementValueSqFtTo.GotFocus, txtImprovementValueTo.GotFocus, txtLandMarketArea.GotFocus, txtLandSqFtFrom.GotFocus, txtLandSqFtTo.GotFocus,
             txtLandValueFrom.GotFocus, txtLandValueSqFtFrom.GotFocus, txtLandValueSqFtTo.GotFocus, txtLandValueTo.GotFocus, txtMapsco.GotFocus,
             txtNeighborhoodGroup.GotFocus, txtNumberUnitsFrom.GotFocus, txtNumberUnitsTo.GotFocus, txtStreet.GotFocus, txtTotalValueFrom.GotFocus,
             txtTotalValueSqFtFrom.GotFocus, txtTotalValueSqFtTo.GotFocus, txtTotalValueTo.GotFocus, txtTotalValueUnitFrom.GotFocus, txtTotalValueUnitTo.GotFocus,
-            txtYearBuiltFrom.GotFocus, txtYearBuiltTo.GotFocus, txtLandBldgRatioFrom.GotFocus, txtLandBldgRatioTo.GotFocus, txtEffectiveYearFrom.GotFocus, txtEffectiveYearTo.GotFocus
+            txtYearBuiltFrom.GotFocus, txtYearBuiltTo.GotFocus, txtLandBldgRatioFrom.GotFocus, txtLandBldgRatioTo.GotFocus,
+            txtEffectiveYearFrom.GotFocus, txtEffectiveYearTo.GotFocus, txtAgentName.GotFocus
         sender.SelectAll()
     End Sub
 
@@ -525,5 +542,9 @@
 
     Private Sub frmREComps_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         SaveColumnWidths()
+    End Sub
+
+    Private Sub gridResults_ColumnWidthChanged(sender As Object, e As DataGridViewColumnEventArgs) Handles gridResults.ColumnWidthChanged
+        If bGridLoading = False Then AppData.ColumnWidthChanged = True
     End Sub
 End Class

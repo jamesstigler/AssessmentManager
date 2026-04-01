@@ -26,6 +26,7 @@ Public Class frmImportREComps
     Private Const STREETNUMBER As String = "Street Number"
     Private Const STREETNAME As String = "Street Name"
     Private Const BUSINESSNAME As String = "Business Name"
+    Private Const AGENTNAME As String = "Agent"
     Private Const LANDBLDGRATIO As String = "Land/Bldg Ratio"
     Private Const CONSTRUCTIONTYPE As String = "Construction Type"
     Private Const EFFECTIVEYEAR As String = "Effective Year"
@@ -97,6 +98,8 @@ Public Class frmImportREComps
         cboBuildingSqFt.Items.Add("")
         cboBusinessName.Items.Clear()
         cboBusinessName.Items.Add("")
+        cboAgentName.Items.Clear()
+        cboAgentName.Items.Add("")
         cboCompCode.Items.Clear()
         cboCompCode.Items.Add("")
         cboEconomicArea.Items.Clear()
@@ -157,6 +160,7 @@ Public Class frmImportREComps
             cboBuildingClass.Items.Add(lColumn)
             cboBuildingSqFt.Items.Add(lColumn)
             cboBusinessName.Items.Add(lColumn)
+            cboAgentName.Items.Add(lColumn)
             cboCompCode.Items.Add(lColumn)
             cboEconomicArea.Items.Add(lColumn)
             cboImprovementMarketArea.Items.Add(lColumn)
@@ -250,7 +254,7 @@ Public Class frmImportREComps
                     Case "AcctNum", "BuildingClass", "ComparabilityCode", "EconomicArea", "LandMarketArea", "ImprovementMarketArea", "Mapsco",
                                 "NeighborhoodGroup", "StreetName", "ConstructionType", "AppraisalMethod", "PricingMethod"
                         sSelect.Append(",").Append(" LTRIM(RTRIM(ISNULL(").Append(row(0).ToString).Append(",'')))")
-                    Case "BusinessName"
+                    Case "BusinessName", "AgentName"
                         sSelect.Append(",").Append("SUBSTRING(LTRIM(RTRIM(ISNULL(").Append(row(0).ToString).Append(",''))),1,255)")
                     Case "LandValuePerSqFt", "ImprovementValuePerSqFt", "TotalValuePerSqFt", "TotalValuePerUnit", "LandBuildingRatio"
                         sSelect.Append(",").Append("ROUND(CONVERT(float,ISNULL(").Append(row(0).ToString).Append(",'0')),2)")
@@ -433,7 +437,8 @@ Public Class frmImportREComps
             cboNumberOfUnits.TextChanged, cboYearBuilt.TextChanged, cboBuildingClass.TextChanged, cboCompCode.TextChanged,
             cboEconomicArea.TextChanged, cboLandMarketArea.TextChanged, cboImprovementMarketArea.TextChanged,
             cboMapsco.TextChanged, cboNeighborhoodGroup.TextChanged, cboStreetNumber.TextChanged, cboStreet.TextChanged, cboBusinessName.TextChanged,
-            cboLandBldgRatio.TextChanged, cboConstructionType.TextChanged, cboEffectiveYear.TextChanged, cboAppraisalMethod.TextChanged, cboPricingMethod.TextChanged
+            cboLandBldgRatio.TextChanged, cboConstructionType.TextChanged, cboEffectiveYear.TextChanged, cboAppraisalMethod.TextChanged, cboPricingMethod.TextChanged,
+            cboAgentName.TextChanged
         If Trim(sender.text) = "" Or (Val(sender.text) >= 1 And Val(sender.text) <= iNumberOfColumns) Then
             RenameColumns()
         End If
@@ -618,6 +623,14 @@ Public Class frmImportREComps
         End If
 
         For i = 0 To dgFileContents.Columns.Count - 1
+            If dgFileContents.Columns(i).HeaderText = AGENTNAME Then dgFileContents.Columns(i).HeaderText = i + 1
+        Next
+        If Trim(cboAgentName.Text) <> "" Then
+            iColumn = Val(cboAgentName.Text) - 1
+            dgFileContents.Columns.Item(iColumn).HeaderText = AGENTNAME
+        End If
+
+        For i = 0 To dgFileContents.Columns.Count - 1
             If dgFileContents.Columns(i).HeaderText = LANDBLDGRATIO Then dgFileContents.Columns(i).HeaderText = i + 1
         Next
         If Trim(cboLandBldgRatio.Text) <> "" Then
@@ -751,6 +764,8 @@ Public Class frmImportREComps
                         sField = "StreetName"
                     Case BUSINESSNAME
                         sField = "BusinessName"
+                    Case AGENTNAME
+                        sField = "AgentName"
                     Case LANDBLDGRATIO
                         sField = "LandBuildingRatio"
                     Case TOTALVALUE

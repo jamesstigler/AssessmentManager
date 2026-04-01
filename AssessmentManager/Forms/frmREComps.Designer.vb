@@ -24,6 +24,8 @@ Partial Class frmREComps
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.txtAgentName = New System.Windows.Forms.TextBox()
         Me.listPricingMethod = New System.Windows.Forms.ListBox()
         Me.contextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.menuClearSelected = New System.Windows.Forms.ToolStripMenuItem()
@@ -116,6 +118,7 @@ Partial Class frmREComps
         Me.cboAssessor = New System.Windows.Forms.ComboBox()
         Me.txtAcctNum = New System.Windows.Forms.TextBox()
         Me.gridResults = New System.Windows.Forms.DataGridView()
+        Me.chkAgentEmpty = New System.Windows.Forms.CheckBox()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -133,6 +136,9 @@ Partial Class frmREComps
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.chkAgentEmpty)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label41)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.txtAgentName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.listPricingMethod)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label40)
         Me.SplitContainer1.Panel1.Controls.Add(Me.listAppraisalMethod)
@@ -231,6 +237,22 @@ Partial Class frmREComps
         Me.SplitContainer1.Size = New System.Drawing.Size(1359, 612)
         Me.SplitContainer1.SplitterDistance = 421
         Me.SplitContainer1.TabIndex = 73
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.Location = New System.Drawing.Point(824, 156)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(35, 13)
+        Me.Label41.TabIndex = 161
+        Me.Label41.Text = "Agent"
+        '
+        'txtAgentName
+        '
+        Me.txtAgentName.Location = New System.Drawing.Point(956, 152)
+        Me.txtAgentName.Name = "txtAgentName"
+        Me.txtAgentName.Size = New System.Drawing.Size(240, 20)
+        Me.txtAgentName.TabIndex = 39
         '
         'listPricingMethod
         '
@@ -339,7 +361,7 @@ Partial Class frmREComps
         'chkPrintDate
         '
         Me.chkPrintDate.AutoSize = True
-        Me.chkPrintDate.Location = New System.Drawing.Point(956, 156)
+        Me.chkPrintDate.Location = New System.Drawing.Point(956, 184)
         Me.chkPrintDate.Name = "chkPrintDate"
         Me.chkPrintDate.Size = New System.Drawing.Size(116, 17)
         Me.chkPrintDate.TabIndex = 149
@@ -1037,6 +1059,18 @@ Partial Class frmREComps
         Me.gridResults.Size = New System.Drawing.Size(1353, 181)
         Me.gridResults.TabIndex = 73
         '
+        'chkAgentEmpty
+        '
+        Me.chkAgentEmpty.AutoSize = True
+        Me.chkAgentEmpty.Checked = True
+        Me.chkAgentEmpty.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkAgentEmpty.Location = New System.Drawing.Point(1200, 152)
+        Me.chkAgentEmpty.Name = "chkAgentEmpty"
+        Me.chkAgentEmpty.Size = New System.Drawing.Size(142, 17)
+        Me.chkAgentEmpty.TabIndex = 162
+        Me.chkAgentEmpty.Text = "Only show with no agent"
+        Me.chkAgentEmpty.UseVisualStyleBackColor = True
+        '
         'frmREComps
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1148,4 +1182,7 @@ Partial Class frmREComps
     Friend WithEvents Label39 As Label
     Friend WithEvents listConstructionType As ListBox
     Friend WithEvents Label38 As Label
+    Friend WithEvents Label41 As Label
+    Friend WithEvents txtAgentName As TextBox
+    Friend WithEvents chkAgentEmpty As CheckBox
 End Class

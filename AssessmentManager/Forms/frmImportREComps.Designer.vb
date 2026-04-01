@@ -88,6 +88,8 @@ Partial Class frmImportREComps
         Me.cboTotalValue = New System.Windows.Forms.ComboBox()
         Me.fraResults = New System.Windows.Forms.GroupBox()
         Me.lblTotals = New System.Windows.Forms.Label()
+        Me.cboAgentName = New System.Windows.Forms.ComboBox()
+        Me.Label28 = New System.Windows.Forms.Label()
         Me.fraFile.SuspendLayout()
         Me.fraColumns.SuspendLayout()
         CType(Me.dgFileContents, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -173,6 +175,8 @@ Partial Class frmImportREComps
         '
         'fraColumns
         '
+        Me.fraColumns.Controls.Add(Me.cboAgentName)
+        Me.fraColumns.Controls.Add(Me.Label28)
         Me.fraColumns.Controls.Add(Me.cboStreetNumber)
         Me.fraColumns.Controls.Add(Me.Label27)
         Me.fraColumns.Controls.Add(Me.cboPricingMethod)
@@ -766,6 +770,24 @@ Partial Class frmImportREComps
         Me.lblTotals.Text = "Number of rows in file:"
         Me.lblTotals.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'cboAgentName
+        '
+        Me.cboAgentName.FormattingEnabled = True
+        Me.cboAgentName.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboAgentName.Location = New System.Drawing.Point(872, 56)
+        Me.cboAgentName.Name = "cboAgentName"
+        Me.cboAgentName.Size = New System.Drawing.Size(60, 21)
+        Me.cboAgentName.TabIndex = 16
+        '
+        'Label28
+        '
+        Me.Label28.Location = New System.Drawing.Point(868, 20)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(68, 32)
+        Me.Label28.TabIndex = 122
+        Me.Label28.Text = "Agent"
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        '
         'frmImportREComps
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -856,4 +878,6 @@ Partial Class frmImportREComps
     Friend WithEvents Label23 As Label
     Friend WithEvents cboStreetNumber As ComboBox
     Friend WithEvents Label27 As Label
+    Friend WithEvents cboAgentName As ComboBox
+    Friend WithEvents Label28 As Label
 End Class

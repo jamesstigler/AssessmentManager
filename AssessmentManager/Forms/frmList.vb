@@ -274,6 +274,7 @@
                 sSQL = sSQL &
                     " ClientLocationId, LegalOwner, AssessmentId, Assessors_Name, FactorEntities_Name," &
                     " BPPConsultantName AS ConsultantName, ClientCoordinatorName," &
+                    " RenditionCompleteFl,RenditionCompleteDate," &
                     " RenditionExtDeadlineDate, RenditionExtMailedDate, RenditionExtCMRRR," &
                     " RenditionDeadlineDate, RenditionMailedDate, RenditionCMRRR, FreeportProtestDeadlineDate, FreeportProtestMailedDate, FreeportProtestCMRRR," &
                     " FreeportProtestStatus, FreeportProtestHearingDate, ValueProtestDeadlineDate, ValueProtestMailedDate, ValueProtestCMRRR, ValueProtestStatus, ValueProtestHearingDate," &
@@ -284,6 +285,7 @@
                     " l.StateCd, a.AcctNum, a.ParentAssessmentId, bu.Name AS BusinessUnits_Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId) AS AgencyId,"
                 sSQL = sSQL &
                     " l.ClientLocationId, l.LegalOwner, a.AssessmentId, asr.Name AS Assessors_Name, fe.Name AS FactorEntities_Name," &
+                    " a.RenditionCompleteFl, a.RenditionCompleteDate," &
                     " a.RenditionExtDeadlineDate, a.RenditionExtMailedDate, a.RenditionExtCMRRR," &
                     " ISNULL(a.RenditionDeadlineDate, asr.RenditionDueDate) AS RenditionDeadlineDate, a.RenditionMailedDate," &
                     " a.RenditionCMRRR, a.FreeportProtestDeadlineDate, a.FreeportProtestMailedDate, a.FreeportProtestCMRRR," &
@@ -321,6 +323,7 @@
                     " GROUP BY c.Name, l.ClientId, l.LocationId, l.TaxYear, l.Address, l.Name, l.City, l.StateCd," &
                     " a.AcctNum, a.ParentAssessmentId, bu.Name, a.BusinessUnitId, ISNULL(a.AgencyId,c.AgencyId), l.ClientLocationId," &
                     " l.LegalOwner, a.AssessmentId, asr.Name, fe.Name," &
+                    " a.RenditionCompleteFl, a.RenditionCompleteDate," &
                     " a.RenditionExtDeadlineDate, a.RenditionExtMailedDate, a.RenditionExtCMRRR," &
                     " ISNULL(a.RenditionDeadlineDate,asr.RenditionDueDate), a.RenditionMailedDate, a.RenditionCMRRR," &
                     " a.FreeportProtestDeadlineDate," &
@@ -343,6 +346,7 @@
                 sSQL = sSQL & " bu.Name AS BusinessUnits_Name, a.BusinessUnitId,"
                 sSQL = sSQL & " l.ClientLocationId, l.LegalOwner, a.AssessmentId, Assessors.Name AS Assessors_Name, fe.Name AS FactorEntities_Name," &
                     " ISNULL(l.ConsultantName,ISNULL(c.BPPConsultantName,'')) AS ConsultantName, c.ClientCoordinatorName," &
+                    " a.RenditionCompleteFl, a.RenditionCompleteDate," &
                     " a.RenditionExtDeadlineDate,a.RenditionExtMailedDate,a.RenditionExtCMRRR," &
                     " ISNULL(a.RenditionDeadlineDate,Assessors.RenditionDueDate) AS RenditionDeadlineDate," &
                     " RenditionMailedDate,a.RenditionCMRRR," &
@@ -526,7 +530,7 @@
                 sSQL = sSQL & " bu.Name AS BusinessUnits_Name, abpp.BusinessUnitId,"
                 sSQL = sSQL &
                     " lbpp.ClientLocationId, lbpp.LegalOwner, a.Name As Assessor_Name, " &
-                    " lbpp.TaxYear, a.RenditionDueDate, a.RenditionExtDate, " &
+                    " lbpp.TaxYear, a.RenditionDueDate, abpp.RenditionCompleteFl, abpp.RenditionCompleteDate, a.RenditionExtDate, " &
                     " abpp.RenditionMailedDate, abpp.RenditionCMRRR, ISNULL(lbpp.ConsultantName, ISNULL(c.BPPConsultantName,'')) As ConsultantName, " &
                     " c.ClientCoordinatorName," &
                     " c.AddDate As Client_AddDate, lbpp.AddDate As Location_AddDate, abpp.AddDate As Assessment_AddDate" &

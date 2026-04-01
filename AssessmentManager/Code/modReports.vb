@@ -1588,6 +1588,7 @@ Module modReports
                     clsReport.Text12 = row("PricingMethod")
                     clsReport.Text13 = row("EffectiveYear")
                     clsReport.Text14 = row("ConstructionType")
+                    clsReport.Text15 = row("AgentName")
                     clsReport.Number01 = row("BuildingSqFt")
                     clsReport.Number02 = row("LandSqFt")
                     clsReport.Number03 = row("YearBuilt")

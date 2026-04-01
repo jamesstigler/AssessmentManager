@@ -41,7 +41,8 @@ AS
            ,[EffectiveYear]
            ,[AppraisalMethod]
            ,[PricingMethod]
-		   ,[AddUser])
+		   ,[AddUser]
+		   ,[AgentName])
 
 		SELECT @AssessorId AS AssessorId, tmp1.Account_Num, @TaxYear AS TaxYear, ISNULL(tmp1.IMPR_VAL,0) AS IMPR_VAL, ISNULL(tmp1.LAND_VAL,0) AS LAND_VAL, 
 		ISNULL(tmp1.GROSS_BLDG_AREA,0) AS GROSS_BLDG_AREA, ISNULL(tmp1.AREA_SIZE,0) AS AREA_SIZE,
@@ -60,7 +61,8 @@ AS
 		CASE WHEN ISNULL(tmp1.GROSS_BLDG_AREA,0) > 0 THEN ROUND(ISNULL(tmp1.TOT_VAL,0) / ISNULL(tmp1.GROSS_BLDG_AREA,0),2) ELSE 0 END AS TotalValuePerSqFt,
 		CASE WHEN ISNULL(tmp1.NUM_UNITS,0) > 0 THEN ISNULL(tmp1.TOT_VAL,0) / ISNULL(tmp1.NUM_UNITS,0) ELSE 0 END AS TotalValuePerUnit,
 		CASE WHEN ISNULL(tmp1.AREA_SIZE,0) > 0 THEN ISNULL(tmp1.GROSS_BLDG_AREA,0) / ISNULL(tmp1.AREA_SIZE,0) ELSE 0 END AS LandBuildingRatio,
-		ISNULL(tmp1.CONSTR_TYP_DESC,''), ISNULL(tmp1.CITY_EFF_YR,0), ISNULL(tmp1.APPR_METHOD_DESC,''), ISNULL(tmp1.PRICING_METH_DESC,''), @AddUser AS AddUser
+		ISNULL(tmp1.CONSTR_TYP_DESC,''), ISNULL(tmp1.CITY_EFF_YR,0), ISNULL(tmp1.APPR_METHOD_DESC,''), ISNULL(tmp1.PRICING_METH_DESC,''), @AddUser AS AddUser,
+		ISNULL(tmp1.TAXPAYER_REP,'')
 
 		FROM (
 		SELECT account_apprl_year.ACCOUNT_NUM, MAX(account_apprl_year.IMPR_VAL) AS IMPR_VAL, MAX(account_apprl_year.LAND_VAL) AS LAND_VAL, 
