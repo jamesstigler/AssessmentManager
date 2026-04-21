@@ -310,6 +310,8 @@ Partial Class frmClient
         Me.chkInterstateAllocationFl = New System.Windows.Forms.CheckBox()
         Me.Label59 = New System.Windows.Forms.Label()
         Me.cboAgency = New System.Windows.Forms.ComboBox()
+        Me.Label102 = New System.Windows.Forms.Label()
+        Me.cboBillingCd = New System.Windows.Forms.ComboBox()
         Me.tabContacts.SuspendLayout()
         Me.pageTax.SuspendLayout()
         Me.pageContract.SuspendLayout()
@@ -3148,11 +3150,33 @@ Partial Class frmClient
         Me.cboAgency.TabIndex = 247
         Me.cboAgency.Tag = "@DB=Clients.AgencyId"
         '
+        'Label102
+        '
+        Me.Label102.AutoSize = True
+        Me.Label102.Location = New System.Drawing.Point(284, 268)
+        Me.Label102.Name = "Label102"
+        Me.Label102.Size = New System.Drawing.Size(78, 13)
+        Me.Label102.TabIndex = 250
+        Me.Label102.Text = "AP Billing Type"
+        '
+        'cboBillingCd
+        '
+        Me.cboBillingCd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboBillingCd.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboBillingCd.FormattingEnabled = True
+        Me.cboBillingCd.Location = New System.Drawing.Point(380, 264)
+        Me.cboBillingCd.Name = "cboBillingCd"
+        Me.cboBillingCd.Size = New System.Drawing.Size(145, 21)
+        Me.cboBillingCd.TabIndex = 249
+        Me.cboBillingCd.Tag = "@DB=Clients.BillingCd"
+        '
         'frmClient
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(988, 657)
+        Me.Controls.Add(Me.Label102)
+        Me.Controls.Add(Me.cboBillingCd)
         Me.Controls.Add(Me.grpComments)
         Me.Controls.Add(Me.Label59)
         Me.Controls.Add(Me.cboAgency)
@@ -3526,4 +3550,6 @@ Partial Class frmClient
     Friend WithEvents TextBox49 As TextBox
     Friend WithEvents chkDupeContacts As CheckBox
     Friend WithEvents cmdDupe As Button
+    Friend WithEvents Label102 As Label
+    Friend WithEvents cboBillingCd As ComboBox
 End Class

@@ -8,27 +8,27 @@
  truncate table jur_value
 
  BULK INSERT real_acct FROM
-'C:\OurFolders\VantageOne\HCAD\FlatFiles\real_acct.txt'
+'C:\OurFolders\VantageOne\HCADFlatFiles\real_acct.txt'
 WITH(FIRSTROW=2, ROWTERMINATOR = '\n', FIELDTERMINATOR = '\t')
 
 BULK INSERT real_neighborhood_code FROM
-'C:\OurFolders\VantageOne\HCAD\FlatFiles\real_neighborhood_code.txt'
+'C:\OurFolders\VantageOne\HCADFlatFiles\real_neighborhood_code.txt'
 WITH(FIRSTROW=2, ROWTERMINATOR = '\n', FIELDTERMINATOR = '\t')
 
 -- BULK INSERT owners FROM
---'C:\OurFolders\VantageOne\HCAD\FlatFiles\owners.txt'
+--'C:\OurFolders\VantageOne\HCADFlatFiles\owners.txt'
 --WITH(FIRSTROW=2, ROWTERMINATOR = '\n', FIELDTERMINATOR = '\t')
 
 BULK INSERT building_other  FROM
-'C:\OurFolders\VantageOne\HCAD\FlatFiles\building_other.txt'
+'C:\OurFolders\VantageOne\HCADFlatFiles\building_other.txt'
 WITH(FIRSTROW=2, ROWTERMINATOR = '\n', FIELDTERMINATOR = '\t')
 
 --BULK INSERT jur_tax_dist_exempt_value  FROM
---'C:\OurFolders\VantageOne\HCAD\FlatFiles\jur_tax_dist_exempt_value.txt'
+--'C:\OurFolders\VantageOne\HCADFlatFiles\jur_tax_dist_exempt_value.txt'
 --WITH(FIRSTROW=2, ROWTERMINATOR = '\n', FIELDTERMINATOR = '\t')
 
 --BULK INSERT jur_value  FROM
---'C:\OurFolders\VantageOne\HCAD\FlatFiles\jur_value.txt'
+--'C:\OurFolders\VantageOne\HCADFlatFiles\jur_value.txt'
 --WITH(FIRSTROW=2, ROWTERMINATOR = '\n', FIELDTERMINATOR = '\t')
 
 

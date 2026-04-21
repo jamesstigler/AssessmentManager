@@ -56,6 +56,9 @@ Partial Class frmReportSelection
         Me.cboBarCode = New System.Windows.Forms.ComboBox()
         Me.chkCover = New System.Windows.Forms.CheckBox()
         Me.grpBatchRendition = New System.Windows.Forms.GroupBox()
+        Me.cboBatchRenditionBarCode = New System.Windows.Forms.ComboBox()
+        Me.chkBatchShowCostAndFactors = New System.Windows.Forms.CheckBox()
+        Me.chkBatchRenditionAssetDetailWithCost = New System.Windows.Forms.CheckBox()
         Me.chkIncludeZeroBatch = New System.Windows.Forms.CheckBox()
         Me.chkShowCostBatch = New System.Windows.Forms.CheckBox()
         Me.chkBatchRenditionCert = New System.Windows.Forms.CheckBox()
@@ -467,6 +470,9 @@ Partial Class frmReportSelection
         '
         'grpBatchRendition
         '
+        Me.grpBatchRendition.Controls.Add(Me.cboBatchRenditionBarCode)
+        Me.grpBatchRendition.Controls.Add(Me.chkBatchShowCostAndFactors)
+        Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionAssetDetailWithCost)
         Me.grpBatchRendition.Controls.Add(Me.chkIncludeZeroBatch)
         Me.grpBatchRendition.Controls.Add(Me.chkShowCostBatch)
         Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionCert)
@@ -477,10 +483,46 @@ Partial Class frmReportSelection
         Me.grpBatchRendition.Controls.Add(Me.chkBatchRenditionAssetDetail)
         Me.grpBatchRendition.Location = New System.Drawing.Point(591, 15)
         Me.grpBatchRendition.Name = "grpBatchRendition"
-        Me.grpBatchRendition.Size = New System.Drawing.Size(273, 148)
+        Me.grpBatchRendition.Size = New System.Drawing.Size(345, 165)
         Me.grpBatchRendition.TabIndex = 30
         Me.grpBatchRendition.TabStop = False
         Me.grpBatchRendition.Text = "Rendition Batch"
+        '
+        'cboBatchRenditionBarCode
+        '
+        Me.cboBatchRenditionBarCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboBatchRenditionBarCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboBatchRenditionBarCode.FormattingEnabled = True
+        Me.cboBatchRenditionBarCode.Items.AddRange(New Object() {"AOA", "Audit", "Communication", "Data", "Evidence", "Exempt", "Extension", "Hearing Final Order", "Hearing Notice", "Notice", "Protest", "Rendition", "Report", "Tax Bill", "V1 AGR", "V1 Lawsuit", "VSR"})
+        Me.cboBatchRenditionBarCode.Location = New System.Drawing.Point(112, 140)
+        Me.cboBatchRenditionBarCode.Name = "cboBatchRenditionBarCode"
+        Me.cboBatchRenditionBarCode.Size = New System.Drawing.Size(114, 21)
+        Me.cboBatchRenditionBarCode.Sorted = True
+        Me.cboBatchRenditionBarCode.TabIndex = 46
+        Me.cboBatchRenditionBarCode.Tag = ""
+        Me.cboBatchRenditionBarCode.Text = "Rendition"
+        '
+        'chkBatchShowCostAndFactors
+        '
+        Me.chkBatchShowCostAndFactors.AutoSize = True
+        Me.chkBatchShowCostAndFactors.Location = New System.Drawing.Point(140, 80)
+        Me.chkBatchShowCostAndFactors.Name = "chkBatchShowCostAndFactors"
+        Me.chkBatchShowCostAndFactors.Size = New System.Drawing.Size(174, 17)
+        Me.chkBatchShowCostAndFactors.TabIndex = 45
+        Me.chkBatchShowCostAndFactors.Text = "Show Original Cost and Factors"
+        Me.chkBatchShowCostAndFactors.UseVisualStyleBackColor = True
+        '
+        'chkBatchRenditionAssetDetailWithCost
+        '
+        Me.chkBatchRenditionAssetDetailWithCost.AutoSize = True
+        Me.chkBatchRenditionAssetDetailWithCost.Checked = True
+        Me.chkBatchRenditionAssetDetailWithCost.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkBatchRenditionAssetDetailWithCost.Location = New System.Drawing.Point(8, 80)
+        Me.chkBatchRenditionAssetDetailWithCost.Name = "chkBatchRenditionAssetDetailWithCost"
+        Me.chkBatchRenditionAssetDetailWithCost.Size = New System.Drawing.Size(125, 17)
+        Me.chkBatchRenditionAssetDetailWithCost.TabIndex = 8
+        Me.chkBatchRenditionAssetDetailWithCost.Text = "Asset detail with cost"
+        Me.chkBatchRenditionAssetDetailWithCost.UseVisualStyleBackColor = True
         '
         'chkIncludeZeroBatch
         '
@@ -507,7 +549,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionCert.AutoSize = True
         Me.chkBatchRenditionCert.Checked = True
         Me.chkBatchRenditionCert.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionCert.Location = New System.Drawing.Point(8, 100)
+        Me.chkBatchRenditionCert.Location = New System.Drawing.Point(8, 120)
         Me.chkBatchRenditionCert.Name = "chkBatchRenditionCert"
         Me.chkBatchRenditionCert.Size = New System.Drawing.Size(120, 17)
         Me.chkBatchRenditionCert.TabIndex = 2
@@ -519,7 +561,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionAssessor.AutoSize = True
         Me.chkBatchRenditionAssessor.Checked = True
         Me.chkBatchRenditionAssessor.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionAssessor.Location = New System.Drawing.Point(8, 80)
+        Me.chkBatchRenditionAssessor.Location = New System.Drawing.Point(8, 100)
         Me.chkBatchRenditionAssessor.Name = "chkBatchRenditionAssessor"
         Me.chkBatchRenditionAssessor.Size = New System.Drawing.Size(98, 17)
         Me.chkBatchRenditionAssessor.TabIndex = 1
@@ -555,7 +597,7 @@ Partial Class frmReportSelection
         Me.chkBatchRenditionBarCode.AutoSize = True
         Me.chkBatchRenditionBarCode.Checked = True
         Me.chkBatchRenditionBarCode.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBatchRenditionBarCode.Location = New System.Drawing.Point(8, 120)
+        Me.chkBatchRenditionBarCode.Location = New System.Drawing.Point(8, 140)
         Me.chkBatchRenditionBarCode.Name = "chkBatchRenditionBarCode"
         Me.chkBatchRenditionBarCode.Size = New System.Drawing.Size(99, 17)
         Me.chkBatchRenditionBarCode.TabIndex = 0
@@ -580,7 +622,7 @@ Partial Class frmReportSelection
         Me.grpBatchValue.Controls.Add(Me.chkBatchValueProtestAssessor)
         Me.grpBatchValue.Controls.Add(Me.chkBatchValueProtestProtest)
         Me.grpBatchValue.Controls.Add(Me.chkBatchValueProtestBarCode)
-        Me.grpBatchValue.Location = New System.Drawing.Point(591, 179)
+        Me.grpBatchValue.Location = New System.Drawing.Point(592, 184)
         Me.grpBatchValue.Name = "grpBatchValue"
         Me.grpBatchValue.Size = New System.Drawing.Size(136, 116)
         Me.grpBatchValue.TabIndex = 32
@@ -641,7 +683,7 @@ Partial Class frmReportSelection
         Me.grpBatchTaxBill.Controls.Add(Me.CheckBox6)
         Me.grpBatchTaxBill.Controls.Add(Me.CheckBox10)
         Me.grpBatchTaxBill.Controls.Add(Me.CheckBox11)
-        Me.grpBatchTaxBill.Location = New System.Drawing.Point(591, 307)
+        Me.grpBatchTaxBill.Location = New System.Drawing.Point(592, 292)
         Me.grpBatchTaxBill.Name = "grpBatchTaxBill"
         Me.grpBatchTaxBill.Size = New System.Drawing.Size(136, 108)
         Me.grpBatchTaxBill.TabIndex = 34
@@ -710,7 +752,7 @@ Partial Class frmReportSelection
         'radioBatchValueProtest
         '
         Me.radioBatchValueProtest.AutoSize = True
-        Me.radioBatchValueProtest.Location = New System.Drawing.Point(571, 179)
+        Me.radioBatchValueProtest.Location = New System.Drawing.Point(572, 184)
         Me.radioBatchValueProtest.Name = "radioBatchValueProtest"
         Me.radioBatchValueProtest.Size = New System.Drawing.Size(14, 13)
         Me.radioBatchValueProtest.TabIndex = 32
@@ -720,7 +762,7 @@ Partial Class frmReportSelection
         'radioBatchTaxBill
         '
         Me.radioBatchTaxBill.AutoSize = True
-        Me.radioBatchTaxBill.Location = New System.Drawing.Point(571, 307)
+        Me.radioBatchTaxBill.Location = New System.Drawing.Point(572, 292)
         Me.radioBatchTaxBill.Name = "radioBatchTaxBill"
         Me.radioBatchTaxBill.Size = New System.Drawing.Size(14, 13)
         Me.radioBatchTaxBill.TabIndex = 33
@@ -1128,4 +1170,7 @@ Partial Class frmReportSelection
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents chkExportToClientReporting As CheckBox
+    Friend WithEvents chkBatchRenditionAssetDetailWithCost As CheckBox
+    Friend WithEvents chkBatchShowCostAndFactors As CheckBox
+    Friend WithEvents cboBatchRenditionBarCode As ComboBox
 End Class

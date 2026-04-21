@@ -7,6 +7,7 @@
     Private colLeadStatus As New Collection
     Private colSolicitType As New Collection
     Private colAgencies As New Collection
+    Private colBillingCd As New Collection
     Private iMouseClickColIndex As Integer
     Private bContractExists As Boolean
     Private bProposalExists As Boolean
@@ -70,6 +71,14 @@
             colAgencies.Add(dr("AgencyId").ToString, dr("AgencyName").ToString)
         Next
 
+        colBillingCd = New Collection
+        colBillingCd.Add("", "")
+        cboBillingCd.Items.Add("")
+        cboBillingCd.Items.Add("Bill.com")
+        colBillingCd.Add("1", "Bill.com")
+        cboBillingCd.Items.Add("Client Download")
+        colBillingCd.Add("2", "Client Download")
+
     End Sub
 
 
@@ -93,6 +102,12 @@
             RefreshControls(Me, clsClient.ResultSet, "Clients")
             dr = clsClient.ResultSet.Rows(0)
             cboAgency.Text = dr("AgencyName").ToString
+            cboBillingCd.Text = dr("BillingCdDescription").ToString.Trim
+            If AppData.IsAdministrator Then
+                cboBillingCd.Enabled = True
+            Else
+                cboBillingCd.Enabled = False
+            End If
 
             If IsDBNull(dr("ContractImage")) Then
                 bContractExists = False
@@ -182,12 +197,12 @@
             TextBox72.LostFocus, TextBox71.LostFocus, TextBox70.LostFocus, TextBox69.LostFocus, TextBox68.LostFocus, TextBox67.LostFocus,
             TextBox66.LostFocus, TextBox65.LostFocus, TextBox64.LostFocus, TextBox63.LostFocus, TextBox62.LostFocus, TextBox61.LostFocus,
             TextBox60.LostFocus, TextBox59.LostFocus, TextBox58.LostFocus, TextBox57.LostFocus, ComboBox9.LostFocus, ComboBox12.LostFocus,
-            ComboBox11.LostFocus, ComboBox10.LostFocus
+            ComboBox11.LostFocus, ComboBox10.LostFocus, cboBillingCd.LostFocus
 
         If bChanged Then
 
             If TypeOf sender Is ComboBox Then
-                If sender.name = cboLeadStatus.Name Or sender.name = cboSolicitType.Name Or sender.name = cboAgency.Name Then
+                If sender.name = cboLeadStatus.Name Or sender.name = cboSolicitType.Name Or sender.name = cboAgency.Name Or sender.name = cboBillingCd.Name Then
                     If sender.SelectedIndex >= 0 Then
                         If sender.name = cboLeadStatus.Name Then
                             UpdateDB(sender, DBUpdate, colLeadStatus)
@@ -195,6 +210,8 @@
                             UpdateDB(sender, DBUpdate, colSolicitType)
                         ElseIf sender.name = cboAgency.Name Then
                             UpdateDB(sender, DBUpdate, colAgencies)
+                        ElseIf sender.name = cboBillingCd.Name Then
+                            UpdateDB(sender, DBUpdate, colBillingCd)
                         End If
                     End If
                 Else
@@ -234,7 +251,7 @@
             TextBox72.GotFocus, TextBox71.GotFocus, TextBox70.GotFocus, TextBox69.GotFocus, TextBox68.GotFocus, TextBox67.GotFocus,
             TextBox66.GotFocus, TextBox65.GotFocus, TextBox64.GotFocus, TextBox63.GotFocus, TextBox62.GotFocus, TextBox61.GotFocus,
             TextBox60.GotFocus, TextBox59.GotFocus, TextBox58.GotFocus, TextBox57.GotFocus, ComboBox9.GotFocus, ComboBox12.GotFocus,
-            ComboBox11.GotFocus, ComboBox10.GotFocus
+            ComboBox11.GotFocus, ComboBox10.GotFocus, cboBillingCd.GotFocus
 
         sender.selectall()
     End Sub
@@ -271,7 +288,7 @@
             TextBox72.TextChanged, TextBox71.TextChanged, TextBox70.TextChanged, TextBox69.TextChanged, TextBox68.TextChanged, TextBox67.TextChanged,
             TextBox66.TextChanged, TextBox65.TextChanged, TextBox64.TextChanged, TextBox63.TextChanged, TextBox62.TextChanged, TextBox61.TextChanged,
             TextBox60.TextChanged, TextBox59.TextChanged, TextBox58.TextChanged, TextBox57.TextChanged, ComboBox9.TextChanged, ComboBox12.TextChanged,
-            ComboBox11.TextChanged, ComboBox10.TextChanged
+            ComboBox11.TextChanged, ComboBox10.TextChanged, cboBillingCd.TextChanged
         If bActivated Then
             If sender.name = chkInactiveFl.Name Then
                 If sender.checkstate = CheckState.Checked Then
