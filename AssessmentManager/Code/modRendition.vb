@@ -22,6 +22,8 @@
         Friend sEquipmentMake As String
         Friend sEquipmentModel As String
         Friend ActivityQty As String
+        Friend MilesTraveledTotal As Long
+        Friend MilesTraveledInState As Long
         Friend sStatus As String
         Friend iErrorType As Integer
     End Structure
@@ -381,16 +383,18 @@
             Dim sDescription As String = Left(Trim(Asset.sDescription), 255)
             Dim sVIN As String = UCase(Trim(Asset.sVIN))
             Dim sAddress As String = Trim(Asset.sLocationAddress)
-            Dim sLeaseType = Trim(Asset.sLeaseType)
-            Dim sLesseeName = Trim(Asset.sLesseeName)
-            Dim sLesseeAddress = Trim(Asset.sLesseeAddress)
-            Dim sLesseeCity = Trim(Asset.sLesseeCity)
-            Dim sLesseeStateCd = Trim(Asset.sLesseeStateCd)
-            Dim sLesseeZip = Trim(Asset.sLesseeZip)
-            Dim iLeaseTerm = Asset.iLeaseTerm
-            Dim sEquipmentMake = Trim(Asset.sEquipmentMake)
-            Dim sEquipmentModel = Trim(Asset.sEquipmentModel)
-            Dim sActivityQty = Trim(Asset.ActivityQty)
+            Dim sLeaseType As String = Trim(Asset.sLeaseType)
+            Dim sLesseeName As String = Trim(Asset.sLesseeName)
+            Dim sLesseeAddress As String = Trim(Asset.sLesseeAddress)
+            Dim sLesseeCity As String = Trim(Asset.sLesseeCity)
+            Dim sLesseeStateCd As String = Trim(Asset.sLesseeStateCd)
+            Dim sLesseeZip As String = Trim(Asset.sLesseeZip)
+            Dim iLeaseTerm As String = Asset.iLeaseTerm
+            Dim sEquipmentMake As String = Trim(Asset.sEquipmentMake)
+            Dim sEquipmentModel As String = Trim(Asset.sEquipmentModel)
+            Dim sActivityQty As String = Trim(Asset.ActivityQty)
+            Dim sMiles As String = Trim(Asset.MilesTraveledTotal)
+            Dim sMilesInState As String = Trim(Asset.MilesTraveledInState)
 
             If Asset.lClientId = 0 Or Asset.lLocationId = 0 Or Asset.lAssessmentId = 0 Or Asset.iTaxYear = 0 Or sAssetId = "" Or sGLCode = "" Or Not IsDate(sDate) Then
                 sError = "Asset info missing"
@@ -421,7 +425,9 @@
                 If iLeaseTerm <> 0 Then sql.Append(",LeaseTerm")
                 If sEquipmentMake <> "" Then sql.Append(",EquipmentMake")
                 If sEquipmentModel <> "" Then sql.Append(",EquipmentModel")
-                If sactivityqty <> "" Then sql.Append(",ActivityQty")
+                If sActivityQty <> "" Then sql.Append(",ActivityQty")
+                If sMiles <> "" Then sql.Append(",MilesTraveledTotal")
+                If sMilesInState <> "" Then sql.Append(",MilesTraveledInState")
                 sql.Append(",AddUser)")
                 sql.Append(" SELECT ").Append(Asset.lClientId).Append(",").Append(Asset.lLocationId).Append(",").Append(Asset.lAssessmentId).Append(",")
                 sql.Append(Asset.iTaxYear).Append(",").Append(QuoStr(sAssetId)).Append(",").Append(Asset.lOriginalCost).Append(",")
@@ -439,6 +445,9 @@
                 If sEquipmentMake <> "" Then sql.Append(",").Append(QuoStr(sEquipmentMake))
                 If sEquipmentModel <> "" Then sql.Append(", ").Append(QuoStr(sEquipmentModel))
                 If sActivityQty <> "" Then sql.Append(", ").Append(sActivityQty)
+                If sMiles <> "" Then sql.Append(", ").Append(sMiles)
+                If sMilesInState <> "" Then sql.Append(", ").Append(sMilesInState)
+
                 sql.Append(",").Append(QuoStr(AppData.UserId))
 
                 If ExecuteSQL(sql.ToString) = 1 Then

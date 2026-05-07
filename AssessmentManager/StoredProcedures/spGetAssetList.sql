@@ -1,6 +1,5 @@
 DROP PROCEDURE [dbo].[spGetAssetList] 
-GO
-  
+GO  
 
 CREATE PROCEDURE spGetAssetList
 	@ClientId bigint,
@@ -64,6 +63,8 @@ AS
 			EquipmentModel varchar(50) null,
 			InterstateAllocationFl bit null,			
 			ActivityQty bigint null,
+			MilesTraveledTotal bigint null,
+			MilesTraveledInState bigint null,
 			AuditFl bit null,
 			AssetsLoadedFl bit null,
 			AssetsVerifiedFl bit null,
@@ -174,7 +175,7 @@ AS
 			Clients_ExcludeFreeport, Clients_ExcludeClient, Assessments_SavingsExclusionCd, VIN, Assets_LocationAddress,
 			ClientRenditionValue, BPPRatio, BusinessUnitId,
 			LeaseType, LesseeName, LesseeAddress, LesseeCity, LesseeStateCd, LesseeZip, LeaseTerm, 
-			EquipmentMake, EquipmentModel, InterstateAllocationFl, ActivityQty, AuditFl,
+			EquipmentMake, EquipmentModel, InterstateAllocationFl, ActivityQty, MilesTraveledTotal,MilesTraveledInState, AuditFl,
 			AssetsLoadedFl, AssetsVerifiedFl, AssetsLoadedDate, AssetsVerifiedDate
 		)				
 		SELECT c.ClientId, l.LocationId, assess.AssessmentId, a.AssetId, a.TaxYear, ISNULL(a.OriginalCost,0),
@@ -185,7 +186,7 @@ AS
 			ISNULL(c.ExcludeFreeport,0), ISNULL(c.ExcludeClient,0), ISNULL(assess.SavingsExclusionCd,0), a.VIN, a.LocationAddress,
 			assess.ClientRenditionValue, ISNULL(assessor.BPPRatio,0),ISNULL(assess.BusinessUnitId,0),
 			LeaseType, LesseeName, LesseeAddress, LesseeCity, LesseeStateCd, LesseeZip, LeaseTerm, EquipmentMake, EquipmentModel, 
-			ISNULL(assess.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)), a.ActivityQty, a.AuditFl,
+			ISNULL(assess.InterstateAllocationFl,ISNULL(c.InterstateAllocationFl,0)), a.ActivityQty, MilesTraveledTotal, MilesTraveledInState, a.AuditFl,
 			assess.AssetsLoadedFl, assess.AssetsVerifiedFl, assess.AssetsLoadedDate, assess.AssetsVerifiedDate
 
 		FROM AssessmentsBPP AS assess
@@ -813,6 +814,14 @@ AS
 		IF ISNULL((SELECT COUNT(*) FROM #temptbl WHERE ISNULL(ActivityQty,0) <> 0),0) = 0
 			BEGIN
 				ALTER TABLE #temptbl DROP COLUMN ActivityQty
+			END
+		IF ISNULL((SELECT COUNT(*) FROM #temptbl WHERE ISNULL(MilesTraveledTotal,0) <> 0),0) = 0
+			BEGIN
+				ALTER TABLE #temptbl DROP COLUMN MilesTraveledTotal
+			END
+		IF ISNULL((SELECT COUNT(*) FROM #temptbl WHERE ISNULL(MilesTraveledInState,0) <> 0),0) = 0
+			BEGIN
+				ALTER TABLE #temptbl DROP COLUMN MilesTraveledInState
 			END
 		
 		IF @NeedTotalOriginalCost = 1

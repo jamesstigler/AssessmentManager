@@ -69,6 +69,10 @@ Module modForms
                     sFormName = "50-283"
                 Case enumReport.enumCorrection
                     sFormName = "50-771"
+                Case enumReport.enumRenditionOfQualifiedForm
+                    sFormName = "50-145"
+                Case enumReport.enumApplicationForAllocationForm
+                    sFormName = "50-147"
             End Select
 
             If eType <> enumReport.enumClientContract Then
@@ -178,23 +182,54 @@ Module modForms
                     " WHERE abpp.ClientId = " & lClientId & " AND abpp.LocationId = " & lLocationId &
                     " AND abpp.AssessmentId = " & lAssessmentId & " AND l.TaxYear = " & iTaxYear
 
-            ElseIf eType = enumReport.enumFreeportForm Then
-                ReDim structFields(14)
-                structFields(0).sPDFField = "?" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Address"
-                structFields(1).sPDFField = "2" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Name"
-                structFields(2).sPDFField = "?" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Phone"
-                structFields(3).sPDFField = "18" : structFields(3).sTable = "Clients" : structFields(3).sField = "FullAddress"
-                structFields(4).sPDFField = "13" : structFields(4).sTable = "Locations" : structFields(4).sField = "OwnerName"
-                structFields(5).sPDFField = "16" : structFields(5).sTable = "Clients" : structFields(5).sField = "Phone"
-                structFields(6).sPDFField = "28" : structFields(6).sTable = "FirmInfo" : structFields(6).sField = "FullAddress"
-                structFields(7).sPDFField = "23" : structFields(7).sTable = "FirmInfo" : structFields(7).sField = "Name"
-                structFields(8).sPDFField = "26" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Phone"
-                structFields(9).sPDFField = "15" : structFields(9).sTable = "LocationsBPP" : structFields(9).sField = "Address"
-                structFields(10).sPDFField = "3" : structFields(10).sTable = "Assessments" : structFields(10).sField = "AcctNum"
-                structFields(11).sPDFField = "1" : structFields(11).sTable = "Assessments" : structFields(11).sField = "TaxYear"
-                structFields(12).sPDFField = "53" : structFields(12).sTable = "Calculated" : structFields(12).sField = "Date" : structFields(12).sValue = Format(Now, "MM/dd/yyyy")
-                structFields(13).sPDFField = "31" : structFields(13).sTable = "LocationsBPP" : structFields(13).sField = "Address"
-                structFields(14).sPDFField = "32" : structFields(14).sTable = "LocationsBPP" : structFields(14).sField = "LegalDescription"
+            ElseIf eType = enumReport.enumFreeportForm Or eType = enumReport.enumRenditionOfQualifiedForm Or
+                    eType = enumReport.enumApplicationForAllocationForm Then
+                If eType = enumReport.enumFreeportForm Then
+                    ReDim structFields(14)
+                    structFields(0).sPDFField = "?" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Address"
+                    structFields(1).sPDFField = "2" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Name"
+                    structFields(2).sPDFField = "?" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Phone"
+                    structFields(3).sPDFField = "18" : structFields(3).sTable = "Clients" : structFields(3).sField = "FullAddress"
+                    structFields(4).sPDFField = "13" : structFields(4).sTable = "Locations" : structFields(4).sField = "OwnerName"
+                    structFields(5).sPDFField = "16" : structFields(5).sTable = "Clients" : structFields(5).sField = "Phone"
+                    structFields(6).sPDFField = "28" : structFields(6).sTable = "FirmInfo" : structFields(6).sField = "FullAddress"
+                    structFields(7).sPDFField = "23" : structFields(7).sTable = "FirmInfo" : structFields(7).sField = "Name"
+                    structFields(8).sPDFField = "26" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Phone"
+                    structFields(9).sPDFField = "15" : structFields(9).sTable = "LocationsBPP" : structFields(9).sField = "Address"
+                    structFields(10).sPDFField = "3" : structFields(10).sTable = "Assessments" : structFields(10).sField = "AcctNum"
+                    structFields(11).sPDFField = "1" : structFields(11).sTable = "Assessments" : structFields(11).sField = "TaxYear"
+                    structFields(12).sPDFField = "53" : structFields(12).sTable = "Calculated" : structFields(12).sField = "Date" : structFields(12).sValue = Format(Now, "MM/dd/yyyy")
+                    structFields(13).sPDFField = "31" : structFields(13).sTable = "LocationsBPP" : structFields(13).sField = "Address"
+                    structFields(14).sPDFField = "32" : structFields(14).sTable = "LocationsBPP" : structFields(14).sField = "LegalDescription"
+                ElseIf eType = enumReport.enumRenditionOfQualifiedForm Then
+                    ReDim structFields(12)
+                    structFields(0).sPDFField = "Appraisal Districts County" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
+                    structFields(1).sPDFField = "Appraisal District Account Number" : structFields(1).sTable = "Assessments" : structFields(1).sField = "AcctNum"
+                    structFields(2).sPDFField = "Tax Year" : structFields(2).sTable = "Assessments" : structFields(2).sField = "TaxYear"
+                    structFields(3).sPDFField = "Property Owner Name" : structFields(3).sTable = "Locations" : structFields(3).sField = "OwnerName"
+                    structFields(4).sPDFField = "Mailing Address" : structFields(4).sTable = "Clients" : structFields(4).sField = "FullAddress"
+                    structFields(5).sPDFField = "Phone Number" : structFields(5).sTable = "Clients" : structFields(5).sField = "Phone"
+                    structFields(6).sPDFField = "Name of individual authorized to sign this report" : structFields(6).sTable = "FirmInfo" : structFields(6).sField = "Name"
+                    structFields(7).sPDFField = "Party Filing Report Mailing Address" : structFields(7).sTable = "FirmInfo" : structFields(7).sField = "FullAddress"
+                    structFields(8).sPDFField = "Phone Number (area code and number) of the Party Filing the Report" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Phone"
+                    structFields(9).sPDFField = "Date" : structFields(9).sTable = "Calculated" : structFields(9).sField = "Date" : structFields(9).sValue = Format(Now, "MM/dd/yyyy")
+                    structFields(10).sPDFField = "Day" : structFields(10).sTable = "Calculated" : structFields(10).sField = "Day" : structFields(10).sValue = CStr(Now.Day)
+                    structFields(11).sPDFField = "Month" : structFields(11).sTable = "Calculated" : structFields(11).sField = "Month" : structFields(11).sValue = Format(Now, "MMMM")
+                    structFields(12).sPDFField = "Year" : structFields(12).sTable = "Calculated" : structFields(12).sField = "Year" : structFields(12).sValue = Right(CStr(Now.Year), 2)
+                ElseIf eType = enumReport.enumApplicationForAllocationForm Then
+                    ReDim structFields(9)
+                    structFields(0).sPDFField = "Appraisal Districts Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
+                    structFields(1).sPDFField = "Appraisal District Account Number if known" : structFields(1).sTable = "Assessments" : structFields(1).sField = "AcctNum"
+                    structFields(2).sPDFField = "Tax Year" : structFields(2).sTable = "Assessments" : structFields(2).sField = "TaxYear"
+                    structFields(3).sPDFField = "Name of Property Owner" : structFields(3).sTable = "Locations" : structFields(3).sField = "OwnerName"
+                    structFields(4).sPDFField = "Physical Address City State ZIP Code" : structFields(4).sTable = "Clients" : structFields(4).sField = "FullAddress"
+                    structFields(5).sPDFField = "Primary Phone Number area code and number" : structFields(5).sTable = "Clients" : structFields(5).sField = "Phone"
+                    structFields(6).sPDFField = "Name of Authorized Representative" : structFields(6).sTable = "FirmInfo" : structFields(6).sField = "Name"
+                    structFields(7).sPDFField = "Mailing Address City State ZIP Code" : structFields(7).sTable = "FirmInfo" : structFields(7).sField = "FullAddress"
+                    structFields(8).sPDFField = "Primary Phone Number area code and number_2" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Phone"
+                    structFields(9).sPDFField = "Date" : structFields(9).sTable = "Calculated" : structFields(9).sField = "Date" : structFields(9).sValue = Format(Now, "MM/dd/yyyy")
+                End If
+
 
                 sSQL = "SELECT ISNULL(a.Name,'') AS Assessors_Name, ISNULL(c.Name,'') AS Clients_Name, ISNULL(abpp.AcctNum,'') AS Assessments_AcctNum," &
                     " abpp.TaxYear AS Assessments_TaxYear," &
@@ -220,17 +255,17 @@ Module modForms
                     " Clients AS c ON l.ClientId = c.ClientId" &
                     " WHERE abpp.ClientId = " & lClientId & " AND abpp.LocationId = " & lLocationId &
                     " AND abpp.AssessmentId = " & lAssessmentId & " AND l.TaxYear = " & iTaxYear
-            ElseIf eType = enumReport.enumCertificateOfMailing Then
-                ReDim structFields(8)
-                structFields(0).sPDFField = "From1" : structFields(0).sTable = "FirmInfo" : structFields(0).sField = "Name"
-                structFields(1).sPDFField = "From2" : structFields(1).sTable = "FirmInfo" : structFields(1).sField = "Address"
-                structFields(2).sPDFField = "From3" : structFields(2).sTable = "FirmInfo" : structFields(2).sField = "City"
-                structFields(4).sPDFField = "To1" : structFields(4).sTable = "Assessors" : structFields(4).sField = "Name"
-                structFields(5).sPDFField = "To2" : structFields(5).sTable = "Assessors" : structFields(5).sField = "Address"
-                structFields(6).sPDFField = "To3" : structFields(6).sTable = "Assessors" : structFields(6).sField = "City"
-                structFields(7).sPDFField = "To4" : structFields(7).sTable = "Locations" : structFields(7).sField = "Address"
-                structFields(8).sPDFField = "To5" : structFields(8).sTable = "Assessments" : structFields(8).sField = "AcctNum"
-                sSQL = "SELECT RTRIM(ISNULL(assr.Name, '')) AS Assessors_Name," &
+                ElseIf eType = enumReport.enumCertificateOfMailing Then
+                    ReDim structFields(8)
+                    structFields(0).sPDFField = "From1" : structFields(0).sTable = "FirmInfo" : structFields(0).sField = "Name"
+                    structFields(1).sPDFField = "From2" : structFields(1).sTable = "FirmInfo" : structFields(1).sField = "Address"
+                    structFields(2).sPDFField = "From3" : structFields(2).sTable = "FirmInfo" : structFields(2).sField = "City"
+                    structFields(4).sPDFField = "To1" : structFields(4).sTable = "Assessors" : structFields(4).sField = "Name"
+                    structFields(5).sPDFField = "To2" : structFields(5).sTable = "Assessors" : structFields(5).sField = "Address"
+                    structFields(6).sPDFField = "To3" : structFields(6).sTable = "Assessors" : structFields(6).sField = "City"
+                    structFields(7).sPDFField = "To4" : structFields(7).sTable = "Locations" : structFields(7).sField = "Address"
+                    structFields(8).sPDFField = "To5" : structFields(8).sTable = "Assessments" : structFields(8).sField = "AcctNum"
+                    sSQL = "SELECT RTRIM(ISNULL(assr.Name, '')) AS Assessors_Name," &
                     " RTRIM(ISNULL(l.LegalOwner,c.Name)) + ' ' + RTRIM(l.Address) AS Locations_Address," &
                     " RTRIM(l.City) + '   ' + RTRIM(assess.AcctNum) AS Assessments_AcctNum," &
                     " 'BPP' as PropType, c.ClientId AS Clients_ClientId," &
@@ -255,12 +290,12 @@ Module modForms
                     " AND assess.TaxYear = l.TaxYear" &
                     " WHERE assess.TaxYear = " & iTaxYear & " AND c.ClientId = " & lClientId &
                     " AND ISNULL(assess.AcctNum,'') <> ''"
-                If lLocationId = 0 And lAssessmentId = 0 Then
-                    sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
-                Else
-                    sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
-                End If
-                sSQL = sSQL & " UNION ALL SELECT RTRIM(ISNULL(assr.Name, '')) AS Assessors_Name," &
+                    If lLocationId = 0 And lAssessmentId = 0 Then
+                        sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
+                    Else
+                        sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
+                    End If
+                    sSQL = sSQL & " UNION ALL SELECT RTRIM(ISNULL(assr.Name, '')) AS Assessors_Name," &
                     " RTRIM(ISNULL(l.LegalOwner,c.Name)) + ' ' + RTRIM(l.Address) AS Locations_Address," &
                     " RTRIM(l.City) + '   ' + RTRIM(assess.AcctNum) AS Assessments_AcctNum," &
                     " 'RE' as PropType, c.ClientId AS Clients_ClientId," &
@@ -285,78 +320,78 @@ Module modForms
                     " AND assess.TaxYear = l.TaxYear" &
                     " WHERE assess.TaxYear = " & iTaxYear & " AND c.ClientId = " & lClientId &
                     " AND ISNULL(assess.AcctNum,'') <> ''"
-                If lLocationId = 0 And lAssessmentId = 0 Then
-                    sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
-                Else
-                    sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
-                End If
-                sSQL = sSQL & " ORDER BY 1,2"
-            ElseIf eType = enumReport.enumValueProtestForm Or eType = enumReport.enumAffidavitOfEvidence Or eType = enumReport.enumCorrection Then
-                Select Case eType
-                    Case enumReport.enumValueProtestForm
-                        ReDim structFields(7)
-                        structFields(0).sPDFField = "Appraisal Districts Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
-                        structFields(1).sPDFField = "Tax Year" : structFields(1).sTable = "Assessments" : structFields(1).sField = "TaxYear"
-                        structFields(2).sPDFField = "Name of Property Owner or Lessee" : structFields(2).sTable = "Locations" : structFields(2).sField = "OwnerName"
-                        structFields(3).sPDFField = "Mailing Address City State ZIP Code" : structFields(3).sTable = "Clients" : structFields(3).sField = "FullAddress"
-                        structFields(4).sPDFField = "Phone Number area code and number" : structFields(4).sTable = "Clients" : structFields(4).sField = "Phone"
-                        structFields(5).sPDFField = "Physical Address" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
-                        structFields(6).sPDFField = "Appraisal District Account Number" : structFields(6).sTable = "Assessments" : structFields(6).sField = "AcctNum"
-                        structFields(7).sPDFField = "Date of Signature" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Date"
-                        structFields(7).sValue = Format(Now, "MM/dd/yyyy")
-                    Case enumReport.enumAffidavitOfEvidence
-                        ReDim structFields(13)
-                        structFields(0).sPDFField = "Appraisal Districts Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
-                        structFields(1).sPDFField = "Name of Property Owner or Lessee" : structFields(1).sTable = "Locations" : structFields(1).sField = "OwnerName"
-                        structFields(2).sPDFField = "Mailing Address City State ZIP Code" : structFields(2).sTable = "Clients" : structFields(2).sField = "FullAddress"
-                        structFields(3).sPDFField = "Phone Number area code and number" : structFields(3).sTable = "Clients" : structFields(3).sField = "Phone"
-                        structFields(4).sPDFField = "ADAN" : structFields(4).sTable = "Assessments" : structFields(4).sField = "AcctNum"
-                        structFields(5).sPDFField = "Physical Address City State ZIP Code if different than above" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
-                        structFields(6).sPDFField = "Tax Year" : structFields(6).sTable = "Assessments" : structFields(6).sField = "TaxYear"
-                        structFields(7).sPDFField = "If no street address provide legal description 1" : structFields(7).sTable = "Locations" : structFields(7).sField = "LegalDescription"
-                        structFields(8).sPDFField = "day of" : structFields(9).sTable = "Calculated" : structFields(8).sField = "Day" : structFields(8).sValue = CStr(Now.Day)
-                        structFields(9).sPDFField = "Sig Month" : structFields(9).sTable = "Calculated" : structFields(9).sField = "Month" : structFields(9).sValue = Format(Now, "MMMM")
-                        structFields(10).sPDFField = "Sig Year" : structFields(10).sTable = "Calculated" : structFields(10).sField = "Year" : structFields(10).sValue = Right(CStr(Now.Year), 2)
-                        structFields(11).sPDFField = "day of_2" : structFields(11).sTable = "Calculated" : structFields(11).sField = "Day" : structFields(11).sValue = CStr(Now.Day)
-                        structFields(12).sPDFField = "Sworn month" : structFields(12).sTable = "Calculated" : structFields(12).sField = "Month" : structFields(12).sValue = Format(Now, "MMMM")
-                        structFields(13).sPDFField = "Sworn Year" : structFields(13).sTable = "Calculated" : structFields(13).sField = "Year" : structFields(13).sValue = Right(CStr(Now.Year), 2)
-                    Case enumReport.enumCorrection
-                        ReDim structFields(13)
-                        structFields(0).sPDFField = "3" : structFields(0).sTable = "Locations" : structFields(0).sField = "OwnerName"
-                        structFields(1).sPDFField = "4" : structFields(1).sTable = "Locations" : structFields(1).sField = "LegalDescription"
-                        structFields(2).sPDFField = "5" : structFields(2).sTable = "LocationsBPP" : structFields(2).sField = "Address"
-                        structFields(3).sPDFField = "6" : structFields(3).sTable = "Assessments" : structFields(3).sField = "AcctNum"
-                        structFields(4).sPDFField = "7" : structFields(9).sTable = "Calculated" : structFields(4).sField = "Day"
-                        structFields(4).sValue = CStr(Now.Day)
-                        structFields(5).sPDFField = "8" : structFields(10).sTable = "Calculated" : structFields(5).sField = "Month"
-                        structFields(5).sValue = Format(Now, "MMMM")
-                        structFields(6).sPDFField = "9" : structFields(11).sTable = "Calculated" : structFields(6).sField = "Year"
-                        structFields(6).sValue = CStr(Now.Year)
-                        structFields(7).sPDFField = "20" : structFields(10).sTable = "Calculated" : structFields(7).sField = "Date"
-                        structFields(7).sValue = Format(Now, "MM/dd/yyyy")
-                        structFields(8).sPDFField = "21" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Name"
-                        structFields(9).sPDFField = "23" : structFields(9).sTable = "FirmInfo" : structFields(9).sField = "Address"
-                        structFields(10).sPDFField = "24" : structFields(10).sTable = "FirmInfo" : structFields(10).sField = "City"
-                        structFields(11).sPDFField = "22" : structFields(11).sTable = "FirmInfo" : structFields(11).sField = "Phone"
-                        structFields(12).sPDFField = "17" : structFields(12).sTable = "Jurisdictions" : structFields(12).sField = "NameList"
-                End Select
+                    If lLocationId = 0 And lAssessmentId = 0 Then
+                        sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
+                    Else
+                        sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
+                    End If
+                    sSQL = sSQL & " ORDER BY 1,2"
+                ElseIf eType = enumReport.enumValueProtestForm Or eType = enumReport.enumAffidavitOfEvidence Or eType = enumReport.enumCorrection Then
+                    Select Case eType
+                        Case enumReport.enumValueProtestForm
+                            ReDim structFields(7)
+                            structFields(0).sPDFField = "Appraisal Districts Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
+                            structFields(1).sPDFField = "Tax Year" : structFields(1).sTable = "Assessments" : structFields(1).sField = "TaxYear"
+                            structFields(2).sPDFField = "Name of Property Owner or Lessee" : structFields(2).sTable = "Locations" : structFields(2).sField = "OwnerName"
+                            structFields(3).sPDFField = "Mailing Address City State ZIP Code" : structFields(3).sTable = "Clients" : structFields(3).sField = "FullAddress"
+                            structFields(4).sPDFField = "Phone Number area code and number" : structFields(4).sTable = "Clients" : structFields(4).sField = "Phone"
+                            structFields(5).sPDFField = "Physical Address" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
+                            structFields(6).sPDFField = "Appraisal District Account Number" : structFields(6).sTable = "Assessments" : structFields(6).sField = "AcctNum"
+                            structFields(7).sPDFField = "Date of Signature" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Date"
+                            structFields(7).sValue = Format(Now, "MM/dd/yyyy")
+                        Case enumReport.enumAffidavitOfEvidence
+                            ReDim structFields(13)
+                            structFields(0).sPDFField = "Appraisal Districts Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
+                            structFields(1).sPDFField = "Name of Property Owner or Lessee" : structFields(1).sTable = "Locations" : structFields(1).sField = "OwnerName"
+                            structFields(2).sPDFField = "Mailing Address City State ZIP Code" : structFields(2).sTable = "Clients" : structFields(2).sField = "FullAddress"
+                            structFields(3).sPDFField = "Phone Number area code and number" : structFields(3).sTable = "Clients" : structFields(3).sField = "Phone"
+                            structFields(4).sPDFField = "ADAN" : structFields(4).sTable = "Assessments" : structFields(4).sField = "AcctNum"
+                            structFields(5).sPDFField = "Physical Address City State ZIP Code if different than above" : structFields(5).sTable = "LocationsBPP" : structFields(5).sField = "Address"
+                            structFields(6).sPDFField = "Tax Year" : structFields(6).sTable = "Assessments" : structFields(6).sField = "TaxYear"
+                            structFields(7).sPDFField = "If no street address provide legal description 1" : structFields(7).sTable = "Locations" : structFields(7).sField = "LegalDescription"
+                            structFields(8).sPDFField = "day of" : structFields(9).sTable = "Calculated" : structFields(8).sField = "Day" : structFields(8).sValue = CStr(Now.Day)
+                            structFields(9).sPDFField = "Sig Month" : structFields(9).sTable = "Calculated" : structFields(9).sField = "Month" : structFields(9).sValue = Format(Now, "MMMM")
+                            structFields(10).sPDFField = "Sig Year" : structFields(10).sTable = "Calculated" : structFields(10).sField = "Year" : structFields(10).sValue = Right(CStr(Now.Year), 2)
+                            structFields(11).sPDFField = "day of_2" : structFields(11).sTable = "Calculated" : structFields(11).sField = "Day" : structFields(11).sValue = CStr(Now.Day)
+                            structFields(12).sPDFField = "Sworn month" : structFields(12).sTable = "Calculated" : structFields(12).sField = "Month" : structFields(12).sValue = Format(Now, "MMMM")
+                            structFields(13).sPDFField = "Sworn Year" : structFields(13).sTable = "Calculated" : structFields(13).sField = "Year" : structFields(13).sValue = Right(CStr(Now.Year), 2)
+                        Case enumReport.enumCorrection
+                            ReDim structFields(13)
+                            structFields(0).sPDFField = "3" : structFields(0).sTable = "Locations" : structFields(0).sField = "OwnerName"
+                            structFields(1).sPDFField = "4" : structFields(1).sTable = "Locations" : structFields(1).sField = "LegalDescription"
+                            structFields(2).sPDFField = "5" : structFields(2).sTable = "LocationsBPP" : structFields(2).sField = "Address"
+                            structFields(3).sPDFField = "6" : structFields(3).sTable = "Assessments" : structFields(3).sField = "AcctNum"
+                            structFields(4).sPDFField = "7" : structFields(9).sTable = "Calculated" : structFields(4).sField = "Day"
+                            structFields(4).sValue = CStr(Now.Day)
+                            structFields(5).sPDFField = "8" : structFields(10).sTable = "Calculated" : structFields(5).sField = "Month"
+                            structFields(5).sValue = Format(Now, "MMMM")
+                            structFields(6).sPDFField = "9" : structFields(11).sTable = "Calculated" : structFields(6).sField = "Year"
+                            structFields(6).sValue = CStr(Now.Year)
+                            structFields(7).sPDFField = "20" : structFields(10).sTable = "Calculated" : structFields(7).sField = "Date"
+                            structFields(7).sValue = Format(Now, "MM/dd/yyyy")
+                            structFields(8).sPDFField = "21" : structFields(8).sTable = "FirmInfo" : structFields(8).sField = "Name"
+                            structFields(9).sPDFField = "23" : structFields(9).sTable = "FirmInfo" : structFields(9).sField = "Address"
+                            structFields(10).sPDFField = "24" : structFields(10).sTable = "FirmInfo" : structFields(10).sField = "City"
+                            structFields(11).sPDFField = "22" : structFields(11).sTable = "FirmInfo" : structFields(11).sField = "Phone"
+                            structFields(12).sPDFField = "17" : structFields(12).sTable = "Jurisdictions" : structFields(12).sField = "NameList"
+                    End Select
 
-                sJurNameList.Clear()
-                If eType = enumReport.enumCorrection Then
-                    sSQL = "SELECT j.Name FROM AssessmentDetail" & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "RE") & " AS assess" &
+                    sJurNameList.Clear()
+                    If eType = enumReport.enumCorrection Then
+                        sSQL = "SELECT j.Name FROM AssessmentDetail" & IIf(ePropType = enumTable.enumLocationBPP, "BPP", "RE") & " AS assess" &
                         " INNER JOIN Jurisdictions AS j ON assess.JurisdictionId = j.JurisdictionId AND assess.TaxYear = j.TaxYear" &
                         " WHERE assess.ClientId = " & lClientId & " AND assess.LocationId = " & lLocationId &
                         " AND assess.AssessmentId = " & lAssessmentId & " AND assess.TaxYear = " & iTaxYear
-                    If GetData(sSQL, dtJurNameList) > 0 Then
-                        For Each drJurNameList In dtJurNameList.Rows
-                            If sJurNameList.Length > 0 Then sJurNameList.Append(", ")
-                            sJurNameList.Append(drJurNameList("Name")).ToString.Trim()
-                        Next
+                        If GetData(sSQL, dtJurNameList) > 0 Then
+                            For Each drJurNameList In dtJurNameList.Rows
+                                If sJurNameList.Length > 0 Then sJurNameList.Append(", ")
+                                sJurNameList.Append(drJurNameList("Name")).ToString.Trim()
+                            Next
+                        End If
+                        dtJurNameList.Dispose()
                     End If
-                    dtJurNameList.Dispose()
-                End If
 
-                sSQL = "SELECT ISNULL(a.Name,'') AS Assessors_Name, ISNULL(c.Name,'') AS Clients_Name, ISNULL(abpp.AcctNum,'') AS Assessments_AcctNum," &
+                    sSQL = "SELECT ISNULL(a.Name,'') AS Assessors_Name, ISNULL(c.Name,'') AS Clients_Name, ISNULL(abpp.AcctNum,'') AS Assessments_AcctNum," &
                         " abpp.TaxYear AS Assessments_TaxYear," &
                         " RTRIM(ISNULL(a.Address1,'')) + '  ' + RTRIM(ISNULL(a.City,'')) + ', ' + RTRIM(ISNULL(a.StateCd,'')) + '  ' + RTRIM(ISNULL(a.Zip,'')) AS Assessors_Address," &
                         " ISNULL(a.Phone,'') AS Assessors_Phone," &
@@ -382,76 +417,76 @@ Module modForms
                         " WHERE abpp.ClientId = " & lClientId & " And abpp.LocationId = " & lLocationId &
                         " And abpp.AssessmentId = " & lAssessmentId & " And l.TaxYear = " & iTaxYear
 
-            ElseIf eType = enumReport.enumAppointmentOfAgentForm Then
-                If sStateCd = "TX" Then
-                    ReDim structFields(30)
-                    structFields(0).sPDFField = "Appraisal District Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
-                    structFields(1).sPDFField = "" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Phone"
-                    structFields(2).sPDFField = "" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Address"
-                    structFields(3).sPDFField = "Name" : structFields(3).sTable = "Locations" : structFields(3).sField = "OwnerName"
-                    structFields(4).sPDFField = "Address" : structFields(4).sTable = "Clients" : structFields(4).sField = "Address"
-                    structFields(5).sPDFField = "City State Zip Code" : structFields(5).sTable = "Clients" : structFields(5).sField = "City"
-                    structFields(6).sPDFField = "Telephone Number include area code" : structFields(6).sTable = "Clients" : structFields(6).sField = "Phone"
-                    structFields(7).sPDFField = "" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Check"
-                    structFields(8).sPDFField = "Appraisal District Account Number_2" : structFields(8).sTable = "Calculated" : structFields(8).sField = "AcctNum1"
-                    structFields(9).sPDFField = "Appraisal District Account Number_3" : structFields(9).sTable = "Calculated" : structFields(9).sField = "AcctNum2"
-                    structFields(10).sPDFField = "Appraisal District Account Number_4" : structFields(10).sTable = "Calculated" : structFields(10).sField = "AcctNum3"
-                    structFields(11).sPDFField = "Appraisal District Account Number_5" : structFields(11).sTable = "Calculated" : structFields(11).sField = "AcctNum4"
-                    structFields(12).sPDFField = "Physical or Situs Address of Property_2" : structFields(12).sTable = "Calculated" : structFields(12).sField = "LocationAddress1"
-                    structFields(13).sPDFField = "Physical or Situs Address of Property_3" : structFields(13).sTable = "Calculated" : structFields(13).sField = "LocationAddress2"
-                    structFields(14).sPDFField = "Physical or Situs Address of Property_4" : structFields(14).sTable = "Calculated" : structFields(14).sField = "LocationAddress3"
-                    structFields(15).sPDFField = "Physical or Situs Address of Property_5" : structFields(15).sTable = "Calculated" : structFields(15).sField = "LocationAddress4"
-                    structFields(16).sPDFField = "Legal Description_2" : structFields(16).sTable = "Calculated" : structFields(16).sField = "LegalDescription1"
-                    structFields(17).sPDFField = "Legal Description_3" : structFields(17).sTable = "Calculated" : structFields(17).sField = "LegalDescription2"
-                    structFields(18).sPDFField = "Legal Description_4" : structFields(18).sTable = "Calculated" : structFields(18).sField = "LegalDescription3"
-                    structFields(19).sPDFField = "Legal Description_5" : structFields(19).sTable = "Calculated" : structFields(19).sField = "LegalDescription4"
-                    structFields(20).sPDFField = "" : structFields(20).sTable = "Calculated" : structFields(20).sField = "Check"
-                    structFields(21).sPDFField = "Name_2" : structFields(21).sTable = "FirmInfo" : structFields(21).sField = "Name"
-                    structFields(22).sPDFField = "Address_2" : structFields(22).sTable = "FirmInfo" : structFields(22).sField = "Address"
-                    structFields(23).sPDFField = "City State Zip Code_2" : structFields(23).sTable = "FirmInfo" : structFields(23).sField = "City"
-                    structFields(24).sPDFField = "Telephone Number include area code_2" : structFields(24).sTable = "FirmInfo" : structFields(24).sField = "Phone"
-                    structFields(25).sPDFField = "Number of additional sheets attatched" : structFields(25).sTable = "Calculated" : structFields(25).sField = "AdditionalSheets"
-                    structFields(26).sPDFField = "" : structFields(26).sTable = "Calculated" : structFields(26).sField = "Check"
-                    structFields(27).sPDFField = "" : structFields(27).sTable = "Calculated" : structFields(27).sField = "Check"
-                    structFields(28).sPDFField = "" : structFields(28).sTable = "Calculated" : structFields(28).sField = "Check"
-                    structFields(29).sPDFField = "" : structFields(29).sTable = "FirmInfo" : structFields(29).sField = "Name"
-                    structFields(30).sPDFField = "Date" : structFields(30).sTable = "Calculated" : structFields(30).sField = "AcctNum1"
-                    structFields(30).sValue = Format(Now, "MM/dd/yyyy")
-                Else
-                    ReDim structFields(25)
-                    structFields(0).sPDFField = "AssessorName" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
-                    structFields(2).sPDFField = "AssessorAddress" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Address1"
-                    structFields(2).sPDFField = "AssessorCity" : structFields(2).sTable = "Assessors" : structFields(2).sField = "CityStZip"
-                    structFields(22).sPDFField = "AcctNum" : structFields(22).sTable = "Calculated" : structFields(22).sField = "AcctNum"
-                    structFields(3).sPDFField = "OwnerName" : structFields(3).sTable = "Locations" : structFields(3).sField = "OwnerName"
+                ElseIf eType = enumReport.enumAppointmentOfAgentForm Then
+                    If sStateCd = "TX" Then
+                        ReDim structFields(30)
+                        structFields(0).sPDFField = "Appraisal District Name" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
+                        structFields(1).sPDFField = "" : structFields(1).sTable = "Assessors" : structFields(1).sField = "Phone"
+                        structFields(2).sPDFField = "" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Address"
+                        structFields(3).sPDFField = "Name" : structFields(3).sTable = "Locations" : structFields(3).sField = "OwnerName"
+                        structFields(4).sPDFField = "Address" : structFields(4).sTable = "Clients" : structFields(4).sField = "Address"
+                        structFields(5).sPDFField = "City State Zip Code" : structFields(5).sTable = "Clients" : structFields(5).sField = "City"
+                        structFields(6).sPDFField = "Telephone Number include area code" : structFields(6).sTable = "Clients" : structFields(6).sField = "Phone"
+                        structFields(7).sPDFField = "" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Check"
+                        structFields(8).sPDFField = "Appraisal District Account Number_2" : structFields(8).sTable = "Calculated" : structFields(8).sField = "AcctNum1"
+                        structFields(9).sPDFField = "Appraisal District Account Number_3" : structFields(9).sTable = "Calculated" : structFields(9).sField = "AcctNum2"
+                        structFields(10).sPDFField = "Appraisal District Account Number_4" : structFields(10).sTable = "Calculated" : structFields(10).sField = "AcctNum3"
+                        structFields(11).sPDFField = "Appraisal District Account Number_5" : structFields(11).sTable = "Calculated" : structFields(11).sField = "AcctNum4"
+                        structFields(12).sPDFField = "Physical or Situs Address of Property_2" : structFields(12).sTable = "Calculated" : structFields(12).sField = "LocationAddress1"
+                        structFields(13).sPDFField = "Physical or Situs Address of Property_3" : structFields(13).sTable = "Calculated" : structFields(13).sField = "LocationAddress2"
+                        structFields(14).sPDFField = "Physical or Situs Address of Property_4" : structFields(14).sTable = "Calculated" : structFields(14).sField = "LocationAddress3"
+                        structFields(15).sPDFField = "Physical or Situs Address of Property_5" : structFields(15).sTable = "Calculated" : structFields(15).sField = "LocationAddress4"
+                        structFields(16).sPDFField = "Legal Description_2" : structFields(16).sTable = "Calculated" : structFields(16).sField = "LegalDescription1"
+                        structFields(17).sPDFField = "Legal Description_3" : structFields(17).sTable = "Calculated" : structFields(17).sField = "LegalDescription2"
+                        structFields(18).sPDFField = "Legal Description_4" : structFields(18).sTable = "Calculated" : structFields(18).sField = "LegalDescription3"
+                        structFields(19).sPDFField = "Legal Description_5" : structFields(19).sTable = "Calculated" : structFields(19).sField = "LegalDescription4"
+                        structFields(20).sPDFField = "" : structFields(20).sTable = "Calculated" : structFields(20).sField = "Check"
+                        structFields(21).sPDFField = "Name_2" : structFields(21).sTable = "FirmInfo" : structFields(21).sField = "Name"
+                        structFields(22).sPDFField = "Address_2" : structFields(22).sTable = "FirmInfo" : structFields(22).sField = "Address"
+                        structFields(23).sPDFField = "City State Zip Code_2" : structFields(23).sTable = "FirmInfo" : structFields(23).sField = "City"
+                        structFields(24).sPDFField = "Telephone Number include area code_2" : structFields(24).sTable = "FirmInfo" : structFields(24).sField = "Phone"
+                        structFields(25).sPDFField = "Number of additional sheets attatched" : structFields(25).sTable = "Calculated" : structFields(25).sField = "AdditionalSheets"
+                        structFields(26).sPDFField = "" : structFields(26).sTable = "Calculated" : structFields(26).sField = "Check"
+                        structFields(27).sPDFField = "" : structFields(27).sTable = "Calculated" : structFields(27).sField = "Check"
+                        structFields(28).sPDFField = "" : structFields(28).sTable = "Calculated" : structFields(28).sField = "Check"
+                        structFields(29).sPDFField = "" : structFields(29).sTable = "FirmInfo" : structFields(29).sField = "Name"
+                        structFields(30).sPDFField = "Date" : structFields(30).sTable = "Calculated" : structFields(30).sField = "AcctNum1"
+                        structFields(30).sValue = Format(Now, "MM/dd/yyyy")
+                    Else
+                        ReDim structFields(25)
+                        structFields(0).sPDFField = "AssessorName" : structFields(0).sTable = "Assessors" : structFields(0).sField = "Name"
+                        structFields(2).sPDFField = "AssessorAddress" : structFields(2).sTable = "Assessors" : structFields(2).sField = "Address1"
+                        structFields(2).sPDFField = "AssessorCity" : structFields(2).sTable = "Assessors" : structFields(2).sField = "CityStZip"
+                        structFields(22).sPDFField = "AcctNum" : structFields(22).sTable = "Calculated" : structFields(22).sField = "AcctNum"
+                        structFields(3).sPDFField = "OwnerName" : structFields(3).sTable = "Locations" : structFields(3).sField = "OwnerName"
 
 
-                    structFields(4).sPDFField = "Present mailing address number And street" : structFields(4).sTable = "Clients" : structFields(4).sField = "Address"
-                    structFields(5).sPDFField = "City town Or post office state ZIP code" : structFields(5).sTable = "Clients" : structFields(5).sField = "City"
-                    structFields(6).sPDFField = "Phone area code And number" : structFields(6).sTable = "Clients" : structFields(6).sField = "Phone"
-                    structFields(7).sPDFField = "The following property give account number Or legal description" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Check"
-                    structFields(8).sPDFField = "1" : structFields(8).sTable = "Calculated" : structFields(8).sField = "AcctNum1"
-                    structFields(9).sPDFField = "2" : structFields(8).sTable = "Calculated" : structFields(9).sField = "AcctNum2"
-                    structFields(10).sPDFField = "3" : structFields(8).sTable = "Calculated" : structFields(10).sField = "AcctNum3"
-                    structFields(11).sPDFField = "General power to represent me in property tax matters concerning this property" : structFields(11).sTable = "Calculated" : structFields(11).sField = "Check"
-                    structFields(12).sPDFField = "Agents name" : structFields(12).sTable = "FirmInfo" : structFields(12).sField = "Name"
-                    structFields(13).sPDFField = "Present mailing address number And street_2" : structFields(13).sTable = "FirmInfo" : structFields(13).sField = "Address"
-                    structFields(14).sPDFField = "City town Or post office state ZIP code_2" : structFields(14).sTable = "FirmInfo" : structFields(14).sField = "City"
-                    structFields(15).sPDFField = "Phone area code And number_2" : structFields(15).sTable = "FirmInfo" : structFields(15).sField = "Phone"
-                    structFields(16).sPDFField = "I want my agent to receive all my property tax notices And other communication for this property including appraisal notices appraisal review board orders And hearing" : structFields(16).sTable = "Calculated" : structFields(16).sField = "Check"
-                    structFields(17).sPDFField = "The following property give account number Or legal description_2" : structFields(17).sTable = "Calculated" : structFields(17).sField = "Check"
-                    structFields(18).sPDFField = "Name of person Or firm" : structFields(18).sTable = "FirmInfo" : structFields(18).sField = "Name"
-                    structFields(19).sPDFField = "Present mailing address number And street_3" : structFields(19).sTable = "FirmInfo" : structFields(19).sField = "Address"
-                    structFields(20).sPDFField = "City town Or post office state ZIP code_3" : structFields(20).sTable = "FirmInfo" : structFields(20).sField = "City"
-                    structFields(21).sPDFField = "Phone area code And number_3" : structFields(21).sTable = "FirmInfo" : structFields(21).sField = "Phone"
-                    structFields(22).sPDFField = "Property 1" : structFields(22).sTable = "Calculated" : structFields(22).sField = "AcctNum1"
-                    structFields(23).sPDFField = "Property 2" : structFields(23).sTable = "Calculated" : structFields(23).sField = "AcctNum1"
-                    structFields(24).sPDFField = "Property 3" : structFields(24).sTable = "Calculated" : structFields(24).sField = "AcctNum1"
-                    structFields(25).sPDFField = "Date the designation took effect" : structFields(25).sTable = "Calculated" : structFields(25).sField = "AcctNum1"
-                    structFields(25).sValue = sExtraParm
-                End If
+                        structFields(4).sPDFField = "Present mailing address number And street" : structFields(4).sTable = "Clients" : structFields(4).sField = "Address"
+                        structFields(5).sPDFField = "City town Or post office state ZIP code" : structFields(5).sTable = "Clients" : structFields(5).sField = "City"
+                        structFields(6).sPDFField = "Phone area code And number" : structFields(6).sTable = "Clients" : structFields(6).sField = "Phone"
+                        structFields(7).sPDFField = "The following property give account number Or legal description" : structFields(7).sTable = "Calculated" : structFields(7).sField = "Check"
+                        structFields(8).sPDFField = "1" : structFields(8).sTable = "Calculated" : structFields(8).sField = "AcctNum1"
+                        structFields(9).sPDFField = "2" : structFields(8).sTable = "Calculated" : structFields(9).sField = "AcctNum2"
+                        structFields(10).sPDFField = "3" : structFields(8).sTable = "Calculated" : structFields(10).sField = "AcctNum3"
+                        structFields(11).sPDFField = "General power to represent me in property tax matters concerning this property" : structFields(11).sTable = "Calculated" : structFields(11).sField = "Check"
+                        structFields(12).sPDFField = "Agents name" : structFields(12).sTable = "FirmInfo" : structFields(12).sField = "Name"
+                        structFields(13).sPDFField = "Present mailing address number And street_2" : structFields(13).sTable = "FirmInfo" : structFields(13).sField = "Address"
+                        structFields(14).sPDFField = "City town Or post office state ZIP code_2" : structFields(14).sTable = "FirmInfo" : structFields(14).sField = "City"
+                        structFields(15).sPDFField = "Phone area code And number_2" : structFields(15).sTable = "FirmInfo" : structFields(15).sField = "Phone"
+                        structFields(16).sPDFField = "I want my agent to receive all my property tax notices And other communication for this property including appraisal notices appraisal review board orders And hearing" : structFields(16).sTable = "Calculated" : structFields(16).sField = "Check"
+                        structFields(17).sPDFField = "The following property give account number Or legal description_2" : structFields(17).sTable = "Calculated" : structFields(17).sField = "Check"
+                        structFields(18).sPDFField = "Name of person Or firm" : structFields(18).sTable = "FirmInfo" : structFields(18).sField = "Name"
+                        structFields(19).sPDFField = "Present mailing address number And street_3" : structFields(19).sTable = "FirmInfo" : structFields(19).sField = "Address"
+                        structFields(20).sPDFField = "City town Or post office state ZIP code_3" : structFields(20).sTable = "FirmInfo" : structFields(20).sField = "City"
+                        structFields(21).sPDFField = "Phone area code And number_3" : structFields(21).sTable = "FirmInfo" : structFields(21).sField = "Phone"
+                        structFields(22).sPDFField = "Property 1" : structFields(22).sTable = "Calculated" : structFields(22).sField = "AcctNum1"
+                        structFields(23).sPDFField = "Property 2" : structFields(23).sTable = "Calculated" : structFields(23).sField = "AcctNum1"
+                        structFields(24).sPDFField = "Property 3" : structFields(24).sTable = "Calculated" : structFields(24).sField = "AcctNum1"
+                        structFields(25).sPDFField = "Date the designation took effect" : structFields(25).sTable = "Calculated" : structFields(25).sField = "AcctNum1"
+                        structFields(25).sValue = sExtraParm
+                    End If
 
-                sSQL = "SELECT 'BPP' as PropType, c.ClientId AS Clients_ClientId," &
+                    sSQL = "SELECT 'BPP' as PropType, c.ClientId AS Clients_ClientId," &
                         " RTRIM(c.Name) AS Clients_Name," &
                         " RTRIM(ISNULL(assr.Address1, '')) + '  ' + RTRIM(ISNULL(assr.City, '')) + ', ' + RTRIM(ISNULL(assr.StateCd, '')) + '  ' + RTRIM(ISNULL(assr.Zip, '')) AS Assessors_Address," &
                         " RTRIM(ISNULL(assr.Address1, '')) AS Assessors_Address1," &
@@ -476,12 +511,12 @@ Module modForms
                         " AND assess.TaxYear = l.TaxYear" &
                         " WHERE assess.TaxYear = " & iTaxYear & " AND c.ClientId = " & lClientId & " AND assr.AssessorId = " & lAssessorId &
                         " AND ISNULL(assess.AcctNum,'') <> ''"
-                If lLocationId = 0 And lAssessmentId = 0 Then
-                    sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
-                Else
-                    sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
-                End If
-                sSQL = sSQL & " UNION ALL SELECT 'RE' as PropType, c.ClientId AS Clients_ClientId," &
+                    If lLocationId = 0 And lAssessmentId = 0 Then
+                        sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
+                    Else
+                        sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
+                    End If
+                    sSQL = sSQL & " UNION ALL SELECT 'RE' as PropType, c.ClientId AS Clients_ClientId," &
                         " RTRIM(c.Name) AS Clients_Name," &
                         " RTRIM(ISNULL(assr.Address1, '')) + '  ' + RTRIM(ISNULL(assr.City, '')) + ', ' + RTRIM(ISNULL(assr.StateCd, '')) + '  ' + RTRIM(ISNULL(assr.Zip, '')) AS Assessors_Address," &
                         " RTRIM(ISNULL(assr.Address1, '')) AS Assessors_Address1," &
@@ -506,14 +541,14 @@ Module modForms
                         " AND assess.TaxYear = l.TaxYear" &
                         " WHERE assess.TaxYear = " & iTaxYear & " AND c.ClientId = " & lClientId & " AND assr.AssessorId = " & lAssessorId &
                         " AND ISNULL(assess.AcctNum,'') <> ''"
-                If lLocationId = 0 And lAssessmentId = 0 Then
-                    sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
-                Else
-                    sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
-                End If
-                sSQL = sSQL & " ORDER BY Locations_OwnerName, AcctNum"
-            ElseIf eType = enumReport.enumClientContract Then
-                sSQL = "SELECT Name, ContractImage FROM Clients WHERE ClientId = " & lClientId
+                    If lLocationId = 0 And lAssessmentId = 0 Then
+                        sSQL = sSQL & " AND ISNULL(l.InactiveFl,0) = 0 AND ISNULL(assess.InactiveFl,0) = 0"
+                    Else
+                        sSQL = sSQL & " AND assess.LocationId = " & lLocationId & " AND assess.AssessmentId = " & lAssessmentId
+                    End If
+                    sSQL = sSQL & " ORDER BY Locations_OwnerName, AcctNum"
+                ElseIf eType = enumReport.enumClientContract Then
+                    sSQL = "SELECT Name, ContractImage FROM Clients WHERE ClientId = " & lClientId
             End If
 
             If GetData(sSQL, dtFormData) < 1 Then

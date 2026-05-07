@@ -117,6 +117,8 @@ Module modMain
         enumTaxAccrualSummary
         enumAssessorValueProtestEnvelope
         enumLeaseSummary
+        enumRenditionOfQualifiedForm
+        enumApplicationForAllocationForm
     End Enum
     Public Enum enumContactTypes
         enumTax
@@ -1124,9 +1126,8 @@ Module modMain
         Dim sDescription As String = Trim(InputBox("Enter description"))
         Dim sVIN As String = Trim(InputBox("Enter VIN"))
         Dim sAddress As String = Trim(InputBox("Enter location address"))
-        Dim sActivityQty As String = Trim(InputBox("Enter activity quantity (mileage/hours)"))
         Dim sError As String = ""
-        Dim Asset As structAsset
+        Dim Asset As New structAsset
 
         Asset.lClientId = lClientId
         Asset.lLocationId = lLocationId
@@ -1139,7 +1140,6 @@ Module modMain
         Asset.sDescription = sDescription
         Asset.sVIN = sVIN
         Asset.sLocationAddress = sAddress
-        Asset.ActivityQty = sActivityQty
 
         If Not CreateAsset(Asset, True, sError) Then
             MsgBox("Error creating asset:  " & sError)
@@ -2130,12 +2130,12 @@ Module modMain
             lRows = ExecuteSQL(sSQL)
 
             sSQL = "INSERT Assets (ClientId,LocationId,AssessmentId,AssetId,TaxYear,OriginalCost,PurchaseDate,Description," &
-                " GLCode,AddUser,VIN,LocationAddress,AllocationPct,LesseeName,LesseeAddress,LeaseTerm,EquipmentMake,EquipmentModel,LeaseType,AuditFl,ActivityQty," &
+                " GLCode,AddUser,VIN,LocationAddress,AllocationPct,LesseeName,LesseeAddress,LeaseTerm,EquipmentMake,EquipmentModel,LeaseType,AuditFl," &
                 " LesseeCity, LesseeStateCd, LesseeZip)" &
                 " SELECT t1.ClientId,t1.LocationId,t1.AssessmentId,t1.AssetId," & iToYear & "," &
                 " t1.OriginalCost,t1.PurchaseDate,t1.Description,t1.GLCode," &
                 QuoStr(AppData.UserId) & ",t1.VIN, t1.LocationAddress,t1.AllocationPct," &
-                " t1.LesseeName,t1.LesseeAddress,t1.LeaseTerm,t1.EquipmentMake,t1.EquipmentModel,t1.LeaseType,t1.AuditFl,t1.ActivityQty," &
+                " t1.LesseeName,t1.LesseeAddress,t1.LeaseTerm,t1.EquipmentMake,t1.EquipmentModel,t1.LeaseType,t1.AuditFl," &
                 " t1.LesseeCity, t1.LesseeStateCd, t1.LesseeZip" &
                 " FROM Assets t1 WHERE t1.TaxYear = " & iFromYear &
                 " AND NOT EXISTS(SELECT t2.ClientId FROM Assets t2" &

@@ -277,7 +277,8 @@
                         m_TypeOfReport = enumReport.enumTaxAccrual Or m_TypeOfReport = enumReport.enumTaxAccrualSummary Or
                         m_TypeOfReport = enumReport.enumValueComparison Or
                         m_TypeOfReport = enumReport.enumTaxSavings Or m_TypeOfReport = enumReport.enumClientEnvelope Or
-                        m_TypeOfReport = enumReport.enumBarCode Then
+                        m_TypeOfReport = enumReport.enumBarCode Or
+                        m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
 
                 lblClient = New Label
                 lblClient.Text = "Client"
@@ -357,7 +358,8 @@
                     m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
                     m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
                     m_TypeOfReport = enumReport.enumRenditionExtensionForm Or
-                    m_TypeOfAdd = enumTable.enumAsset Then
+                    m_TypeOfAdd = enumTable.enumAsset Or
+                    m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
 
                 lblLocation = New Label
                 lblLocation.Text = "Location"
@@ -469,7 +471,8 @@
                     m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
                     m_TypeOfReport = enumReport.enumRenditionExtensionForm Or
                     m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
-                    m_TypeOfAdd = enumTable.enumAsset Or (m_TypeOfImport = enumTable.enumAsset And m_ImportAssetsForClient = False) Then
+                    m_TypeOfAdd = enumTable.enumAsset Or (m_TypeOfImport = enumTable.enumAsset And m_ImportAssetsForClient = False) Or
+                    m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
                 lblAssessment = New Label
                 lblAssessment.Text = "Assessment"
                 lblAssessment.Width = 75
@@ -873,7 +876,8 @@
                     m_TypeOfReport = enumReport.enumAssetDetailLeasesAll Or m_TypeOfReport = enumReport.enumLeaseSummary Or
                     m_TypeOfReport = enumReport.enumRenditionExtensionForm Or m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or
                     m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
-                    m_TypeOfReport = enumReport.enumFreeportForm Then
+                    m_TypeOfReport = enumReport.enumFreeportForm Or
+                    m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
                 sType = "BPP"
             End If
 
@@ -951,7 +955,8 @@
                     m_TypeOfImport = enumTable.enumAssessmentBPP Or m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
                     m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
                     m_TypeOfReport = enumReport.enumRenditionExtensionForm Or
-                    m_TypeOfAdd = enumTable.enumAsset Then
+                    m_TypeOfAdd = enumTable.enumAsset Or
+                    m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
                 sType = "BPP"
             ElseIf m_TypeOfAdd = enumTable.enumAssessmentRE Or m_TypeOfImport = enumTable.enumAssessmentRE Then
                 sType = "RE"
@@ -1147,10 +1152,12 @@
                     m_TypeOfReport = enumReport.enumCertificateOfMailing Or
                     m_TypeOfReport = enumReport.enumAffidavitOfEvidence Or
                     m_TypeOfReport = enumReport.enumCorrection Or
-                    m_TypeOfReport = enumReport.enumValueProtestForm Then
+                    m_TypeOfReport = enumReport.enumValueProtestForm Or
+                    m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
                 Dim sError As String = "", enumPropType As enumTable
                 If m_TypeOfReport = enumReport.enumFreeportForm Or m_TypeOfReport = enumReport.enumRenditionForm Or
-                        m_TypeOfReport = enumReport.enumRenditionExtensionForm Then
+                        m_TypeOfReport = enumReport.enumRenditionExtensionForm Or
+                        m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
                     enumPropType = enumTable.enumLocationBPP
                 Else
                     enumPropType = IIf(cboPropType.Text = "BPP", enumTable.enumLocationBPP, enumTable.enumLocationRE)
@@ -1320,7 +1327,8 @@
                     m_TypeOfReport = enumReport.enumValueProtestForm Or (m_TypeOfImport = enumTable.enumAsset And m_ImportAssetsForClient = False) Or
                     m_TypeOfAdd = enumTable.enumAsset Or m_TypeOfReport = enumReport.enumTaxBill Or m_TypeOfImport = enumTable.enumTaxBillsBPP Or
                     m_TypeOfReport = enumReport.enumFixedAssetReconByGLCode Or m_TypeOfReport = enumReport.enumFixedAssetReconByDeprCode Or
-                    m_TypeOfReport = enumReport.enumBarCode Then
+                    m_TypeOfReport = enumReport.enumBarCode Or
+                    m_TypeOfReport = enumReport.enumApplicationForAllocationForm Or m_TypeOfReport = enumReport.enumRenditionOfQualifiedForm Then
                 LoadAssessments(colClients(cboClient.SelectedItem.ToString), colLocations(cboLocation.SelectedItem.ToString))
             End If
         End If

@@ -89,6 +89,10 @@ Partial Class frmBatchImportAssets
         Me.lblTotals = New System.Windows.Forms.Label()
         Me.dgResults = New System.Windows.Forms.DataGridView()
         Me.cmdPrint = New System.Windows.Forms.Button()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.cboMilesTraveledInState = New System.Windows.Forms.ComboBox()
+        Me.cboMilesTraveledTotal = New System.Windows.Forms.ComboBox()
         Me.fraFile.SuspendLayout()
         Me.fraColumns.SuspendLayout()
         CType(Me.dgFileContents, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -160,6 +164,10 @@ Partial Class frmBatchImportAssets
         '
         'fraColumns
         '
+        Me.fraColumns.Controls.Add(Me.Label26)
+        Me.fraColumns.Controls.Add(Me.Label27)
+        Me.fraColumns.Controls.Add(Me.cboMilesTraveledInState)
+        Me.fraColumns.Controls.Add(Me.cboMilesTraveledTotal)
         Me.fraColumns.Controls.Add(Me.Label23)
         Me.fraColumns.Controls.Add(Me.cboLesseeZip)
         Me.fraColumns.Controls.Add(Me.Label24)
@@ -488,14 +496,14 @@ Partial Class frmBatchImportAssets
         '
         'txtDisposedValue
         '
-        Me.txtDisposedValue.Location = New System.Drawing.Point(76, 128)
+        Me.txtDisposedValue.Location = New System.Drawing.Point(480, 56)
         Me.txtDisposedValue.Name = "txtDisposedValue"
         Me.txtDisposedValue.Size = New System.Drawing.Size(60, 20)
-        Me.txtDisposedValue.TabIndex = 12
+        Me.txtDisposedValue.TabIndex = 7
         '
         'Label11
         '
-        Me.Label11.Location = New System.Drawing.Point(76, 112)
+        Me.Label11.Location = New System.Drawing.Point(480, 40)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(60, 16)
         Me.Label11.TabIndex = 67
@@ -504,7 +512,7 @@ Partial Class frmBatchImportAssets
         '
         'Label10
         '
-        Me.Label10.Location = New System.Drawing.Point(8, 112)
+        Me.Label10.Location = New System.Drawing.Point(412, 40)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(60, 16)
         Me.Label10.TabIndex = 66
@@ -516,10 +524,10 @@ Partial Class frmBatchImportAssets
         Me.cboDisposed.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboDisposed.FormattingEnabled = True
         Me.cboDisposed.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
-        Me.cboDisposed.Location = New System.Drawing.Point(8, 128)
+        Me.cboDisposed.Location = New System.Drawing.Point(412, 56)
         Me.cboDisposed.Name = "cboDisposed"
         Me.cboDisposed.Size = New System.Drawing.Size(60, 21)
-        Me.cboDisposed.TabIndex = 11
+        Me.cboDisposed.TabIndex = 6
         '
         'optMultiple
         '
@@ -779,6 +787,42 @@ Partial Class frmBatchImportAssets
         Me.cmdPrint.Text = "Print"
         Me.cmdPrint.UseVisualStyleBackColor = True
         '
+        'Label26
+        '
+        Me.Label26.Location = New System.Drawing.Point(76, 96)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(60, 32)
+        Me.Label26.TabIndex = 97
+        Me.Label26.Text = "In State Miles"
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label27
+        '
+        Me.Label27.Location = New System.Drawing.Point(8, 112)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(60, 16)
+        Me.Label27.TabIndex = 96
+        Me.Label27.Text = "Total Miles"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cboMilesTraveledInState
+        '
+        Me.cboMilesTraveledInState.FormattingEnabled = True
+        Me.cboMilesTraveledInState.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboMilesTraveledInState.Location = New System.Drawing.Point(76, 128)
+        Me.cboMilesTraveledInState.Name = "cboMilesTraveledInState"
+        Me.cboMilesTraveledInState.Size = New System.Drawing.Size(60, 21)
+        Me.cboMilesTraveledInState.TabIndex = 12
+        '
+        'cboMilesTraveledTotal
+        '
+        Me.cboMilesTraveledTotal.FormattingEnabled = True
+        Me.cboMilesTraveledTotal.Items.AddRange(New Object() {" ", "1", "2", "3", "4", "5", "6", "7", "8"})
+        Me.cboMilesTraveledTotal.Location = New System.Drawing.Point(8, 128)
+        Me.cboMilesTraveledTotal.Name = "cboMilesTraveledTotal"
+        Me.cboMilesTraveledTotal.Size = New System.Drawing.Size(60, 21)
+        Me.cboMilesTraveledTotal.TabIndex = 11
+        '
         'frmBatchImportAssets
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -875,4 +919,8 @@ Partial Class frmBatchImportAssets
     Friend WithEvents cboLesseeStateCd As ComboBox
     Friend WithEvents Label25 As Label
     Friend WithEvents cboLesseeCity As ComboBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Label27 As Label
+    Friend WithEvents cboMilesTraveledInState As ComboBox
+    Friend WithEvents cboMilesTraveledTotal As ComboBox
 End Class

@@ -364,7 +364,7 @@
             radioAssessorCover.Click, radioClientEnvelope.Click, radioBarCode.Click, radioBatchRendition.Click, radioBatchValueProtest.Click,
             radioCompletedRenditions.Click, radioAffidavitOfEvidenceForm.Click, radioCorrectionForm.Click, radioRenditionValueComparison.Click,
             radioDepreciationDetailLeases.Click, radioLeasedProperty.Click, radioLeaseImprove.Click, radioLeasesAll.Click, radioTaxAccrualSummary.Click,
-            radioLeaseSummary.Click
+            radioLeaseSummary.Click, radioRenditionOfQualifiedForm.Click, radioApplicationForAllocationForm.Click
         If sender.name = "radioDepreciationDetail" Then
             m_ReportType = enumReport.enumAssetDetail
         ElseIf sender.name = "radioDepreciationSummary" Then
@@ -446,6 +446,10 @@
             End If
         ElseIf sender.name = radioLeaseSummary.Name Then
             m_ReportType = enumReport.enumLeaseSummary
+        ElseIf sender.name = radioRenditionOfQualifiedForm.Name Then
+            m_ReportType = enumReport.enumRenditionOfQualifiedForm
+        ElseIf sender.name = radioApplicationForAllocationForm.Name Then
+            m_ReportType = enumReport.enumApplicationForAllocationForm
         End If
     End Sub
 

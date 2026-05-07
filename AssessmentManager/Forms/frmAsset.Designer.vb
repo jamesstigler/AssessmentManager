@@ -86,6 +86,10 @@ Partial Class frmAsset
         Me.txtLesseeCity = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.cboLesseeStateCd = New System.Windows.Forms.ComboBox()
+        Me.txtMilesTraveledInState = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtMilesTraveledTotal = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cboFactorOvr1
@@ -634,7 +638,7 @@ Partial Class frmAsset
         'chkAuditFl
         '
         Me.chkAuditFl.AutoSize = True
-        Me.chkAuditFl.Location = New System.Drawing.Point(16, 420)
+        Me.chkAuditFl.Location = New System.Drawing.Point(16, 468)
         Me.chkAuditFl.Name = "chkAuditFl"
         Me.chkAuditFl.Size = New System.Drawing.Size(62, 17)
         Me.chkAuditFl.TabIndex = 28
@@ -718,12 +722,54 @@ Partial Class frmAsset
         Me.cboLesseeStateCd.TabIndex = 33
         Me.cboLesseeStateCd.Tag = "@DB=Assets.LesseeStateCd"
         '
+        'txtMilesTraveledInState
+        '
+        Me.txtMilesTraveledInState.AllowDrop = True
+        Me.txtMilesTraveledInState.Location = New System.Drawing.Point(196, 436)
+        Me.txtMilesTraveledInState.Name = "txtMilesTraveledInState"
+        Me.txtMilesTraveledInState.Size = New System.Drawing.Size(80, 20)
+        Me.txtMilesTraveledInState.TabIndex = 220
+        Me.txtMilesTraveledInState.Tag = "@DB=Assets.MilesTraveledInState;@FMT=int"
+        Me.txtMilesTraveledInState.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(16, 440)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(68, 13)
+        Me.Label21.TabIndex = 221
+        Me.Label21.Text = "In state miles"
+        '
+        'txtMilesTraveledTotal
+        '
+        Me.txtMilesTraveledTotal.AllowDrop = True
+        Me.txtMilesTraveledTotal.Location = New System.Drawing.Point(196, 412)
+        Me.txtMilesTraveledTotal.Name = "txtMilesTraveledTotal"
+        Me.txtMilesTraveledTotal.Size = New System.Drawing.Size(80, 20)
+        Me.txtMilesTraveledTotal.TabIndex = 222
+        Me.txtMilesTraveledTotal.Tag = "@DB=Assets.MilesTraveledTotal;@FMT=int"
+        Me.txtMilesTraveledTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(16, 416)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(58, 13)
+        Me.Label22.TabIndex = 223
+        Me.Label22.Text = "Total Miles"
+        '
         'frmAsset
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(973, 449)
+        Me.ClientSize = New System.Drawing.Size(973, 504)
+        Me.Controls.Add(Me.txtMilesTraveledTotal)
+        Me.Controls.Add(Me.Label22)
+        Me.Controls.Add(Me.txtMilesTraveledInState)
+        Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.cboLesseeStateCd)
         Me.Controls.Add(Me.txtLesseeCity)
         Me.Controls.Add(Me.Label20)
@@ -861,4 +907,8 @@ Partial Class frmAsset
     Friend WithEvents txtLesseeCity As TextBox
     Friend WithEvents Label20 As Label
     Friend WithEvents cboLesseeStateCd As ComboBox
+    Friend WithEvents txtMilesTraveledInState As TextBox
+    Friend WithEvents Label21 As Label
+    Friend WithEvents txtMilesTraveledTotal As TextBox
+    Friend WithEvents Label22 As Label
 End Class

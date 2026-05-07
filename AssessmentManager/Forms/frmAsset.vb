@@ -111,7 +111,7 @@
                 " assess.FactorEntityId3, assess.FactorEntityId4, assess.FactorEntityId5," &
                 " a.VIN, a.LocationAddress,a.OriginalCost,a.PurchaseDate,a.Description,a.GLCode," &
                 " a.LesseeName, a.LesseeAddress, a.LesseeCity, a.LesseeStateCd, a.LesseeZip, a.LeaseTerm, a.EquipmentMake, a.EquipmentModel," &
-                " a.LeaseType, a.AuditFl, a.ActivityQty" &
+                " a.LeaseType, a.AuditFl, a.ActivityQty, a.MilesTraveledTotal, a.MilesTraveledInState" &
                 " FROM Clients AS c INNER JOIN" &
                 " LocationsBPP AS l ON c.ClientId = l.ClientId INNER JOIN" &
                 " AssessmentsBPP AS assess ON l.ClientId = assess.ClientId" &
@@ -212,7 +212,8 @@
             txtPct1Interstate.GotFocus, txtPct2Interstate.GotFocus, txtPct3Interstate.GotFocus, txtPct4Interstate.GotFocus, txtPct5Interstate.GotFocus,
             txtEquipmentMake.GotFocus, txtEquipmentModel.GotFocus,
             txtLeaseTerm.GotFocus, txtLesseeAddress.GotFocus, txtLesseeName.GotFocus, cboLeaseType.GotFocus,
-            txtActivityQty.GotFocus, txtLesseeCity.GotFocus, txtLesseeZip.GotFocus, cboLesseeStateCd.GotFocus
+            txtActivityQty.GotFocus, txtLesseeCity.GotFocus, txtLesseeZip.GotFocus, cboLesseeStateCd.GotFocus,
+            txtMilesTraveledTotal.GotFocus, txtMilesTraveledInState.GotFocus
 
         sender.selectall()
     End Sub
@@ -229,7 +230,8 @@
             txtPct3Interstate.TextChanged, txtPct4Interstate.TextChanged, txtPct5Interstate.TextChanged,
             txtEquipmentMake.TextChanged, txtEquipmentModel.TextChanged, txtLeaseTerm.TextChanged, txtLesseeAddress.TextChanged, txtLesseeName.TextChanged,
             cboLeaseType.TextChanged, chkAuditFl.CheckedChanged, txtActivityQty.TextChanged,
-            txtLesseeCity.TextChanged, txtLesseeZip.TextChanged, cboLesseeStateCd.TextChanged
+            txtLesseeCity.TextChanged, txtLesseeZip.TextChanged, cboLesseeStateCd.TextChanged,
+            txtMilesTraveledTotal.TextChanged, txtMilesTraveledInState.TextChanged
         If bActivated Then bChanged = True
     End Sub
     Private Sub ComboBox_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) _
@@ -243,7 +245,7 @@
             txtPct1Interstate.LostFocus, txtPct2Interstate.LostFocus, txtPct3Interstate.LostFocus, txtPct4Interstate.LostFocus, txtPct5Interstate.LostFocus,
             txtEquipmentMake.LostFocus, txtEquipmentModel.LostFocus, txtLeaseTerm.LostFocus, txtLesseeAddress.LostFocus, txtLesseeName.LostFocus,
             cboLeaseType.LostFocus, chkAuditFl.LostFocus, txtActivityQty.LostFocus,
-            txtLesseeCity.LostFocus, txtLesseeZip.LostFocus, cboLesseeStateCd.LostFocus
+            txtLesseeCity.LostFocus, txtLesseeZip.LostFocus, cboLesseeStateCd.LostFocus, txtMilesTraveledTotal.LostFocus, txtMilesTraveledInState.LostFocus
         If bChanged Then
 
             If TypeOf sender Is ComboBox And (InStr(sender.name, "cboClientFactorOvr", CompareMethod.Text) > 0 Or InStr(sender.name, "cboFactorOvr", CompareMethod.Text) > 0) Then

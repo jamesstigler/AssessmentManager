@@ -1328,7 +1328,7 @@
         Dim bReturn As Boolean = False, lWidth As Long = 0
         Dim bShowLeaseType As Boolean = False
         Dim bShowAuditFl As Boolean = False
-        Dim bShowActivityQty As Boolean = False
+        Dim bShowActivityQty As Boolean = False, bShowMiles As Boolean = False, bShowMilesInState As Boolean = False
         Dim dtsource As New DataTable
 
         'txtAssetsLoadedDt.Text = "" : txtAssetsVerifiedDt.Text = "" : chkAssetsLoadedFl.CheckState = CheckState.Unchecked : chkAssetsVerifiedFl.CheckState = CheckState.Unchecked
@@ -1367,6 +1367,12 @@
         If dtList.Columns.Contains("ActivityQty") = True Then
             bShowActivityQty = dtList.Select("ISNULL(ActivityQty,0)<>0").Count > 0
         End If
+        If dtList.Columns.Contains("MilesTraveledTotal") = True Then
+            bShowMiles = dtList.Select("ISNULL(MilesTraveledTotal,0)<>0").Count > 0
+        End If
+        If dtList.Columns.Contains("MilesTraveledInState") = True Then
+            bShowMilesInState = dtList.Select("ISNULL(MilesTraveledInState,0)<>0").Count > 0
+        End If
 
         'MUST ADD FIELDS TO THIS SELECT IF NEW COLUMNS ADDED
         dtsource = New DataTable
@@ -1393,6 +1399,10 @@
                     If bShowAuditFl Then baddcolumn = True
                 Case "ActivityQty"
                     If bShowActivityQty Then baddcolumn = True
+                Case "MilesTraveledTotal"
+                    If bShowMiles Then baddcolumn = True
+                Case "MilesTraveledInState"
+                    If bShowMilesInState Then baddcolumn = True
             End Select
             If baddcolumn Then dtsource.Columns.Add(col.ColumnName, col.DataType)
         Next
@@ -1471,6 +1481,14 @@
                     column.HeaderText = "Equipment Model"
                 Case "ActivityQty"
                     column.HeaderText = "Engine Hours/Mileage"
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    column.DefaultCellStyle.Format = csInt
+                Case "MilesTraveledTotal"
+                    column.HeaderText = "Miles Traveled"
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                    column.DefaultCellStyle.Format = csInt
+                Case "MilesTraveledInState"
+                    column.HeaderText = "Miles In State"
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
                     column.DefaultCellStyle.Format = csInt
                 Case "AuditFl"
